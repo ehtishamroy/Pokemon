@@ -1,0 +1,822 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --felt: #0E1530;
+    --glow: #3EC1FF;
+    --hit: #FFC72C;
+    --chase: #E8402C;
+    --paper: #F3F5FA;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--felt);
+    color: var(--paper);
+    /* subtle felt weave so large dark areas don't read as flat black */
+    background-image:
+      radial-gradient(1200px 600px at 50% -10%, rgba(62, 193, 255, .10), transparent 60%),
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, .012) 0 1px, transparent 1px 3px);
+  }
+
+  /* Focus — keyboard users see the LED glow */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--glow);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer utilities {
+  .tcg-grid {
+    display: grid;
+  }
+}
+
+@layer components {
+
+  /* --------------------------------------------------------------------------
+     The glowing acrylic sign (hero). Mirrors the edge-lit sign in the store.
+     -------------------------------------------------------------------------- */
+  .sign {
+    position: relative;
+    filter: drop-shadow(0 0 18px rgba(62, 193, 255, .55)) drop-shadow(0 0 48px rgba(62, 193, 255, .25));
+  }
+
+  .sign::after {
+    /* soft light pool on the felt beneath the sign */
+    content: "";
+    position: absolute;
+    inset: auto 10% -18% 10%;
+    height: 30%;
+    background: radial-gradient(closest-side, rgba(62, 193, 255, .35), transparent);
+    filter: blur(18px);
+    pointer-events: none;
+  }
+
+  /* --------------------------------------------------------------------------
+     Holographic 3D tilt card — the one bold element.
+     Markup:
+       <div class="holo" data-tilt>
+         <div class="holo__card"> <img> <span class="holo__glare"></span> <span class="holo__rainbow"></span> </div>
+       </div>
+     JS sets --rx / --ry / --mx / --my on pointer move (see app.js).
+     -------------------------------------------------------------------------- */
+  .holo {
+    --rx: 0deg;
+    --ry: 0deg;
+    --mx: 50%;
+    --my: 50%;
+    perspective: 1100px;
+    touch-action: none;
+  }
+
+  .holo__card {
+    position: relative;
+    border-radius: 4.2% / 3%;
+    overflow: hidden;
+    transform: rotateX(var(--rx)) rotateY(var(--ry)) translateZ(0);
+    transform-style: preserve-3d;
+    transition: transform .18s ease-out, box-shadow .3s ease;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .8), 0 0 0 1px rgba(255, 255, 255, .06);
+    will-change: transform;
+  }
+
+  .holo__card img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .holo.is-active .holo__card {
+    box-shadow: 0 40px 80px -24px rgba(0, 0, 0, .85), 0 0 0 1px rgba(62, 193, 255, .25), 0 0 40px rgba(62, 193, 255, .25);
+  }
+
+  /* specular glare that follows the pointer */
+  .holo__glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(farthest-corner at var(--mx) var(--my), rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, .12) 20%, transparent 55%);
+    mix-blend-mode: soft-light;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+
+  /* foil rainbow sheen, slides with the tilt */
+  .holo__rainbow {
+    position: absolute;
+    inset: -20%;
+    pointer-events: none;
+    background: linear-gradient(115deg,
+        transparent 20%,
+        rgba(255, 79, 79, .28) 32%, rgba(255, 199, 44, .28) 40%,
+        rgba(61, 214, 140, .28) 48%, rgba(62, 193, 255, .32) 56%,
+        rgba(170, 120, 255, .28) 64%, transparent 76%);
+    background-size: 200% 200%;
+    background-position: calc(var(--mx) * 1.2) calc(var(--my) * 1.2);
+    mix-blend-mode: color-dodge;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+
+  .holo.is-active .holo__glare,
+  .holo.is-active .holo__rainbow {
+    opacity: 1;
+  }
+
+  /* idle float before any interaction — one orchestrated moment */
+  @keyframes holo-idle {
+    0% {
+      transform: rotateX(4deg) rotateY(-6deg) translateY(0);
+    }
+
+    50% {
+      transform: rotateX(-3deg) rotateY(7deg) translateY(-8px);
+    }
+
+    100% {
+      transform: rotateX(4deg) rotateY(-6deg) translateY(0);
+    }
+  }
+
+  .holo:not(.is-active):not(.was-active) .holo__card {
+    animation: holo-idle 7s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .holo__card {
+      animation: none !important;
+      transition: none;
+      transform: none !important;
+    }
+
+    .holo__glare,
+    .holo__rainbow {
+      display: none;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     Product tile — borderless on felt; blue lift only on hover/focus
+     -------------------------------------------------------------------------- */
+  .tile {
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+
+  .tile:hover,
+  .tile:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -18px rgba(62, 193, 255, .45);
+  }
+
+  .tile__img {
+    aspect-ratio: 5 / 7;
+    background: #0A0F24;
+  }
+
+  .tile__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Rarity pill colors (encode meaning, not decoration) */
+  .rar-common {
+    color: #C5CCE0;
+  }
+
+  .rar-rare {
+    color: #3EC1FF;
+  }
+
+  .rar-ultra {
+    color: #FFC72C;
+  }
+
+  .rar-secret {
+    color: #FF7ED8;
+  }
+
+  /* Cart drawer */
+  .drawer {
+    transform: translateX(100%);
+    transition: transform .28s cubic-bezier(.2, .8, .2, 1);
+  }
+
+  .drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .scrim {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s;
+  }
+
+  .scrim.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Quantity stepper */
+  .qty button {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Thin scrollbars for thumbnail strips */
+  .thumbs::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .thumbs::-webkit-scrollbar-thumb {
+    background: #1B2448;
+    border-radius: 6px;
+  }
+
+}
+
+/* ==========================================================================
+     TCG HITZ — HEADER + DRAWER + SEARCH OVERRIDES
+     Skins the native Horizon components to match tcg-hitz-store/index.html
+     without touching any .liquid files.
+     ========================================================================== */
+
+  /* ── 1. Sticky blur backdrop ──────────────────────────────────────────── */
+  .header-section {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  #header-component .header__underlay-closed {
+    background: rgba(14, 21, 48, 0.85) !important;
+  }
+
+  #header-component .header__underlay-open {
+    background: rgba(14, 21, 48, 0.92) !important;
+  }
+
+  .header__row--top:not(.divider--page-width) {
+    border-bottom: 1px solid rgba(255, 255, 255, .05) !important;
+  }
+
+  /* ── 2. Row height 72 px ──────────────────────────────────────────────── */
+  .header__columns.spacing-style {
+    min-height: 72px;
+    align-items: center;
+  }
+
+  /* ── 3. Logo ──────────────────────────────────────────────────────────── */
+  .header-logo__image {
+    height: 3.5rem !important;
+    width: auto !important;
+    --header-logo-image-height: 56px !important;
+    --header-logo-image-height-mobile: 38px !important;
+  }
+
+  /* ── 4. Desktop nav links — px-3 py-2 rounded-md hover:bg-felt-3 ─────── */
+  .menu-list__link {
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 6px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #F3F5FA !important;
+    transition: background-color 0.15s ease !important;
+    text-decoration: none !important;
+  }
+
+  .menu-list__link:hover,
+  .menu-list__list-item:hover>.menu-list__link {
+    background-color: #1B2448 !important;
+    color: #F3F5FA !important;
+  }
+
+  .menu-list__link::after {
+    display: none !important;
+  }
+
+  /* ── 5. Mobile drawer ─────────────────────────────────────────────────── */
+  .menu-drawer {
+    background: #0E1530 !important;
+    border-right: 1px solid rgba(255, 255, 255, .07) !important;
+  }
+
+  .menu-drawer__menu-item {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #F3F5FA !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 6px !important;
+  }
+
+  .menu-drawer__menu-item:hover {
+    background-color: #1B2448 !important;
+  }
+
+  /* ── 6. INLINE SEARCH BAR on desktop (hidden md:flex matching index.html) */
+  /*
+     Horizon puts its search as a modal-trigger icon on the right.
+     We inject a real pill search bar after the nav and hide the icon
+     on desktop, exactly like:
+       <form class="hidden md:flex flex-1 max-w-md ml-auto" …>
+  */
+
+  /* Hide the modal search button on desktop — replaced by inline form */
+  @media screen and (min-width: 768px) {
+    .search-action {
+      display: none !important;
+    }
+  }
+
+  /* Inject the inline search bar using a CSS-generated element on the header columns */
+  /* We use the tcg-inline-search id we'll inject via JS below */
+  #tcg-inline-search {
+    display: none;
+    flex: 1;
+    max-width: 28rem;
+    margin-left: auto;
+    position: relative;
+  }
+
+  @media screen and (min-width: 768px) {
+    #tcg-inline-search {
+      display: flex;
+    }
+  }
+
+  #tcg-inline-search input {
+    width: 100%;
+    border-radius: 9999px;
+    background: #141C3A;
+    border: 1px solid rgba(255, 255, 255, .10);
+    padding: 0.625rem 1rem 0.625rem 2.75rem;
+    font-size: 15px;
+    color: #F3F5FA;
+    font-family: inherit;
+    transition: border-color 0.15s ease;
+  }
+
+  #tcg-inline-search input::placeholder {
+    color: #8A96B8;
+  }
+
+  #tcg-inline-search input:focus {
+    outline: none;
+    border-color: #3EC1FF;
+  }
+
+  #tcg-inline-search svg {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #8A96B8;
+    pointer-events: none;
+  }
+
+  /* ── 7. Icon action buttons ───────────────────────────────────────────── */
+  .header-actions__action svg {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    color: #F3F5FA !important;
+  }
+
+  .header-actions__action {
+    padding: 0.625rem !important;
+    border-radius: 9999px !important;
+    transition: background-color 0.15s ease !important;
+    color: #F3F5FA !important;
+  }
+
+  .header-actions__action:hover {
+    background-color: #1B2448 !important;
+  }
+
+  /* ── 8. Cart bubble ───────────────────────────────────────────────────── */
+  .cart-bubble {
+    visibility: visible;
+  }
+
+  .cart-bubble__background {
+    background: #FFC72C !important;
+  }
+
+  .cart-bubble__text {
+    color: #0E1530 !important;
+    font-weight: 700 !important;
+  }
+
+  /* ── 9. Account icon ──────────────────────────────────────────────────── */
+  .account-button svg {
+    color: #F3F5FA !important;
+  }
+
+  /* ── 10. Hide currency/language selector ──────────────────────────────── */
+  .dropdown-localization {
+    display: none !important;
+  }
+
+  /* ── 11. CART DRAWER — match index.html aside styling ─────────────────── */
+  /*
+     index.html: aside.drawer fixed right-0 h-full max-w-md bg-felt-2 shadow-card flex flex-col
+     Header:     h2.font-display text-2xl  "Your cart"
+     Close btn:  p-2 rounded-full hover:bg-felt-3
+     Items:      flex-1 overflow-y-auto px-5
+     Footer:     p-5 border-t border-white/5  with subtotal + checkout button
+  */
+  #cart-drawer dialog,
+  .theme-drawer__dialog {
+    background: #141C3A !important;
+    /* bg-felt-2 */
+    color: #F3F5FA !important;
+    border: none !important;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .75) !important;
+    max-width: 28rem !important;
+    width: 100% !important;
+  }
+
+  /* Drawer header bar */
+  .theme-drawer__header {
+    padding: 1.25rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, .05) !important;
+    background: transparent !important;
+  }
+
+  .theme-drawer__title {
+    font-family: 'Titan One', system-ui, sans-serif !important;
+    font-size: 1.5rem !important;
+    font-weight: 400 !important;
+    color: #F3F5FA !important;
+  }
+
+  /* Close button */
+  .theme-drawer__close-button {
+    padding: 0.5rem !important;
+    border-radius: 9999px !important;
+    color: #F3F5FA !important;
+    background: transparent !important;
+    transition: background-color 0.15s ease !important;
+  }
+
+  .theme-drawer__close-button:hover {
+    background: #1B2448 !important;
+  }
+
+  .theme-drawer__close-button svg {
+    color: #F3F5FA !important;
+  }
+
+  /* Cart items area */
+  .cart-drawer__items {
+    color: #F3F5FA !important;
+  }
+
+  .cart-drawer__items a {
+    color: #F3F5FA !important;
+  }
+
+  /* Cart subtotal / footer */
+  .cart-summary {
+    background: transparent !important;
+    border-top: 1px solid rgba(255, 255, 255, .05) !important;
+  }
+
+  .cart-summary__total-label {
+    color: #C5CCE0 !important;
+  }
+
+  .cart-summary__total-value {
+    color: #FFC72C !important;
+    font-weight: 700 !important;
+  }
+
+  .cart-summary__checkout-button,
+  .cart-drawer .button {
+    background: #FFC72C !important;
+    color: #0E1530 !important;
+    border-radius: 9999px !important;
+    font-weight: 700 !important;
+  }
+
+  .cart-summary__checkout-button:hover {
+    background: #E0A600 !important;
+  }
+
+  /* Remove items button */
+  .cart-drawer .quantity-form button,
+  .cart-drawer [aria-label*="Remove"],
+  .cart-drawer [aria-label*="remove"] {
+    color: #8A96B8 !important;
+  }
+
+  .cart-drawer [aria-label*="Remove"]:hover,
+  .cart-drawer [aria-label*="remove"]:hover {
+    color: #E8402C !important;
+  }
+
+  /* Empty cart state */
+  .cart-drawer__content h2 {
+    color: #F3F5FA !important;
+  }
+
+  /* ── 12. SEARCH MODAL — match index.html pill input styling ───────────── */
+  /*
+     index.html uses an inline form — no separate modal.
+     Our tcg-inline-search handles desktop. The modal still fires on mobile.
+     Style it dark to match the theme.
+  */
+  #search-modal dialog,
+  .search-modal__content {
+    background: #0E1530 !important;
+    color: #F3F5FA !important;
+    border: 1px solid rgba(255, 255, 255, .08) !important;
+    border-radius: 14px !important;
+  }
+
+  .predictive-search {
+    background: #0E1530 !important;
+    color: #F3F5FA !important;
+  }
+
+  /* Search input */
+  .predictive-search-form input[type="search"],
+  .predictive-search-form input[type="text"] {
+    background: #141C3A !important;
+    border: 1px solid rgba(255, 255, 255, .10) !important;
+    border-radius: 9999px !important;
+    color: #F3F5FA !important;
+    padding-left: 2.75rem !important;
+  }
+
+  .predictive-search-form input::placeholder {
+    color: #8A96B8 !important;
+  }
+
+  .predictive-search-form input:focus {
+    border-color: #3EC1FF !important;
+    outline: none !important;
+  }
+
+  /* Search icon inside form */
+  .predictive-search-form svg {
+    color: #8A96B8 !important;
+  }
+
+  /* Results */
+  .predictive-search__results {
+    background: #0E1530 !important;
+    color: #F3F5FA !important;
+  }
+
+  .predictive-search__item {
+    border-bottom: 1px solid rgba(255, 255, 255, .05) !important;
+  }
+
+  .predictive-search__item:hover,
+  .predictive-search__item:focus {
+    background: #141C3A !important;
+  }
+
+  .predictive-search__item a {
+    color: #F3F5FA !important;
+  }
+
+  .predictive-search__item .price {
+    color: #FFC72C !important;
+  }
+
+  /* ── 13. General ──────────────────────────────────────────────────────── */
+  #header-group {
+    background: transparent !important;
+  }
+
+  form#cart-form {
+    padding-top: 20px !important;
+  }
+
+  /* Empty cart continue shopping button */
+  .cart-items__empty-button {
+    background: #FFC72C !important;
+    color: #0E1530 !important;
+    border-radius: 9999px !important;
+    font-weight: 600 !important;
+    padding: 0.625rem 1.25rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: none !important;
+    text-decoration: none !important;
+  }
+  .cart-items__empty-button:hover {
+    background: #E0A600 !important;
+    color: #0E1530 !important;
+  }
+
+/* ==========================================================================
+   TCG HITZ — HOMEPAGE SECTION OVERRIDES
+   Force all custom section typography, colors and backgrounds to match
+   index.html exactly, overriding the Horizon theme CSS variables.
+   ========================================================================== */
+
+/* ── Global body & page background ───────────────────────────────────────── */
+body {
+  font-family: 'Manrope', system-ui, sans-serif !important;
+  background-color: #0E1530 !important;
+  color: #F3F5FA !important;
+}
+
+/* ── Force Titan One on all TCG display headings ─────────────────────────── */
+.tcg-hero__h1,
+.tcg-stitle,
+.tcg-mystery__h2,
+.tcg-newsletter__h2,
+.tcg-sell__cabinet h2,
+.tcg-brand__name,
+.tcg-wcat__name {
+  font-family: 'Titan One', system-ui, sans-serif !important;
+  color: #F3F5FA !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  line-height: normal !important;
+}
+
+/* ── Hero heading exact size ─────────────────────────────────────────────── */
+.tcg-hero__h1 {
+  font-size: clamp(42px, 8vw, 68px) !important;
+  line-height: 0.98 !important;
+}
+
+/* ── Section title (h2) size ─────────────────────────────────────────────── */
+.tcg-stitle {
+  font-size: clamp(1.5rem, 3vw, 2rem) !important;
+  text-align: center !important;
+}
+
+.tcg-mystery__h2,
+.tcg-newsletter__h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem) !important;
+  line-height: 1.1 !important;
+}
+
+/* ── Card / product headings ─────────────────────────────────────────────── */
+.tcg-cell__title,
+.tcg-landed__title,
+.tcg-merch__title,
+.tcg-trust__title {
+  font-family: 'Manrope', system-ui, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #F3F5FA !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+.tcg-merch__title { font-size: 14px !important; }
+.tcg-trust__title { font-size: 15px !important; }
+
+/* ── Prices always gold ──────────────────────────────────────────────────── */
+.tcg-cell__price,
+.tcg-landed__price,
+.tcg-merch__price,
+.tcg-mystery__tier-price {
+  color: #FFC72C !important;
+  font-weight: 700 !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+}
+
+/* ── Muted / dim text ────────────────────────────────────────────────────── */
+.tcg-cell__meta,
+.tcg-merch__meta,
+.tcg-hero__sub,
+.tcg-mystery__body,
+.tcg-trust__body,
+.tcg-newsletter__sub,
+.tcg-merch__sub,
+.tcg-faq__answer {
+  color: #C5CCE0 !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+}
+
+/* Slate-colored metadata */
+.tcg-cell__meta,
+.tcg-merch__meta {
+  color: #8A96B8 !important;
+}
+
+/* ── Section backgrounds ─────────────────────────────────────────────────── */
+.tcg-hero-section,
+.tcg-section {
+  background: #0E1530 !important;
+}
+
+/* Cabinet cards dark bg */
+.tcg-mystery__cabinet,
+.tcg-sell__cabinet,
+.tcg-newsletter__cabinet,
+.tcg-trust__card,
+.tcg-cell,
+.tcg-vending__cabinet {
+  background: #141C3A !important;
+}
+
+/* ── Eyebrow text (gold caps) ────────────────────────────────────────────── */
+.tcg-mystery__eyebrow {
+  color: #FFC72C !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.1em !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+}
+
+/* ── Stars / trust text ──────────────────────────────────────────────────── */
+.tcg-hero__stars {
+  font-size: 14px !important;
+  color: #F3F5FA !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+}
+.tcg-hero__stars-text {
+  color: #C5CCE0 !important;
+  font-weight: 600 !important;
+}
+
+/* ── Brand tile text ─────────────────────────────────────────────────────── */
+.tcg-brand__sub {
+  font-size: 12px !important;
+  color: #8A96B8 !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+}
+
+/* ── FAQ text ────────────────────────────────────────────────────────────── */
+.tcg-faq__summary {
+  font-weight: 600 !important;
+  color: #F3F5FA !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+  font-size: 15px !important;
+}
+.tcg-faq__chev { color: #FFC72C !important; }
+
+/* ── Wcat (popular categories) overlay text ──────────────────────────────── */
+.tcg-wcat__sub { color: #FFC72C !important; font-size: 12px !important; font-family: 'Manrope', system-ui, sans-serif !important; }
+
+/* ── Top bar text ────────────────────────────────────────────────────────── */
+#tcg-top-bar {
+  background: #FFC72C !important;
+  color: #0E1530 !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+}
+
+/* ── Newsletter input ────────────────────────────────────────────────────── */
+.tcg-newsletter__input {
+  background: #0E1530 !important;
+  color: #F3F5FA !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+  border: 1px solid rgba(255,199,44,.25) !important;
+}
+.tcg-newsletter__input::placeholder { color: #8A96B8 !important; }
+.tcg-newsletter__input:focus { border-color: #FFC72C !important; outline: none !important; }
+
+/* ── Search bar ──────────────────────────────────────────────────────────── */
+.tcg-hero__search-input {
+  background: rgba(20,28,58,.8) !important;
+  color: #F3F5FA !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+  border: 1px solid rgba(255,199,44,.25) !important;
+}
+.tcg-hero__search-input::placeholder { color: #8A96B8 !important; }
+
+/* ── Mystery tiers ───────────────────────────────────────────────────────── */
+.tcg-mystery__tier {
+  background: #0E1530 !important;
+  border: 1px solid rgba(255,199,44,.1) !important;
+}
+.tcg-mystery__tier-name {
+  color: #F3F5FA !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+/* ── Trust icon ──────────────────────────────────────────────────────────── */
+.tcg-trust__icon {
+  color: #FFC72C !important;
+  border-color: rgba(255,199,44,.4) !important;
+  background: transparent !important;
+}
+
+/* ── Social images ───────────────────────────────────────────────────────── */
+.tcg-social__img { border-color: rgba(255,199,44,.15) !important; }

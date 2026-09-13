@@ -1,0 +1,158 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "tcg_hero": {
+      "type": "tcg-hero",
+      "settings": {
+        "featured_product": "professor-turos-scenario",
+        "subheading": "Pokémon singles with real photos of the actual card, sealed boxes, mystery packs, graded slabs — plus our own TCG Hitz vending machines.",
+        "cta_primary_label": "SHOP NOW",
+        "cta_primary_link": "/collections/all",
+        "cta_secondary_label": "MYSTERY PACKS",
+        "cta_secondary_link": "/collections/all"
+      }
+    },
+    "tcg_bestsellers": {
+      "type": "tcg-bestsellers",
+      "settings": {
+        "heading": "Bestsellers",
+        "collection": "frontpage",
+        "products_to_show": 6,
+        "badge_label": "Only 1 left"
+      }
+    },
+    "tcg_popular": {
+      "type": "tcg-popular",
+      "blocks": {
+        "pop1": { "type": "item", "settings": { "heading": "Singles", "subheading": "Real photos · 1 of each", "link": "/collections/all" } },
+        "pop2": { "type": "item", "settings": { "heading": "Mystery Packs", "subheading": "Chase the rare", "link": "/collections/all" } },
+        "pop3": { "type": "item", "settings": { "heading": "Graded Slabs", "subheading": "PSA · CGC · BGS", "link": "/collections/all" } },
+        "pop4": { "type": "item", "settings": { "heading": "Merchandise", "subheading": "3D prints & collectibles", "link": "/collections/all" } }
+      },
+      "block_order": ["pop1", "pop2", "pop3", "pop4"],
+      "settings": { "heading": "Most Popular" }
+    },
+    "tcg_mystery": {
+      "type": "tcg-mystery",
+      "blocks": {
+        "t1": { "type": "tier", "settings": { "name": "Mystery Pack", "price": "$19.99" } },
+        "t2": { "type": "tier", "settings": { "name": "Mystery Box", "price": "$74.99" } },
+        "t3": { "type": "tier", "settings": { "name": "Mystery Slab", "price": "$49.99" } }
+      },
+      "block_order": ["t1", "t2", "t3"],
+      "settings": {
+        "heading": "Mystery packs & boxes",
+        "body": "Hand-built packs with a real shot at a hit — every one guarantees value, and the top tiers drop graded slabs and alt arts. The same thrill as our machines, shipped to your door.",
+        "cta_label": "Shop mystery",
+        "cta_link": "/collections/all"
+      }
+    },
+    "tcg_vending": {
+      "type": "tcg-vending",
+      "settings": {
+        "heading": "Pokémon card vending machines",
+        "body": "The machines you've seen at the shows — now available for your shop, event or arcade. Custom TCG Hitz wrap, Pokémon · Magic · One Piece, built to draw a crowd.",
+        "cta_label": "Explore the machines",
+        "cta_link": "/pages/vending-machines"
+      }
+    },
+    "tcg_trust": {
+      "type": "tcg-trust",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "icon": "camera", "heading": "Two real photos", "body": "Front and back of the exact card you'll receive — never a stock image." } },
+        "f2": { "type": "feature", "settings": { "icon": "truck", "heading": "Ships in 1 business day", "body": "Penny sleeve, top loader, team bag, bubble mailer. Protected end to end." } },
+        "f3": { "type": "feature", "settings": { "icon": "shield", "heading": "Honest conditions", "body": "NM, LP, MP, HP — graded the same way every time, explained on every page." } }
+      },
+      "block_order": ["f1", "f2", "f3"],
+      "settings": { "heading": "Why collectors trust TCG\u00a0Hitz" }
+    },
+    "tcg_just_landed": {
+      "type": "tcg-just-landed",
+      "settings": {
+        "heading": "Just Landed ✈",
+        "collection": "frontpage",
+        "products_to_show": 6,
+        "view_all_label": "LOAD MORE ARRIVALS",
+        "view_all_link": "/collections/all"
+      }
+    },
+    "tcg_merch_promo": {
+      "type": "tcg-merch-promo",
+      "settings": {
+        "heading": "Merchandise",
+        "subheading": "Our own 3D prints, plus plushies, figures and collectibles.",
+        "collection": "frontpage"
+      }
+    },
+    "tcg_social": {
+      "type": "tcg-social",
+      "blocks": {
+        "s1": { "type": "photo", "settings": { "alt": "Machine at a card show" } },
+        "s2": { "type": "photo", "settings": { "alt": "Display of cards and prints" } },
+        "s3": { "type": "photo", "settings": { "alt": "3D-printed figure" } },
+        "s4": { "type": "photo", "settings": { "alt": "Featured card on a stand" } },
+        "s5": { "type": "photo", "settings": { "alt": "TCG Hitz booth" } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4", "s5"],
+      "settings": {
+        "heading": "Join the #HitzFamily",
+        "subheading": "Pulls, restocks and show days — follow along."
+      }
+    },
+    "tcg_sell_cta": {
+      "type": "tcg-sell-cta",
+      "settings": {
+        "heading": "Sell or trade your cards",
+        "body": "Bring it to a show or send photos. We buy singles, slabs and sealed — fair offers, paid fast.",
+        "cta_label": "Get an offer",
+        "cta_link": "/pages/sell"
+      }
+    },
+    "tcg_faq": {
+      "type": "tcg-faq",
+      "blocks": {
+        "q1": { "type": "item", "settings": { "question": "Are your cards authentic?", "answer": "Yes. Every card is inspected and photographed by us before it's listed." } },
+        "q2": { "type": "item", "settings": { "question": "How fast do you ship?", "answer": "Orders go out within one business day, tracked, in protective packaging." } },
+        "q3": { "type": "item", "settings": { "question": "What's in a mystery pack?", "answer": "Every pack guarantees value, with a real chance at a graded slab or alt art." } },
+        "q4": { "type": "item", "settings": { "question": "Do you buy collections?", "answer": "Yes — singles, slabs and sealed, any size. Send photos or catch us at a show." } },
+        "q5": { "type": "item", "settings": { "question": "Can I buy a vending machine?", "answer": "We build custom-wrapped machines for shops and events — send an enquiry from the machines page." } },
+        "q6": { "type": "item", "settings": { "question": "What do the conditions mean?", "answer": "NM, LP, MP, HP and DMG — the full guide is on every product page." } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6"],
+      "settings": {
+        "heading": "FAQ",
+        "subheading": "Questions? We've got answers."
+      }
+    },
+    "tcg_newsletter": {
+      "type": "tcg-newsletter",
+      "settings": {
+        "heading": "Join the Hitz Insider List",
+        "subheading": "Restocks, drops and show dates. No spam.",
+        "button_label": "JOIN"
+      }
+    }
+  },
+  "order": [
+    "tcg_hero",
+    "tcg_bestsellers",
+    "tcg_popular",
+    "tcg_mystery",
+    "tcg_vending",
+    "tcg_trust",
+    "tcg_just_landed",
+    "tcg_merch_promo",
+    "tcg_social",
+    "tcg_sell_cta",
+    "tcg_faq",
+    "tcg_newsletter"
+  ]
+}

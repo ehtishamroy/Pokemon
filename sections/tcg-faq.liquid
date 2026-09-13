@@ -1,0 +1,76 @@
+{% comment %}
+  TCG Hitz — FAQ Section
+  Matches index.html lines 261-276
+{% endcomment %}
+
+<section class="py-12 lg:py-16 faq">
+  <div class="mx-auto max-w-site px-4 sm:px-6">
+    <h2 class="stitle">{{ section.settings.heading }}</h2>
+    <p class="text-center text-paper-dim mt-3">{{ section.settings.subheading }}</p>
+    <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
+    <div class="grid md:grid-cols-2 gap-3 max-w-4xl mx-auto">
+      {% for block in section.blocks %}
+        <details class="rounded-card bg-felt-2 border border-gold/15 p-5" {{ block.shopify_attributes }}>
+          <summary class="flex items-center justify-between font-semibold">
+            {{ block.settings.question }}
+            <svg class="chev h-5 w-5 text-gold transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <p class="mt-3 text-sm text-paper-dim">{{ block.settings.answer }}</p>
+        </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "FAQ"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Questions? We've got answers."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "Q&A",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Question?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Answer."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG FAQ",
+      "blocks": [
+        { "type": "qa", "settings": { "question": "Are your cards authentic?", "answer": "Yes. Every card is inspected and photographed by us before it's listed." } },
+        { "type": "qa", "settings": { "question": "How fast do you ship?", "answer": "Orders go out within one business day, tracked, in protective packaging." } },
+        { "type": "qa", "settings": { "question": "What's in a mystery pack?", "answer": "Every pack guarantees value, with a real chance at a graded slab or alt art." } },
+        { "type": "qa", "settings": { "question": "Do you buy collections?", "answer": "Yes — singles, slabs and sealed, any size. Send photos or catch us at a show." } },
+        { "type": "qa", "settings": { "question": "Can I buy a vending machine?", "answer": "We build custom-wrapped machines for shops and events — send an enquiry from the machines page." } },
+        { "type": "qa", "settings": { "question": "What do the conditions mean?", "answer": "NM, LP, MP, HP and DMG — the full guide is on every product page." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

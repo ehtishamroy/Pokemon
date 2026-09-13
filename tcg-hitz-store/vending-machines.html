@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pokémon Card Vending Machines — TCG Hitz</title>
+  <meta name="description" content="TCG Hitz custom Pokémon card vending machines for shops, events and arcades. Pokémon, Magic and One Piece.">
+  <link rel="icon" href="assets/card-back.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/tailwind.config.js"></script>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body class="machine font-sans antialiased">
+
+<div class="bg-felt-2/80 border-b border-gold/15 py-2 text-center text-sm text-paper-dim">★ Custom TCG Hitz machines · Pokémon · Magic · One Piece</div>
+
+<header class="sticky top-0 z-40 bg-ink/90 backdrop-blur border-b border-gold/15">
+  <div class="mx-auto max-w-site px-4 sm:px-6">
+    <div class="flex h-[72px] items-center gap-6">
+      <a href="index.html" class="shrink-0" aria-label="TCG Hitz home"><img src="assets/logo.png" alt="TCG Hitz — Chase the Rare" class="h-12 w-auto"></a>
+      <nav data-nav class="hidden lg:flex items-center gap-0.5 text-[14px] font-semibold absolute lg:static left-0 right-0 top-[72px] bg-ink lg:bg-transparent p-4 lg:p-0 flex-col lg:flex-row border-b border-gold/15 lg:border-0 z-40">
+        <div class="has-mega relative">
+          <a href="collection.html" class="px-3 py-2 rounded-md hover:bg-felt-3  inline-flex items-center gap-1">Cards
+            <svg class="h-3.5 w-3.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg></a>
+          <div class="mega absolute left-0 top-full pt-3 w-[520px] max-w-[92vw]">
+            <div class="cabinet p-4 grid grid-cols-2 gap-2.5 bg-ink">
+              <a href="collection.html" class="cat rounded-lg p-3 bg-felt-2"><span class="block font-bold text-sm">Singles</span><span class="text-xs text-slate">Raw cards, real photos</span></a>
+              <a href="collection.html?f=slabs" class="cat rounded-lg p-3 bg-felt-2"><span class="block font-bold text-sm">Graded slabs</span><span class="text-xs text-slate">PSA · CGC · BGS</span></a>
+              <a href="collection.html?f=sealed" class="cat rounded-lg p-3 bg-felt-2"><span class="block font-bold text-sm">Sealed</span><span class="text-xs text-slate">Boxes, packs, ETBs</span></a>
+              <a href="collection.html?f=mystery" class="cat rounded-lg p-3 bg-felt-2"><span class="block font-bold text-sm">Mystery packs</span><span class="text-xs text-slate">Chase the rare</span></a>
+            </div>
+          </div>
+        </div>
+        <a href="collection.html?f=mystery" class="px-3 py-2 rounded-md hover:bg-felt-3 ">Mystery</a>
+        <a href="collection.html?f=slabs" class="px-3 py-2 rounded-md hover:bg-felt-3 ">Slabs</a>
+        <a href="vending-machines.html" class="px-3 py-2 rounded-md hover:bg-felt-3 text-gold bg-felt-3 text-gold">Vending Machines</a>
+        <a href="merchandise.html" class="px-3 py-2 rounded-md hover:bg-felt-3 ">Merchandise</a>
+        <a href="sell.html" class="px-3 py-2 rounded-md hover:bg-felt-3 ">Sell to us</a>
+      </nav>
+      <div class="flex items-center gap-1 ml-auto">
+        <a href="policies.html#contact" class="p-2.5 rounded-full hover:bg-felt-3" aria-label="Account"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6"/></svg></a>
+        <button data-cart-open class="relative p-2.5 rounded-full hover:bg-felt-3" aria-label="Open cart"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg><span data-cart-count class="hidden absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-gold text-ink text-[11px] font-bold grid place-items-center">0</span></button>
+        <button data-nav-toggle aria-expanded="false" aria-label="Menu" class="lg:hidden p-2.5 rounded-full hover:bg-felt-3"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="py-12 lg:py-16">
+    <div class="mx-auto max-w-site px-4 sm:px-6">
+      <div class="cabinet bg-ink overflow-hidden grid lg:grid-cols-2">
+        <div class="p-8 lg:p-12 flex flex-col justify-center">
+          <p class="text-gold font-bold tracking-wide">TCG HITZ MACHINES</p>
+          <h1 class="font-display text-4xl sm:text-5xl mt-2 leading-tight">Card vending machines that draw a crowd</h1>
+          <p class="mt-5 text-paper-dim leading-relaxed max-w-[48ch]">Our custom-wrapped machines are a hit at every card show. Now you can put one in your shop, arcade, or event — loaded with Pokémon, Magic and One Piece packs.</p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="#enquire" class="rounded-full bg-gold px-6 py-3.5 font-bold text-ink hover:bg-gold-deep">Enquire about a machine</a>
+            <a href="#gallery" class="rounded-full border border-gold/40 px-6 py-3.5 font-semibold text-gold hover:bg-gold/10">See them in action</a>
+          </div>
+        </div>
+        <div class="relative min-h-[340px]"><img src="assets/machine-graffiti.jpg" alt="TCG Hitz card vending machine at a show" class="absolute inset-0 w-full h-full object-cover"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="pb-6">
+    <div class="mx-auto max-w-site px-4 sm:px-6 grid sm:grid-cols-3 gap-4">
+      <div class="cabinet bg-ink p-6"><div class="text-2xl">🎰</div><h3 class="mt-3 font-bold">Custom TCG Hitz wrap</h3><p class="mt-1 text-sm text-paper-dim">Full-cabinet artwork, lit panels, your branding.</p></div>
+      <div class="cabinet bg-ink p-6"><div class="text-2xl">🃏</div><h3 class="mt-3 font-bold">Multi-game ready</h3><p class="mt-1 text-sm text-paper-dim">Pokémon, Magic and One Piece from one machine.</p></div>
+      <div class="cabinet bg-ink p-6"><div class="text-2xl">💳</div><h3 class="mt-3 font-bold">Card &amp; cashless</h3><p class="mt-1 text-sm text-paper-dim">Touchscreen, card reader, crowd-pleasing lights.</p></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="py-12">
+    <div class="mx-auto max-w-site px-4 sm:px-6">
+      <h2 class="font-display text-3xl text-center goldtext">At the shows</h2>
+      <div class="rule-gold my-6 max-w-xs mx-auto"></div>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="rounded-card overflow-hidden cabinet bg-ink"><img src="assets/machine-graffiti.jpg" alt="Graffiti-wrapped TCG Hitz machine" class="w-full h-[380px] object-cover"></div>
+        <div class="rounded-card overflow-hidden cabinet bg-ink"><img src="assets/machine-booth.jpg" alt="TCG Hitz booth at a card show" class="w-full h-[380px] object-cover"></div>
+        <div class="rounded-card overflow-hidden cabinet bg-ink"><img src="assets/machine-premium.jpg" alt="Premium gold machine render" class="w-full h-[380px] object-cover"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENQUIRE -->
+  <section id="enquire" class="py-12">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <div class="cabinet bg-ink p-8">
+        <h2 class="font-display text-3xl text-center">Enquire about a machine</h2>
+        <p class="mt-2 text-center text-paper-dim">Tell us where it's going and we'll get back within a day.</p>
+        <form class="mt-6 grid gap-4" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Sent — we\'ll be in touch';">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <input required placeholder="Your name" class="rounded-lg bg-felt-2 border border-gold/20 px-4 py-3 placeholder:text-slate focus:border-gold">
+            <input required type="email" placeholder="Email" class="rounded-lg bg-felt-2 border border-gold/20 px-4 py-3 placeholder:text-slate focus:border-gold">
+          </div>
+          <input placeholder="Where will the machine go? (shop, event, arcade…)" class="rounded-lg bg-felt-2 border border-gold/20 px-4 py-3 placeholder:text-slate focus:border-gold">
+          <textarea rows="4" placeholder="Anything else we should know?" class="rounded-lg bg-felt-2 border border-gold/20 px-4 py-3 placeholder:text-slate focus:border-gold"></textarea>
+          <button class="rounded-full bg-gold px-6 py-3.5 font-bold text-ink hover:bg-gold-deep">Send enquiry</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-gold/15 py-12 mt-8">
+  <div class="mx-auto max-w-site px-4 sm:px-6 grid md:grid-cols-4 gap-10">
+    <div class="md:col-span-2"><img src="assets/logo.png" alt="TCG Hitz" class="h-14 w-auto"><p class="mt-4 text-paper-dim max-w-[44ch] text-sm">A family-run Pokémon store: singles, sealed, mystery, slabs, merchandise and our own card vending machines. Online and at card shows every weekend.</p></div>
+    <div><h3 class="font-bold text-gold text-sm tracking-widest">SHOP</h3><ul class="mt-3 space-y-2 text-paper-dim text-sm">
+      <li><a href="collection.html" class="hover:text-gold">Singles</a></li>
+      <li><a href="collection.html?f=sealed" class="hover:text-gold">Sealed</a></li>
+      <li><a href="collection.html?f=mystery" class="hover:text-gold">Mystery packs</a></li>
+      <li><a href="collection.html?f=slabs" class="hover:text-gold">Graded slabs</a></li>
+      <li><a href="merchandise.html" class="hover:text-gold">Merchandise</a></li>
+      <li><a href="vending-machines.html" class="hover:text-gold">Vending machines</a></li></ul></div>
+    <div><h3 class="font-bold text-gold text-sm tracking-widest">HELP</h3><ul class="mt-3 space-y-2 text-paper-dim text-sm">
+      <li><a href="policies.html#shipping" class="hover:text-gold">Shipping policy</a></li>
+      <li><a href="policies.html#refund" class="hover:text-gold">Refund policy</a></li>
+      <li><a href="policies.html#conditions" class="hover:text-gold">Condition guide</a></li>
+      <li><a href="sell.html" class="hover:text-gold">Sell to us</a></li>
+      <li><a href="policies.html#contact" class="hover:text-gold">Contact</a></li>
+      <li><a href="cart.html" class="hover:text-gold">View cart</a></li></ul></div>
+  </div>
+  <div class="mx-auto max-w-site px-4 sm:px-6 mt-10 pt-6 border-t border-gold/10 flex flex-wrap gap-4 justify-between text-xs text-slate">
+    <p>© 2026 TCG Hitz. All rights reserved.</p>
+    <p>Pokémon, Magic and One Piece are trademarks of their respective owners. TCG Hitz is an independent reseller.</p>
+  </div>
+</footer>
+
+<div data-scrim data-cart-close class="scrim fixed inset-0 z-40 bg-black/60"></div>
+<aside data-drawer class="drawer fixed top-0 right-0 z-50 h-full w-full max-w-md bg-felt-2 shadow-card flex flex-col" aria-label="Cart">
+  <div class="flex items-center justify-between p-5 border-b border-gold/15"><h2 class="font-display text-2xl">Your cart</h2><button data-cart-close class="p-2 rounded-full hover:bg-felt-3" aria-label="Close cart"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div data-cart-items class="flex-1 overflow-y-auto px-5"></div>
+  <div data-cart-foot class="hidden p-5 border-t border-gold/15">
+    <div class="flex justify-between text-lg"><span class="text-paper-dim">Subtotal</span><span data-cart-total class="font-bold text-gold">$0.00</span></div>
+    <p class="mt-1 text-sm text-slate">Shipping calculated at checkout.</p>
+    <a href="cart.html" class="mt-4 block text-center rounded-full border border-gold/45 px-6 py-3 font-bold text-gold hover:bg-gold/10">View cart</a>
+    <a href="checkout.html" class="mt-2 block text-center rounded-full bg-gold px-6 py-3.5 font-bold text-ink hover:bg-gold-deep">Checkout</a>
+  </div>
+</aside>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

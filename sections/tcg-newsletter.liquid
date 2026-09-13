@@ -1,0 +1,53 @@
+{% comment %}
+  TCG Hitz — Newsletter Section
+  Matches index.html lines 278-292
+{% endcomment %}
+
+<section class="pb-16">
+  <div class="mx-auto max-w-2xl px-4 sm:px-6">
+    <div class="cabinet bg-ink p-8 lg:p-10 text-center">
+      <img src="{{ 'logo.png' | asset_url }}" alt="TCG Hitz" class="h-14 w-auto mx-auto">
+      <h2 class="font-display text-2xl sm:text-3xl mt-5">{{ section.settings.heading }}</h2>
+      <p class="mt-2 text-paper-dim">{{ section.settings.subheading }}</p>
+      
+      {% form 'customer', class: 'mt-6 flex flex-col sm:flex-row gap-3' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label class="sr-only" for="NewsletterEmail">Email</label>
+        <input
+          id="NewsletterEmail"
+          type="email"
+          name="contact[email]"
+          required
+          placeholder="Email address"
+          class="flex-1 rounded-full bg-felt-2 border border-gold/25 px-5 py-3.5 placeholder:text-slate focus:border-gold text-paper"
+        >
+        <button type="submit" class="rounded-full bg-gold px-7 py-3.5 font-bold text-ink hover:bg-gold-deep">JOIN</button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join the Hitz Insider List"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Restocks, drops and show dates. No spam."
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG Newsletter"
+    }
+  ]
+}
+{% endschema %}

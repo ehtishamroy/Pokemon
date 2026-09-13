@@ -1,0 +1,87 @@
+{% comment %}
+  TCG Hitz — Custom Header overriding native header.liquid
+{% endcomment %}
+
+<header class="sticky top-0 z-40 bg-ink/90 backdrop-blur border-b border-gold/15" data-tcg-header>
+  <div class="mx-auto max-w-site px-4 sm:px-6">
+    <div class="flex h-[72px] items-center gap-6">
+      <a href="{{ routes.root_url }}" class="shrink-0" aria-label="{{ shop.name }}">
+        <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" class="h-12 w-auto">
+      </a>
+      
+      <nav data-nav class="hidden lg:flex items-center gap-0.5 text-[14px] font-semibold absolute lg:static left-0 right-0 top-[72px] bg-ink lg:bg-transparent p-4 lg:p-0 flex-col lg:flex-row border-b border-gold/15 lg:border-0 z-40">
+        <div class="has-mega relative">
+          <a href="/collections/all" class="px-3 py-2 rounded-md hover:bg-felt-3 inline-flex items-center gap-1">Cards
+            <svg class="h-3.5 w-3.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg>
+          </a>
+          <div class="mega absolute left-0 top-full pt-3 w-[520px] max-w-[92vw]">
+            <div class="cabinet p-4 grid grid-cols-2 gap-2.5 bg-ink">
+              <a href="/collections/all" class="cat rounded-lg p-3 bg-felt-2"><span class="block font-bold text-sm">Singles</span><span class="text-xs text-slate">Raw cards, real photos</span></a>
+              <a href="/collections/all?f=slabs" class="cat rounded-lg p-3 bg-felt-2"><span class="block font-bold text-sm">Graded slabs</span><span class="text-xs text-slate">PSA · CGC · BGS</span></a>
+              <a href="/collections/all?f=sealed" class="cat rounded-lg p-3 bg-felt-2"><span class="block font-bold text-sm">Sealed</span><span class="text-xs text-slate">Boxes, packs, ETBs</span></a>
+              <a href="/collections/all?f=mystery" class="cat rounded-lg p-3 bg-felt-2"><span class="block font-bold text-sm">Mystery packs</span><span class="text-xs text-slate">Chase the rare</span></a>
+            </div>
+          </div>
+        </div>
+        <a href="/collections/all?f=mystery" class="px-3 py-2 rounded-md hover:bg-felt-3">Mystery</a>
+        <a href="/collections/all?f=slabs" class="px-3 py-2 rounded-md hover:bg-felt-3">Slabs</a>
+        <a href="/pages/vending-machines" class="px-3 py-2 rounded-md hover:bg-felt-3 text-gold">Vending Machines</a>
+        <a href="/collections/merchandise" class="px-3 py-2 rounded-md hover:bg-felt-3">Merchandise</a>
+        <a href="/pages/sell" class="px-3 py-2 rounded-md hover:bg-felt-3">Sell to us</a>
+      </nav>
+      
+      <div class="flex items-center gap-1 ml-auto">
+        <a href="{{ routes.account_url }}" class="p-2.5 rounded-full hover:bg-felt-3" aria-label="Account">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6"/></svg>
+        </a>
+        <header-actions class="flex items-center">
+          <button on:click="#cart-drawer/toggle" aria-controls="cart-drawer" aria-expanded="false" class="relative p-2.5 rounded-full hover:bg-felt-3" aria-label="Open cart" id="cart-icon-bubble">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
+            <span data-cart-count class="{% if cart.item_count == 0 %}hidden{% endif %} absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-gold text-ink text-[11px] font-bold grid place-items-center" id="cart-icon-bubble-count">{{ cart.item_count }}</span>
+          </button>
+          <span ref="liveRegion" class="visually-hidden" role="status"></span>
+        </header-actions>
+        <button data-nav-toggle aria-expanded="false" aria-label="Menu" class="lg:hidden p-2.5 rounded-full hover:bg-felt-3">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script type="module" src="{{ 'header-actions.js' | asset_url }}"></script>
+<script>
+  // Mobile Nav toggle
+  document.querySelector('[data-nav-toggle]')?.addEventListener('click', (e) => {
+    const nav = document.querySelector('[data-nav]'); 
+    const open = nav.classList.toggle('hidden');
+    e.currentTarget.setAttribute('aria-expanded', String(!open));
+  });
+
+  // Small listener to update cart bubble count when Shopify native cart updates
+  document.addEventListener('cart:updated', function(event) {
+    const cart = event.detail.cart;
+    const countEl = document.getElementById('cart-icon-bubble-count');
+    if (countEl && cart) {
+      countEl.textContent = cart.item_count;
+      countEl.classList.toggle('hidden', cart.item_count === 0);
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "t:names.header",
+  "tag": "header",
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "t:settings.search_icon",
+      "default": true
+    }
+  ],
+  "presets": []
+}
+{% endschema %}

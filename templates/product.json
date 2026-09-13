@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "tcg_product": {
+      "type": "tcg-main-product",
+      "settings": {
+        "show_related": true
+      }
+    }
+  },
+  "order": ["tcg_product"]
+}

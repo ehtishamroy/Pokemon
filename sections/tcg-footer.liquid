@@ -1,0 +1,61 @@
+{% comment %}
+  TCG Hitz — Custom Footer
+  Matches index.html lines 295-318
+{% endcomment %}
+
+<footer class="border-t border-gold/15 py-12 mt-8">
+  <div class="mx-auto max-w-site px-4 sm:px-6 grid md:grid-cols-4 gap-10">
+    <div class="md:col-span-2">
+      <img src="{{ 'logo.png' | asset_url }}" alt="TCG Hitz" class="h-14 w-auto">
+      <p class="mt-4 text-paper-dim max-w-[44ch] text-sm">{{ section.settings.text }}</p>
+    </div>
+    
+    <div>
+      <h3 class="font-bold text-gold text-sm tracking-widest">SHOP</h3>
+      <ul class="mt-3 space-y-2 text-paper-dim text-sm">
+        <li><a href="/collections/all" class="hover:text-gold">Singles</a></li>
+        <li><a href="/collections/all?f=sealed" class="hover:text-gold">Sealed</a></li>
+        <li><a href="/collections/all?f=mystery" class="hover:text-gold">Mystery packs</a></li>
+        <li><a href="/collections/all?f=slabs" class="hover:text-gold">Graded slabs</a></li>
+        <li><a href="/collections/merchandise" class="hover:text-gold">Merchandise</a></li>
+        <li><a href="/pages/vending-machines" class="hover:text-gold">Vending machines</a></li>
+      </ul>
+    </div>
+    
+    <div>
+      <h3 class="font-bold text-gold text-sm tracking-widest">HELP</h3>
+      <ul class="mt-3 space-y-2 text-paper-dim text-sm">
+        <li><a href="/policies/shipping-policy" class="hover:text-gold">Shipping policy</a></li>
+        <li><a href="/policies/refund-policy" class="hover:text-gold">Refund policy</a></li>
+        <li><a href="/pages/condition-guide" class="hover:text-gold">Condition guide</a></li>
+        <li><a href="/pages/sell" class="hover:text-gold">Sell to us</a></li>
+        <li><a href="/pages/contact" class="hover:text-gold">Contact</a></li>
+        <li><a href="/cart" class="hover:text-gold">View cart</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="mx-auto max-w-site px-4 sm:px-6 mt-10 pt-6 border-t border-gold/10 flex flex-wrap gap-4 justify-between text-xs text-slate">
+    <p>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.</p>
+    <p>Pokémon, Magic and One Piece are trademarks of their respective owners. {{ shop.name }} is an independent reseller.</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "TCG Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "About Text",
+      "default": "A family-run Pokémon store: singles, sealed, mystery, slabs, merchandise and our own card vending machines. Online and at card shows every weekend."
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG Footer"
+    }
+  ]
+}
+{% endschema %}

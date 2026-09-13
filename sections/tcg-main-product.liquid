@@ -1,0 +1,436 @@
+{% comment %}
+  TCG Hitz — Product page (main section)
+  Shopify: sections/tcg-main-product.liquid
+
+  Layout:
+  • Left col (sticky): .holo 3D tilt featured image + thumbnail strip
+  • Right col: buy box — breadcrumb, title, rarity, price/stock,
+    variant rows (printing/condition), qty stepper, Add to Cart,
+    trust bullets, card details metafields, condition guide,
+    Q&A placeholder.
+
+  Metafields read:  card.set / card.number / card.rarity /
+                    card.language / card.type / card.artist
+  All hidden when empty — 3D prints / vending machines handled gracefully.
+{% endcomment %}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign card_set      = product.metafields.card.set.value | default: product.metafields.custom.set.value | default: product.metafields.card.set | default: product.metafields.custom.set
+  assign card_number   = product.metafields.card.number.value | default: product.metafields.custom.number.value | default: product.metafields.card.number | default: product.metafields.custom.number
+  assign card_rarity   = product.metafields.card.rarity.value | default: product.metafields.custom.rarity.value | default: product.metafields.card.rarity | default: product.metafields.custom.rarity
+  assign card_language = product.metafields.card.language.value | default: product.metafields.custom.language.value | default: product.metafields.card.language | default: product.metafields.custom.language
+  assign card_type     = product.metafields.card.type.value | default: product.metafields.custom.type.value | default: product.metafields.card.type | default: product.metafields.custom.type
+  assign card_artist   = product.metafields.card.artist.value | default: product.metafields.custom.artist.value | default: product.metafields.card.artist | default: product.metafields.custom.artist
+
+  assign rarity_class = 'rar-common'
+  assign rarity_lower = card_rarity | downcase
+  if rarity_lower contains 'secret' or rarity_lower contains 'illustration'
+    assign rarity_class = 'rar-secret'
+  elsif rarity_lower contains 'ultra' or rarity_lower contains 'double' or rarity_lower contains 'special'
+    assign rarity_class = 'rar-ultra'
+  elsif rarity_lower contains 'rare' or rarity_lower contains 'holo'
+    assign rarity_class = 'rar-rare'
+  endif
+%}
+
+<div class="mx-auto max-w-site px-4 sm:px-6 py-8 lg:py-12">
+
+  {%- comment -%} Breadcrumb {%- endcomment -%}
+  <nav class="text-sm" style="color:#8A96B8;" aria-label="Breadcrumb">
+    <a href="/" style="color:#8A96B8;" onmouseover="this.style.color='#3EC1FF';" onmouseout="this.style.color='#8A96B8';">TCG Hitz</a>
+    <span class="mx-2">/</span>
+    {% if collection %}
+      <a href="{{ collection.url }}" style="color:#8A96B8;" onmouseover="this.style.color='#3EC1FF';" onmouseout="this.style.color='#8A96B8';">
+        {{ collection.title }}
+      </a>
+      <span class="mx-2">/</span>
+    {% endif %}
+    <span style="color:#F3F5FA;">{{ product.title }}</span>
+  </nav>
+
+  {%- comment -%} Main grid {%- endcomment -%}
+  <div class="mt-6 tcg-grid lg:grid-cols-12 gap-10 lg:gap-14">
+
+    {%- comment -%}════ GALLERY ════{%- endcomment -%}
+    <div class="lg:col-span-6">
+      <div class="lg:sticky" style="top:96px;">
+
+        {%- comment -%} 3D tilt featured image {%- endcomment -%}
+        <div class="flex justify-center">
+          <div class="w-[min(86vw,440px)]">
+            <div class="holo" data-tilt="14" aria-label="Card image, move pointer to tilt">
+              <div class="holo__card">
+                {% if product.featured_image %}
+                  <img id="tcg-main-img"
+                       src="{{ product.featured_image | image_url: width: 900 }}"
+                       alt="{{ product.title | escape }}">
+                {% else %}
+                  <img id="tcg-main-img"
+                       src="{{ 'card-back.svg' | asset_url }}"
+                       alt="{{ product.title | escape }}">
+                {% endif %}
+                <span class="holo__glare"></span>
+                <span class="holo__rainbow"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {%- comment -%} Thumbnails {%- endcomment -%}
+        {% if product.media.size > 1 %}
+          <div class="thumbs mt-6 flex gap-3 overflow-x-auto pb-2 justify-center">
+            {% for media in product.media %}
+              <button class="tcg-thumb shrink-0 w-[68px] h-[94px] rounded-md overflow-hidden {% if forloop.first %}ring-2{% endif %}"
+                      style="background:#1B2448; {% if forloop.first %}outline:2px solid #3EC1FF;{% endif %}"
+                      aria-label="{{ media.alt | escape }}"
+                      data-tcg-thumb-src="{{ media | image_url: width: 900 }}"
+                      onclick="tcgSwapImage(this)">
+                <img src="{{ media | image_url: width: 140 }}" alt="{{ media.alt | escape }}" class="w-full h-full object-cover">
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <p class="mt-3 text-center text-sm" style="color:#8A96B8;">
+          Includes real photos of the actual card, front and back.
+        </p>
+
+      </div>
+    </div>
+
+    {%- comment -%}════ BUY BOX ════{%- endcomment -%}
+    <div class="lg:col-span-6">
+
+      {% if card_set != blank or card_number != blank %}
+        <p class="text-sm" style="color:#8A96B8;">
+          {{ card_set }}{% if card_set != blank and card_number != blank %} · {% endif %}{{ card_number }}
+        </p>
+      {% endif %}
+
+      <h1 class="font-display text-4xl sm:text-5xl leading-[1.05] mt-2" style="color:#F3F5FA;">
+        {{ product.title }}
+      </h1>
+
+      {% if card_rarity != blank %}
+        <p class="mt-2 font-semibold {{ rarity_class }}">{{ card_rarity }}</p>
+      {% endif %}
+
+      {%- comment -%} Price + stock {%- endcomment -%}
+      <div class="mt-6 flex items-baseline gap-3 flex-wrap">
+        <span class="text-sm" style="color:#8A96B8;">Price</span>
+        <span id="tcg-price" class="font-display text-4xl" style="color:#FFC72C;">
+          {{ current_variant.price | money }}
+        </span>
+        {% if current_variant.available %}
+          {% if current_variant.inventory_quantity == 1 %}
+            <span class="ml-auto rounded-full px-3 py-1 text-sm font-semibold" style="background:rgba(61,214,140,.15);color:#3DD68C;">Only 1 left</span>
+          {% else %}
+            <span class="ml-auto rounded-full px-3 py-1 text-sm font-semibold" style="background:rgba(61,214,140,.15);color:#3DD68C;">In stock</span>
+          {% endif %}
+        {% else %}
+          <span class="ml-auto rounded-full px-3 py-1 text-sm font-semibold" style="background:rgba(232,64,44,.15);color:#E8402C;">Sold out</span>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Variants — Printing & Condition rows {%- endcomment -%}
+      {% if product.variants.size > 1 %}
+        <fieldset class="mt-7">
+          <legend class="font-semibold" style="color:#F3F5FA;">Printing &amp; condition</legend>
+          <p class="text-sm mt-0.5" style="color:#8A96B8;">
+            Selected: <span id="tcg-selected-label" class="font-semibold" style="color:#F3F5FA;">{{ current_variant.title }}</span>
+          </p>
+          <div class="mt-3 space-y-2" role="radiogroup">
+            {% for variant in product.variants %}
+              {%- comment -%} Determine the display title by splitting Shopify's "Opt1 / Opt2 / Opt3" default string {%- endcomment -%}
+              {% assign variant_options = variant.title | split: ' / ' %}
+              {% assign main_option = variant_options[0] %}
+              
+              {%- comment -%} Check if they used metafields instead of standard options for condition/lang/rarity {%- endcomment -%}
+              {% assign meta_condition = variant.metafields.custom.condition | default: product.metafields.custom.condition %}
+              {% assign meta_lang = variant.metafields.custom.language | default: product.metafields.custom.language %}
+              {% assign meta_rarity = variant.metafields.custom.rarity | default: card_rarity %}
+
+              <button type="button"
+                      class="tcg-variant-btn w-full flex items-center justify-between rounded-lg border px-4 py-3 text-left"
+                      style="border-color:{% if variant.id == current_variant.id %}#3EC1FF;background:#1B2448;{% else %}rgba(255,255,255,.10);{% endif %}"
+                      data-variant-id="{{ variant.id }}"
+                      data-variant-price="{{ variant.price | money }}"
+                      data-variant-title="{{ variant.title | escape }}"
+                      data-variant-available="{{ variant.available }}"
+                      data-variant-inventory="{{ variant.inventory_quantity }}"
+                      role="radio"
+                      aria-checked="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}"
+                      onclick="tcgSelectVariant(this)">
+                <span style="color:#F3F5FA;">
+                  <span class="font-semibold">{{ main_option }}</span>
+                  
+                  {%- comment -%} Print the remaining options (like Condition and Language) or metafield fallbacks {%- endcomment -%}
+                  <span class="text-sm ml-1" style="color:#8A96B8;">
+                    {% if variant_options.size > 1 %}
+                      {% for opt in variant_options offset:1 %}
+                        · {{ opt }}
+                      {% endfor %}
+                    {% else %}
+                      {% if meta_condition %} · {{ meta_condition }}{% endif %}
+                      {% if meta_lang %} · {{ meta_lang }}{% endif %}
+                      {% if meta_rarity != blank %} · {{ meta_rarity }}{% endif %}
+                    {% endif %}
+                  </span>
+
+                  {% unless variant.available %}
+                    <span class="text-sm ml-2 font-semibold" style="color:#E8402C;">Sold out</span>
+                  {% endunless %}
+                </span>
+                <span class="font-bold" style="color:#FFC72C;">{{ variant.price | money }}</span>
+              </button>
+            {% endfor %}
+          </div>
+        </fieldset>
+      {% endif %}
+
+      {%- comment -%} Add to cart form (Horizon native) {%- endcomment -%}
+      {% form 'product', product, id: 'tcg-product-form', data-type: 'add-to-cart-form' %}
+        <input type="hidden" name="id" id="tcg-variant-input" value="{{ current_variant.id }}">
+
+        <div class="mt-6 flex items-center gap-4">
+          {%- comment -%} Quantity stepper {%- endcomment -%}
+          <div class="qty inline-flex items-center rounded-full border" style="background:#141C3A;border-color:rgba(255,255,255,.10);">
+            <button type="button" aria-label="Decrease quantity"
+                    class="rounded-full text-xl"
+                    style="color:#F3F5FA;"
+                    onclick="tcgQtyChange(-1)">−</button>
+            <span id="tcg-qty-value" class="w-8 text-center font-semibold" style="color:#F3F5FA;" aria-live="polite">1</span>
+            <button type="button" aria-label="Increase quantity"
+                    class="rounded-full text-xl"
+                    style="color:#F3F5FA;"
+                    onclick="tcgQtyChange(1)">+</button>
+            <input type="hidden" name="quantity" id="tcg-qty-input" value="1">
+          </div>
+
+          <button type="submit"
+                  class="flex-1 rounded-full px-6 py-3.5 font-bold"
+                  style="background:#FFC72C;color:#0E1530;"
+                  {% unless current_variant.available %}disabled style="background:#1B2448;color:#8A96B8;cursor:not-allowed;"{% endunless %}>
+            {% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}
+          </button>
+        </div>
+
+      {% endform %}
+
+      <div class="mt-3 flex gap-5 text-sm">
+        <a href="#sell" class="hover:underline" style="color:#8A96B8;"
+           onmouseover="this.style.color='#3EC1FF';" onmouseout="this.style.color='#8A96B8';">
+          Have this card? Sell it to us
+        </a>
+      </div>
+
+      {%- comment -%} Trust bullets {%- endcomment -%}
+      <ul class="mt-8 tcg-grid sm:grid-cols-3 gap-3 text-sm">
+        <li class="rounded-lg p-3" style="background:#141C3A;">
+          <span class="block font-semibold" style="color:#F3F5FA;">Ships in 1 business day</span>
+          <span style="color:#8A96B8;">Rigid sleeve + bubble mailer</span>
+        </li>
+        <li class="rounded-lg p-3" style="background:#141C3A;">
+          <span class="block font-semibold" style="color:#F3F5FA;">Real photos</span>
+          <span style="color:#8A96B8;">You get the exact card shown</span>
+        </li>
+        <li class="rounded-lg p-3" style="background:#141C3A;">
+          <span class="block font-semibold" style="color:#F3F5FA;">Fair returns</span>
+          <span style="color:#8A96B8;">Not as described? Full refund</span>
+        </li>
+      </ul>
+
+      {%- comment -%} Card details (metafields) — hidden if empty {%- endcomment -%}
+      {% if card_set != blank or card_number != blank or card_rarity != blank or card_language != blank or card_type != blank or card_artist != blank %}
+        <section class="mt-10">
+          <h2 class="font-display text-2xl" style="color:#F3F5FA;">Card details</h2>
+          <dl class="mt-4 tcg-grid grid-cols-2 gap-x-6 gap-y-3 text-[15px]">
+            {% if card_set != blank %}
+              <div class="pb-2" style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <dt style="color:#8A96B8;">Set</dt>
+                <dd class="font-semibold" style="color:#F3F5FA;">{{ card_set }}</dd>
+              </div>
+            {% endif %}
+            {% if card_number != blank %}
+              <div class="pb-2" style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <dt style="color:#8A96B8;">Collector number</dt>
+                <dd class="font-semibold" style="color:#F3F5FA;">{{ card_number }}</dd>
+              </div>
+            {% endif %}
+            {% if card_rarity != blank %}
+              <div class="pb-2" style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <dt style="color:#8A96B8;">Rarity</dt>
+                <dd class="font-semibold" style="color:#F3F5FA;">{{ card_rarity }}</dd>
+              </div>
+            {% endif %}
+            {% if card_language != blank %}
+              <div class="pb-2" style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <dt style="color:#8A96B8;">Language</dt>
+                <dd class="font-semibold" style="color:#F3F5FA;">{{ card_language }}</dd>
+              </div>
+            {% endif %}
+            {% if card_type != blank %}
+              <div class="pb-2" style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <dt style="color:#8A96B8;">Card type</dt>
+                <dd class="font-semibold" style="color:#F3F5FA;">{{ card_type }}</dd>
+              </div>
+            {% endif %}
+            {% if card_artist != blank %}
+              <div class="pb-2" style="border-bottom:1px solid rgba(255,255,255,.05);">
+                <dt style="color:#8A96B8;">Artist</dt>
+                <dd class="font-semibold" style="color:#F3F5FA;">{{ card_artist }}</dd>
+              </div>
+            {% endif %}
+          </dl>
+        </section>
+      {% endif %}
+
+      {%- comment -%} Condition guide {%- endcomment -%}
+      <div class="mt-8">
+        {% render 'tcg-condition-guide' %}
+      </div>
+
+    </div>
+  </div>
+
+  {%- comment -%}════ RELATED PRODUCTS ════{%- endcomment -%}
+  {% if section.settings.show_related %}
+    <section class="mt-20">
+      <h2 class="font-display text-3xl" style="color:#F3F5FA;">Other versions of this card</h2>
+      <div id="tcg-related-products" class="mt-6 tcg-grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+        {%- assign related_count = 0 -%}
+        {%- for related_product in product.collections.first.products -%}
+          {%- if related_product.handle != product.handle and related_count < 4 -%}
+            {% render 'tcg-card-tile', product: related_product %}
+            {%- assign related_count = related_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+        
+        {%- if related_count == 0 -%}
+          {%- for i in (1..4) -%}
+            <article class="tile rounded-card p-3" style="background:#141C3A;">
+              <div class="tile__img rounded-lg overflow-hidden" style="background:#0A0F24;"></div>
+              <div class="mt-3">
+                <p class="text-xs" style="color:#8A96B8;">Related Card</p>
+                <h3 class="font-semibold leading-tight mt-0.5" style="color:#F3F5FA;">Example card</h3>
+                <p class="mt-3 font-bold text-lg" style="color:#FFC72C;">$0.00</p>
+              </div>
+            </article>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </section>
+  {% endif %}
+
+  {%- comment -%}════ Q&A BLOCK ════{%- endcomment -%}
+  <section class="mt-20 max-w-3xl">
+    <h2 class="font-display text-3xl" style="color:#F3F5FA;">Questions about this card</h2>
+    <p class="mt-2" style="color:#C5CCE0;">No questions yet. Ask the first one and we'll answer within a day.</p>
+    <div class="mt-5 flex flex-col sm:flex-row gap-3">
+      <label class="sr-only" for="tcg-question">Your question</label>
+      <input id="tcg-question"
+             type="text"
+             placeholder="e.g. Any whitening on the back corners?"
+             class="flex-1 rounded-full border px-5 py-3"
+             style="background:#141C3A;border-color:rgba(255,255,255,.10);color:#F3F5FA;placeholder-color:#8A96B8;">
+      <button class="rounded-full border px-6 py-3 font-semibold"
+              style="border-color:rgba(255,255,255,.15);color:#F3F5FA;"
+              onmouseover="this.style.borderColor='#3EC1FF';this.style.color='#3EC1FF';"
+              onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='#F3F5FA';">
+        Ask a question
+      </button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  /* ── Thumbnail swap ── */
+  function tcgSwapImage(btn) {
+    document.getElementById('tcg-main-img').src = btn.dataset.tcgThumbSrc;
+    document.querySelectorAll('.tcg-thumb').forEach(function(t) {
+      t.style.outline = '';
+    });
+    btn.style.outline = '2px solid #3EC1FF';
+  }
+
+  /* ── Quantity stepper ── */
+  function tcgQtyChange(delta) {
+    var span = document.getElementById('tcg-qty-value');
+    var inp  = document.getElementById('tcg-qty-input');
+    var n = Math.max(1, parseInt(span.textContent, 10) + delta);
+    span.textContent = n;
+    inp.value = n;
+  }
+
+  /* ── Variant selector ── */
+  function tcgSelectVariant(btn) {
+    document.querySelectorAll('.tcg-variant-btn').forEach(function(b) {
+      b.style.borderColor = 'rgba(255,255,255,.10)';
+      b.style.background  = '';
+      b.setAttribute('aria-checked', 'false');
+    });
+    btn.style.borderColor = '#3EC1FF';
+    btn.style.background  = '#1B2448';
+    btn.setAttribute('aria-checked', 'true');
+
+    var price     = btn.dataset.variantPrice;
+    var title     = btn.dataset.variantTitle;
+    var available = btn.dataset.variantAvailable === 'true';
+    var inventory = parseInt(btn.dataset.variantInventory, 10);
+
+    document.getElementById('tcg-price').textContent          = price;
+    document.getElementById('tcg-selected-label').textContent = title;
+    document.getElementById('tcg-variant-input').value        = btn.dataset.variantId;
+
+    var addBtn = document.querySelector('#tcg-product-form button[type=submit]');
+    if (available) {
+      addBtn.textContent = 'Add to cart';
+      addBtn.disabled    = false;
+      addBtn.style.background = '#FFC72C';
+      addBtn.style.color      = '#0E1530';
+    } else {
+      addBtn.textContent = 'Sold out';
+      addBtn.disabled    = true;
+      addBtn.style.background = '#1B2448';
+      addBtn.style.color      = '#8A96B8';
+    }
+
+    /* Update stock badge */
+    var stockBadge = document.querySelector('[data-tcg-stock]');
+    if (stockBadge) {
+      if (!available) {
+        stockBadge.textContent = 'Sold out';
+        stockBadge.style.background = 'rgba(232,64,44,.15)';
+        stockBadge.style.color = '#E8402C';
+      } else if (inventory === 1) {
+        stockBadge.textContent = 'Only 1 left';
+        stockBadge.style.background = 'rgba(61,214,140,.15)';
+        stockBadge.style.color = '#3DD68C';
+      } else {
+        stockBadge.textContent = 'In stock';
+        stockBadge.style.background = 'rgba(61,214,140,.15)';
+        stockBadge.style.color = '#3DD68C';
+      }
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "TCG – Product Page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Show related products",
+      "default": true
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "presets": []
+}
+{% endschema %}

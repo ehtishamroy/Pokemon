@@ -1,0 +1,113 @@
+{% comment %}
+  TCG Hitz — Hero Section
+  Matches index.html: Cinematic hero with tilt card, search bar, brand tiles
+{% endcomment %}
+
+<!-- ===== CINEMATIC HERO (Shopify: sections/tcg-hero.liquid) ===== -->
+<section class="smoke pt-12 pb-10 lg:pt-16 lg:pb-14">
+  <div class="mx-auto max-w-site px-4 sm:px-6">
+    <div class="grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="stars text-sm">★★★★★ <span class="text-paper-dim font-semibold ml-1">Trusted at card shows every weekend</span></p>
+        <h1 class="font-display text-[42px] sm:text-6xl lg:text-[68px] leading-[.98] mt-4">
+          CHASE<br>THE RARE
+        </h1>
+        <p class="mt-5 max-w-[46ch] text-paper-dim leading-relaxed">
+          {{ section.settings.subheading }}
+        </p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="{{ section.settings.cta_primary_link }}" class="rounded-full bg-gold px-7 py-3.5 font-bold text-ink hover:bg-gold-deep">{{ section.settings.cta_primary_label }}</a>
+          <a href="{{ section.settings.cta_secondary_link }}" class="rounded-full border border-gold/45 px-7 py-3.5 font-bold text-gold hover:bg-gold/10">{{ section.settings.cta_secondary_label }}</a>
+        </div>
+        <div class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-paper-dim">
+          <span class="flex items-center gap-2"><span class="text-gold">✦</span> Real photos, every single</span>
+          <span class="flex items-center gap-2"><span class="text-gold">✦</span> Ships in 1 business day</span>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <figure class="w-[min(78vw,340px)]">
+          <div class="holo" data-tilt="14" aria-label="Featured card, move to tilt">
+            <div class="holo__card">
+              {%- if section.settings.featured_product != blank -%}
+                {%- assign fp = all_products[section.settings.featured_product] -%}
+                <img src="{{ fp.featured_image | image_url: width: 680 }}" alt="{{ fp.title }}" width="340" height="476">
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'w-full h-auto' }}
+              {%- endif -%}
+              <span class="holo__glare"></span>
+              <span class="holo__rainbow"></span>
+            </div>
+          </div>
+          <figcaption class="mt-4 text-center text-sm">
+            {%- if section.settings.featured_product != blank -%}
+              <a href="{{ fp.url }}" class="font-semibold text-gold hover:underline">See this week's chase →</a>
+            {%- endif -%}
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- centered search (Zardo) -->
+    <form class="mt-12 max-w-xl mx-auto" role="search" action="/search" method="get">
+      <input type="hidden" name="type" value="product">
+      <label class="sr-only" for="q">Search</label>
+      <div class="relative">
+        <input id="q" name="q" type="search" placeholder="Search a card, set or number…" class="w-full rounded-full bg-felt-2/80 border border-gold/25 pl-12 pr-4 py-3.5 placeholder:text-slate focus:border-gold">
+        <svg class="absolute left-4 top-4 h-5 w-5 text-gold/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>
+      </div>
+    </form>
+
+    <!-- brand tiles — the three games on his machines -->
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/collections/all" class="brand text-center min-w-[150px]"><span class="block font-display text-xl text-gold">Pokémon</span><span class="text-xs text-slate">Singles · Sealed · Slabs</span></a>
+      <a href="/collections/all" class="brand text-center min-w-[150px]"><span class="block font-display text-xl text-gold">Magic</span><span class="text-xs text-slate">Coming soon</span></a>
+      <a href="/collections/all" class="brand text-center min-w-[150px]"><span class="block font-display text-xl text-gold">One Piece</span><span class="text-xs text-slate">Coming soon</span></a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Hero",
+  "settings": [
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Featured (tilt) card"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Pokémon singles with real photos of the actual card, sealed boxes, mystery packs, graded slabs — plus our own TCG Hitz vending machines."
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary CTA label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary CTA label",
+      "default": "MYSTERY PACKS"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_link",
+      "label": "Secondary CTA link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG Hero"
+    }
+  ]
+}
+{% endschema %}

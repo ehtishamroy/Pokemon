@@ -1,0 +1,27 @@
+{% comment %}
+  TCG Hitz — Top Announcement Bar
+  Matches index.html lines 17-20
+{% endcomment %}
+
+<div class="bg-gold text-ink text-center text-[13px] font-bold py-1.5 px-4">
+  {{ section.settings.message }}
+</div>
+
+{% schema %}
+{
+  "name": "TCG Top Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Message",
+      "default": "CHASE THE RARE · MYSTERY PACKS RESTOCKED WEEKLY"
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG Top Bar"
+    }
+  ]
+}
+{% endschema %}
