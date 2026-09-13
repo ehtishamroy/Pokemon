@@ -12,9 +12,9 @@
     "tcg_faq": {
       "type": "tcg-faq",
       "blocks": {
-        "q1": { "type": "item", "settings": { "question": "What do you buy?", "answer": "Singles, graded slabs and sealed product — any size collection." } },
-        "q2": { "type": "item", "settings": { "question": "How do I get an offer?", "answer": "Send clear photos of the fronts and backs, or bring your cards to a show. We reply fast." } },
-        "q3": { "type": "item", "settings": { "question": "How do you pay?", "answer": "Cash at shows, or bank transfer — paid promptly once we agree a price." } }
+        "q1": { "type": "qa", "settings": { "question": "What do you buy?", "answer": "Singles, graded slabs and sealed product — any size collection." } },
+        "q2": { "type": "qa", "settings": { "question": "How do I get an offer?", "answer": "Send clear photos of the fronts and backs, or bring your cards to a show. We reply fast." } },
+        "q3": { "type": "qa", "settings": { "question": "How do you pay?", "answer": "Cash at shows, or bank transfer — paid promptly once we agree a price." } }
       },
       "block_order": ["q1", "q2", "q3"],
       "settings": { "heading": "Selling FAQ", "subheading": "How buying and trading works." }
