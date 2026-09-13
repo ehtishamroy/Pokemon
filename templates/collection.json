@@ -1,46 +1,21 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "tcg_collection": {
       "type": "tcg-main-collection",
       "blocks": {
-        "prints_banner": {
-          "type": "category_banner",
-          "settings": {
-            "anchor": "prints",
-            "image": "shopify://shop_images/WhatsApp_Image_2026-09-05_at_2.59.42_AM_1.jpg",
-            "heading": "3D prints",
-            "subheading": "Card stands, figures and display balls we print in-house.",
-            "link": ""
-          }
-        },
-        "vending_banner": {
-          "type": "category_banner",
-          "settings": {
-            "anchor": "vending",
-            "image": "shopify://shop_images/793802890_122129823285344205_480277343986023261_n.jpg",
-            "heading": "Vending machines",
-            "subheading": "Pokémon card vending machines for shops and shows.",
-            "link": ""
-          }
-        }
+        "w1": { "type": "wcat", "settings": { "heading": "Mystery Packs", "subheading": "Chase the rare", "link": "/collections/mystery" } },
+        "w2": { "type": "wcat", "settings": { "heading": "Graded Slabs", "subheading": "PSA · CGC · BGS", "link": "/collections/slabs" } },
+        "w3": { "type": "wcat", "settings": { "heading": "Merchandise", "subheading": "3D prints & collectibles", "link": "/collections/merchandise" } },
+        "w4": { "type": "wcat", "settings": { "heading": "Vending Machines", "subheading": "For your shop or event", "link": "/pages/vending-machines" } }
       },
-      "block_order": [
-        "prints_banner",
-        "vending_banner"
-      ],
-      "settings": {}
+      "block_order": ["w1", "w2", "w3", "w4"],
+      "settings": {
+        "products_per_page": 24,
+        "count_prefix": "Every card photographed.",
+        "count_suffix": "in stock.",
+        "rest_heading": "Shop the rest of the store"
+      }
     }
   },
-  "order": [
-    "tcg_collection"
-  ]
+  "order": ["tcg_collection"]
 }

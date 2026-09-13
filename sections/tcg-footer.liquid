@@ -1,0 +1,61 @@
+{% comment %}
+  TCG Hitz — Footer (1:1 with <footer> in tcg-hitz-store/index.html)
+  Link columns are blocks: one "Label|/url" per line in the Links field.
+{% endcomment %}
+
+{%- liquid
+  assign logo_url = 'logo.png' | asset_url
+  if section.settings.logo != blank
+    assign logo_url = section.settings.logo | image_url: width: 400
+  endif
+-%}
+
+<footer class="tcg-scope border-t border-gold/15 py-12 mt-8 font-sans antialiased text-paper">
+  <div class="mx-auto max-w-site px-4 sm:px-6 grid md:grid-cols-4 gap-10">
+    <div class="md:col-span-2">{% if section.settings.show_logo %}<img src="{{ logo_url }}" alt="{{ shop.name | escape }}" class="h-14 w-auto">{% endif %}<p class="{% if section.settings.show_logo %}mt-4 {% endif %}text-paper-dim max-w-[44ch] text-sm">{{ section.settings.blurb }}</p></div>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'column' -%}
+        <div {{ block.shopify_attributes }}><h3 class="font-bold text-gold text-sm tracking-widest">{{ block.settings.heading }}</h3><ul class="mt-3 space-y-2 text-paper-dim text-sm">
+          {%- assign lines = block.settings.links | strip | newline_to_br | split: '<br />' -%}
+          {%- for line in lines -%}
+            {%- assign parts = line | strip | split: '|' -%}
+            {%- if parts[0] != blank -%}
+              <li><a href="{{ parts[1] | strip | default: '#' }}" class="hover:text-gold">{{ parts[0] | strip }}</a></li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul></div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <div class="mx-auto max-w-site px-4 sm:px-6 mt-10 pt-6 border-t border-gold/10 flex flex-wrap gap-4 justify-between text-xs text-slate">
+    <p>© {{ 'now' | date: '%Y' }} {{ section.settings.copyright }}</p>
+    <p>{{ section.settings.legal }}</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "TCG Footer",
+  "tag": "div",
+  "limit": 1,
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "checkbox", "id": "show_logo", "label": "Show logo", "default": true },
+    { "type": "image_picker", "id": "logo", "label": "Logo (defaults to assets/logo.png)" },
+    { "type": "textarea", "id": "blurb", "label": "About text", "default": "A family-run Pokémon store: singles, sealed, mystery, slabs, merchandise and our own card vending machines. Online and at card shows every weekend." },
+    { "type": "text", "id": "copyright", "label": "Copyright (after the year)", "default": "TCG Hitz. All rights reserved." },
+    { "type": "text", "id": "legal", "label": "Legal line", "default": "Pokémon, Magic and One Piece are trademarks of their respective owners. TCG Hitz is an independent reseller." }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Link column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "SHOP" },
+        { "type": "textarea", "id": "links", "label": "Links — one per line as Label|/url", "default": "Singles|/collections/all\nSealed|/collections/sealed" }
+      ]
+    }
+  ],
+  "presets": []
+}
+{% endschema %}

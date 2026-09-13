@@ -1,0 +1,53 @@
+{% comment %}
+  TCG Hitz — generic page template, styled like the rest of the design.
+  Used by templates/page.json so every new page a merchant creates inherits the
+  ink/gold look instead of Shopify's default native page section.
+  Rich-text from the page editor is wrapped in .tcg-prose (see tailwind-input.css).
+{% endcomment %}
+
+{%- liquid
+  assign width_class = 'max-w-3xl'
+  case section.settings.max_width
+    when 'narrow'
+      assign width_class = 'max-w-2xl'
+    when 'wide'
+      assign width_class = 'max-w-site'
+  endcase
+-%}
+
+<section class="tcg-scope smoke pt-8 pb-14 lg:pb-20">
+  <div class="mx-auto max-w-site px-4 sm:px-6">
+    {%- if section.settings.show_breadcrumb -%}
+      <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-gold">{{ shop.name }}</a><span class="mx-2">/</span><span class="text-paper">{{ page.title }}</span></nav>
+    {%- endif -%}
+
+    <h1 class="stitle stitle--left mt-4">{{ page.title }}</h1>
+    <div class="rule-gold my-7 max-w-[240px]"></div>
+
+    <div class="tcg-prose {{ width_class }}">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG – Page",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
+    {
+      "type": "select",
+      "id": "max_width",
+      "label": "Content width",
+      "options": [
+        { "value": "narrow", "label": "Narrow" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "wide", "label": "Wide" }
+      ],
+      "default": "normal"
+    }
+  ],
+  "presets": []
+}
+{% endschema %}

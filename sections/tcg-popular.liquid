@@ -1,82 +1,52 @@
 {% comment %}
-  TCG Hitz — Most Popular Categories
-  Matches index.html lines 138-150
+  TCG Hitz — Most Popular categories (1:1 with index.html "MOST POPULAR CATEGORIES")
 {% endcomment %}
+
+{%- assign fallbacks = 'store-display.jpg,machine-graffiti.jpg,charizard-stand.jpg,gengar-print.jpg' | split: ',' -%}
 
 <section class="tcg-scope py-10 lg:py-14">
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <h2 class="stitle">{{ section.settings.heading }}</h2>
     <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      {% for block in section.blocks %}
-        <a href="{{ block.settings.link | default: '#' }}" class="wcat h-[190px]" {{ block.shopify_attributes }}>
-          {% if block.settings.image != blank %}
-            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.heading }}">
-          {% else %}
-            {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
-          {% endif %}
-          <div class="wcat__body">
-            <p class="font-display text-xl">{{ block.settings.heading }}</p>
-            <p class="text-xs text-gold">{{ block.settings.subheading }}</p>
-          </div>
-        </a>
-      {% endfor %}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign fb = fallbacks[forloop.index0] | default: 'card-back.svg'
+          if block.settings.image != blank
+            assign img = block.settings.image | image_url: width: 800
+          else
+            assign img = fb | asset_url
+          endif
+        -%}
+        <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="wcat h-[190px]" {{ block.shopify_attributes }}><img src="{{ img }}" alt="{{ block.settings.heading | escape }}" loading="lazy"><div class="wcat__body"><p class="font-display text-xl">{{ block.settings.heading }}</p><p class="text-xs text-gold">{{ block.settings.subheading }}</p></div></a>
+      {%- endfor -%}
     </div>
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "TCG Popular",
-  "max_blocks": 4,
+  "name": "TCG Most Popular",
   "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Section heading",
-      "default": "Most Popular"
-    }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Most Popular" }
   ],
   "blocks": [
     {
       "type": "item",
-      "name": "Collection card",
+      "name": "Category tile",
       "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading",
-          "default": "Singles"
-        },
-        {
-          "type": "text",
-          "id": "subheading",
-          "label": "Subheading",
-          "default": "Real photos · 1 of each"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
-        }
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Singles" },
+        { "type": "text", "id": "subheading", "label": "Subheading", "default": "Real photos · 1 of each" },
+        { "type": "url", "id": "link", "label": "Link" }
       ]
     }
   ],
-  "presets": [
-    {
-      "name": "TCG Popular",
-      "blocks": [
-        { "type": "item", "settings": { "heading": "Singles", "subheading": "Real photos · 1 of each" } },
-        { "type": "item", "settings": { "heading": "Mystery Packs", "subheading": "Chase the rare" } },
-        { "type": "item", "settings": { "heading": "Graded Slabs", "subheading": "PSA · CGC · BGS" } },
-        { "type": "item", "settings": { "heading": "Merchandise", "subheading": "3D prints & collectibles" } }
-      ]
-    }
-  ]
+  "presets": [{ "name": "TCG Most Popular", "blocks": [
+    { "type": "item", "settings": { "heading": "Singles", "subheading": "Real photos · 1 of each" } },
+    { "type": "item", "settings": { "heading": "Mystery Packs", "subheading": "Chase the rare" } },
+    { "type": "item", "settings": { "heading": "Graded Slabs", "subheading": "PSA · CGC · BGS" } },
+    { "type": "item", "settings": { "heading": "Merchandise", "subheading": "3D prints & collectibles" } }
+  ] }]
 }
 {% endschema %}

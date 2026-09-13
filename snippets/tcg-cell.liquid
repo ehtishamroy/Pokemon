@@ -1,0 +1,74 @@
+{% comment %}
+  TCG Hitz — product "cell" (1:1 with <article class="cell"> in the reference)
+
+  Usage:
+    {% render 'tcg-cell', product: product %}                 → rail cell (186px) with ADD
+    {% render 'tcg-cell', product: product, full: true %}     → grid cell (w-full) with ADD
+    {% render 'tcg-cell', product: product, style: 'link' %}  → <a class="cell"> card, no ADD (Merchandise grid)
+    {% render 'tcg-cell', product: product, style: 'compact' %} → small <a class="cell"> (Just Landed grid)
+
+  Meta line reads card.* / custom.* metafields (set · number · condition) and
+  falls back to product type / vendor.
+{% endcomment %}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign card_set = product.metafields.card.set.value | default: product.metafields.custom.set.value | default: product.metafields.card.set | default: product.metafields.custom.set
+  assign card_number = product.metafields.card.number.value | default: product.metafields.custom.number.value | default: product.metafields.card.number | default: product.metafields.custom.number
+  assign card_condition = product.metafields.card.condition.value | default: product.metafields.custom.condition.value | default: product.metafields.card.condition | default: product.metafields.custom.condition
+
+  assign meta = ''
+  if card_set != blank
+    assign meta = card_set
+  endif
+  if card_number != blank
+    if meta != blank
+      assign meta = meta | append: ' · '
+    endif
+    assign meta = meta | append: card_number
+  endif
+  if card_condition != blank
+    if meta != blank
+      assign meta = meta | append: ' · '
+    endif
+    assign meta = meta | append: card_condition
+  endif
+  if meta == blank
+    if product.type != blank and product.vendor != blank
+      assign meta = product.vendor | append: ' · ' | append: product.type
+    else
+      assign meta = product.type | default: product.vendor
+    endif
+  endif
+
+  assign badge = ''
+  if product.available == false
+    assign badge = 'Sold out'
+  elsif variant.inventory_management != blank and variant.inventory_quantity == 1
+    assign badge = 'Only 1 left'
+  endif
+
+  if product.featured_image
+    assign img = product.featured_image | image_url: width: 500
+  else
+    assign img = 'card-back.svg' | asset_url
+  endif
+-%}
+
+{%- if style == 'compact' -%}
+  <a href="{{ product.url }}" class="tcg-scope cell w-full"><span class="block cell__img">{% if badge != blank %}<span class="cell__badge">{{ badge }}</span>{% endif %}<img src="{{ img }}" alt="{{ product.title | escape }}" loading="lazy"></span><h3 class="mt-2 text-xs font-bold leading-tight">{{ product.title }}</h3><p class="text-xs text-gold font-bold">{{ variant.price | money }}</p></a>
+{%- elsif style == 'link' -%}
+  <a href="{{ product.url }}" class="tcg-scope cell w-full"><span class="block cell__img">{% if badge != blank %}<span class="cell__badge">{{ badge }}</span>{% endif %}<img src="{{ img }}" alt="{{ product.title | escape }}" loading="lazy"></span><h3 class="mt-3 font-bold text-sm">{{ product.title }}</h3><p class="text-xs text-slate">{{ meta }}</p><p class="mt-1 font-bold text-gold">{{ variant.price | money }}</p></a>
+{%- else -%}
+  <article class="tcg-scope cell{% if full %} w-full{% endif %}">
+    <a href="{{ product.url }}" class="block cell__img">{% if badge != blank %}<span class="cell__badge">{{ badge }}</span>{% endif %}<img src="{{ img }}" alt="{{ product.title | escape }}" loading="lazy"></a>
+    <h3 class="mt-3 font-bold text-sm leading-tight"><a href="{{ product.url }}" class="hover:text-gold">{{ product.title }}</a></h3>
+    <p class="text-xs text-slate">{{ meta }}</p>
+    <p class="mt-1 font-bold text-gold">{{ variant.price | money }}</p>
+    {%- if product.available -%}
+      <button type="button" data-add data-variant-id="{{ variant.id }}" class="mt-2 w-full rounded-full border border-gold/35 py-1.5 text-xs font-bold text-gold hover:bg-gold hover:text-ink">ADD</button>
+    {%- else -%}
+      <button type="button" disabled class="mt-2 w-full rounded-full border border-white/15 py-1.5 text-xs font-bold text-slate cursor-not-allowed">SOLD OUT</button>
+    {%- endif -%}
+  </article>
+{%- endif -%}

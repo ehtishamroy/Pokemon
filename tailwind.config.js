@@ -7,11 +7,18 @@ module.exports = {
     './sections/*.liquid',
     './snippets/*.liquid',
     './blocks/*.liquid',
+    './assets/tcg.js',
   ],
   // Preflight is Tailwind's global reset. Loaded site-wide it strips Shopify's
   // native buttons, lists, headings and form controls, breaking the cart drawer,
   // product form and checkout UI. We disable it and re-add only the resets the
   // custom TCG sections need, scoped under `.tcg-scope` (see tailwind-input.css).
+  // Shopify's native base.css (kept for checkout/account/search pages) defines its own
+  // .grid/.flex/.hidden/.relative/.text-* classes and a higher-specificity input rule;
+  // on desktop its 14-track page-grid .grid rule overrides grid-cols-*. Making every
+  // utility !important lets the design's utilities win regardless of order/specificity.
+  // @layer components (the app.css port) is unaffected, matching the reference cascade.
+  important: true,
   corePlugins: {
     preflight: false,
   },

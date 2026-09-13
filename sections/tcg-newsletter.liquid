@@ -1,28 +1,33 @@
 {% comment %}
-  TCG Hitz — Newsletter Section
-  Matches index.html lines 278-292
+  TCG Hitz — Newsletter (1:1 with index.html "NEWSLETTER"), wired to Shopify's customer form
 {% endcomment %}
+
+{%- liquid
+  assign logo_url = 'logo.png' | asset_url
+  if section.settings.logo != blank
+    assign logo_url = section.settings.logo | image_url: width: 300
+  endif
+-%}
 
 <section class="tcg-scope pb-16">
   <div class="mx-auto max-w-2xl px-4 sm:px-6">
     <div class="cabinet bg-ink p-8 lg:p-10 text-center">
-      <img src="{{ 'logo.png' | asset_url }}" alt="TCG Hitz" class="h-14 w-auto mx-auto">
+      <img src="{{ logo_url }}" alt="{{ shop.name | escape }}" class="h-14 w-auto mx-auto">
       <h2 class="font-display text-2xl sm:text-3xl mt-5">{{ section.settings.heading }}</h2>
       <p class="mt-2 text-paper-dim">{{ section.settings.subheading }}</p>
-      
-      {% form 'customer', class: 'mt-6 flex flex-col sm:flex-row gap-3' %}
+      {%- form 'customer', class: 'mt-6', id: 'tcg-newsletter' -%}
         <input type="hidden" name="contact[tags]" value="newsletter">
-        <label class="sr-only" for="NewsletterEmail">Email</label>
-        <input
-          id="NewsletterEmail"
-          type="email"
-          name="contact[email]"
-          required
-          placeholder="Email address"
-          class="flex-1 rounded-full bg-felt-2 border border-gold/25 px-5 py-3.5 placeholder:text-slate focus:border-gold text-paper"
-        >
-        <button type="submit" class="rounded-full bg-gold px-7 py-3.5 font-bold text-ink hover:bg-gold-deep">JOIN</button>
-      {% endform %}
+        {%- if form.posted_successfully? -%}
+          <p class="rounded-full bg-gold/10 border border-gold/45 text-gold px-5 py-3 font-bold">{{ section.settings.success_text }}</p>
+        {%- else -%}
+          {%- if form.errors -%}<p class="mb-3 text-sm text-chase">{{ form.errors.messages['email'] }}</p>{%- endif -%}
+          <div class="flex flex-col sm:flex-row gap-3">
+            <label class="sr-only" for="tcg-newsletter-email">Email</label>
+            <input id="tcg-newsletter-email" name="contact[email]" type="email" required placeholder="Email address" class="flex-1 rounded-full bg-felt-2 border border-gold/25 px-5 py-3.5 placeholder:text-slate focus:border-gold">
+            <button type="submit" class="rounded-full bg-gold px-7 py-3.5 font-bold text-ink hover:bg-gold-deep">{{ section.settings.button_label }}</button>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
     </div>
   </div>
 </section>
@@ -31,23 +36,12 @@
 {
   "name": "TCG Newsletter",
   "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Join the Hitz Insider List"
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Restocks, drops and show dates. No spam."
-    }
+    { "type": "image_picker", "id": "logo", "label": "Logo (defaults to assets/logo.png)" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Join the Hitz Insider List" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Restocks, drops and show dates. No spam." },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "JOIN" },
+    { "type": "text", "id": "success_text", "label": "Success message", "default": "JOINED — welcome to the Hitz Family." }
   ],
-  "presets": [
-    {
-      "name": "TCG Newsletter"
-    }
-  ]
+  "presets": [{ "name": "TCG Newsletter" }]
 }
 {% endschema %}

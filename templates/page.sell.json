@@ -1,24 +1,16 @@
 {
   "sections": {
     "tcg_sell": {
-      "type": "tcg-sell-cta",
-      "settings": {
-        "heading": "Sell or trade your cards",
-        "body": "Bring it to a show or send photos. We buy singles, slabs and sealed — fair offers, paid fast.",
-        "cta_label": "Get an offer",
-        "cta_link": "/pages/contact"
-      }
-    },
-    "tcg_faq": {
-      "type": "tcg-faq",
+      "type": "tcg-sell",
       "blocks": {
-        "q1": { "type": "item", "settings": { "question": "What do you buy?", "answer": "Singles, graded slabs and sealed product — any size collection." } },
-        "q2": { "type": "item", "settings": { "question": "How do I get an offer?", "answer": "Send clear photos of the fronts and backs, or bring your cards to a show. We reply fast." } },
-        "q3": { "type": "item", "settings": { "question": "How do you pay?", "answer": "Cash at shows, or bank transfer — paid promptly once we agree a price." } }
+        "s1": { "type": "step", "settings": { "title": "Send photos", "body": "Fill the form below with clear photos of what you have." } },
+        "s2": { "type": "step", "settings": { "title": "We value it", "body": "We check live market prices and send you an offer, usually within a day." } },
+        "s3": { "type": "step", "settings": { "title": "You accept", "body": "Take cash, or extra value as store credit. No pressure either way." } },
+        "s4": { "type": "step", "settings": { "title": "Get paid", "body": "Meet us at a show, or ship it in and we pay on arrival." } }
       },
-      "block_order": ["q1", "q2", "q3"],
-      "settings": { "heading": "Selling FAQ", "subheading": "How buying and trading works." }
+      "block_order": ["s1", "s2", "s3", "s4"],
+      "settings": {}
     }
   },
-  "order": ["tcg_sell", "tcg_faq"]
+  "order": ["tcg_sell"]
 }
