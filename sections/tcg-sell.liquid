@@ -52,14 +52,14 @@
         <h3 class="font-bold text-gold">{{ section.settings.yes_heading }}</h3>
         <ul class="mt-3 space-y-2 text-sm text-paper-dim">
           {%- assign yes_lines = section.settings.yes_list | strip | newline_to_br | split: '<br />' -%}
-          {%- for line in yes_lines -%}{%- if line | strip != blank -%}<li class="flex gap-2"><span class="text-mint">✔</span> {{ line | strip }}</li>{%- endif -%}{%- endfor -%}
+          {%- for line in yes_lines -%}{%- assign yl = line | strip -%}{%- if yl != blank -%}<li class="flex gap-2"><span class="text-mint">✔</span> {{ yl }}</li>{%- endif -%}{%- endfor -%}
         </ul>
       </div>
       <div class="cabinet bg-ink p-6">
         <h3 class="font-bold text-gold">{{ section.settings.no_heading }}</h3>
         <ul class="mt-3 space-y-2 text-sm text-paper-dim">
           {%- assign no_lines = section.settings.no_list | strip | newline_to_br | split: '<br />' -%}
-          {%- for line in no_lines -%}{%- if line | strip != blank -%}<li class="flex gap-2"><span class="text-chase">✕</span> {{ line | strip }}</li>{%- endif -%}{%- endfor -%}
+          {%- for line in no_lines -%}{%- assign nl = line | strip -%}{%- if nl != blank -%}<li class="flex gap-2"><span class="text-chase">✕</span> {{ nl }}</li>{%- endif -%}{%- endfor -%}
         </ul>
         {%- if section.settings.no_footnote != blank -%}<p class="mt-4 text-sm text-slate">{{ section.settings.no_footnote }}</p>{%- endif -%}
       </div>
