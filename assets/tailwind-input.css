@@ -30,6 +30,65 @@
     outline-offset: 3px;
     border-radius: 6px;
   }
+
+  /*
+   * Scoped reset for custom TCG markup.
+   *
+   * Tailwind's global Preflight is DISABLED (see tailwind.config.js) so it can
+   * no longer strip Shopify's native buttons, lists, headings and form controls
+   * — that global reset is what broke the cart drawer, product form and checkout.
+   *
+   * The custom sections still expect a Preflight-style baseline, so we re-add it
+   * here scoped to `.tcg-scope` (applied to each custom section's root). Native
+   * Shopify sections keep base.css styling untouched. `:where()` keeps these at
+   * zero-plus-.tcg-scope specificity so Tailwind utilities still win. `box-sizing`
+   * is already `border-box` globally via base.css, so it isn't repeated here.
+   */
+  .tcg-scope :where(h1, h2, h3, h4, h5, h6) {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+  }
+
+  .tcg-scope :where(p, figure, blockquote, dl, dd, pre) {
+    margin: 0;
+  }
+
+  .tcg-scope :where(ul, ol) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tcg-scope :where(a) {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  .tcg-scope :where(button, input, optgroup, select, textarea) {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tcg-scope :where(button, [type='button'], [type='reset'], [type='submit']) {
+    background-color: transparent;
+    background-image: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .tcg-scope :where(img, svg, video, canvas) {
+    display: block;
+    max-width: 100%;
+  }
+
+  .tcg-scope :where(img, video) {
+    height: auto;
+  }
 }
 
 @layer utilities {
@@ -323,68 +382,13 @@
     background-color: #1B2448 !important;
   }
 
-  /* ── 6. INLINE SEARCH BAR on desktop (hidden md:flex matching index.html) */
+  /* ── 6. Search ────────────────────────────────────────────────────────── */
   /*
-     Horizon puts its search as a modal-trigger icon on the right.
-     We inject a real pill search bar after the nav and hide the icon
-     on desktop, exactly like:
-       <form class="hidden md:flex flex-1 max-w-md ml-auto" …>
+     We now use the native Horizon search (modal + predictive search), themed
+     dark below (section 12). The old custom "#tcg-inline-search" pill and the
+     rule that hid the native `.search-action` on desktop were removed so the
+     native search icon/modal work as intended.
   */
-
-  /* Hide the modal search button on desktop — replaced by inline form */
-  @media screen and (min-width: 768px) {
-    .search-action {
-      display: none !important;
-    }
-  }
-
-  /* Inject the inline search bar using a CSS-generated element on the header columns */
-  /* We use the tcg-inline-search id we'll inject via JS below */
-  #tcg-inline-search {
-    display: none;
-    flex: 1;
-    max-width: 28rem;
-    margin-left: auto;
-    position: relative;
-  }
-
-  @media screen and (min-width: 768px) {
-    #tcg-inline-search {
-      display: flex;
-    }
-  }
-
-  #tcg-inline-search input {
-    width: 100%;
-    border-radius: 9999px;
-    background: #141C3A;
-    border: 1px solid rgba(255, 255, 255, .10);
-    padding: 0.625rem 1rem 0.625rem 2.75rem;
-    font-size: 15px;
-    color: #F3F5FA;
-    font-family: inherit;
-    transition: border-color 0.15s ease;
-  }
-
-  #tcg-inline-search input::placeholder {
-    color: #8A96B8;
-  }
-
-  #tcg-inline-search input:focus {
-    outline: none;
-    border-color: #3EC1FF;
-  }
-
-  #tcg-inline-search svg {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1.25rem;
-    height: 1.25rem;
-    color: #8A96B8;
-    pointer-events: none;
-  }
 
   /* ── 7. Icon action buttons ───────────────────────────────────────────── */
   .header-actions__action svg {
@@ -820,3 +824,113 @@ body {
 
 /* ── Social images ───────────────────────────────────────────────────────── */
 .tcg-social__img { border-color: rgba(255,199,44,.15) !important; }
+
+/* ==========================================================================
+   TCG HITZ — PRODUCT BUY BOX (native blocks skinned)
+   The product page renders Shopify's native price / variant-picker / quantity /
+   buy-buttons blocks inside `.tcg-buybox`. These rules skin them to the dark/gold
+   design without altering their behaviour (add-to-cart, variant switching).
+   ========================================================================== */
+.tcg-buybox,
+.tcg-buybox :is(p, span, label, legend, .price, .price__regular, .price__sale) {
+  color: #F3F5FA;
+}
+
+/* Price prominent + gold */
+.tcg-buybox .price,
+.tcg-buybox .price *,
+.tcg-buybox [class*='price'] {
+  color: #FFC72C !important;
+}
+
+/* Selected/available variant pills */
+.tcg-buybox .variant-option__button-label,
+.tcg-buybox .variant-option label,
+.tcg-buybox fieldset legend {
+  color: #F3F5FA !important;
+}
+
+/* Primary add-to-cart button → gold */
+.tcg-buybox .button:not(.button-secondary),
+.tcg-buybox button[type='submit'],
+.tcg-buybox add-to-cart-component button {
+  background: #FFC72C !important;
+  color: #0E1530 !important;
+  border-radius: 9999px !important;
+  font-weight: 700 !important;
+  border: none !important;
+}
+.tcg-buybox .button:not(.button-secondary):hover,
+.tcg-buybox button[type='submit']:hover,
+.tcg-buybox add-to-cart-component button:hover {
+  background: #E0A600 !important;
+}
+
+/* Quantity selector dark */
+.tcg-buybox quantity-selector,
+.tcg-buybox .quantity-selector {
+  background: #141C3A !important;
+  border: 1px solid rgba(255, 255, 255, .10) !important;
+  border-radius: 9999px !important;
+}
+.tcg-buybox quantity-selector button,
+.tcg-buybox .quantity-selector button,
+.tcg-buybox quantity-selector input {
+  color: #F3F5FA !important;
+  background: transparent !important;
+}
+
+/* ==========================================================================
+   TCG HITZ — FOOTER THEMING
+   The native Horizon footer (sections/footer.liquid + footer-group.json) is kept
+   intact for schema validity; these rules skin it to match the dark/gold design.
+   ========================================================================== */
+
+/* Keep the footer transparent so the felt body background shows through, and
+   add the gold hairline from the reference design. */
+footer,
+footer .section-background,
+footer .section {
+  background: transparent !important;
+  color: #C5CCE0 !important;
+}
+
+footer .footer-content {
+  border-top: 1px solid rgba(255, 199, 44, .15) !important;
+  padding-top: 2.5rem !important;
+}
+
+/* Body copy / link colour + gold hover */
+footer,
+footer p {
+  color: #C5CCE0 !important;
+}
+
+footer a {
+  color: #C5CCE0 !important;
+  text-decoration: none !important;
+  transition: color .15s ease !important;
+}
+
+footer a:hover {
+  color: #FFC72C !important;
+}
+
+/* Column headings (SHOP / HELP / newsletter) — gold, wide-tracked caps */
+footer :is(h3, h4, h5, h6) {
+  color: #FFC72C !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+}
+
+/* Newsletter input in footer */
+footer input[type='email'],
+footer input[type='text'] {
+  background: #0E1530 !important;
+  color: #F3F5FA !important;
+  border: 1px solid rgba(255, 199, 44, .25) !important;
+}
+footer input::placeholder { color: #8A96B8 !important; }

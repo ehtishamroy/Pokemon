@@ -1,233 +1,270 @@
 {% comment %}
   TCG Hitz — Collection page
-  Shopify: sections/tcg-main-collection.liquid
-  Dark felt grid + sidebar filters matching collection.html exactly.
-  NOTE: {% paginate %} cannot live in a section; it wraps this section
-  from templates/collection.liquid.
+
+  Built on Shopify's NATIVE collection machinery so faceted filtering (Section
+  Rendering API), sorting and pagination / infinite-scroll all keep working:
+  the structure below — <collection-component> > <results-list> > the `filters`
+  block + `product-grid` snippet + `{% paginate %}` — is exactly what the native
+  `main-collection` section uses and what `results-list.js` re-renders by
+  `section-id`. The ONLY change is the per-card render inside each
+  `<li ref="cards[]">`: we inject `snippets/tcg-card-tile.liquid` instead of the
+  native `_product-card` block, so native add-to-cart/filter/pagination are
+  untouched while the card matches the TCG design.
 {% endcomment %}
 
-{% paginate collection.products by 24 %}
+<script
+  src="{{ 'results-list.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
 
-<div class="mx-auto max-w-site px-4 sm:px-6 py-8 lg:py-12">
+{% javascript %}
+  const url = new URL(window.location.href);
+  if (url.hash) {
+    document.addEventListener(
+      'DOMContentLoaded',
+      () => {
+        const card = document.getElementById(url.hash.slice(1));
+        if (card) {
+          card.scrollIntoView({ behavior: 'instant' });
+        }
+      },
+      { once: true }
+    );
+  }
+{% endjavascript %}
 
-  {%- comment -%} Breadcrumb {%- endcomment -%}
+{% render 'collection-wrapper-styles' %}
+
+<div class="tcg-scope mx-auto max-w-site px-4 sm:px-6 pt-8 lg:pt-12">
   <nav class="text-sm" style="color:#8A96B8;" aria-label="Breadcrumb">
-    <a href="/" style="color:#8A96B8;" onmouseover="this.style.color='#3EC1FF';" onmouseout="this.style.color='#8A96B8';">TCG Hitz</a>
+    <a href="{{ routes.root_url }}" class="hover:underline" style="color:#8A96B8;">TCG Hitz</a>
     <span class="mx-2">/</span>
     <span style="color:#F3F5FA;">{{ collection.title }}</span>
   </nav>
-
-  <div class="mt-4 flex items-end justify-between gap-6 flex-wrap">
-    <div>
-      <h1 class="font-display text-4xl sm:text-5xl" style="color:#F3F5FA;">{{ collection.title }}</h1>
-      <p class="mt-2" style="color:#C5CCE0;">
-        Every card photographed.
-        <span>{{ collection.products_count }} cards in stock.</span>
-      </p>
-    </div>
-    <div class="flex items-center gap-3">
-      <button id="tcg-filters-toggle"
-              class="rounded-full border px-4 py-2.5 font-semibold"
-              style="display:none;border-color:rgba(255,255,255,.15);color:#F3F5FA;"
-              onclick="document.getElementById('tcg-filters').style.display=document.getElementById('tcg-filters').style.display==='none'?'block':'none';">
-        Filters
-      </button>
-      {%- render 'sorting', results: collection -%}
-    </div>
-    <script>
-      if (window.innerWidth < 1024) {
-        var btn = document.getElementById('tcg-filters-toggle');
-        if (btn) btn.style.display = 'inline-flex';
-      }
-    </script>
+  <div class="mt-4">
+    <h1 class="font-display text-4xl sm:text-5xl" style="color:#F3F5FA;">{{ collection.title }}</h1>
+    <p class="mt-2" style="color:#C5CCE0;">
+      Every card photographed.
+      <span>{{ collection.products_count }} cards in stock.</span>
+    </p>
   </div>
-
-
-  {%- comment -%} Grid layout: 2-col on desktop (sidebar + products), 1-col on mobile {%- endcomment -%}
-  <style>
-    #tcg-collection-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    @media (min-width: 1024px) {
-      #tcg-collection-layout { grid-template-columns: 260px 1fr; }
-      #tcg-filters { display: block !important; }
-      #tcg-filters-toggle { display: none !important; }
-    }
-  </style>
-
-  <div class="mt-8" id="tcg-collection-layout">
-
-    {%- comment -%} Sidebar Filters {%- endcomment -%}
-    {%- if collection.filters.size > 0 -%}
-      <aside id="tcg-filters" style="display:none;">
-        <form class="space-y-7 filter-form" style="position:sticky;top:96px;">
-          <div class="flex items-center justify-between">
-            <h2 class="font-bold" style="color:#F3F5FA;">Filter</h2>
-            <a href="{{ collection.url }}" class="text-sm hover:underline" style="color:#8A96B8;">Clear all</a>
-          </div>
-
-          {% for filter in collection.filters %}
-            <fieldset>
-              <legend class="font-semibold mb-3">{{ filter.label }}</legend>
-              <div class="space-y-2 text-[15px]">
-                {% if filter.type == 'price_range' %}
-                  <div class="flex items-center gap-2">
-                    <label class="sr-only" for="filter-price-min">Min price</label>
-                    <input id="filter-price-min"
-                           name="{{ filter.min_value.param_name }}"
-                           type="number"
-                           placeholder="$"
-                           value="{{ filter.min_value.value | divided_by: 100 }}"
-                           class="w-full rounded-lg border px-3 py-2 text-sm"
-                           style="background:#141C3A;border-color:rgba(255,255,255,.10);color:#F3F5FA;"
-                           onchange="this.form.submit();">
-                    <span style="color:#8A96B8;">–</span>
-                    <label class="sr-only" for="filter-price-max">Max price</label>
-                    <input id="filter-price-max"
-                           name="{{ filter.max_value.param_name }}"
-                           type="number"
-                           placeholder="$"
-                           value="{{ filter.max_value.value | divided_by: 100 }}"
-                           class="w-full rounded-lg border px-3 py-2 text-sm"
-                           style="background:#141C3A;border-color:rgba(255,255,255,.10);color:#F3F5FA;"
-                           onchange="this.form.submit();">
-                  </div>
-                {% else %}
-                  {% for filter_value in filter.values %}
-                    <label class="flex items-center gap-3">
-                      <input type="checkbox"
-                             name="{{ filter_value.param_name }}"
-                             value="{{ filter_value.value }}"
-                             class="h-4 w-4 accent-[#3EC1FF]"
-                             style="background-color: white;"
-                             {% if filter_value.active %}checked{% endif %}
-                             onchange="this.form.submit();">
-                      {{ filter_value.label }}
-                    </label>
-                  {% endfor %}
-                {% endif %}
-              </div>
-            </fieldset>
-          {% endfor %}
-        </form>
-      </aside>
-    {%- endif -%}
-
-    {%- comment -%} Product Grid {%- endcomment -%}
-    <div>
-      <div class="tcg-grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-        {% for product in collection.products %}
-          {% render 'tcg-card-tile', product: product %}
-        {% endfor %}
-
-        {% if collection.products.size == 0 %}
-          <div class="col-span-full py-20 text-center">
-            <p class="font-display text-2xl" style="color:#F3F5FA;">No cards found</p>
-            <p class="mt-2" style="color:#8A96B8;">Try adjusting your filters.</p>
-            <a href="{{ collection.url }}" class="mt-6 inline-flex rounded-full px-5 py-2.5 font-semibold" style="background:#FFC72C;color:#0E1530;">Clear filters</a>
-          </div>
-        {% endif %}
-      </div>
-
-      {%- comment -%} Pagination {%- endcomment -%}
-      {% if paginate.pages > 1 %}
-        <nav class="mt-10 flex justify-center gap-2" aria-label="Pagination">
-          {% if paginate.previous %}
-            <a href="{{ paginate.previous.url }}" class="rounded-full px-4 py-2 font-semibold hover:underline" style="color:#F3F5FA;">← Prev</a>
-          {% endif %}
-          {% for part in paginate.parts %}
-            {% if part.is_link %}
-              <a href="{{ part.url }}" class="rounded-full px-4 py-2 font-semibold" style="color:#F3F5FA;"
-                 onmouseover="this.style.background='#1B2448';" onmouseout="this.style.background='';">
-                {{ part.title }}
-              </a>
-            {% elsif part.title == paginate.current_page %}
-              <span class="rounded-full px-4 py-2 font-semibold" style="background:#1B2448;color:#F3F5FA;">{{ part.title }}</span>
-            {% else %}
-              <span class="px-2 py-2" style="color:#8A96B8;">{{ part.title }}</span>
-            {% endif %}
-          {% endfor %}
-          {% if paginate.next %}
-            <a href="{{ paginate.next.url }}" class="rounded-full px-4 py-2 font-semibold hover:underline" style="color:#F3F5FA;">Next →</a>
-          {% endif %}
-        </nav>
-      {% endif %}
-
-    </div>
-  </div>
-
-  {%- comment -%} Category banners (3D prints, Vending) at bottom {%- endcomment -%}
-  <section class="mt-20 tcg-grid md:grid-cols-2 gap-5">
-    {% for block in section.blocks %}
-      {% if block.type == 'category_banner' %}
-        <a href="{{ block.settings.link }}" id="{{ block.settings.anchor }}"
-           class="group relative rounded-card overflow-hidden"
-           style="background:#141C3A;aspect-ratio:16/9;"
-           {{ block.shopify_attributes }}>
-          {% if block.settings.image %}
-            <img src="{{ block.settings.image | image_url: width: 900 }}"
-                 alt="{{ block.settings.heading }}"
-                 class="absolute inset-0 w-full h-full object-cover transition"
-                 style="opacity:.8;"
-                 onmouseover="this.style.opacity='1';"
-                 onmouseout="this.style.opacity='.8';">
-          {% endif %}
-          <div class="absolute inset-0" style="background:linear-gradient(to top,#0E1530,transparent);"></div>
-          <div class="absolute bottom-0 p-6">
-            <h2 class="font-display text-3xl" style="color:#F3F5FA;">{{ block.settings.heading }}</h2>
-            <p style="color:#C5CCE0;">{{ block.settings.subheading }}</p>
-          </div>
-        </a>
-      {% endif %}
-    {% endfor %}
-  </section>
-
 </div>
 
-{% endpaginate %}
+{% # theme-check-disable-next-line UnknownFilter %}
+<collection-component view-event-payload="{{ collection | standard_event_data: 'view' | escape }}">
+  <results-list
+    class="section product-grid-container"
+    style="--padding-block-start: {{ section.settings.padding-block-start }}px; --padding-block-end: {{ section.settings.padding-block-end }}px;"
+    section-id="{{ section.id }}"
+    infinite-scroll="{{ section.settings.enable_infinite_scroll }}"
+  >
+    {% render 'skip-to-content-link', href: '#ResultsList', text: 'accessibility.skip_to_results_list' %}
+
+    <div
+      class="collection-wrapper grid gap-style{% if section.settings.product_grid_width == 'full-width' %} collection-wrapper--grid-full-width{% endif %}"
+    >
+      {% content_for 'block',
+        type: 'filters',
+        id: 'filters',
+        results: collection,
+        results_size: collection.products_count
+      %}
+
+      {% assign products_per_page = 24 %}
+
+      {% if section.settings.enable_infinite_scroll == false %}
+        {% assign products_per_page = section.settings.products_per_page %}
+      {% endif %}
+
+      {% paginate collection.products by products_per_page %}
+        {% capture children %}
+          {% for product in collection.products %}
+            <li
+              id="{{ section.id }}-{{ product.id }}"
+              class="tcg-scope product-grid__item product-grid__item--{{ forloop.index0 }}"
+              data-page="{{ paginate.current_page }}"
+              data-product-id="{{ product.id }}"
+              ref="cards[]"
+            >
+              {% render 'tcg-card-tile', product: product %}
+            </li>
+          {% endfor %}
+        {% endcapture %}
+
+        {% render 'product-grid',
+          section: section,
+          children: children,
+          products: collection.products,
+          paginate: paginate,
+          enable_infinite_scroll: section.settings.enable_infinite_scroll
+        %}
+      {% endpaginate %}
+    </div>
+  </results-list>
+</collection-component>
+
+{%- comment -%} Category banners (3D prints, Vending) at the bottom {%- endcomment -%}
+{% if section.blocks.size > 0 %}
+  <div class="tcg-scope mx-auto max-w-site px-4 sm:px-6 mt-20">
+    <div class="tcg-grid md:grid-cols-2 gap-5">
+      {% for block in section.blocks %}
+        {% if block.type == 'category_banner' %}
+          <a href="{{ block.settings.link | default: '#' }}" id="{{ block.settings.anchor }}"
+             class="group relative rounded-card overflow-hidden block"
+             style="background:#141C3A;aspect-ratio:16/9;"
+             {{ block.shopify_attributes }}>
+            {% if block.settings.image %}
+              <img src="{{ block.settings.image | image_url: width: 900 }}"
+                   alt="{{ block.settings.heading | escape }}"
+                   width="900"
+                   loading="lazy"
+                   class="absolute inset-0 w-full h-full object-cover">
+            {% endif %}
+            <div class="absolute inset-0" style="background:linear-gradient(to top,#0E1530,transparent);"></div>
+            <div class="absolute bottom-0 p-6">
+              <h2 class="font-display text-3xl" style="color:#F3F5FA;">{{ block.settings.heading }}</h2>
+              <p style="color:#C5CCE0;">{{ block.settings.subheading }}</p>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
 
 {% schema %}
 {
   "name": "TCG – Collection Page",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
   "blocks": [
     {
       "type": "category_banner",
       "name": "Category banner",
       "settings": [
-        {
-          "type": "text",
-          "id": "anchor",
-          "label": "Anchor ID (e.g. prints)"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Banner image"
-        },
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading"
-        },
-        {
-          "type": "text",
-          "id": "subheading",
-          "label": "Subheading"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
-        }
+        { "type": "text", "id": "anchor", "label": "Anchor ID (e.g. prints)" },
+        { "type": "image_picker", "id": "image", "label": "Banner image" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "text", "id": "subheading", "label": "Subheading" },
+        { "type": "url", "id": "link", "label": "Link" }
       ]
     }
   ],
-  "settings": [],
-  "enabled_on": {
-    "templates": ["collection"]
-  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout_type",
+      "label": "t:settings.type",
+      "options": [
+        { "value": "grid", "label": "t:options.grid" },
+        { "value": "organic", "label": "t:options.editorial" }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:settings.background_color",
+      "placeholder": "t:settings.default"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_infinite_scroll",
+      "label": "t:settings.auto_load_products",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "t:settings.products_per_page",
+      "min": 8,
+      "max": 36,
+      "step": 4,
+      "default": 24,
+      "visible_if": "{{ section.settings.enable_infinite_scroll == false }}"
+    },
+    {
+      "type": "select",
+      "id": "product_card_size",
+      "label": "t:settings.card_size",
+      "options": [
+        { "value": "small", "label": "t:options.small" },
+        { "value": "medium", "label": "t:options.medium" },
+        { "value": "large", "label": "t:options.large" },
+        { "value": "extra-large", "label": "t:options.extra_large" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "mobile_product_card_size",
+      "label": "t:settings.mobile_card_size",
+      "options": [
+        { "value": "small", "label": "t:options.small" },
+        { "value": "large", "label": "t:options.large" }
+      ],
+      "default": "small"
+    },
+    {
+      "type": "select",
+      "id": "product_grid_width",
+      "label": "t:settings.width",
+      "options": [
+        { "value": "centered", "label": "t:options.page" },
+        { "value": "full-width", "label": "t:options.full" }
+      ],
+      "default": "centered"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_on_mobile",
+      "label": "t:settings.full_width_on_mobile",
+      "default": true,
+      "visible_if": "{{ section.settings.product_grid_width != 'full-width' }}"
+    },
+    {
+      "type": "range",
+      "id": "columns_gap_horizontal",
+      "label": "t:settings.horizontal_gap",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "columns_gap_vertical",
+      "label": "t:settings.vertical_gap",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    }
+  ],
   "presets": []
 }
 {% endschema %}

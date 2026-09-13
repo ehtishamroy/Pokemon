@@ -4,6 +4,8 @@
   "description": "",
   "main": "tailwind.config.js",
   "scripts": {
+    "build:css": "node ./node_modules/tailwindcss/lib/cli.js -i assets/tailwind-input.css -o assets/tcg.css --minify",
+    "watch:css": "node ./node_modules/tailwindcss/lib/cli.js -i assets/tailwind-input.css -o assets/tcg.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

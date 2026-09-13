@@ -34,7 +34,7 @@
   endif
 %}
 
-<div class="mx-auto max-w-site px-4 sm:px-6 py-8 lg:py-12">
+<div class="tcg-scope mx-auto max-w-site px-4 sm:px-6 py-8 lg:py-12">
 
   {%- comment -%} Breadcrumb {%- endcomment -%}
   <nav class="text-sm" style="color:#8A96B8;" aria-label="Breadcrumb">
@@ -116,107 +116,27 @@
         <p class="mt-2 font-semibold {{ rarity_class }}">{{ card_rarity }}</p>
       {% endif %}
 
-      {%- comment -%} Price + stock {%- endcomment -%}
-      <div class="mt-6 flex items-baseline gap-3 flex-wrap">
-        <span class="text-sm" style="color:#8A96B8;">Price</span>
-        <span id="tcg-price" class="font-display text-4xl" style="color:#FFC72C;">
-          {{ current_variant.price | money }}
-        </span>
-        {% if current_variant.available %}
-          {% if current_variant.inventory_quantity == 1 %}
-            <span class="ml-auto rounded-full px-3 py-1 text-sm font-semibold" style="background:rgba(61,214,140,.15);color:#3DD68C;">Only 1 left</span>
-          {% else %}
-            <span class="ml-auto rounded-full px-3 py-1 text-sm font-semibold" style="background:rgba(61,214,140,.15);color:#3DD68C;">In stock</span>
-          {% endif %}
-        {% else %}
-          <span class="ml-auto rounded-full px-3 py-1 text-sm font-semibold" style="background:rgba(232,64,44,.15);color:#E8402C;">Sold out</span>
-        {% endif %}
+      {%- comment -%}
+        Price + variant selection + quantity + add-to-cart are rendered with
+        Shopify's NATIVE product blocks (statically, via `content_for 'block'`),
+        exactly as the native `product-information` section composes them. This
+        gives working `<variant-selects>` variant switching, native price
+        updates, and `<product-form-component>` AJAX add-to-cart that opens the
+        cart drawer — no custom cart/variant JS. They're wrapped in
+        `.tcg-buybox` for dark theming (see tcg.css).
+      {%- endcomment -%}
+      <div class="tcg-buybox mt-6">
+        {% content_for 'block', type: 'price', id: 'price', closest.product: product %}
       </div>
 
-      {%- comment -%} Variants — Printing & Condition rows {%- endcomment -%}
-      {% if product.variants.size > 1 %}
-        <fieldset class="mt-7">
-          <legend class="font-semibold" style="color:#F3F5FA;">Printing &amp; condition</legend>
-          <p class="text-sm mt-0.5" style="color:#8A96B8;">
-            Selected: <span id="tcg-selected-label" class="font-semibold" style="color:#F3F5FA;">{{ current_variant.title }}</span>
-          </p>
-          <div class="mt-3 space-y-2" role="radiogroup">
-            {% for variant in product.variants %}
-              {%- comment -%} Determine the display title by splitting Shopify's "Opt1 / Opt2 / Opt3" default string {%- endcomment -%}
-              {% assign variant_options = variant.title | split: ' / ' %}
-              {% assign main_option = variant_options[0] %}
-              
-              {%- comment -%} Check if they used metafields instead of standard options for condition/lang/rarity {%- endcomment -%}
-              {% assign meta_condition = variant.metafields.custom.condition | default: product.metafields.custom.condition %}
-              {% assign meta_lang = variant.metafields.custom.language | default: product.metafields.custom.language %}
-              {% assign meta_rarity = variant.metafields.custom.rarity | default: card_rarity %}
+      <div class="tcg-buybox mt-6">
+        {% content_for 'block', type: 'variant-picker', id: 'variant-picker', closest.product: product %}
+      </div>
 
-              <button type="button"
-                      class="tcg-variant-btn w-full flex items-center justify-between rounded-lg border px-4 py-3 text-left"
-                      style="border-color:{% if variant.id == current_variant.id %}#3EC1FF;background:#1B2448;{% else %}rgba(255,255,255,.10);{% endif %}"
-                      data-variant-id="{{ variant.id }}"
-                      data-variant-price="{{ variant.price | money }}"
-                      data-variant-title="{{ variant.title | escape }}"
-                      data-variant-available="{{ variant.available }}"
-                      data-variant-inventory="{{ variant.inventory_quantity }}"
-                      role="radio"
-                      aria-checked="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}"
-                      onclick="tcgSelectVariant(this)">
-                <span style="color:#F3F5FA;">
-                  <span class="font-semibold">{{ main_option }}</span>
-                  
-                  {%- comment -%} Print the remaining options (like Condition and Language) or metafield fallbacks {%- endcomment -%}
-                  <span class="text-sm ml-1" style="color:#8A96B8;">
-                    {% if variant_options.size > 1 %}
-                      {% for opt in variant_options offset:1 %}
-                        · {{ opt }}
-                      {% endfor %}
-                    {% else %}
-                      {% if meta_condition %} · {{ meta_condition }}{% endif %}
-                      {% if meta_lang %} · {{ meta_lang }}{% endif %}
-                      {% if meta_rarity != blank %} · {{ meta_rarity }}{% endif %}
-                    {% endif %}
-                  </span>
-
-                  {% unless variant.available %}
-                    <span class="text-sm ml-2 font-semibold" style="color:#E8402C;">Sold out</span>
-                  {% endunless %}
-                </span>
-                <span class="font-bold" style="color:#FFC72C;">{{ variant.price | money }}</span>
-              </button>
-            {% endfor %}
-          </div>
-        </fieldset>
-      {% endif %}
-
-      {%- comment -%} Add to cart form (Horizon native) {%- endcomment -%}
-      {% form 'product', product, id: 'tcg-product-form', data-type: 'add-to-cart-form' %}
-        <input type="hidden" name="id" id="tcg-variant-input" value="{{ current_variant.id }}">
-
-        <div class="mt-6 flex items-center gap-4">
-          {%- comment -%} Quantity stepper {%- endcomment -%}
-          <div class="qty inline-flex items-center rounded-full border" style="background:#141C3A;border-color:rgba(255,255,255,.10);">
-            <button type="button" aria-label="Decrease quantity"
-                    class="rounded-full text-xl"
-                    style="color:#F3F5FA;"
-                    onclick="tcgQtyChange(-1)">−</button>
-            <span id="tcg-qty-value" class="w-8 text-center font-semibold" style="color:#F3F5FA;" aria-live="polite">1</span>
-            <button type="button" aria-label="Increase quantity"
-                    class="rounded-full text-xl"
-                    style="color:#F3F5FA;"
-                    onclick="tcgQtyChange(1)">+</button>
-            <input type="hidden" name="quantity" id="tcg-qty-input" value="1">
-          </div>
-
-          <button type="submit"
-                  class="flex-1 rounded-full px-6 py-3.5 font-bold"
-                  style="background:#FFC72C;color:#0E1530;"
-                  {% unless current_variant.available %}disabled style="background:#1B2448;color:#8A96B8;cursor:not-allowed;"{% endunless %}>
-            {% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}
-          </button>
-        </div>
-
-      {% endform %}
+      <div class="tcg-buybox mt-6 flex flex-wrap items-end gap-4">
+        {% content_for 'block', type: 'quantity', id: 'quantity', closest.product: product %}
+        {% content_for 'block', type: 'buy-buttons', id: 'buy-buttons', closest.product: product %}
+      </div>
 
       <div class="mt-3 flex gap-5 text-sm">
         <a href="#sell" class="hover:underline" style="color:#8A96B8;"
@@ -346,74 +266,16 @@
 </div>
 
 <script>
-  /* ── Thumbnail swap ── */
+  /* Thumbnail swap for the holo gallery. Self-contained; touches only this
+     section's own elements. Variant selection, price and add-to-cart are
+     handled by the native product blocks rendered above. */
   function tcgSwapImage(btn) {
-    document.getElementById('tcg-main-img').src = btn.dataset.tcgThumbSrc;
-    document.querySelectorAll('.tcg-thumb').forEach(function(t) {
+    var main = document.getElementById('tcg-main-img');
+    if (main) main.src = btn.dataset.tcgThumbSrc;
+    document.querySelectorAll('.tcg-thumb').forEach(function (t) {
       t.style.outline = '';
     });
     btn.style.outline = '2px solid #3EC1FF';
-  }
-
-  /* ── Quantity stepper ── */
-  function tcgQtyChange(delta) {
-    var span = document.getElementById('tcg-qty-value');
-    var inp  = document.getElementById('tcg-qty-input');
-    var n = Math.max(1, parseInt(span.textContent, 10) + delta);
-    span.textContent = n;
-    inp.value = n;
-  }
-
-  /* ── Variant selector ── */
-  function tcgSelectVariant(btn) {
-    document.querySelectorAll('.tcg-variant-btn').forEach(function(b) {
-      b.style.borderColor = 'rgba(255,255,255,.10)';
-      b.style.background  = '';
-      b.setAttribute('aria-checked', 'false');
-    });
-    btn.style.borderColor = '#3EC1FF';
-    btn.style.background  = '#1B2448';
-    btn.setAttribute('aria-checked', 'true');
-
-    var price     = btn.dataset.variantPrice;
-    var title     = btn.dataset.variantTitle;
-    var available = btn.dataset.variantAvailable === 'true';
-    var inventory = parseInt(btn.dataset.variantInventory, 10);
-
-    document.getElementById('tcg-price').textContent          = price;
-    document.getElementById('tcg-selected-label').textContent = title;
-    document.getElementById('tcg-variant-input').value        = btn.dataset.variantId;
-
-    var addBtn = document.querySelector('#tcg-product-form button[type=submit]');
-    if (available) {
-      addBtn.textContent = 'Add to cart';
-      addBtn.disabled    = false;
-      addBtn.style.background = '#FFC72C';
-      addBtn.style.color      = '#0E1530';
-    } else {
-      addBtn.textContent = 'Sold out';
-      addBtn.disabled    = true;
-      addBtn.style.background = '#1B2448';
-      addBtn.style.color      = '#8A96B8';
-    }
-
-    /* Update stock badge */
-    var stockBadge = document.querySelector('[data-tcg-stock]');
-    if (stockBadge) {
-      if (!available) {
-        stockBadge.textContent = 'Sold out';
-        stockBadge.style.background = 'rgba(232,64,44,.15)';
-        stockBadge.style.color = '#E8402C';
-      } else if (inventory === 1) {
-        stockBadge.textContent = 'Only 1 left';
-        stockBadge.style.background = 'rgba(61,214,140,.15)';
-        stockBadge.style.color = '#3DD68C';
-      } else {
-        stockBadge.textContent = 'In stock';
-        stockBadge.style.background = 'rgba(61,214,140,.15)';
-        stockBadge.style.color = '#3DD68C';
-      }
-    }
   }
 </script>
 
