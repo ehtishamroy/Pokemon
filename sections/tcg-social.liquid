@@ -1,7 +1,8 @@
 {% comment %}
-  TCG Hitz — Social / UGC
-  Matches index.html lines 234-248
+  TCG Hitz — Social / UGC rail (1:1 with index.html "SOCIAL / UGC")
 {% endcomment %}
+
+{%- assign fallbacks = 'machine-graffiti.jpg,store-display.jpg,gengar-print.jpg,charizard-stand.jpg,machine-booth.jpg' | split: ',' -%}
 
 <section class="tcg-scope py-12 lg:py-16">
   <div class="mx-auto max-w-site px-4 sm:px-6">
@@ -9,13 +10,17 @@
     <p class="text-center text-paper-dim mt-3">{{ section.settings.subheading }}</p>
     <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
     <div class="rail flex gap-4 overflow-x-auto pb-3">
-      {% for block in section.blocks %}
-        {% if block.settings.image != blank %}
-          <img src="{{ block.settings.image | image_url: width: 400 }}" alt="Social image" class="shrink-0 w-[190px] h-[250px] object-cover rounded-card border border-gold/15" {{ block.shopify_attributes }}>
-        {% else %}
-          {{ 'image' | placeholder_svg_tag: 'shrink-0 w-[190px] h-[250px] object-cover rounded-card border border-gold/15' }}
-        {% endif %}
-      {% endfor %}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign fb = fallbacks[forloop.index0] | default: 'card-back.svg'
+          if block.settings.image != blank
+            assign img = block.settings.image | image_url: width: 500
+          else
+            assign img = fb | asset_url
+          endif
+        -%}
+        <img src="{{ img }}" alt="{{ block.settings.image.alt | default: section.settings.heading | escape }}" loading="lazy" class="shrink-0 w-[190px] h-[250px] object-cover rounded-card border border-gold/15" {{ block.shopify_attributes }}>
+      {%- endfor -%}
     </div>
   </div>
 </section>
@@ -24,43 +29,12 @@
 {
   "name": "TCG Social",
   "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Join the #HitzFamily"
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Pulls, restocks and show days — follow along."
-    }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Join the #HitzFamily" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Pulls, restocks and show days — follow along." }
   ],
   "blocks": [
-    {
-      "type": "image",
-      "name": "Image",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        }
-      ]
-    }
+    { "type": "image", "name": "Photo", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" } ] }
   ],
-  "presets": [
-    {
-      "name": "TCG Social",
-      "blocks": [
-        { "type": "image" },
-        { "type": "image" },
-        { "type": "image" },
-        { "type": "image" },
-        { "type": "image" }
-      ]
-    }
-  ]
+  "presets": [{ "name": "TCG Social", "blocks": [ { "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" } ] }]
 }
 {% endschema %}

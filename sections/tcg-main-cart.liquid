@@ -1,0 +1,109 @@
+{% comment %}
+  TCG Hitz — Cart page (1:1 with tcg-hitz-store/cart.html), rendered from the real
+  Shopify cart. Quantity / Remove / Empty cart go through assets/tcg.js
+  (/cart/change.js, /cart/clear.js) and the page reloads with the new totals.
+{% endcomment %}
+
+{%- assign col = section.settings.related_collection -%}
+
+<div class="tcg-scope mx-auto max-w-site px-4 sm:px-6 py-8 lg:py-12">
+  <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-gold">{{ shop.name }}</a><span class="mx-2">/</span><span class="text-paper">Cart</span></nav>
+  <h1 class="stitle stitle--left mt-4">{{ section.settings.heading }}</h1>
+  <div class="rule-gold my-7 max-w-[240px]"></div>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="cabinet bg-ink p-12 text-center">
+      <p class="font-display text-3xl">Your cart is empty</p>
+      <p class="mt-3 text-paper-dim">Nothing chased yet. Go find a hit.</p>
+      <div class="mt-7 flex flex-wrap gap-3 justify-center">
+        <a href="{{ routes.all_products_collection_url }}" class="rounded-full bg-gold px-6 py-3.5 font-bold text-ink hover:bg-gold-deep">Shop singles</a>
+        <a href="{{ section.settings.secondary_link | default: '/collections/mystery' }}" class="rounded-full border border-gold/45 px-6 py-3.5 font-bold text-gold hover:bg-gold/10">{{ section.settings.secondary_label }}</a>
+      </div>
+    </div>
+  {%- else -%}
+    <div class="grid lg:grid-cols-12 gap-8">
+      <div class="lg:col-span-8">
+        <div class="hidden sm:grid grid-cols-[104px,1fr,140px,120px] gap-4 pb-3 border-b border-gold/20 text-xs tracking-widest text-slate">
+          <span></span><span>ITEM</span><span>QUANTITY</span><span>TOTAL</span>
+        </div>
+        <div data-cart-page>
+          {%- for item in cart.items -%}
+            {%- assign dec = item.quantity | minus: 1 | at_least: 1 -%}
+            {%- assign inc = item.quantity | plus: 1 -%}
+            <div class="grid grid-cols-[88px,1fr,auto] sm:grid-cols-[104px,1fr,140px,120px] gap-4 items-center py-5 border-b border-gold/10">
+              <a href="{{ item.url }}">{%- if item.image -%}<img src="{{ item.image | image_url: width: 240 }}" alt="" class="w-[88px] sm:w-[104px] h-[120px] object-contain rounded-lg bg-felt-2 p-2">{%- else -%}<img src="{{ 'card-back.svg' | asset_url }}" alt="" class="w-[88px] sm:w-[104px] h-[120px] object-contain rounded-lg bg-felt-2 p-2">{%- endif -%}</a>
+              <div class="min-w-0">
+                <p class="font-bold"><a href="{{ item.url }}" class="hover:text-gold">{{ item.product.title }}</a></p>
+                <p class="text-sm text-slate">{% unless item.variant.title == 'Default Title' %}{{ item.variant.title }}{% endunless %}</p>
+                <p class="text-sm text-gold sm:hidden mt-1">{{ item.final_price | money }} each</p>
+                <button type="button" data-line-qty data-line="{{ forloop.index }}" data-qty="0" class="mt-2 text-sm text-slate hover:text-chase">Remove</button>
+              </div>
+              <div class="qty inline-flex items-center rounded-full bg-felt-2 border border-gold/20 justify-self-start">
+                <button type="button" aria-label="Decrease" data-line-qty data-line="{{ forloop.index }}" data-qty="{{ dec }}" class="rounded-full">−</button>
+                <span class="w-8 text-center font-semibold">{{ item.quantity }}</span>
+                <button type="button" aria-label="Increase" data-line-qty data-line="{{ forloop.index }}" data-qty="{{ inc }}" class="rounded-full">+</button>
+              </div>
+              <p class="font-bold text-gold text-right sm:text-left">{{ item.final_line_price | money }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3 justify-between">
+          <a href="{{ routes.all_products_collection_url }}" class="rounded-full border border-gold/35 px-5 py-2.5 font-semibold text-gold hover:bg-gold/10">← Continue shopping</a>
+          <button type="button" data-cart-clear class="rounded-full border border-white/15 px-5 py-2.5 font-semibold text-slate hover:text-chase hover:border-chase/50">Empty cart</button>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-4">
+        <div class="cabinet bg-ink p-6 lg:sticky lg:top-24">
+          <h2 class="font-display text-2xl">Order summary</h2>
+          <dl class="mt-5 space-y-3 text-sm">
+            <div class="flex justify-between"><dt class="text-paper-dim">Subtotal</dt><dd class="font-bold">{{ cart.items_subtotal_price | money }}</dd></div>
+            {%- if cart.total_discount > 0 -%}
+              <div class="flex justify-between"><dt class="text-paper-dim">Discounts</dt><dd class="text-mint">−{{ cart.total_discount | money }}</dd></div>
+            {%- endif -%}
+            <div class="flex justify-between"><dt class="text-paper-dim">Shipping</dt><dd class="text-slate">Calculated at checkout</dd></div>
+            <div class="flex justify-between"><dt class="text-paper-dim">Taxes</dt><dd class="text-slate">Calculated at checkout</dd></div>
+          </dl>
+          <div class="rule-gold my-5"></div>
+          <div class="flex justify-between items-baseline"><span class="font-bold">Total</span><span class="font-display text-2xl text-gold">{{ cart.total_price | money }}</span></div>
+          <form action="{{ routes.cart_url }}" method="post" novalidate>
+            <button type="submit" name="checkout" class="mt-6 block w-full text-center rounded-full bg-gold px-6 py-3.5 font-bold text-ink hover:bg-gold-deep">Checkout</button>
+          </form>
+          <ul class="mt-5 space-y-2 text-sm text-paper-dim">
+            <li class="flex gap-2"><span class="text-gold">✦</span> Ships within 1 business day</li>
+            <li class="flex gap-2"><span class="text-gold">✦</span> Rigid sleeve + bubble mailer</li>
+            <li class="flex gap-2"><span class="text-gold">✦</span> Not as described? Full refund</li>
+          </ul>
+          <p class="mt-5 text-xs text-slate">Order notes and discount codes are applied at checkout.</p>
+        </div>
+      </aside>
+    </div>
+  {%- endif -%}
+
+  {%- if col != blank and col.products.size > 0 -%}
+    <section class="mt-16">
+      <h2 class="stitle">{{ section.settings.related_heading }}</h2>
+      <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-5">
+        {%- for product in col.products limit: 4 -%}
+          {% render 'tcg-cell', product: product, full: true %}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "TCG – Cart Page",
+  "enabled_on": { "templates": ["cart"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your cart" },
+    { "type": "text", "id": "secondary_label", "label": "Empty-state secondary button", "default": "Mystery packs" },
+    { "type": "url", "id": "secondary_link", "label": "Empty-state secondary link" },
+    { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You might also chase" },
+    { "type": "collection", "id": "related_collection", "label": "Related collection" }
+  ],
+  "presets": []
+}
+{% endschema %}

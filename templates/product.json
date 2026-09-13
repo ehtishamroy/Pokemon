@@ -3,7 +3,10 @@
     "tcg_product": {
       "type": "tcg-main-product",
       "settings": {
-        "show_related": true
+        "gallery_note": "Real photos of the actual card — front and back.",
+        "sell_link": "/pages/sell",
+        "show_related": true,
+        "related_heading": "Other versions of this card"
       }
     }
   },

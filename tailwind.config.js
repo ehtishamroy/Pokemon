@@ -7,6 +7,7 @@ module.exports = {
     './sections/*.liquid',
     './snippets/*.liquid',
     './blocks/*.liquid',
+    './assets/tcg.js',
   ],
   // Preflight is Tailwind's global reset. Loaded site-wide it strips Shopify's
   // native buttons, lists, headings and form controls, breaking the cart drawer,
