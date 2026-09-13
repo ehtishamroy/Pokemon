@@ -115,11 +115,17 @@
     <div class="tcg-grid md:grid-cols-2 gap-5">
       {% for n in (1..2) %}
         {% liquid
-          assign img = section.settings['banner' | append: n | append: '_image']
-          assign heading = section.settings['banner' | append: n | append: '_heading']
-          assign subheading = section.settings['banner' | append: n | append: '_subheading']
-          assign link = section.settings['banner' | append: n | append: '_link']
-          assign anchor = section.settings['banner' | append: n | append: '_anchor']
+          assign key_prefix = 'banner' | append: n
+          assign key_image = key_prefix | append: '_image'
+          assign key_heading = key_prefix | append: '_heading'
+          assign key_subheading = key_prefix | append: '_subheading'
+          assign key_link = key_prefix | append: '_link'
+          assign key_anchor = key_prefix | append: '_anchor'
+          assign img = section.settings[key_image]
+          assign heading = section.settings[key_heading]
+          assign subheading = section.settings[key_subheading]
+          assign link = section.settings[key_link]
+          assign anchor = section.settings[key_anchor]
         %}
         {% if img != blank %}
           <a href="{{ link | default: '#' }}" id="{{ anchor }}"
