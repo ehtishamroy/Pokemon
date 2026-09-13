@@ -250,6 +250,19 @@
   .rail::-webkit-scrollbar-thumb { background:#1B2448; border-radius:8px; }
   .rail > * { scroll-snap-align:start; }
 
+  /* Collection filter checkboxes: white box, gold when checked. base.css styles
+     native checkboxes appearance:none with background var(--color-background)
+     (now ink #09090F), so they vanish on the dark .cabinet sidebar. */
+  .tcg-scope input[type='checkbox'] {
+    background-color: #fff !important;
+    border: 1px solid rgba(255,199,44,.55) !important;
+    border-radius: 5px !important;
+  }
+  .tcg-scope input[type='checkbox']:checked {
+    background-color: var(--gold) !important;
+    border-color: var(--gold) !important;
+  }
+
   /* Category tile that lights gold on hover */
   .cat { transition:transform .2s, box-shadow .2s, border-color .2s; border:1px solid rgba(255,199,44,.14); }
   .cat:hover { transform:translateY(-4px); border-color:rgba(255,199,44,.55); box-shadow:0 18px 40px -18px rgba(255,199,44,.35); }
