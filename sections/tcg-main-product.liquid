@@ -29,7 +29,7 @@
   {%- else -%}Sold out{%- endif -%}
 {%- endcapture -%}
 
-<section class="tcg-scope smoke pt-8 pb-10 lg:pt-10">
+<section class="tcg-scope smoke pt-8 pb-10 lg:pt-10" style="overflow-x: clip;">
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-gold">{{ shop.name }}</a><span class="mx-2">/</span>{% if collection %}<a href="{{ collection.url }}" class="hover:text-gold">{{ collection.title }}</a><span class="mx-2">/</span>{% endif %}{% if card_set != blank %}<a href="{{ routes.search_url }}?q={{ card_set | url_encode }}" class="hover:text-gold">{{ card_set }}</a><span class="mx-2">/</span>{% endif %}<span class="text-paper">{{ product.title }}</span></nav>
 

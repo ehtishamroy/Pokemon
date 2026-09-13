@@ -14,8 +14,12 @@
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <div class="cabinet bg-ink overflow-hidden grid lg:grid-cols-2">
       <div class="relative min-h-[300px] lg:min-h-[440px]">
-        <img src="{{ img }}" alt="{{ section.settings.heading | escape }}" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-ink/85 lg:to-ink"></div>
+        {%- if section.settings.video != blank -%}
+          {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'absolute inset-0 w-full h-full object-cover' }}
+        {%- else -%}
+          <img src="{{ img }}" alt="{{ section.settings.heading | escape }}" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+        {%- endif -%}
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-ink/85 lg:to-ink pointer-events-none"></div>
       </div>
       <div class="p-8 lg:p-12 flex flex-col justify-center">
         <p class="text-gold font-bold text-sm tracking-widest">{{ section.settings.eyebrow }}</p>
@@ -32,6 +36,7 @@
   "name": "TCG Vending Feature",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Image (defaults to machine-graffiti.jpg)" },
+    { "type": "video", "id": "video", "label": "Or Video (overrides image)" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "OUR OWN MACHINES" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Pokémon card vending machines" },
     { "type": "textarea", "id": "body", "label": "Body", "default": "The machines you've seen at the shows — now available for your shop, event or arcade. Custom TCG Hitz wrap, Pokémon · Magic · One Piece, built to draw a crowd." },

@@ -9,8 +9,13 @@
     <h2 class="stitle">{{ section.settings.heading }}</h2>
     <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
     <div class="carousel">
-      <button type="button" class="arrow prev" aria-label="Scroll left"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="m15 6-6 6 6 6"/></svg></button>
-      <button type="button" class="arrow next" aria-label="Scroll right"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="m9 6 6 6-6 6"/></svg></button>
+      {%- if col.products.size > 6 and section.settings.products_to_show > 6 -%}
+        <button type="button" class="arrow prev" aria-label="Scroll left"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="m15 6-6 6 6 6"/></svg></button>
+        <button type="button" class="arrow next" aria-label="Scroll right"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="m9 6 6 6-6 6"/></svg></button>
+      {%- endif -%}
+      <!-- Fade masks -->
+      <div class="absolute inset-y-0 left-0 w-8 md:w-16 bg-gradient-to-r from-ink to-transparent z-[5] pointer-events-none"></div>
+      <div class="absolute inset-y-0 right-0 w-8 md:w-16 bg-gradient-to-l from-ink to-transparent z-[5] pointer-events-none"></div>
       <div class="rail flex gap-5 overflow-x-auto pb-4 px-1">
         {%- if col != blank and col.products.size > 0 -%}
           {%- for product in col.products limit: section.settings.products_to_show -%}

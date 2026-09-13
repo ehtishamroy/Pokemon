@@ -1,7 +1,7 @@
 {
   "sections": {
     "tcg_sell": {
-      "type": "tcg-sell",
+      "type": "sell-page",
       "blocks": {
         "s1": { "type": "step", "settings": { "title": "Send photos", "body": "Fill the form below with clear photos of what you have." } },
         "s2": { "type": "step", "settings": { "title": "We value it", "body": "We check live market prices and send you an offer, usually within a day." } },
@@ -9,7 +9,11 @@
         "s4": { "type": "step", "settings": { "title": "Get paid", "body": "Meet us at a show, or ship it in and we pay on arrival." } }
       },
       "block_order": ["s1", "s2", "s3", "s4"],
-      "settings": {}
+      "settings": {
+        "yes_list": "Singles — modern and vintage, any condition\nGraded slabs — PSA, CGC, BGS, TAG\nSealed — boxes, ETBs, packs, tins\nBulk lots and whole collections\nMagic and One Piece, too",
+        "no_list": "Proxies, fakes or reprints sold as real\nWater-damaged or mouldy bulk\nOpened product missing its contents",
+        "no_footnote": "Not sure? Send it anyway and we'll tell you honestly."
+      }
     }
   },
   "order": ["tcg_sell"]

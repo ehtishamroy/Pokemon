@@ -19,13 +19,37 @@
   endif
 -%}
 
-<section class="tcg-scope smoke pt-12 pb-10 lg:pt-16 lg:pb-14">
+<section class="tcg-scope smoke pt-12 pb-10 lg:pt-16 lg:pb-14" style="overflow-x: clip;">
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <div class="grid lg:grid-cols-2 gap-10 items-center">
       <div>
         <p class="stars text-sm">★★★★★ <span class="text-paper-dim font-semibold ml-1">{{ section.settings.stars_text }}</span></p>
+        <style>
+          @keyframes word-reveal {
+            0% { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+          }
+          .animate-word {
+            display: inline-block;
+            opacity: 0;
+            animation: word-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          }
+        </style>
         <h1 class="font-display text-[42px] sm:text-6xl lg:text-[68px] leading-[.98] mt-4">
-          {{ section.settings.heading_line1 }}<br>{{ section.settings.heading_line2 }}
+          {%- assign word_idx = 0 -%}
+          {%- assign words1 = section.settings.heading_line1 | split: ' ' -%}
+          {%- for w in words1 -%}
+            <span class="animate-word" style="animation-delay: {{ word_idx | times: 100 }}ms">{{ w }}</span>{% unless forloop.last %} {% endunless %}
+            {%- assign word_idx = word_idx | plus: 1 -%}
+          {%- endfor -%}
+          {%- if section.settings.heading_line2 != blank -%}
+          <br>
+          {%- assign words2 = section.settings.heading_line2 | split: ' ' -%}
+          {%- for w in words2 -%}
+            <span class="animate-word" style="animation-delay: {{ word_idx | times: 100 }}ms">{{ w }}</span>{% unless forloop.last %} {% endunless %}
+            {%- assign word_idx = word_idx | plus: 1 -%}
+          {%- endfor -%}
+          {%- endif -%}
         </h1>
         <p class="mt-5 max-w-[46ch] text-paper-dim leading-relaxed">
           {{ section.settings.subheading }}

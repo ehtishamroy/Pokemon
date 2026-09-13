@@ -5,21 +5,49 @@
 {%- assign fallbacks = 'machine-graffiti.jpg,store-display.jpg,gengar-print.jpg,charizard-stand.jpg,machine-booth.jpg' | split: ',' -%}
 
 <section class="tcg-scope py-12 lg:py-16">
+  <style>
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
+    }
+    .tcg-marquee-track {
+      display: flex;
+      gap: 1rem;
+      padding-right: 1rem;
+      width: max-content;
+      flex-shrink: 0;
+      animation: marquee-scroll 20s linear infinite;
+    }
+    .tcg-marquee-container:hover .tcg-marquee-track {
+      animation-play-state: paused;
+    }
+  </style>
+
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <h2 class="stitle">{{ section.settings.heading }}</h2>
     <p class="text-center text-paper-dim mt-3">{{ section.settings.subheading }}</p>
     <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
-    <div class="rail flex gap-4 overflow-x-auto pb-3">
-      {%- for block in section.blocks -%}
-        {%- liquid
-          assign fb = fallbacks[forloop.index0] | default: 'card-back.svg'
-          if block.settings.image != blank
-            assign img = block.settings.image | image_url: width: 500
-          else
-            assign img = fb | asset_url
-          endif
-        -%}
-        <img src="{{ img }}" alt="{{ block.settings.image.alt | default: section.settings.heading | escape }}" loading="lazy" class="shrink-0 w-[190px] h-[250px] object-cover rounded-card border border-gold/15" {{ block.shopify_attributes }}>
+
+    <div class="overflow-hidden flex w-full relative tcg-marquee-container mt-4 pb-3">
+      <!-- Fade masks aligned to the container -->
+      <div class="absolute inset-y-0 left-0 w-8 md:w-16 bg-gradient-to-r from-ink to-transparent z-10 pointer-events-none"></div>
+      <div class="absolute inset-y-0 right-0 w-8 md:w-16 bg-gradient-to-l from-ink to-transparent z-10 pointer-events-none"></div>
+
+      <!-- Loop 4 times to guarantee the track is wide enough even with very few images -->
+      {%- for i in (1..4) -%}
+        <div class="tcg-marquee-track" {% if i > 1 %}aria-hidden="true"{% endif %}>
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign fb = fallbacks[forloop.index0] | default: 'card-back.svg'
+              if block.settings.image != blank
+                assign img = block.settings.image | image_url: width: 500
+              else
+                assign img = fb | asset_url
+              endif
+            -%}
+            <img src="{{ img }}" alt="{{ block.settings.image.alt | default: section.settings.heading | escape }}" loading="lazy" class="shrink-0 w-[190px] h-[250px] object-cover rounded-card border border-gold/15 transition-transform duration-300 hover:scale-105" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
+          {%- endfor -%}
+        </div>
       {%- endfor -%}
     </div>
   </div>
