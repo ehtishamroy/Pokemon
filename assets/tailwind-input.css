@@ -89,12 +89,19 @@
   .tcg-scope :where(table) { border-collapse: collapse; }
   .tcg-scope [hidden] { display: none; }
 
-  /* base.css (>=750px) turns every `.grid` into Shopify's 14-column page grid via
-     `grid-template-areas: 'column-0 … column-13'`. Tailwind has no utility for that
-     property, so even with `important: true` those named areas still force 14
-     explicit columns (the mega menu collapsed into one row). Reset it here. */
-  .tcg-scope .grid,
-  .tcg-scope.grid { grid-template-areas: none !important; }
+  /* base.css (>=750px) turns every `.grid` into Shopify's 14-column page grid:
+     `grid-template-columns: var(--margin-4xl) repeat(12,minmax(0,1fr)) var(--margin-4xl)`
+     plus matching `grid-template-areas`. Any design grid without an *active*
+     `grid-cols-*` utility inherited those 14 tracks — the cart badge stretched
+     into a ~64px pill, and responsive grids blew out below their breakpoint.
+     `:where()` keeps this at (0,1,0) so it outranks base.css's plain `.grid`
+     rules but still loses to the design's own !important grid-cols utilities,
+     which are emitted later in tcg.css. */
+  :where(.tcg-scope) .grid,
+  :where(.tcg-scope).grid {
+    grid-template-columns: none !important;
+    grid-template-areas: none !important;
+  }
 }
 
 @layer components {
@@ -182,8 +189,15 @@
   .rar-ultra  { color:#FFC72C; }
   .rar-secret { color:#FF7ED8; }
 
-  /* Cart drawer */
-  .drawer { transform: translateX(100%); transition: transform .28s cubic-bezier(.2,.8,.2,1); }
+  /* Cart drawer — same ink + gold-glow ground as body.machine (homepage) */
+  .drawer {
+    transform: translateX(100%);
+    transition: transform .28s cubic-bezier(.2,.8,.2,1);
+    background-image:
+      radial-gradient(600px 420px at 50% -8%, rgba(255,199,44,.16), transparent 62%),
+      radial-gradient(700px 560px at 50% 45%, rgba(62,193,255,.06), transparent 60%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px);
+  }
   .drawer.is-open { transform: translateX(0); }
   .scrim { opacity: 0; pointer-events: none; transition: opacity .25s; }
   .scrim.is-open { opacity: 1; pointer-events: auto; }
@@ -315,4 +329,51 @@
   .brand{ border:1px solid rgba(255,199,44,.2); border-radius:14px; padding:18px 22px; display:block;
     background:linear-gradient(180deg, rgba(255,199,44,.07), transparent); transition:.2s; }
   .brand:hover{ border-color:rgba(255,199,44,.6); box-shadow:0 0 28px -8px rgba(255,199,44,.45); }
+
+  /* ------------------------------------------------------------------------
+     Rich text from the page editor (sections/tcg-main-page.liquid).
+     .tcg-scope strips element styling Preflight-style, so restore readable
+     defaults in the design's own palette.
+     ------------------------------------------------------------------------ */
+  .tcg-prose { color:#C5CCE0; line-height:1.7; }
+  .tcg-prose > * + * { margin-top:1.1em; }
+  .tcg-prose h1, .tcg-prose h2, .tcg-prose h3, .tcg-prose h4 {
+    font-family:'Titan One', system-ui, sans-serif; color:#F3F5FA; line-height:1.2; margin-top:1.8em;
+  }
+  .tcg-prose h1 { font-size:clamp(26px,3.4vw,36px); }
+  .tcg-prose h2 { font-size:clamp(22px,2.8vw,30px); }
+  .tcg-prose h3 { font-size:clamp(19px,2.2vw,24px); }
+  .tcg-prose h4 { font-size:17px; }
+  .tcg-prose strong { color:#F3F5FA; font-weight:700; }
+  .tcg-prose a { color:var(--gold); text-decoration:underline; text-underline-offset:3px; }
+  .tcg-prose a:hover { color:#FFE79A; }
+  .tcg-prose ul, .tcg-prose ol { padding-left:1.35em; }
+  .tcg-prose ul { list-style:disc; }
+  .tcg-prose ol { list-style:decimal; }
+  .tcg-prose li { margin-top:.4em; }
+  .tcg-prose li::marker { color:var(--gold); }
+  .tcg-prose img { border-radius:14px; }
+  .tcg-prose hr { height:1px; border:0; background:linear-gradient(90deg,transparent,rgba(255,199,44,.5),transparent); margin:2em 0; }
+  .tcg-prose blockquote {
+    border-left:2px solid rgba(255,199,44,.5); padding:.2em 0 .2em 1.1em; color:#F3F5FA; font-style:italic;
+  }
+  .tcg-prose table { width:100%; border-collapse:collapse; }
+  .tcg-prose th, .tcg-prose td { border-bottom:1px solid rgba(255,199,44,.15); padding:.6em .5em; text-align:left; }
+  .tcg-prose th { color:var(--gold); font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase; }
+
+  /* ------------------------------------------------------------------------
+     Cart-count badge: pop when the cart changes (assets/tcg.js adds .is-bumping)
+     ------------------------------------------------------------------------ */
+  @keyframes tcg-badge-pop {
+    0%   { transform: scale(.6); box-shadow: 0 0 0 0 rgba(255,199,44,.55); }
+    55%  { transform: scale(1.3); box-shadow: 0 0 0 7px rgba(255,199,44,0); }
+    100% { transform: scale(1);   box-shadow: 0 0 0 0 rgba(255,199,44,0); }
+  }
+  [data-cart-count].is-bumping {
+    animation: tcg-badge-pop .45s cubic-bezier(.2,.8,.2,1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-cart-count].is-bumping { animation: none; }
+  }
 }

@@ -47,6 +47,15 @@
 const Cart = {
   root: (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/',
   busy: false,
+  lastCount: null,
+
+  /* Replay the badge pop animation (CSS: [data-cart-count].is-bumping) */
+  bump(el) {
+    el.classList.remove('is-bumping');
+    void el.offsetWidth; // restart the animation
+    el.classList.add('is-bumping');
+    el.addEventListener('animationend', () => el.classList.remove('is-bumping'), { once: true });
+  },
 
   async request(path, body) {
     const res = await fetch(this.root + path, {
@@ -99,9 +108,12 @@ const Cart = {
     const src = document.querySelector('[data-cart-count-src]');
     const count = src ? parseInt(src.dataset.cartCountSrc, 10) || 0 : null;
     if (count !== null) {
+      const changed = this.lastCount !== null && count !== this.lastCount;
+      this.lastCount = count;
       document.querySelectorAll('[data-cart-count]').forEach((b) => {
         b.textContent = count;
         b.classList.toggle('hidden', count === 0);
+        if (changed && count > 0) this.bump(b);
       });
     }
     if (document.querySelector('[data-cart-page]')) window.location.reload();
@@ -161,6 +173,13 @@ document.addEventListener('click', async (e) => {
   }
 });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { Cart.close(); closeNav(); } });
+
+/* Seed the badge count from the server-rendered drawer so the first cart
+   change animates rather than silently jumping. */
+(function seedCartCount() {
+  const src = document.querySelector('[data-cart-count-src]');
+  if (src) Cart.lastCount = parseInt(src.dataset.cartCountSrc, 10) || 0;
+})();
 
 /* ---------- Mobile nav ---------- */
 function closeNav() {
