@@ -5,60 +5,163 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "newsletter-group": {
+        "brand-group": {
           "type": "group",
           "settings": {
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 6,
+            "vertical_alignment": "flex-start",
+            "gap": 4,
             "width": "fill"
           },
           "blocks": {
-            "newsletter-heading": {
-              "type": "text",
+            "brand-logo": {
+              "type": "logo",
               "settings": {
-                "text": "<p>Join our email list</p>",
-                "width": "100%",
-                "alignment": "left",
-                "type_preset": "h3"
+                "unit": "pixel",
+                "pixel_height": 56
               }
             },
-            "newsletter-text": {
+            "brand-text": {
               "type": "text",
               "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
+                "text": "<p>A family-run Pokémon store: singles, sealed, mystery, slabs, merchandise and our own card vending machines. Online and at card shows every weekend.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte"
+              }
+            }
+          },
+          "block_order": ["brand-logo", "brand-text"]
+        },
+        "shop-group": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "gap": 3,
+            "width": "fill"
+          },
+          "blocks": {
+            "shop-heading": {
+              "type": "text",
+              "settings": {
+                "text": "<p>SHOP</p>",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "h5"
+              }
+            },
+            "shop-links": {
+              "type": "text",
+              "settings": {
+                "text": "<p><a href=\"/collections/all\">Singles</a></p><p><a href=\"/collections/sealed\">Sealed</a></p><p><a href=\"/collections/mystery\">Mystery packs</a></p><p><a href=\"/collections/slabs\">Graded slabs</a></p><p><a href=\"/collections/merchandise\">Merchandise</a></p><p><a href=\"/pages/vending-machines\">Vending machines</a></p>",
                 "width": "100%",
                 "alignment": "left",
                 "type_preset": "rte"
               }
             }
           },
-          "block_order": [
-            "newsletter-heading",
-            "newsletter-text"
-          ]
+          "block_order": ["shop-heading", "shop-links"]
         },
-        "newsletter-form": {
-          "type": "email-signup",
+        "help-group": {
+          "type": "group",
           "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "gap": 3,
             "width": "fill"
+          },
+          "blocks": {
+            "help-heading": {
+              "type": "text",
+              "settings": {
+                "text": "<p>HELP</p>",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "h5"
+              }
+            },
+            "help-links": {
+              "type": "text",
+              "settings": {
+                "text": "<p><a href=\"/pages/shipping\">Shipping policy</a></p><p><a href=\"/pages/refund\">Refund policy</a></p><p><a href=\"/pages/condition-guide\">Condition guide</a></p><p><a href=\"/pages/sell\">Sell to us</a></p><p><a href=\"/pages/contact\">Contact</a></p><p><a href=\"/cart\">View cart</a></p>",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "rte"
+              }
+            }
+          },
+          "block_order": ["help-heading", "help-links"]
+        },
+        "newsletter-group": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "gap": 4,
+            "width": "fill"
+          },
+          "blocks": {
+            "newsletter-heading": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Join the Hitz Insider List</p>",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "h5"
+              }
+            },
+            "newsletter-text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Restocks, drops and show dates. No spam.</p>",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "rte"
+              }
+            },
+            "newsletter-form": {
+              "type": "email-signup",
+              "settings": {
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": ["newsletter-heading", "newsletter-text", "newsletter-form"]
+        },
+        "legal-text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>© 2026 TCG Hitz. All rights reserved. Pokémon, Magic and One Piece are trademarks of their respective owners. TCG Hitz is an independent reseller.</p>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "rte"
           }
         }
       },
       "block_order": [
+        "brand-group",
+        "shop-group",
+        "help-group",
         "newsletter-group",
-        "newsletter-form"
+        "legal-text"
       ],
       "settings": {
         "gap": 20,
-        "padding-block-start": 36,
+        "padding-block-start": 48,
         "padding-block-end": 36
       }
     }
   },
-  "order": [
-    "footer"
-  ]
+  "order": ["footer"]
 }

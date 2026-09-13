@@ -6,7 +6,15 @@ module.exports = {
     './templates/customers/*.liquid',
     './sections/*.liquid',
     './snippets/*.liquid',
+    './blocks/*.liquid',
   ],
+  // Preflight is Tailwind's global reset. Loaded site-wide it strips Shopify's
+  // native buttons, lists, headings and form controls, breaking the cart drawer,
+  // product form and checkout UI. We disable it and re-add only the resets the
+  // custom TCG sections need, scoped under `.tcg-scope` (see tailwind-input.css).
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     extend: {
       colors: {

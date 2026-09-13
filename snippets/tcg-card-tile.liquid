@@ -26,7 +26,7 @@
   assign tile_img = product.featured_image
 %}
 
-<article class="tile rounded-card p-3" style="background:#141C3A;">
+<article class="tcg-scope tile rounded-card p-3" style="background:#141C3A;">
   <a href="{{ product.url }}" class="block tile__img rounded-lg overflow-hidden relative">
     {% if tile_img %}
       <img src="{{ tile_img | image_url: width: 600 }}"

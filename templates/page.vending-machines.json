@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "tcg_vending": {
+      "type": "tcg-vending",
+      "settings": {
+        "heading": "Pokémon card vending machines",
+        "body": "The machines you've seen at the shows — now available for your shop, event or arcade. Custom TCG Hitz wrap, Pokémon · Magic · One Piece, built to draw a crowd.",
+        "cta_label": "Enquire about a machine",
+        "cta_link": "/pages/contact"
+      }
+    },
+    "tcg_trust": {
+      "type": "tcg-trust",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "icon": "truck", "heading": "Custom-wrapped", "body": "Your branding, our reliable hardware — wrapped and configured before it ships." } },
+        "f2": { "type": "feature", "settings": { "icon": "shield", "heading": "Supported", "body": "Restock guidance, spare parts and setup help for shops and events." } },
+        "f3": { "type": "feature", "settings": { "icon": "camera", "heading": "Proven at shows", "body": "The same machines that draw crowds at card shows every weekend." } }
+      },
+      "block_order": ["f1", "f2", "f3"],
+      "settings": { "heading": "Why our machines" }
+    },
+    "tcg_faq": {
+      "type": "tcg-faq",
+      "blocks": {
+        "q1": { "type": "item", "settings": { "question": "Can I buy a vending machine?", "answer": "Yes — we build custom-wrapped machines for shops and events. Send an enquiry and we'll scope it with you." } },
+        "q2": { "type": "item", "settings": { "question": "Which games can it dispense?", "answer": "Pokémon, Magic and One Piece packs and mystery products — configurable per machine." } },
+        "q3": { "type": "item", "settings": { "question": "Do you help with setup?", "answer": "We handle the wrap and configuration, and support you with restocking and spares." } }
+      },
+      "block_order": ["q1", "q2", "q3"],
+      "settings": { "heading": "Vending FAQ", "subheading": "Everything about our machines." }
+    }
+  },
+  "order": ["tcg_vending", "tcg_trust", "tcg_faq"]
+}

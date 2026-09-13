@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "tcg_merch": {
+      "type": "tcg-merch-promo",
+      "settings": {
+        "heading": "Merchandise",
+        "subheading": "Our own 3D prints, plus plushies, figures and collectibles.",
+        "collection": "merchandise"
+      }
+    }
+  },
+  "order": ["tcg_merch"]
+}
