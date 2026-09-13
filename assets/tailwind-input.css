@@ -88,6 +88,13 @@
   .tcg-scope :where(summary) { display: list-item; }
   .tcg-scope :where(table) { border-collapse: collapse; }
   .tcg-scope [hidden] { display: none; }
+
+  /* base.css (>=750px) turns every `.grid` into Shopify's 14-column page grid via
+     `grid-template-areas: 'column-0 … column-13'`. Tailwind has no utility for that
+     property, so even with `important: true` those named areas still force 14
+     explicit columns (the mega menu collapsed into one row). Reset it here. */
+  .tcg-scope .grid,
+  .tcg-scope.grid { grid-template-areas: none !important; }
 }
 
 @layer components {
