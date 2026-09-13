@@ -12,7 +12,7 @@
 
 <footer class="tcg-scope border-t border-gold/15 py-12 mt-8 font-sans antialiased text-paper">
   <div class="mx-auto max-w-site px-4 sm:px-6 grid md:grid-cols-4 gap-10">
-    <div class="md:col-span-2"><img src="{{ logo_url }}" alt="{{ shop.name | escape }}" class="h-14 w-auto"><p class="mt-4 text-paper-dim max-w-[44ch] text-sm">{{ section.settings.blurb }}</p></div>
+    <div class="md:col-span-2">{% if section.settings.show_logo %}<img src="{{ logo_url }}" alt="{{ shop.name | escape }}" class="h-14 w-auto">{% endif %}<p class="{% if section.settings.show_logo %}mt-4 {% endif %}text-paper-dim max-w-[44ch] text-sm">{{ section.settings.blurb }}</p></div>
     {%- for block in section.blocks -%}
       {%- if block.type == 'column' -%}
         <div {{ block.shopify_attributes }}><h3 class="font-bold text-gold text-sm tracking-widest">{{ block.settings.heading }}</h3><ul class="mt-3 space-y-2 text-paper-dim text-sm">
@@ -37,7 +37,10 @@
 {
   "name": "TCG Footer",
   "tag": "div",
+  "limit": 1,
+  "enabled_on": { "groups": ["footer"] },
   "settings": [
+    { "type": "checkbox", "id": "show_logo", "label": "Show logo", "default": true },
     { "type": "image_picker", "id": "logo", "label": "Logo (defaults to assets/logo.png)" },
     { "type": "textarea", "id": "blurb", "label": "About text", "default": "A family-run Pokémon store: singles, sealed, mystery, slabs, merchandise and our own card vending machines. Online and at card shows every weekend." },
     { "type": "text", "id": "copyright", "label": "Copyright (after the year)", "default": "TCG Hitz. All rights reserved." },

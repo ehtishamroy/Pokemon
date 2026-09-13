@@ -24,7 +24,8 @@
       "block_order": ["mega_singles", "mega_slabs", "mega_sealed", "mega_mystery", "nav_mystery", "nav_slabs", "nav_vending", "nav_merch", "nav_sell"],
       "settings": {
         "mega_label": "Cards",
-        "mega_link": "/collections/all"
+        "mega_link": "/collections/all",
+        "show_account": true
       }
     }
   },

@@ -22,6 +22,7 @@
       },
       "block_order": ["shop", "help"],
       "settings": {
+        "show_logo": true,
         "blurb": "A family-run Pokémon store: singles, sealed, mystery, slabs, merchandise and our own card vending machines. Online and at card shows every weekend.",
         "copyright": "TCG Hitz. All rights reserved.",
         "legal": "Pokémon, Magic and One Piece are trademarks of their respective owners. TCG Hitz is an independent reseller."
