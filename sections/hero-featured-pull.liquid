@@ -25,13 +25,13 @@
       <div class="mt-8 flex flex-wrap gap-3">
         <a href="{{ section.settings.cta_primary_link }}"
            class="inline-flex items-center rounded-full px-6 py-3.5 font-bold"
-           style="background:#FFC72C;color:#0E1530;">
+           style="background:#FFC72C;color:#000000;">
           {{ section.settings.cta_primary_label }}
         </a>
         <a href="#pulls"
            class="inline-flex items-center rounded-full border px-6 py-3.5 font-semibold"
            style="border-color:rgba(255,255,255,.15);color:#F3F5FA;"
-           onmouseover="this.style.borderColor='#3EC1FF';this.style.color='#3EC1FF';"
+           onmouseover="this.style.borderColor='#FFC72C';this.style.color='#FFC72C';"
            onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='#F3F5FA';">
           This week's pulls
         </a>
@@ -69,7 +69,7 @@
         <figcaption class="mt-5 flex items-center justify-between text-sm">
           <span style="color:#8A96B8;">Featured pull</span>
           {% if featured_product != blank %}
-            <a href="{{ featured_product.url }}" class="font-semibold hover:underline" style="color:#3EC1FF;">
+            <a href="{{ featured_product.url }}" class="font-semibold hover:underline" style="color:#FFC72C;">
               See this card →
             </a>
           {% endif %}

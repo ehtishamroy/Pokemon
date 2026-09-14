@@ -14,33 +14,31 @@
 
 @layer base {
   :root {
-    --felt: #0E1530;
-    --glow: #3EC1FF;
+    --felt: #000000;
+    --glow: #FFC72C;
     --hit:  #FFC72C;
     --chase:#E8402C;
     --paper:#F3F5FA;
     --gold: #FFC72C;
     --gold-deep: #C8860D;
-    --ink: #09090F;
+    --ink: #000000;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
-    background-color: var(--felt);
+    background-color: #000000;
     color: var(--paper);
-    /* subtle felt weave so large dark areas don't read as flat black */
     background-image:
-      radial-gradient(1200px 600px at 50% -10%, rgba(62,193,255,.10), transparent 60%),
+      radial-gradient(900px 520px at 50% -6%, rgba(255,199,44,.14), transparent 62%),
       repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px);
   }
 
   /* V2 — "Arcade Machine" skin: deep black + warm central gold glow */
   body.machine {
-    background-color: var(--ink);
+    background-color: #000000;
     background-image:
       radial-gradient(900px 520px at 50% -6%, rgba(255,199,44,.14), transparent 62%),
-      radial-gradient(1100px 700px at 50% 40%, rgba(62,193,255,.06), transparent 60%),
       repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px);
   }
 
@@ -110,12 +108,12 @@
      ------------------------------------------------------------------------ */
   .sign {
     position: relative;
-    filter: drop-shadow(0 0 18px rgba(62,193,255,.55)) drop-shadow(0 0 48px rgba(62,193,255,.25));
+    filter: drop-shadow(0 0 18px rgba(255,199,44,.55)) drop-shadow(0 0 48px rgba(255,199,44,.25));
   }
   .sign::after {
     content: "";
     position: absolute; inset: auto 10% -18% 10%; height: 30%;
-    background: radial-gradient(closest-side, rgba(62,193,255,.35), transparent);
+    background: radial-gradient(closest-side, rgba(255,199,44,.35), transparent);
     filter: blur(18px);
     pointer-events: none;
   }
@@ -140,7 +138,7 @@
   }
   .holo__card img { display: block; width: 100%; height: auto; }
   .holo.is-active .holo__card {
-    box-shadow: 0 40px 80px -24px rgba(0,0,0,.85), 0 0 0 1px rgba(62,193,255,.25), 0 0 40px rgba(62,193,255,.25);
+    box-shadow: 0 40px 80px -24px rgba(0,0,0,.85), 0 0 0 1px rgba(255,199,44,.25), 0 0 40px rgba(255,199,44,.25);
   }
   .holo__glare {
     position: absolute; inset: 0; pointer-events: none;
@@ -179,23 +177,23 @@
      Product tile — borderless on felt; blue lift only on hover/focus
      ------------------------------------------------------------------------ */
   .tile { transition: transform .2s ease, box-shadow .2s ease; }
-  .tile:hover, .tile:focus-within { transform: translateY(-4px); box-shadow: 0 18px 40px -18px rgba(62,193,255,.45); }
-  .tile__img { aspect-ratio: 5 / 7; background: #0A0F24; }
+  .tile:hover, .tile:focus-within { transform: translateY(-4px); box-shadow: 0 18px 40px -18px rgba(255,199,44,.45); }
+  .tile__img { aspect-ratio: 5 / 7; background: #0D0D11; }
   .tile__img img { width: 100%; height: 100%; object-fit: cover; }
 
   /* Rarity pill colors */
   .rar-common { color:#C5CCE0; }
-  .rar-rare   { color:#3EC1FF; }
+  .rar-rare   { color:#FFC72C; }
   .rar-ultra  { color:#FFC72C; }
   .rar-secret { color:#FF7ED8; }
 
-  /* Cart drawer — same ink + gold-glow ground as body.machine (homepage) */
+  /* Cart drawer — pure black + warm gold glow */
   .drawer {
     transform: translateX(100%);
     transition: transform .28s cubic-bezier(.2,.8,.2,1);
+    background-color: #000000;
     background-image:
       radial-gradient(600px 420px at 50% -8%, rgba(255,199,44,.16), transparent 62%),
-      radial-gradient(700px 560px at 50% 45%, rgba(62,193,255,.06), transparent 60%),
       repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px);
   }
   .drawer.is-open { transform: translateX(0); }
@@ -207,7 +205,7 @@
 
   /* Thin scrollbars for thumbnail strips */
   .thumbs::-webkit-scrollbar { height: 6px; }
-  .thumbs::-webkit-scrollbar-thumb { background: #1B2448; border-radius: 6px; }
+  .thumbs::-webkit-scrollbar-thumb { background: #222228; border-radius: 6px; }
 
   /* ------------------------------------------------------------------------
      V2 — "Arcade Machine" skin
@@ -247,7 +245,7 @@
   /* Horizontal product rail */
   .rail { scroll-snap-type:x mandatory; scrollbar-width:thin; }
   .rail::-webkit-scrollbar { height:8px; }
-  .rail::-webkit-scrollbar-thumb { background:#1B2448; border-radius:8px; }
+  .rail::-webkit-scrollbar-thumb { background:#222228; border-radius:8px; }
   .rail > * { scroll-snap-align:start; }
 
   /* Collection filter checkboxes: white box, gold when checked. base.css styles

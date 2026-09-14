@@ -21,6 +21,30 @@
     .tcg-marquee-container:hover .tcg-marquee-track {
       animation-play-state: paused;
     }
+    .tcg-fade-mask-left,
+    .tcg-fade-mask-right {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      width: 130px;
+      z-index: 20;
+      pointer-events: none;
+    }
+    .tcg-fade-mask-left {
+      left: 0;
+      background: linear-gradient(to right, #000000 0%, rgba(0, 0, 0, 0.95) 30%, rgba(0, 0, 0, 0.6) 65%, transparent 100%);
+    }
+    .tcg-fade-mask-right {
+      right: 0;
+      background: linear-gradient(to left, #000000 0%, rgba(0, 0, 0, 0.95) 30%, rgba(0, 0, 0, 0.6) 65%, transparent 100%);
+    }
+    @media (min-width: 768px) {
+      .tcg-fade-mask-left,
+      .tcg-fade-mask-right {
+        width: 220px;
+      }
+    }
   </style>
 
   <div class="mx-auto max-w-site px-4 sm:px-6">
@@ -28,10 +52,10 @@
     <p class="text-center text-paper-dim mt-3">{{ section.settings.subheading }}</p>
     <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
 
-    <div class="overflow-hidden flex w-full relative tcg-marquee-container mt-4 pb-3">
+    <div class="overflow-hidden flex w-full relative tcg-marquee-container mt-4 pb-3" style="-webkit-mask-image: linear-gradient(to right, transparent 0%, black 140px, black calc(100% - 140px), transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 140px, black calc(100% - 140px), transparent 100%);">
       <!-- Fade masks aligned to the container -->
-      <div class="absolute inset-y-0 left-0 w-8 md:w-16 bg-gradient-to-r from-ink to-transparent z-10 pointer-events-none"></div>
-      <div class="absolute inset-y-0 right-0 w-8 md:w-16 bg-gradient-to-l from-ink to-transparent z-10 pointer-events-none"></div>
+      <div class="tcg-fade-mask-left"></div>
+      <div class="tcg-fade-mask-right"></div>
 
       <!-- Loop 4 times to guarantee the track is wide enough even with very few images -->
       {%- for i in (1..4) -%}
