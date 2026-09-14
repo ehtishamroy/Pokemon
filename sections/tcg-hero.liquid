@@ -123,11 +123,11 @@
       </div>
     </div>
 
-    <form class="mt-12 max-w-xl mx-auto" role="search" action="{{ routes.search_url }}" method="get">
+    <form class="mt-12 max-w-xl mx-auto" role="search" action="{{ routes.search_url }}" method="get" onsubmit="event.preventDefault(); window.openTcgSearchModal && window.openTcgSearchModal(this.querySelector('#q')?.value);">
       <input type="hidden" name="type" value="product">
       <label class="sr-only" for="q">Search</label>
-      <div class="relative">
-        <input id="q" name="q" type="search" placeholder="{{ section.settings.search_placeholder | escape }}" class="w-full rounded-full bg-felt-2/80 border border-gold/25 pl-12 pr-4 py-3.5 placeholder:text-slate focus:border-gold">
+      <div class="relative cursor-pointer" onclick="window.openTcgSearchModal && window.openTcgSearchModal(document.getElementById('q')?.value);">
+        <input id="q" name="q" type="search" placeholder="{{ section.settings.search_placeholder | escape }}" data-search-open class="w-full rounded-full bg-felt-2/80 border border-gold/25 pl-12 pr-4 py-3.5 placeholder:text-slate focus:border-gold cursor-pointer transition-colors duration-200 hover:border-gold/60">
         <svg class="absolute left-4 top-4 h-5 w-5 text-gold/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>
       </div>
     </form>

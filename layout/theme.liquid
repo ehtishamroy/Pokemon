@@ -180,6 +180,33 @@
     {% render 'theme-drawer' %}
 
     {% render 'search-modal' %}
+    {% render 'tcg-search-modal' %}
+
+    {%- if template.name == 'product' and product != blank -%}
+      <script>
+        (function recordProductView() {
+          try {
+            const rawUrl = {{ product.url | json }};
+            const cleanUrl = rawUrl ? rawUrl.split('?')[0].split('#')[0] : '';
+            const item = {
+              title: {{ product.title | json }},
+              url: cleanUrl,
+              image: {{ product.featured_image | image_url: width: 300 | json }},
+              price: {{ product.price | money | json }}
+            };
+            if (window.recordTcgProductView) {
+              window.recordTcgProductView(item);
+            } else {
+              let history = JSON.parse(localStorage.getItem('tcg_search_recent') || '[]');
+              history = history.filter(h => (h.url || '').split('?')[0] !== cleanUrl);
+              history.unshift(item);
+              if (history.length > 6) history = history.slice(0, 6);
+              localStorage.setItem('tcg_search_recent', JSON.stringify(history));
+            }
+          } catch (e) {}
+        })();
+      </script>
+    {%- endif -%}
 
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
