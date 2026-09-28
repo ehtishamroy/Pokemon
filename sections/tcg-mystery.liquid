@@ -1,23 +1,689 @@
 {% comment %}
-  TCG Hitz — Mystery feature (1:1 with index.html "MYSTERY FEATURE")
+  TCG Hitz — Mystery feature (Interactive Animated Experience)
+  High-end animated collector cabinet with ambient nebula glow,
+  interactive 3D mystery tier cards, holographic shimmer, and touch/hover animations.
 {% endcomment %}
 
-<section id="mystery" class="tcg-scope py-12 lg:py-16">
+{%- capture icon_pack -%}
+<svg class="tcg-tier-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+  <rect x="5" y="4" width="14" height="16" rx="2.5"/>
+  <path stroke-linecap="round" d="M9 8.5h6M9 12h6M9 15.5h4"/>
+  <path stroke-linecap="round" stroke-linejoin="round" d="m14.5 15.5 1.5 1.5"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture icon_box -%}
+<svg class="tcg-tier-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture icon_slab -%}
+<svg class="tcg-tier-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+  <rect x="5.5" y="3" width="13" height="18" rx="2"/>
+  <rect x="7.5" y="5" width="9" height="4" rx="1" stroke-dasharray="2 2"/>
+  <path stroke-linecap="round" stroke-linejoin="round" d="M10 14.5l1.5 1.5 3-3"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture default_mystery_url -%}{{ section.settings.cta_link | default: '/collections/mystery' }}{%- endcapture -%}
+
+<section id="mystery" class="tcg-scope py-12 lg:py-18">
   <div class="mx-auto max-w-site px-4 sm:px-6">
-    <div class="cabinet bg-ink p-7 sm:p-10 grid lg:grid-cols-2 gap-8 items-center">
-      <div>
-        <p class="text-gold font-bold text-sm tracking-widest">{{ section.settings.eyebrow }}</p>
-        <h2 class="font-display text-3xl sm:text-4xl mt-2 leading-tight">{{ section.settings.heading }}</h2>
-        <p class="mt-4 text-paper-dim leading-relaxed max-w-[48ch]">{{ section.settings.body }}</p>
-        <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="mt-6 inline-flex rounded-full bg-gold px-6 py-3 font-bold text-ink hover:bg-gold-deep">{{ section.settings.cta_label }}</a>
-      </div>
-      <div class="grid grid-cols-3 gap-3">
-        {%- for block in section.blocks -%}
-          <div class="cat rounded-card bg-felt-2 p-5 text-center" {{ block.shopify_attributes }}><p class="font-bold text-sm">{{ block.settings.name }}</p><p class="text-gold font-bold mt-1">{{ block.settings.price }}</p></div>
-        {%- endfor -%}
+    <div class="tcg-mystery-cabinet" tabindex="0" role="region" aria-label="{{ section.settings.heading | escape }}">
+      <!-- Ambient Nebula Glow & Cyber Grid -->
+      <div class="tcg-mystery-bg-glow" aria-hidden="true"></div>
+      <div class="tcg-mystery-grid-lines" aria-hidden="true"></div>
+      <span class="tcg-mystery-shine" aria-hidden="true"></span>
+
+      <div class="relative z-10 grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <!-- Left Content -->
+        <div class="lg:col-span-6 text-left">
+          <!-- Eyebrow Pill -->
+          <div class="tcg-mystery-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-4">
+            <span class="tcg-mystery-dot"></span>
+            <span class="tcg-mystery-badge-text">{{ section.settings.eyebrow | default: 'TCG HITZ EXCLUSIVE' }}</span>
+          </div>
+
+          <h2 class="tcg-mystery-title font-display text-3xl sm:text-4xl lg:text-[42px] leading-[1.08] text-white">
+            {{ section.settings.heading }}
+          </h2>
+
+          <p class="tcg-mystery-desc mt-4 text-[#d3d8e6] text-sm sm:text-base leading-relaxed max-w-[48ch]">
+            {{ section.settings.body }}
+          </p>
+
+          <!-- 3 Value Micro-Badges -->
+          <div class="tcg-mystery-chips mt-6 flex flex-wrap gap-2 text-xs font-semibold">
+            <span class="tcg-mystery-chip">
+              <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Guaranteed Value Floor
+            </span>
+            <span class="tcg-mystery-chip">
+              <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Graded Slabs & Alt-Arts
+            </span>
+            <span class="tcg-mystery-chip">
+              <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Fast Tracked Shipping
+            </span>
+          </div>
+
+          <!-- Main CTA Button -->
+          <div class="mt-7">
+            <a href="{{ default_mystery_url }}" class="tcg-mystery-btn group" aria-label="{{ section.settings.cta_label }}">
+              <span class="tcg-mystery-btn__shine" aria-hidden="true"></span>
+              <span class="tcg-mystery-btn__text">{{ section.settings.cta_label | default: 'Shop mystery' }}</span>
+              <span class="tcg-mystery-btn__arrow" aria-hidden="true">
+                <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: 3 Tier Interactive Cards (Mobile Responsive 3-Column Grid) -->
+        <div class="lg:col-span-6 mt-6 lg:mt-0">
+          <div class="grid grid-cols-3 gap-2 sm:gap-3.5">
+            {%- if section.blocks.size > 0 -%}
+              {%- for block in section.blocks -%}
+                <a href="{{ block.settings.link | default: default_mystery_url }}" class="tcg-tier-card group {% if forloop.index == 2 %}tcg-tier-card--featured{% endif %}" tabindex="0" role="article" aria-label="{{ block.settings.name }} - {{ block.settings.price }}" {{ block.shopify_attributes }}>
+                  <span class="tcg-tier-card__shine" aria-hidden="true"></span>
+
+                  {%- if forloop.index == 2 -%}
+                    <span class="tcg-tier-badge">POPULAR</span>
+                  {%- elsif forloop.index == 3 -%}
+                    <span class="tcg-tier-badge tcg-tier-badge--gold">GRADED</span>
+                  {%- endif -%}
+
+                  <div class="tcg-tier-icon-box">
+                    {%- if forloop.index == 1 -%}
+                      {{ icon_pack }}
+                    {%- elsif forloop.index == 2 -%}
+                      {{ icon_box }}
+                    {%- else -%}
+                      {{ icon_slab }}
+                    {%- endif -%}
+                  </div>
+
+                  <h3 class="tcg-tier-name">{{ block.settings.name }}</h3>
+                  <p class="tcg-tier-price">{{ block.settings.price }}</p>
+
+                  <div class="tcg-tier-action">
+                    <span>View tier</span>
+                    <svg class="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+                    </svg>
+                  </div>
+                </a>
+              {%- endfor -%}
+            {%- else -%}
+              <!-- Default 3 Tiers -->
+              <a href="{{ default_mystery_url }}" class="tcg-tier-card group" tabindex="0" aria-label="Mystery Pack - $19.99">
+                <span class="tcg-tier-card__shine" aria-hidden="true"></span>
+                <div class="tcg-tier-icon-box">{{ icon_pack }}</div>
+                <h3 class="tcg-tier-name">Mystery Pack</h3>
+                <p class="tcg-tier-price">$19.99</p>
+                <div class="tcg-tier-action"><span>View tier</span> <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg></div>
+              </a>
+
+              <a href="{{ default_mystery_url }}" class="tcg-tier-card group tcg-tier-card--featured" tabindex="0" aria-label="Mystery Box - $74.99">
+                <span class="tcg-tier-card__shine" aria-hidden="true"></span>
+                <span class="tcg-tier-badge">POPULAR</span>
+                <div class="tcg-tier-icon-box">{{ icon_box }}</div>
+                <h3 class="tcg-tier-name">Mystery Box</h3>
+                <p class="tcg-tier-price">$74.99</p>
+                <div class="tcg-tier-action"><span>View tier</span> <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg></div>
+              </a>
+
+              <a href="{{ default_mystery_url }}" class="tcg-tier-card group" tabindex="0" aria-label="Mystery Slab - $49.99">
+                <span class="tcg-tier-card__shine" aria-hidden="true"></span>
+                <span class="tcg-tier-badge tcg-tier-badge--gold">GRADED</span>
+                <div class="tcg-tier-icon-box">{{ icon_slab }}</div>
+                <h3 class="tcg-tier-name">Mystery Slab</h3>
+                <p class="tcg-tier-price">$49.99</p>
+                <div class="tcg-tier-action"><span>View tier</span> <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg></div>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <style>
+    /* ==========================================================
+       TCG MYSTERY — PREMIUM ANIMATED CABINET & TIERS
+       ========================================================== */
+    .tcg-mystery-cabinet {
+      position: relative;
+      border-radius: 22px;
+      background: linear-gradient(150deg, rgba(12, 12, 12, 0.98) 0%, rgba(0, 0, 0, 0.99) 55%, rgba(26, 20, 10, 0.98) 100%);
+      border: 1.5px solid rgba(255, 199, 44, 0.32);
+      padding: 1.75rem 1.1rem;
+      overflow: hidden;
+      box-shadow:
+        0 14px 36px -10px rgba(0, 0, 0, 0.92),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 40px rgba(255, 199, 44, 0.08);
+      transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.35s ease,
+        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    @media (min-width: 640px) {
+      .tcg-mystery-cabinet {
+        border-radius: 26px;
+        padding: 3rem 2.5rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .tcg-mystery-cabinet {
+        padding: 3.75rem 3.25rem;
+      }
+    }
+
+    /* Ambient Pulsing Nebula Glow */
+    .tcg-mystery-bg-glow {
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle at 75% 45%, rgba(255, 199, 44, 0.14) 0%, transparent 60%);
+      pointer-events: none;
+      animation: tcg-mystery-glow-pulse 6.5s ease-in-out infinite alternate;
+      z-index: 1;
+    }
+    @keyframes tcg-mystery-glow-pulse {
+      0% { opacity: 0.5; transform: scale(0.95); }
+      100% { opacity: 0.95; transform: scale(1.08); }
+    }
+
+    /* Cyber Grid */
+    .tcg-mystery-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(255, 199, 44, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 199, 44, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Decorative Gold Corner Brackets */
+    .tcg-mystery-cabinet::before,
+    .tcg-mystery-cabinet::after {
+      content: "";
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      pointer-events: none;
+      border: 2px solid #FFC72C;
+      opacity: 0.55;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 4;
+    }
+    .tcg-mystery-cabinet::before {
+      top: 14px;
+      left: 14px;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 9px 0 0 0;
+    }
+    .tcg-mystery-cabinet::after {
+      bottom: 14px;
+      right: 14px;
+      border-left: none;
+      border-top: none;
+      border-radius: 0 0 9px 0;
+    }
+
+    .tcg-mystery-cabinet:hover::before,
+    .tcg-mystery-cabinet:hover::after,
+    .tcg-mystery-cabinet.is-active::before,
+    .tcg-mystery-cabinet.is-active::after {
+      opacity: 1;
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 8px rgba(255, 199, 44, 0.9));
+    }
+
+    /* Sweep Shine Beam */
+    .tcg-mystery-shine {
+      position: absolute;
+      top: 0;
+      left: -130%;
+      width: 65%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.03) 30%,
+        rgba(255, 199, 44, 0.14) 50%,
+        rgba(255, 255, 255, 0.03) 70%,
+        transparent 100%
+      );
+      transform: skewX(-25deg);
+      pointer-events: none;
+      z-index: 3;
+      transition: none;
+    }
+    .tcg-mystery-cabinet:hover .tcg-mystery-shine,
+    .tcg-mystery-cabinet.is-active .tcg-mystery-shine {
+      left: 200%;
+      transition: left 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Eyebrow Badge */
+    .tcg-mystery-badge {
+      background: rgba(255, 199, 44, 0.1);
+      border: 1px solid rgba(255, 199, 44, 0.38);
+      color: #FFC72C;
+      box-shadow: 0 0 16px rgba(255, 199, 44, 0.12);
+    }
+    .tcg-mystery-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 9999px;
+      background: #FFC72C;
+      box-shadow: 0 0 8px #FFC72C;
+      animation: tcg-myst-dot-pulse 2s ease-in-out infinite;
+    }
+    @keyframes tcg-myst-dot-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.55; }
+    }
+    .tcg-mystery-badge-text {
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-size: 0.73rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Typography */
+    .tcg-mystery-title {
+      font-family: 'Titan One', cursive, system-ui;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+    }
+    .tcg-mystery-desc {
+      font-family: 'Manrope', system-ui, sans-serif;
+    }
+
+    /* Micro-chips */
+    .tcg-mystery-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e4e7ef;
+      font-family: 'Manrope', system-ui, sans-serif;
+      transition: all 0.25s ease;
+    }
+    .tcg-mystery-cabinet:hover .tcg-mystery-chip,
+    .tcg-mystery-cabinet.is-active .tcg-mystery-chip {
+      background: rgba(255, 199, 44, 0.08);
+      border-color: rgba(255, 199, 44, 0.32);
+      color: #FFFFFF;
+    }
+
+    /* CTA Button */
+    .tcg-mystery-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #FFC72C 0%, #FFA800 100%);
+      padding: 0.85rem 2rem;
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 0.98rem;
+      color: #0B0B0E;
+      text-decoration: none;
+      overflow: hidden;
+      box-shadow:
+        0 10px 24px -4px rgba(0, 0, 0, 0.65),
+        0 0 24px rgba(255, 199, 44, 0.45);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .tcg-mystery-btn:hover,
+    .tcg-mystery-btn:focus-visible {
+      transform: translateY(-2px) scale(1.03);
+      background: linear-gradient(135deg, #FFD54F 0%, #FFB300 100%);
+      box-shadow:
+        0 14px 30px -4px rgba(0, 0, 0, 0.75),
+        0 0 35px rgba(255, 199, 44, 0.8);
+      color: #000000;
+    }
+    .tcg-mystery-btn__shine {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+      transform: skewX(-20deg);
+      animation: tcg-myst-btn-sweep 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes tcg-myst-btn-sweep {
+      0%, 60% { left: -100%; }
+      100% { left: 200%; }
+    }
+
+    /* ==========================================================
+       RIGHT: TIER CARDS (MOBILE RESPONSIVE & COMPACT)
+       ========================================================== */
+    .tcg-tier-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-radius: 14px;
+      background: linear-gradient(165deg, rgba(24, 24, 24, 0.92) 0%, rgba(10, 10, 10, 0.96) 100%);
+      border: 1.5px solid rgba(255, 199, 44, 0.22);
+      padding: 0.85rem 0.35rem 0.75rem;
+      text-decoration: none;
+      overflow: hidden;
+      box-shadow:
+        0 6px 18px -4px rgba(0, 0, 0, 0.75),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.3s ease,
+        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      min-width: 0;
+    }
+
+    @media (min-width: 640px) {
+      .tcg-tier-card {
+        border-radius: 18px;
+        padding: 1.5rem 0.85rem 1.35rem;
+        box-shadow:
+          0 10px 28px -6px rgba(0, 0, 0, 0.75),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    /* Featured Center Tier Card (Mystery Box) */
+    .tcg-tier-card--featured {
+      background: linear-gradient(165deg, rgba(32, 32, 32, 0.95) 0%, rgba(14, 14, 14, 0.98) 100%);
+      border-color: rgba(255, 199, 44, 0.45);
+      box-shadow:
+        0 8px 22px -4px rgba(0, 0, 0, 0.85),
+        0 0 18px rgba(255, 199, 44, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    @media (min-width: 640px) {
+      .tcg-tier-card--featured {
+        box-shadow:
+          0 12px 32px -6px rgba(0, 0, 0, 0.85),
+          0 0 24px rgba(255, 199, 44, 0.16),
+          inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      }
+    }
+
+    /* Hover & Active States */
+    .tcg-tier-card:hover,
+    .tcg-tier-card:focus-visible,
+    .tcg-tier-card.is-active {
+      transform: translateY(-6px) scale(1.025);
+      border-color: rgba(255, 199, 44, 0.85);
+      box-shadow:
+        0 16px 36px -8px rgba(0, 0, 0, 0.95),
+        0 0 28px rgba(255, 199, 44, 0.32),
+        inset 0 0 16px rgba(255, 199, 44, 0.08);
+    }
+    .tcg-tier-card:active {
+      transform: translateY(-2px) scale(0.99);
+      transition-duration: 0.12s;
+    }
+
+    /* Tier Card Shine */
+    .tcg-tier-card__shine {
+      position: absolute;
+      top: 0;
+      left: -130%;
+      width: 75%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.04) 30%,
+        rgba(255, 199, 44, 0.16) 50%,
+        rgba(255, 255, 255, 0.04) 70%,
+        transparent 100%
+      );
+      transform: skewX(-25deg);
+      pointer-events: none;
+      transition: none;
+    }
+    .tcg-tier-card:hover .tcg-tier-card__shine,
+    .tcg-tier-card.is-active .tcg-tier-card__shine {
+      left: 200%;
+      transition: left 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Top Corner Badge */
+    .tcg-tier-badge {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      padding: 0.15rem 0.35rem;
+      border-radius: 9999px;
+      background: rgba(255, 199, 44, 0.18);
+      border: 1px solid rgba(255, 199, 44, 0.5);
+      color: #FFC72C;
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-size: 0.48rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow: 0 0 8px rgba(255, 199, 44, 0.2);
+      white-space: nowrap;
+      line-height: 1;
+    }
+    @media (min-width: 640px) {
+      .tcg-tier-badge {
+        top: 9px;
+        right: 9px;
+        padding: 0.2rem 0.5rem;
+        font-size: 0.58rem;
+        letter-spacing: 0.06em;
+      }
+    }
+    .tcg-tier-badge--gold {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #FFFFFF;
+    }
+
+    /* Icon Container */
+    .tcg-tier-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255, 199, 44, 0.08);
+      border: 1.5px solid rgba(255, 199, 44, 0.35);
+      color: #FFC72C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.45rem;
+      box-shadow: 0 0 10px rgba(255, 199, 44, 0.1);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) {
+      .tcg-tier-icon-box {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        margin-bottom: 0.85rem;
+        box-shadow: 0 0 14px rgba(255, 199, 44, 0.12);
+      }
+    }
+    .tcg-tier-icon {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.35s ease;
+    }
+    @media (min-width: 640px) {
+      .tcg-tier-icon {
+        width: 22px;
+        height: 22px;
+      }
+    }
+    .tcg-tier-card:hover .tcg-tier-icon-box,
+    .tcg-tier-card.is-active .tcg-tier-icon-box {
+      background: rgba(255, 199, 44, 0.22);
+      border-color: #FFC72C;
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(255, 199, 44, 0.4);
+    }
+    .tcg-tier-card:hover .tcg-tier-icon,
+    .tcg-tier-card.is-active .tcg-tier-icon {
+      transform: scale(1.08) rotate(4deg);
+    }
+
+    /* Tier Name */
+    .tcg-tier-name {
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 0.74rem;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      transition: color 0.25s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      width: 100%;
+    }
+    @media (min-width: 640px) {
+      .tcg-tier-name {
+        font-size: 0.96rem;
+        line-height: 1.25;
+      }
+    }
+    .tcg-tier-card:hover .tcg-tier-name,
+    .tcg-tier-card.is-active .tcg-tier-name {
+      color: #FFC72C;
+    }
+
+    /* Tier Price */
+    .tcg-tier-price {
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 0.96rem;
+      color: #FFC72C;
+      margin-top: 0.2rem;
+      letter-spacing: -0.01em;
+      text-shadow: 0 0 10px rgba(255, 199, 44, 0.25);
+      transition: transform 0.25s ease;
+      white-space: nowrap;
+    }
+    @media (min-width: 640px) {
+      .tcg-tier-price {
+        font-size: 1.25rem;
+        margin-top: 0.35rem;
+        text-shadow: 0 0 14px rgba(255, 199, 44, 0.3);
+      }
+    }
+    .tcg-tier-card:hover .tcg-tier-price,
+    .tcg-tier-card.is-active .tcg-tier-price {
+      transform: scale(1.05);
+    }
+
+    /* Micro-CTA link (Strictly One Line) */
+    .tcg-tier-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      margin-top: 0.45rem;
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.65);
+      white-space: nowrap !important;
+      word-break: keep-all !important;
+      flex-wrap: nowrap !important;
+      line-height: 1;
+      width: 100%;
+      transition: color 0.25s ease;
+    }
+    .tcg-tier-action span {
+      white-space: nowrap !important;
+      word-break: keep-all !important;
+      display: inline-block;
+    }
+    .tcg-tier-action svg {
+      flex-shrink: 0;
+      width: 10px;
+      height: 10px;
+    }
+    @media (min-width: 640px) {
+      .tcg-tier-action {
+        gap: 0.25rem;
+        margin-top: 0.65rem;
+        font-size: 0.74rem;
+      }
+      .tcg-tier-action svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+    .tcg-tier-card:hover .tcg-tier-action,
+    .tcg-tier-card.is-active .tcg-tier-action {
+      color: #FFFFFF;
+    }
+  </style>
+
+  <script>
+    (function initMysteryTouch() {
+      const cabinet = document.querySelector('.tcg-mystery-cabinet');
+      const tierCards = document.querySelectorAll('.tcg-tier-card');
+
+      if (cabinet) {
+        let cabTimer = null;
+        cabinet.addEventListener('touchstart', () => {
+          cabinet.classList.add('is-active');
+        }, { passive: true });
+        cabinet.addEventListener('touchend', () => {
+          clearTimeout(cabTimer);
+          cabTimer = setTimeout(() => { cabinet.classList.remove('is-active'); }, 500);
+        }, { passive: true });
+      }
+
+      tierCards.forEach((card) => {
+        let cardTimer = null;
+        card.addEventListener('touchstart', () => {
+          card.classList.add('is-active');
+        }, { passive: true });
+        card.addEventListener('touchend', () => {
+          clearTimeout(cardTimer);
+          cardTimer = setTimeout(() => { card.classList.remove('is-active'); }, 450);
+        }, { passive: true });
+        card.addEventListener('touchcancel', () => {
+          card.classList.remove('is-active');
+        }, { passive: true });
+      });
+    })();
+  </script>
 </section>
 
 {% schema %}
@@ -36,7 +702,9 @@
       "name": "Tier",
       "settings": [
         { "type": "text", "id": "name", "label": "Name", "default": "Mystery Pack" },
-        { "type": "text", "id": "price", "label": "Price", "default": "$19.99" }
+        { "type": "text", "id": "price", "label": "Price", "default": "$19.99" },
+        { "type": "text", "id": "badge", "label": "Badge (optional)", "default": "POPULAR" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
       ]
     }
   ],

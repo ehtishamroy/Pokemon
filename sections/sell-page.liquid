@@ -12,7 +12,7 @@
   assign steps = section.blocks | where: 'type', 'step'
 -%}
 
-<section class="tcg-scope smoke pt-12 pb-10">
+<section class="tcg-scope smoke pt-12 pb-10" style="overflow-x: clip;">
   <div class="mx-auto max-w-site px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center">
     <div>
       {%- if section.settings.stars_text != blank -%}
@@ -26,7 +26,11 @@
       </div>
     </div>
     <div class="flex justify-center">
-      <img src="{{ hero_img }}" alt="{{ section.settings.hero_image.alt | default: 'Cards and collectibles on the TCG Hitz table' | escape }}" width="900" height="600" loading="lazy" class="rounded-card border border-gold/20 max-h-[360px] object-cover">
+      {%- if section.settings.hero_video != blank -%}
+        {{ section.settings.hero_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'rounded-card border border-gold/20 max-h-[360px] object-cover w-full' }}
+      {%- else -%}
+        <img src="{{ hero_img }}" alt="{{ section.settings.hero_image.alt | default: 'Cards and collectibles on the TCG Hitz table' | escape }}" loading="lazy" class="rounded-card border border-gold/20 max-h-[360px] object-cover">
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -122,21 +126,22 @@
     { "type": "text", "id": "cta_primary", "label": "Primary button", "default": "GET AN OFFER" },
     { "type": "text", "id": "cta_secondary", "label": "Secondary button", "default": "WHAT WE BUY" },
     { "type": "image_picker", "id": "hero_image", "label": "Hero image (defaults to store-display.jpg)" },
+    { "type": "video", "id": "hero_video", "label": "Or Hero video (overrides image)" },
     { "type": "header", "content": "How it works" },
     { "type": "text", "id": "steps_heading", "label": "Heading", "default": "How it works" },
     { "type": "header", "content": "What we buy" },
     { "type": "text", "id": "buy_heading", "label": "Heading", "default": "What we buy" },
-    { "type": "text", "id": "yes_heading", "label": "Yes column heading", "default": "Yes please" },
+    { "type": "text", "id": "yes_heading", "label": "Yes heading", "default": "Yes please" },
     { "type": "textarea", "id": "yes_list", "label": "Yes list (one per line)", "default": "Singles — modern and vintage, any condition\nGraded slabs — PSA, CGC, BGS, TAG\nSealed — boxes, ETBs, packs, tins\nBulk lots and whole collections\nMagic and One Piece, too" },
-    { "type": "text", "id": "no_heading", "label": "No column heading", "default": "Not right now" },
+    { "type": "text", "id": "no_heading", "label": "No heading", "default": "Not right now" },
     { "type": "textarea", "id": "no_list", "label": "No list (one per line)", "default": "Proxies, fakes or reprints sold as real\nWater-damaged or mouldy bulk\nOpened product missing its contents" },
-    { "type": "text", "id": "no_footnote", "label": "No column footnote", "default": "Not sure? Send it anyway and we'll tell you honestly." },
+    { "type": "text", "id": "no_footnote", "label": "No footnote", "default": "Not sure? Send it anyway and we'll tell you honestly." },
     { "type": "header", "content": "Offer form" },
     { "type": "text", "id": "form_heading", "label": "Form heading", "default": "Get an offer" },
     { "type": "text", "id": "form_subheading", "label": "Form subheading", "default": "Tell us what you have. We reply within one business day." },
     { "type": "header", "content": "In person" },
     { "type": "text", "id": "person_heading", "label": "Heading", "default": "Prefer to do it in person?" },
-    { "type": "textarea", "id": "person_body", "label": "Body", "default": "Bring your cards to our table at the next card show — we'll value them on the spot." },
+    { "type": "textarea", "id": "person_body", "label": "Body", "default": "Bring your cards to our table at the next card show." },
     { "type": "text", "id": "person_cta", "label": "Button", "default": "Find our next show" },
     { "type": "url", "id": "person_link", "label": "Button link" }
   ],

@@ -4,8 +4,39 @@
 
 {%- assign col = section.settings.collection -%}
 
-<section class="tcg-scope py-12 lg:py-16">
-  <div class="mx-auto max-w-site px-4 sm:px-6">
+<section class="tcg-scope py-12 lg:py-16 relative" style="position: relative; isolation: isolate; overflow: hidden;">
+  <style>
+    @keyframes ambient-gold-pulse-jl {
+      0%, 100% {
+        transform: translate(-50%, -45%) scale(1);
+        opacity: 0.65;
+      }
+      50% {
+        transform: translate(-50%, -45%) scale(1.1);
+        opacity: 0.95;
+      }
+    }
+    .tcg-ambient-gold-glow-jl {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -45%);
+      width: min(1050px, 96vw);
+      height: 480px;
+      background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(255, 199, 44, 0.25) 0%, rgba(212, 143, 10, 0.12) 42%, rgba(255, 199, 44, 0.02) 70%, transparent 80%);
+      filter: blur(52px);
+      pointer-events: none;
+      z-index: 0;
+      animation: ambient-gold-pulse-jl 7s ease-in-out infinite;
+      border-radius: 50%;
+    }
+  </style>
+
+  {%- if section.settings.enable_ambient_glow -%}
+    <div class="tcg-ambient-gold-glow-jl" aria-hidden="true"></div>
+  {%- endif -%}
+
+  <div class="mx-auto max-w-site px-4 sm:px-6 relative z-10">
     <h2 class="stitle">{{ section.settings.heading }}</h2>
     <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
     <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-5">
@@ -26,6 +57,8 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Just Landed ✈" },
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 3, "max": 18, "step": 1, "default": 6 },
+    { "type": "header", "content": "Ambient Glow Effect" },
+    { "type": "checkbox", "id": "enable_ambient_glow", "label": "Enable ambient gold glow backdrop", "default": true },
     { "type": "text", "id": "view_all_label", "label": "Button", "default": "LOAD MORE ARRIVALS" },
     { "type": "url", "id": "view_all_link", "label": "Button link" }
   ],
