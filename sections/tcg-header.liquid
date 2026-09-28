@@ -46,8 +46,16 @@
           </svg>
         </button>
 
-        <!-- Animated Pikachu Cart Button -->
-        <button type="button" data-cart-open class="tcg-pikachu-cart-btn relative p-1.5 rounded-full hover:bg-felt-3 transition-colors flex items-center justify-center" aria-label="Open cart" title="Cart">
+        <!-- Animated Pikachu Cart Button with Famous Pokemon Thunderbolt -->
+        <button type="button" data-cart-open class="tcg-pikachu-cart-btn relative p-1.5 rounded-full hover:bg-felt-3 transition-colors flex items-center justify-center group" aria-label="Open cart" title="Pikachu Cart">
+          <!-- Pikachu Electric Thunderbolt Sparks -->
+          <div class="tcg-pika-thunder-wrap" aria-hidden="true">
+            <svg class="tcg-pika-bolt tcg-pika-bolt-1" viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l11-14h-8l3-6z"/></svg>
+            <svg class="tcg-pika-bolt tcg-pika-bolt-2" viewBox="0 0 24 24"><path d="M11 2L5 13h5v7l9-12h-6l3-6z"/></svg>
+            <svg class="tcg-pika-bolt tcg-pika-bolt-3" viewBox="0 0 24 24"><path d="M13 3L4 14h6v7l10-13h-7l3-5z"/></svg>
+            <div class="tcg-pika-electric-aura"></div>
+          </div>
+
           <img
             src="{{ 'pikachu.png' | asset_url }}"
             alt="Pikachu Cart"
@@ -67,7 +75,9 @@
   </div>
 
   <style>
-    /* Pikachu Cart Button Animations */
+    /* ==========================================================
+       PIKACHU CART & FAMOUS POKEMON THUNDER EFFECT
+       ========================================================== */
     @keyframes pikachu-idle-bob {
       0%, 100% {
         transform: translateY(0) rotate(0deg);
@@ -128,11 +138,132 @@
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
       animation: pikachu-idle-bob 4.5s ease-in-out infinite;
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+      position: relative;
+      z-index: 2;
     }
 
+    /* Pikachu Thunderbolt Lightning Sparks */
+    .tcg-pika-thunder-wrap {
+      position: absolute;
+      inset: -6px;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .tcg-pika-bolt {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      fill: #FFF500;
+      filter:
+        drop-shadow(0 0 4px #FFFFFF)
+        drop-shadow(0 0 8px #FFC72C)
+        drop-shadow(0 0 14px #FFA800);
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .tcg-pika-bolt-1 {
+      top: -4px;
+      left: -2px;
+      transform: rotate(-22deg) scale(0);
+    }
+    .tcg-pika-bolt-2 {
+      top: -6px;
+      right: -2px;
+      transform: rotate(32deg) scale(0);
+    }
+    .tcg-pika-bolt-3 {
+      bottom: -2px;
+      right: 4px;
+      transform: rotate(85deg) scale(0);
+    }
+
+    /* Electric Aura Pulse */
+    .tcg-pika-electric-aura {
+      position: absolute;
+      inset: 4px;
+      border-radius: 9999px;
+      background: radial-gradient(circle, rgba(255, 245, 0, 0.25) 0%, rgba(255, 200, 44, 0.15) 50%, transparent 75%);
+      opacity: 0;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      pointer-events: none;
+    }
+
+    /* Active Thunderbolt discharge on Hover & Bump */
     .tcg-pikachu-cart-btn:hover .tcg-pikachu-cart-img {
       animation: pikachu-wiggle-joy 0.55s ease-in-out infinite;
-      filter: drop-shadow(0 0 10px rgba(255, 199, 44, 0.85)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+      filter:
+        drop-shadow(0 0 12px rgba(255, 245, 0, 0.95))
+        drop-shadow(0 0 20px rgba(255, 168, 0, 0.6))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    }
+
+    .tcg-pikachu-cart-btn:hover .tcg-pika-electric-aura {
+      opacity: 1;
+      animation: pika-aura-surge 0.45s ease-in-out infinite alternate;
+    }
+
+    .tcg-pikachu-cart-btn:hover .tcg-pika-bolt-1 {
+      opacity: 1;
+      animation: pika-bolt-strike-1 0.35s steps(2, start) infinite;
+    }
+    .tcg-pikachu-cart-btn:hover .tcg-pika-bolt-2 {
+      opacity: 1;
+      animation: pika-bolt-strike-2 0.4s steps(2, start) infinite 0.1s;
+    }
+    .tcg-pikachu-cart-btn:hover .tcg-pika-bolt-3 {
+      opacity: 1;
+      animation: pika-bolt-strike-3 0.38s steps(2, start) infinite 0.05s;
+    }
+
+    @keyframes pika-aura-surge {
+      0% { transform: scale(0.9); opacity: 0.4; }
+      100% { transform: scale(1.35); opacity: 0.85; }
+    }
+
+    @keyframes pika-bolt-strike-1 {
+      0% { opacity: 0; transform: rotate(-22deg) scale(0.6) translate(-2px, -2px); }
+      50% { opacity: 1; transform: rotate(-15deg) scale(1.3) translate(0, 0); }
+      100% { opacity: 0.3; transform: rotate(-28deg) scale(0.9) translate(-1px, -1px); }
+    }
+    @keyframes pika-bolt-strike-2 {
+      0% { opacity: 0.2; transform: rotate(32deg) scale(0.8); }
+      50% { opacity: 1; transform: rotate(40deg) scale(1.25); }
+      100% { opacity: 0; transform: rotate(26deg) scale(0.5); }
+    }
+    @keyframes pika-bolt-strike-3 {
+      0% { opacity: 1; transform: rotate(85deg) scale(1.2); }
+      50% { opacity: 0.2; transform: rotate(75deg) scale(0.7); }
+      100% { opacity: 0.9; transform: rotate(92deg) scale(1.15); }
+    }
+
+    /* Ambient Periodic Lightning Zap (Every 5s Pikachu zaps a spark!) */
+    @keyframes pika-ambient-zap {
+      0%, 88%, 100% {
+        opacity: 0;
+        transform: rotate(32deg) scale(0);
+      }
+      90% {
+        opacity: 1;
+        transform: rotate(35deg) scale(1.2);
+      }
+      92% {
+        opacity: 0.3;
+        transform: rotate(28deg) scale(0.7);
+      }
+      94% {
+        opacity: 1;
+        transform: rotate(38deg) scale(1.3);
+      }
+      96% {
+        opacity: 0;
+        transform: rotate(32deg) scale(0);
+      }
+    }
+    .tcg-pika-bolt-2 {
+      animation: pika-ambient-zap 5s ease-in-out infinite;
     }
 
     .tcg-pikachu-cart-btn:active .tcg-pikachu-cart-img {
@@ -142,7 +273,9 @@
 
     .tcg-pikachu-cart-btn:has([data-cart-count].is-bumping) .tcg-pikachu-cart-img {
       animation: pikachu-bounce-bump 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-      filter: drop-shadow(0 0 14px rgba(255, 199, 44, 1));
+      filter:
+        drop-shadow(0 0 16px rgba(255, 245, 0, 1))
+        drop-shadow(0 0 25px rgba(255, 168, 0, 0.8));
     }
   </style>
 </header>

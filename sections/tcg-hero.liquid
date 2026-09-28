@@ -29,9 +29,9 @@
     <!-- Background Media (Image or Video) -->
     <div class="tcg-hero-bg-media" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: -3; overflow: hidden; pointer-events: none;">
       {%- if section.settings.bg_video != blank -%}
-        {{ section.settings.bg_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'w-full h-full object-cover', style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;' }}
+        {{ section.settings.bg_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'w-full h-full object-cover', style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;' }}
       {%- elsif section.settings.bg_video_mp4 != blank -%}
-        <video autoplay loop muted playsinline class="w-full h-full object-cover" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+        <video autoplay loop muted playsinline webkit-playsinline preload="auto" x5-playsinline disablepictureinpicture disableremoteplayback class="w-full h-full object-cover" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
           <source src="{{ section.settings.bg_video_mp4 }}" type="video/mp4">
         </video>
       {%- elsif section.settings.bg_video_url != blank -%}
@@ -72,11 +72,61 @@
 
   <div class="mx-auto max-w-site px-4 sm:px-6 relative z-10">
     <div class="grid lg:grid-cols-2 gap-10 items-center">
-      <div>
-        <p class="stars text-sm">★★★★★ <span class="text-paper-dim font-semibold ml-1">{{ section.settings.stars_text }}</span></p>
+      <div class="tcg-hero-text-wrap">
+        <!-- Ambient contrast backplate for maximum readability over background media -->
+        <div class="tcg-hero-scrim" aria-hidden="true"></div>
+
+        <div class="tcg-stars-badge">
+          <span class="stars-icons">★★★★★</span>
+          <span class="stars-label">{{ section.settings.stars_text }}</span>
+        </div>
+
         <style>
+          /* Content container contrast booster */
+          .tcg-hero-text-wrap {
+            position: relative;
+            isolation: isolate;
+          }
+          .tcg-hero-scrim {
+            position: absolute;
+            top: -24px;
+            left: -28px;
+            width: calc(100% + 56px);
+            height: calc(100% + 48px);
+            background: radial-gradient(ellipse at 30% 35%, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.45) 60%, transparent 88%);
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(14px);
+            border-radius: 28px;
+          }
+
+          /* Frosted Stars / Trust Badge */
+          .tcg-stars-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid rgba(255, 199, 44, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+          }
+          .tcg-stars-badge .stars-icons {
+            color: #FFC72C;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            filter: drop-shadow(0 0 6px rgba(255, 199, 44, 0.5));
+          }
+          .tcg-stars-badge .stars-label {
+            color: #F3F5FA;
+            font-size: 0.825rem;
+            font-weight: 600;
+          }
+
           @keyframes word-reveal {
-            0% { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+            0% { opacity: 0; transform: translateY(22px); filter: blur(4px); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
           }
           .animate-word {
@@ -84,39 +134,179 @@
             opacity: 0;
             animation: word-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
           }
+
+          /* Heading Ambient Glow & Readability */
+          .tcg-hero-heading-wrapper {
+            position: relative;
+            display: inline-block;
+          }
+          .tcg-hero-heading-glow {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            width: 140%;
+            height: 120%;
+            background: radial-gradient(ellipse at center, rgba(255, 199, 44, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+            filter: blur(36px);
+            pointer-events: none;
+            z-index: -1;
+          }
+
+          .tcg-hero-heading {
+            position: relative;
+            z-index: 1;
+            text-shadow:
+              0 2px 4px rgba(0, 0, 0, 0.95),
+              0 6px 18px rgba(0, 0, 0, 0.9),
+              0 14px 40px rgba(0, 0, 0, 0.85);
+          }
+
+          /* Base crisp diamond white words */
+          .tcg-word-main {
+            color: #FFFFFF;
+            text-shadow:
+              0 2px 4px rgba(0, 0, 0, 0.95),
+              0 6px 20px rgba(0, 0, 0, 0.95),
+              0 14px 42px rgba(0, 0, 0, 0.9);
+            filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.85));
+          }
+
+          /* Highlighted Word with Glowing White Text and Aura */
+          .tcg-word-highlight {
+            position: relative;
+            color: #FFFFFF;
+            text-shadow:
+              0 2px 4px rgba(0, 0, 0, 0.95),
+              0 6px 20px rgba(0, 0, 0, 0.95),
+              0 14px 42px rgba(0, 0, 0, 0.9);
+            filter:
+              drop-shadow(0 0 22px rgba(255, 199, 44, 0.65))
+              drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
+            animation:
+              word-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+              tcg-gold-foil-shimmer 4.5s ease-in-out infinite 0.8s;
+          }
+
+          /* Glowing Gold Energy Underline Accent */
+          .tcg-word-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 2px;
+            right: 2px;
+            height: 4px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 199, 44, 0.9) 20%, #FFF3B0 50%, rgba(255, 199, 44, 0.9) 80%, transparent 100%);
+            box-shadow: 0 0 12px rgba(255, 199, 44, 0.85), 0 0 24px rgba(255, 199, 44, 0.4);
+            pointer-events: none;
+          }
+
+          @keyframes tcg-gold-foil-shimmer {
+            0%, 100% {
+              filter:
+                drop-shadow(0 0 18px rgba(255, 199, 44, 0.5))
+                drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
+            }
+            50% {
+              filter:
+                drop-shadow(0 0 32px rgba(255, 199, 44, 0.85))
+                drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
+            }
+          }
+
+          /* Enhanced Subtitle & Perks Readability */
+          .tcg-hero-subheading {
+            color: #DDE2F0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.95);
+          }
+          .tcg-hero-perk {
+            color: #DDE2F0;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
+          }
         </style>
-        <h1 class="font-display text-[42px] sm:text-6xl lg:text-[68px] leading-[.98] mt-4">
-          {%- assign word_idx = 0 -%}
-          {%- assign words1 = section.settings.heading_line1 | split: ' ' -%}
-          {%- for w in words1 -%}
-            <span class="animate-word" style="animation-delay: {{ word_idx | times: 100 }}ms">{{ w }}</span>{% unless forloop.last %} {% endunless %}
-            {%- assign word_idx = word_idx | plus: 1 -%}
-          {%- endfor -%}
-          {%- if section.settings.heading_line2 != blank -%}
-          <br>
-          {%- assign words2 = section.settings.heading_line2 | split: ' ' -%}
-          {%- for w in words2 -%}
-            <span class="animate-word" style="animation-delay: {{ word_idx | times: 100 }}ms">{{ w }}</span>{% unless forloop.last %} {% endunless %}
-            {%- assign word_idx = word_idx | plus: 1 -%}
-          {%- endfor -%}
-          {%- endif -%}
-        </h1>
-        <p class="mt-5 max-w-[46ch] text-paper-dim leading-relaxed">
+
+        <div class="tcg-hero-heading-wrapper mt-4">
+          <div class="tcg-hero-heading-glow" aria-hidden="true"></div>
+          <h1 class="tcg-hero-heading font-display text-[42px] sm:text-6xl lg:text-[68px] leading-[.98]">
+            {%- assign word_idx = 0 -%}
+            {%- assign target_hl = section.settings.highlight_word | default: 'RARE' | strip | upcase -%}
+            {%- assign words1 = section.settings.heading_line1 | split: ' ' -%}
+            {%- for w in words1 -%}
+              {%- assign w_clean = w | strip | upcase -%}
+              {%- assign is_hl = false -%}
+              {%- if target_hl == 'ALL' -%}
+                {%- assign is_hl = true -%}
+              {%- elsif target_hl != blank and w_clean == target_hl -%}
+                {%- assign is_hl = true -%}
+              {%- elsif target_hl != 'RARE' and target_hl contains w_clean -%}
+                {%- assign is_hl = true -%}
+              {%- endif -%}
+              <span class="animate-word {% if is_hl %}tcg-word-highlight{% else %}tcg-word-main{% endif %}" style="animation-delay: {{ word_idx | times: 100 }}ms">{{ w }}</span>{% unless forloop.last %} {% endunless %}
+              {%- assign word_idx = word_idx | plus: 1 -%}
+            {%- endfor -%}
+            {%- if section.settings.heading_line2 != blank -%}
+            <br>
+            {%- assign words2 = section.settings.heading_line2 | split: ' ' -%}
+            {%- for w in words2 -%}
+              {%- assign w_clean = w | strip | upcase -%}
+              {%- assign is_hl = false -%}
+              {%- if target_hl == 'ALL' -%}
+                {%- assign is_hl = true -%}
+              {%- elsif target_hl != blank and w_clean == target_hl -%}
+                {%- assign is_hl = true -%}
+              {%- elsif target_hl != blank and target_hl contains w_clean -%}
+                {%- assign is_hl = true -%}
+              {%- elsif target_hl == blank and forloop.last -%}
+                {%- assign is_hl = true -%}
+              {%- endif -%}
+              <span class="animate-word {% if is_hl %}tcg-word-highlight{% else %}tcg-word-main{% endif %}" style="animation-delay: {{ word_idx | times: 100 }}ms">{{ w }}</span>{% unless forloop.last %} {% endunless %}
+              {%- assign word_idx = word_idx | plus: 1 -%}
+            {%- endfor -%}
+            {%- endif -%}
+          </h1>
+        </div>
+
+        <p class="tcg-hero-subheading mt-5 max-w-[46ch] leading-relaxed">
           {{ section.settings.subheading }}
         </p>
         <div class="mt-7 flex flex-wrap gap-3">
-          <a href="{{ section.settings.cta_primary_link | default: routes.all_products_collection_url }}" class="rounded-full bg-gold px-7 py-3.5 font-bold text-ink hover:bg-gold-deep">{{ section.settings.cta_primary_label }}</a>
-          <a href="{{ section.settings.cta_secondary_link | default: '#mystery' }}" class="rounded-full border border-gold/45 px-7 py-3.5 font-bold text-gold hover:bg-gold/10">{{ section.settings.cta_secondary_label }}</a>
+          <a href="{{ section.settings.cta_primary_link | default: routes.all_products_collection_url }}" class="rounded-full bg-gold px-7 py-3.5 font-bold text-ink hover:bg-gold-deep shadow-lg">{{ section.settings.cta_primary_label }}</a>
+          <a href="{{ section.settings.cta_secondary_link | default: '#mystery' }}" class="rounded-full border border-gold/45 px-7 py-3.5 font-bold text-gold hover:bg-gold/10 backdrop-blur-sm">{{ section.settings.cta_secondary_label }}</a>
         </div>
-        <div class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-paper-dim">
-          <span class="flex items-center gap-2"><span class="text-gold">✦</span> {{ section.settings.perk_1 }}</span>
-          <span class="flex items-center gap-2"><span class="text-gold">✦</span> {{ section.settings.perk_2 }}</span>
+        <div class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <span class="tcg-hero-perk flex items-center gap-2"><span class="text-gold">✦</span> {{ section.settings.perk_1 }}</span>
+          <span class="tcg-hero-perk flex items-center gap-2"><span class="text-gold">✦</span> {{ section.settings.perk_2 }}</span>
         </div>
       </div>
       <div class="flex justify-center">
         <figure class="w-[min(78vw,340px)]">
           <div class="holo" data-tilt="14" aria-label="Featured card, move to tilt">
-            <div class="holo__card"><img src="{{ card_img }}" alt="{{ section.settings.caption_label | escape }}"><span class="holo__glare"></span><span class="holo__rainbow"></span></div>
+            <div class="holo__card">
+              <img src="{{ card_img }}" alt="{{ section.settings.caption_label | escape }}">
+              <span class="holo__glare"></span>
+              <span class="holo__rainbow"></span>
+
+              <!-- POKEMON FAMOUS THUNDERBOLT (100,000 VOLTS) EFFECT -->
+              <div class="tcg-thunderbolt-system" aria-hidden="true">
+                <div class="tcg-thunder-perimeter"></div>
+                <svg class="tcg-thunder-svg" viewBox="0 0 340 480" preserveAspectRatio="none">
+                  <!-- Left Lightning Bolt -->
+                  <path class="tcg-bolt-stroke tcg-bolt-left" d="M 40,-10 L 25,90 L 60,110 L 15,220 L 50,240 L 10,340 L 40,365 L 15,490" />
+                  <!-- Right Lightning Bolt -->
+                  <path class="tcg-bolt-stroke tcg-bolt-right" d="M 300,-10 L 320,80 L 285,115 L 330,230 L 290,260 L 325,365 L 300,395 L 315,490" />
+                  <!-- Cross Thunderbolt Strike -->
+                  <path class="tcg-bolt-stroke tcg-bolt-cross" d="M -10,30 L 90,75 L 65,115 L 175,175 L 135,210 L 255,275 L 220,315 L 350,420" />
+                  <!-- Cross Strike 2 -->
+                  <path class="tcg-bolt-stroke tcg-bolt-cross-2" d="M 350,60 L 250,110 L 280,140 L 170,220 L 205,250 L 90,330 L 120,360 L -10,440" />
+                </svg>
+                <span class="tcg-electric-spark tcg-spark-top-left">⚡</span>
+                <span class="tcg-electric-spark tcg-spark-top-right">⚡</span>
+                <span class="tcg-electric-spark tcg-spark-bottom-left">⚡</span>
+                <span class="tcg-electric-spark tcg-spark-bottom-right">⚡</span>
+                <div class="tcg-thunder-flash"></div>
+              </div>
+            </div>
           </div>
           <figcaption class="mt-4 text-center text-sm"><a href="{{ card_link }}" class="font-semibold text-gold hover:underline">{{ section.settings.caption_label }}</a></figcaption>
         </figure>
@@ -140,6 +330,207 @@
       </div>
     {%- endif -%}
   </div>
+
+  {%- if section.settings.bg_video != blank or section.settings.bg_video_mp4 != blank -%}
+    <style>
+      .tcg-hero-bg-media video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+        object-position: center;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+    </style>
+    <script>
+      (function initMobileHeroVideo() {
+        const video = document.querySelector('.tcg-hero-bg-media video');
+        if (!video) return;
+
+        // Force muted & inline playback properties (critical for iOS WebKit & Android Chrome)
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+
+        const attemptPlay = () => {
+          video.muted = true;
+          const promise = video.play();
+          if (promise !== undefined) {
+            promise.catch(() => {
+              // If initial autoplay was blocked (e.g. Low Power Mode / Battery Saver),
+              // immediately play on first user interaction (touch, scroll, click).
+              const onInteract = () => {
+                video.muted = true;
+                video.play();
+                ['touchstart', 'touchend', 'click', 'scroll'].forEach((evt) => {
+                  window.removeEventListener(evt, onInteract, { passive: true });
+                });
+              };
+              ['touchstart', 'touchend', 'click', 'scroll'].forEach((evt) => {
+                window.addEventListener(evt, onInteract, { passive: true, once: true });
+              });
+            });
+          }
+        };
+
+        if (video.readyState >= 2) {
+          attemptPlay();
+        } else {
+          video.addEventListener('loadeddata', attemptPlay, { once: true });
+          video.addEventListener('canplay', attemptPlay, { once: true });
+        }
+
+        // Resume playback if user switches tabs/apps and returns
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden && video.paused) {
+            attemptPlay();
+          }
+        });
+      })();
+    </script>
+  {%- endif -%}
+
+  <!-- ==========================================================
+       POKEMON FAMOUS THUNDERBOLT (AMBIENT IDLE ONLY)
+       Thunder effect runs periodically in ambient idle, but is
+       completely removed when hovered so card details & holographic
+       glare can be cleanly enjoyed without any obstruction.
+       ========================================================== -->
+  <style>
+    .tcg-thunderbolt-system {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 15;
+      border-radius: 12px;
+      overflow: hidden;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    /* REMOVE thunder effect completely when card is hovered or focused */
+    .holo:hover .tcg-thunderbolt-system,
+    .holo:focus-within .tcg-thunderbolt-system {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    /* High Voltage Perimeter Aura */
+    .tcg-thunder-perimeter {
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      border: 1.5px solid transparent;
+      pointer-events: none;
+    }
+
+    /* Full SVG Lightning Arcs */
+    .tcg-thunder-svg {
+      position: absolute;
+      inset: -10px;
+      width: calc(100% + 20px);
+      height: calc(100% + 20px);
+      pointer-events: none;
+    }
+
+    .tcg-bolt-stroke {
+      fill: none;
+      stroke: #FFF500;
+      stroke-width: 2.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter:
+        drop-shadow(0 0 4px #FFFFFF)
+        drop-shadow(0 0 10px #FFC72C)
+        drop-shadow(0 0 20px #FFA800);
+      opacity: 0;
+    }
+
+    /* Periodic Ambient Lightning Strikes (Every 4-5s) */
+    @keyframes tcg-ambient-thunder {
+      0%, 84%, 100% {
+        opacity: 0;
+        stroke-dashoffset: 800;
+      }
+      85% {
+        opacity: 1;
+        stroke-dashoffset: 0;
+        stroke: #FFFFFF;
+      }
+      87% {
+        opacity: 0.2;
+        stroke: #FFF500;
+      }
+      89% {
+        opacity: 1;
+        stroke: #FFF500;
+      }
+      91% {
+        opacity: 0.35;
+      }
+      93% {
+        opacity: 0.95;
+        stroke: #FFFFFF;
+      }
+      96% {
+        opacity: 0;
+      }
+    }
+
+    .tcg-bolt-left {
+      stroke-dasharray: 800;
+      animation: tcg-ambient-thunder 4.6s ease-in-out infinite;
+    }
+    .tcg-bolt-right {
+      stroke-dasharray: 800;
+      animation: tcg-ambient-thunder 4.6s ease-in-out infinite 2s;
+    }
+    .tcg-bolt-cross {
+      stroke-dasharray: 800;
+      animation: tcg-ambient-thunder 6s ease-in-out infinite 0.8s;
+    }
+    .tcg-bolt-cross-2 {
+      stroke-dasharray: 800;
+      animation: tcg-ambient-thunder 6.8s ease-in-out infinite 3.2s;
+    }
+
+    /* Floating Electric Sparks */
+    .tcg-electric-spark {
+      position: absolute;
+      font-size: 1.15rem;
+      line-height: 1;
+      color: #FFF500;
+      filter:
+        drop-shadow(0 0 6px #FFF500)
+        drop-shadow(0 0 14px #FFA800);
+      opacity: 0;
+      transform: scale(0);
+      pointer-events: none;
+    }
+
+    .tcg-spark-top-left { top: 10px; left: 10px; }
+    .tcg-spark-top-right { top: 10px; right: 10px; }
+    .tcg-spark-bottom-left { bottom: 10px; left: 10px; }
+    .tcg-spark-bottom-right { bottom: 10px; right: 10px; }
+
+    /* Flash Overlay */
+    .tcg-thunder-flash {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.45) 0%, rgba(255, 245, 0, 0.2) 45%, transparent 75%);
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
 </section>
 
 {% schema %}
@@ -169,6 +560,7 @@
     { "type": "text", "id": "stars_text", "label": "Stars line", "default": "Trusted at card shows every weekend" },
     { "type": "text", "id": "heading_line1", "label": "Heading line 1", "default": "CHASE" },
     { "type": "text", "id": "heading_line2", "label": "Heading line 2", "default": "THE RARE" },
+    { "type": "text", "id": "highlight_word", "label": "Word to highlight", "default": "RARE", "info": "Word in the heading to highlight in 24K gold foil gradient & glow (e.g. RARE, or ALL)" },
     { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Pokémon singles with real photos of the actual card, sealed boxes, mystery packs, graded slabs — plus our own TCG Hitz vending machines." },
     { "type": "text", "id": "cta_primary_label", "label": "Primary button", "default": "SHOP NOW" },
     { "type": "url", "id": "cta_primary_link", "label": "Primary link" },
