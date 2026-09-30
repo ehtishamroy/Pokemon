@@ -52,15 +52,15 @@
         <!-- 3 Feature Chips -->
         <div class="tcg-sell-chips mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs font-semibold">
           <span class="tcg-sell-chip">
-            <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+            <svg class="w-3.5 h-3.5 text-volt shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
             Singles, Slabs & Sealed
           </span>
           <span class="tcg-sell-chip">
-            <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+            <svg class="w-3.5 h-3.5 text-volt shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
             Fair Market Valuation
           </span>
           <span class="tcg-sell-chip">
-            <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+            <svg class="w-3.5 h-3.5 text-volt shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
             At Shows or Online
           </span>
         </div>
@@ -88,14 +88,14 @@
     .tcg-sell-card {
       position: relative;
       border-radius: 26px;
-      background: linear-gradient(155deg, rgba(20, 20, 26, 0.98) 0%, rgba(10, 10, 14, 0.99) 60%, rgba(22, 19, 12, 0.98) 100%);
-      border: 1.5px solid rgba(255, 199, 44, 0.32);
+      background: linear-gradient(155deg, rgba(20, 20, 26, 0.98) 0%, rgba(10, 10, 14, 0.99) 60%, rgba(24, 10, 30, 0.98) 100%);
+      border: 1.5px solid rgba(77, 168, 255, 0.32);
       padding: 3rem 1.5rem;
       overflow: hidden;
       box-shadow:
         0 18px 48px -12px rgba(0, 0, 0, 0.92),
         inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 0 45px rgba(255, 199, 44, 0.08);
+        0 0 45px rgba(77, 168, 255, 0.08);
       transition:
         transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.35s ease,
@@ -120,7 +120,10 @@
     .tcg-sell-bg-glow {
       position: absolute;
       inset: -20%;
-      background: radial-gradient(circle at 50% 45%, rgba(255, 199, 44, 0.16) 0%, rgba(255, 150, 0, 0.05) 42%, transparent 70%);
+      background:
+        radial-gradient(circle at 25% 40%, rgba(62, 193, 255, 0.16) 0%, transparent 55%),
+        radial-gradient(circle at 78% 58%, rgba(255, 106, 26, 0.13) 0%, transparent 55%),
+        radial-gradient(circle at 50% 50%, rgba(139, 61, 255, 0.10) 0%, transparent 65%);
       pointer-events: none;
       animation: tcg-sell-glow-pulse 6s ease-in-out infinite alternate;
       z-index: 1;
@@ -141,8 +144,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(to right, rgba(255, 199, 44, 0.035) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 199, 44, 0.035) 1px, transparent 1px);
+        linear-gradient(to right, rgba(77, 168, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(77, 168, 255, 0.035) 1px, transparent 1px);
       background-size: 32px 32px;
       pointer-events: none;
       z-index: 2;
@@ -153,7 +156,7 @@
       100% { background-position: 0 64px; }
     }
 
-    /* Decorative Gold Corner Brackets */
+    /* Corner brackets: blue (top-left) / fire (bottom-right) */
     .tcg-sell-card::before,
     .tcg-sell-card::after {
       content: "";
@@ -161,7 +164,7 @@
       width: 28px;
       height: 28px;
       pointer-events: none;
-      border: 2px solid #FFC72C;
+      border: 2px solid #4DA8FF;
       opacity: 0.5;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 4;
@@ -178,6 +181,7 @@
       right: 14px;
       border-left: none;
       border-top: none;
+      border-color: #FF6A1A;
       border-radius: 0 0 9px 0;
     }
 
@@ -192,7 +196,7 @@
         90deg,
         transparent 0%,
         rgba(255, 255, 255, 0.03) 30%,
-        rgba(255, 199, 44, 0.15) 50%,
+        rgba(77, 168, 255, 0.15) 50%,
         rgba(255, 255, 255, 0.03) 70%,
         transparent 100%
       );
@@ -207,11 +211,11 @@
     .tcg-sell-card:focus-visible,
     .tcg-sell-card.is-active {
       transform: translateY(-5px);
-      border-color: rgba(255, 199, 44, 0.75);
+      border-color: rgba(77, 168, 255, 0.75);
       box-shadow:
         0 26px 56px -12px rgba(0, 0, 0, 0.96),
-        0 0 45px rgba(255, 199, 44, 0.28),
-        inset 0 0 25px rgba(255, 199, 44, 0.08);
+        0 0 45px rgba(77, 168, 255, 0.28),
+        inset 0 0 25px rgba(77, 168, 255, 0.08);
     }
     .tcg-sell-card:hover::before,
     .tcg-sell-card:hover::after,
@@ -222,7 +226,12 @@
       opacity: 1;
       width: 38px;
       height: 38px;
-      filter: drop-shadow(0 0 8px rgba(255, 199, 44, 0.9));
+      filter: drop-shadow(0 0 8px rgba(77, 168, 255, 0.9));
+    }
+    .tcg-sell-card:hover::after,
+    .tcg-sell-card:focus-visible::after,
+    .tcg-sell-card.is-active::after {
+      filter: drop-shadow(0 0 8px rgba(255, 106, 26, 0.9));
     }
     .tcg-sell-card:hover .tcg-sell-shine,
     .tcg-sell-card.is-active .tcg-sell-shine {
@@ -269,19 +278,19 @@
       padding: 0.75rem 1.1rem;
       border-radius: 14px;
       background: rgba(18, 18, 24, 0.88);
-      border: 1.5px solid rgba(255, 199, 44, 0.45);
+      border: 1.5px solid rgba(77, 168, 255, 0.45);
       backdrop-filter: blur(12px);
       box-shadow:
         0 10px 25px -5px rgba(0, 0, 0, 0.7),
-        0 0 20px rgba(255, 199, 44, 0.18);
+        0 0 20px rgba(77, 168, 255, 0.18);
       transition: all 0.35s ease;
     }
     .tcg-sell-card:hover .tcg-foil-inner,
     .tcg-sell-card.is-active .tcg-foil-inner {
-      border-color: #FFC72C;
+      border-color: #4DA8FF;
       box-shadow:
         0 14px 30px -5px rgba(0, 0, 0, 0.85),
-        0 0 28px rgba(255, 199, 44, 0.45);
+        0 0 28px rgba(77, 168, 255, 0.45);
     }
     .tcg-foil-icon {
       font-size: 1.25rem;
@@ -297,7 +306,7 @@
       font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 0.08em;
-      color: #FFC72C;
+      color: #4DA8FF;
     }
     .tcg-foil-sub {
       font-size: 0.65rem;
@@ -307,19 +316,19 @@
 
     /* Eyebrow Pill Badge */
     .tcg-sell-badge {
-      background: rgba(255, 199, 44, 0.1);
-      border: 1px solid rgba(255, 199, 44, 0.38);
-      color: #FFC72C;
+      background: rgba(77, 168, 255, 0.1);
+      border: 1px solid rgba(77, 168, 255, 0.38);
+      color: #4DA8FF;
       letter-spacing: 0.09em;
-      box-shadow: 0 0 16px rgba(255, 199, 44, 0.12);
+      box-shadow: 0 0 16px rgba(77, 168, 255, 0.12);
       transition: all 0.3s ease;
     }
     .tcg-sell-dot {
       width: 7px;
       height: 7px;
       border-radius: 9999px;
-      background: #FFC72C;
-      box-shadow: 0 0 8px #FFC72C;
+      background: #FF6A1A;
+      box-shadow: 0 0 8px #FF6A1A, 0 0 14px rgba(232, 41, 44, 0.6);
       animation: tcg-dot-pulse 2s ease-in-out infinite;
     }
     @keyframes tcg-dot-pulse {
@@ -365,8 +374,8 @@
     }
     .tcg-sell-card:hover .tcg-sell-chip,
     .tcg-sell-card.is-active .tcg-sell-chip {
-      background: rgba(255, 199, 44, 0.08);
-      border-color: rgba(255, 199, 44, 0.35);
+      background: rgba(77, 168, 255, 0.08);
+      border-color: rgba(77, 168, 255, 0.35);
       color: #FFFFFF;
     }
 
@@ -377,17 +386,18 @@
       align-items: center;
       gap: 0.65rem;
       border-radius: 9999px;
-      background: linear-gradient(135deg, #FFC72C 0%, #FFA800 100%);
+      background: linear-gradient(135deg, #FF9A2E 0%, #FF4D1A 50%, #E8292C 100%);
       padding: 0.95rem 2.2rem;
       font-family: 'Manrope', system-ui, sans-serif;
       font-weight: 800;
       font-size: 1.02rem;
-      color: #0B0B0E;
+      color: #FFFFFF;
+      text-shadow: 0 1px 2px rgba(120, 20, 0, 0.45);
       text-decoration: none;
       overflow: hidden;
       box-shadow:
         0 10px 24px -4px rgba(0, 0, 0, 0.65),
-        0 0 24px rgba(255, 199, 44, 0.5);
+        0 0 24px rgba(255, 106, 26, 0.5);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
     }
@@ -395,11 +405,11 @@
     .tcg-sell-btn:hover,
     .tcg-sell-btn:focus-visible {
       transform: translateY(-3px) scale(1.04);
-      background: linear-gradient(135deg, #FFD54F 0%, #FFB300 100%);
+      background: linear-gradient(135deg, #FFB347 0%, #FF6A1A 50%, #FF3B30 100%);
       box-shadow:
         0 14px 32px -4px rgba(0, 0, 0, 0.75),
-        0 0 38px rgba(255, 199, 44, 0.85);
-      color: #000000;
+        0 0 38px rgba(255, 106, 26, 0.85);
+      color: #FFFFFF;
     }
 
     .tcg-sell-btn:active {

@@ -18,13 +18,13 @@
       {%- form 'customer', class: 'mt-6', id: 'tcg-newsletter' -%}
         <input type="hidden" name="contact[tags]" value="newsletter">
         {%- if form.posted_successfully? -%}
-          <p class="rounded-full bg-gold/10 border border-gold/45 text-gold px-5 py-3 font-bold">{{ section.settings.success_text }}</p>
+          <p class="rounded-full bg-volt/10 border border-volt/45 text-volt px-5 py-3 font-bold">{{ section.settings.success_text }}</p>
         {%- else -%}
           {%- if form.errors -%}<p class="mb-3 text-sm text-chase">{{ form.errors.messages['email'] }}</p>{%- endif -%}
           <div class="flex flex-col sm:flex-row gap-3">
             <label class="sr-only" for="tcg-newsletter-email">Email</label>
-            <input id="tcg-newsletter-email" name="contact[email]" type="email" required placeholder="Email address" class="flex-1 rounded-full bg-felt-2 border border-gold/25 px-5 py-3.5 placeholder:text-slate focus:border-gold">
-            <button type="submit" class="rounded-full bg-gold px-7 py-3.5 font-bold text-ink hover:bg-gold-deep">{{ section.settings.button_label }}</button>
+            <input id="tcg-newsletter-email" name="contact[email]" type="email" required placeholder="Email address" class="flex-1 rounded-full bg-felt-2 border border-volt/25 px-5 py-3.5 placeholder:text-slate focus:border-volt">
+            <button type="submit" class="rounded-full bg-fire px-7 py-3.5 font-bold text-white">{{ section.settings.button_label }}</button>
           </div>
         {%- endif -%}
       {%- endform -%}

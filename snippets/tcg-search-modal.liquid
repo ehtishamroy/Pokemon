@@ -2,8 +2,8 @@
   TCG Hitz — Animated Predictive Search Dialog
   Matches reference design 1:1:
   - Blurred ambient dark backdrop
-  - Luxury rounded dialog card with gold border and pop-in animation
-  - Pill-shaped search bar with gold border and clear button
+  - Luxury rounded dialog card with electric-blue border and pop-in animation
+  - Pill-shaped search bar with electric-blue border and clear button
   - Popular search tags (New Arrivals, Booster Boxes, Slabs, Pokemon, One Piece)
   - Recently viewed cards (with PSA Jolteon, 151 Booster Pack, and live store history)
   - Live predictive search via Shopify /search/suggest.json API
@@ -151,15 +151,15 @@
               <p class="tcg-search-empty__sub">
                 Try searching for
                 {%- if shop.vendors.first != blank -%}
-                  <span class="text-gold cursor-pointer underline" data-search-quick="{{ shop.vendors.first | capitalize | escape }}">{{ shop.vendors.first | capitalize }}</span>,
+                  <span class="text-volt cursor-pointer underline" data-search-quick="{{ shop.vendors.first | capitalize | escape }}">{{ shop.vendors.first | capitalize }}</span>,
                 {%- endif -%}
                 {%- if collections.first != blank -%}
-                  <span class="text-gold cursor-pointer underline" data-search-quick="{{ collections.first.title | escape }}">{{ collections.first.title }}</span>,
+                  <span class="text-volt cursor-pointer underline" data-search-quick="{{ collections.first.title | escape }}">{{ collections.first.title }}</span>,
                 {%- endif -%}
                 {%- if store_products.first != blank -%}
-                  <span class="text-gold cursor-pointer underline" data-search-quick="{{ store_products.first.title | split: ' ' | first | escape }}">{{ store_products.first.title | split: ' ' | first }}</span>
+                  <span class="text-volt cursor-pointer underline" data-search-quick="{{ store_products.first.title | split: ' ' | first | escape }}">{{ store_products.first.title | split: ' ' | first }}</span>
                 {%- else -%}
-                  <span class="text-gold cursor-pointer underline" data-search-quick="Pokemon">Pokemon</span>
+                  <span class="text-volt cursor-pointer underline" data-search-quick="Pokemon">Pokemon</span>
                 {%- endif -%}
               </p>
             </div>
@@ -223,12 +223,12 @@
   /* Modal Dialog Card */
   .tcg-search-dialog {
     background: #0d0d10;
-    border: 1.5px solid rgba(255, 199, 44, 0.45);
+    border: 1.5px solid rgba(77, 168, 255, 0.45);
     border-radius: 28px;
     padding: 36px 36px 40px;
     box-shadow:
       0 24px 70px -10px rgba(0, 0, 0, 0.9),
-      0 0 45px rgba(255, 199, 44, 0.12),
+      0 0 45px rgba(77, 168, 255, 0.12),
       inset 0 1px 0 rgba(255, 255, 255, 0.08);
     transform: scale(0.92) translateY(14px);
     transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s ease;
@@ -263,24 +263,24 @@
     height: 60px;
     border-radius: 9999px;
     background: #131318;
-    border: 1.5px solid #FFC72C;
+    border: 1.5px solid #4DA8FF;
     color: #FFFFFF;
     font-family: 'Manrope', system-ui, -apple-system, sans-serif;
     font-size: 22px;
     font-weight: 700;
     padding: 0 54px 0 28px;
     outline: none;
-    box-shadow: 0 0 18px rgba(255, 199, 44, 0.18);
+    box-shadow: 0 0 18px rgba(77, 168, 255, 0.18);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     -webkit-appearance: none;
   }
 
   .tcg-search-pill-input:focus {
-    border-color: #FFC72C;
+    border-color: #4DA8FF;
     background: #17171d;
     box-shadow:
-      0 0 28px rgba(255, 199, 44, 0.32),
-      0 0 0 2px rgba(255, 199, 44, 0.25);
+      0 0 28px rgba(77, 168, 255, 0.32),
+      0 0 0 2px rgba(77, 168, 255, 0.25);
   }
 
   .tcg-search-pill-input::placeholder {
@@ -319,8 +319,8 @@
   }
 
   .tcg-search-pill-clear:hover {
-    color: #FFC72C;
-    background: rgba(255, 199, 44, 0.15);
+    color: #4DA8FF;
+    background: rgba(77, 168, 255, 0.15);
     transform: scale(1.1);
   }
 
@@ -338,8 +338,8 @@
   .tcg-spinner-glow {
     width: 18px;
     height: 18px;
-    border: 2px solid rgba(255, 199, 44, 0.2);
-    border-top-color: #FFC72C;
+    border: 2px solid rgba(77, 168, 255, 0.2);
+    border-top-color: #4DA8FF;
     border-radius: 50%;
     animation: tcgSpin 0.6s linear infinite;
   }
@@ -355,7 +355,7 @@
     margin-top: 24px;
     padding: 4px 4px 10px;
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 199, 44, 0.3) transparent;
+    scrollbar-color: rgba(77, 168, 255, 0.3) transparent;
   }
 
   .tcg-search-modal-body::-webkit-scrollbar {
@@ -365,12 +365,12 @@
     background: transparent;
   }
   .tcg-search-modal-body::-webkit-scrollbar-thumb {
-    background: rgba(255, 199, 44, 0.3);
+    background: rgba(77, 168, 255, 0.3);
     border-radius: 10px;
   }
 
   .tcg-search-section-title {
-    color: #FFC72C;
+    color: #4DA8FF;
     font-family: 'Manrope', system-ui, sans-serif;
     font-size: 12px;
     font-weight: 800;
@@ -378,7 +378,7 @@
     text-transform: uppercase;
     text-align: center;
     margin: 0 0 16px 0;
-    text-shadow: 0 0 10px rgba(255, 199, 44, 0.3);
+    text-shadow: 0 0 10px rgba(77, 168, 255, 0.3);
   }
 
   /* Popular search chips */
@@ -405,11 +405,11 @@
   }
 
   .tcg-search-chip:hover {
-    border-color: #FFC72C;
-    color: #FFC72C;
-    background: rgba(255, 199, 44, 0.08);
+    border-color: #4DA8FF;
+    color: #4DA8FF;
+    background: rgba(77, 168, 255, 0.08);
     transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(255, 199, 44, 0.2);
+    box-shadow: 0 4px 14px rgba(77, 168, 255, 0.2);
   }
 
   .tcg-search-chip:active {
@@ -456,8 +456,8 @@
   }
 
   .tcg-search-card:hover .tcg-search-card__img-box {
-    border-color: #FFC72C;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(255, 199, 44, 0.25);
+    border-color: #4DA8FF;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(77, 168, 255, 0.25);
   }
 
   .tcg-search-card__img-box img {
@@ -492,14 +492,14 @@
   }
 
   .tcg-search-card:hover .tcg-search-card__title {
-    color: #FFC72C;
+    color: #4DA8FF;
   }
 
   .tcg-search-card__price {
     font-family: 'Manrope', system-ui, sans-serif;
     font-size: 14px;
     font-weight: 800;
-    color: #FFC72C;
+    color: #4DA8FF;
     text-align: center;
     margin-top: 4px;
     letter-spacing: -0.01em;
@@ -523,9 +523,9 @@
 
   /* Result Count Pill */
   .tcg-search-count-pill {
-    background: rgba(255, 199, 44, 0.15);
-    border: 1px solid rgba(255, 199, 44, 0.4);
-    color: #FFC72C;
+    background: rgba(77, 168, 255, 0.15);
+    border: 1px solid rgba(77, 168, 255, 0.4);
+    color: #4DA8FF;
     font-size: 11px;
     font-weight: 800;
     border-radius: 9999px;
@@ -568,9 +568,9 @@
     justify-content: center;
     padding: 10px 26px;
     border-radius: 9999px;
-    background: rgba(255, 199, 44, 0.12);
-    border: 1.5px solid #FFC72C;
-    color: #FFC72C;
+    background: rgba(77, 168, 255, 0.12);
+    border: 1.5px solid #4DA8FF;
+    color: #4DA8FF;
     font-family: 'Manrope', system-ui, sans-serif;
     font-size: 13px;
     font-weight: 800;
@@ -579,10 +579,10 @@
   }
 
   .tcg-search-view-all-btn:hover {
-    background: #FFC72C;
+    background: #4DA8FF;
     color: #000000;
     transform: translateY(-2px);
-    box-shadow: 0 4px 18px rgba(255, 199, 44, 0.35);
+    box-shadow: 0 4px 18px rgba(77, 168, 255, 0.35);
   }
 </style>
 

@@ -105,8 +105,11 @@
     "variant_button_radius": 14,
     "variant_button_width": "equal-width-buttons",
     "content_for_index": [],
+    "tcg_live_bg": true,
+    "tcg_live_bg_intensity": "normal",
+    "tcg_live_bg_lightning": true,
     "color_palette": {
-      "background": "#000000",
+      "background": "#06070F",
       "foreground": "#F3F5FA",
       "color1": "#C5CCE0",
       "color2": "#1E1E24"
@@ -208,7 +211,7 @@
       "variant_button_radius": 14,
       "variant_button_width": "equal-width-buttons",
       "color_palette": {
-        "background": "#000000",
+        "background": "#06070F",
         "foreground": "#F3F5FA",
         "color1": "#C5CCE0",
         "color2": "#1E1E24"

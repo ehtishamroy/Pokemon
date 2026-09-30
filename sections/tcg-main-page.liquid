@@ -1,7 +1,7 @@
 {% comment %}
   TCG Hitz — generic page template, styled like the rest of the design.
   Used by templates/page.json so every new page a merchant creates inherits the
-  ink/gold look instead of Shopify's default native page section.
+  ink/energy look instead of Shopify's default native page section.
   Rich-text from the page editor is wrapped in .tcg-prose (see tailwind-input.css).
 {% endcomment %}
 
@@ -18,11 +18,11 @@
 <section class="tcg-scope smoke overflow-hidden pt-8 pb-14 lg:pb-20">
   <div class="mx-auto max-w-site px-4 sm:px-6">
     {%- if section.settings.show_breadcrumb -%}
-      <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-gold">{{ shop.name }}</a><span class="mx-2">/</span><span class="text-paper">{{ page.title }}</span></nav>
+      <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-volt">{{ shop.name }}</a><span class="mx-2">/</span><span class="text-paper">{{ page.title }}</span></nav>
     {%- endif -%}
 
     <h1 class="stitle stitle--left mt-4">{{ page.title }}</h1>
-    <div class="rule-gold my-7 max-w-[240px]"></div>
+    <div class="rule-energy my-7 max-w-[240px]"></div>
 
     <div class="tcg-prose {{ width_class }}">
       {{ page.content }}

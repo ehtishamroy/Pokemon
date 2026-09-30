@@ -16,10 +16,10 @@
     }
     @keyframes shop-btn-glow {
       0%, 100% {
-        filter: drop-shadow(0 0 0px rgba(255, 199, 44, 0));
+        filter: drop-shadow(0 0 0px rgba(77, 168, 255, 0));
       }
       50% {
-        filter: drop-shadow(0 0 8px rgba(255, 199, 44, 0.5));
+        filter: drop-shadow(0 0 8px rgba(77, 168, 255, 0.5));
       }
     }
     .tcg-shop-all-btn {
@@ -29,7 +29,7 @@
       font-family: 'Manrope', system-ui, sans-serif;
       font-weight: 800;
       font-size: clamp(15px, 1.8vw, 18px);
-      color: var(--gold, #FFC72C);
+      color: var(--volt, #4DA8FF);
       text-decoration: none;
       transition: color 0.25s ease, filter 0.25s ease, transform 0.25s ease;
       animation: shop-btn-glow 3s ease-in-out infinite;
@@ -37,7 +37,7 @@
     }
     .tcg-shop-all-btn:hover {
       color: #FFFFFF;
-      filter: drop-shadow(0 0 12px rgba(255, 199, 44, 0.85));
+      filter: drop-shadow(0 0 12px rgba(77, 168, 255, 0.85));
       transform: translateX(2px);
     }
     .tcg-shop-all-arrow {
@@ -116,8 +116,8 @@
       line-height: 1;
     }
 
-    /* Ambient Animated Golden Aura Backdrop */
-    @keyframes ambient-gold-pulse {
+    /* Ambient energy aura backdrop (blue lightning × fire) */
+    @keyframes ambient-energy-pulse {
       0%, 100% {
         transform: translate(-50%, -45%) scale(1);
         opacity: 0.72;
@@ -127,24 +127,24 @@
         opacity: 1;
       }
     }
-    .tcg-ambient-gold-glow {
+    .tcg-ambient-energy-glow {
       position: absolute;
       top: 55%;
       left: 50%;
       transform: translate(-50%, -45%);
       width: min(1050px, 96vw);
       height: 480px;
-      background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(255, 199, 44, 0.28) 0%, rgba(212, 143, 10, 0.14) 42%, rgba(255, 199, 44, 0.03) 68%, transparent 80%);
+      background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(77, 168, 255, 0.28) 0%, rgba(139, 61, 255, 0.14) 42%, rgba(77, 168, 255, 0.03) 68%, transparent 80%);
       filter: blur(52px);
       pointer-events: none;
       z-index: 0;
-      animation: ambient-gold-pulse 7s ease-in-out infinite;
+      animation: ambient-energy-pulse 7s ease-in-out infinite;
       border-radius: 50%;
     }
   </style>
 
   {%- if section.settings.enable_ambient_glow -%}
-    <div class="tcg-ambient-gold-glow" aria-hidden="true"></div>
+    <div class="tcg-ambient-energy-glow" aria-hidden="true"></div>
   {%- endif -%}
 
   {%- assign total_products = col.all_products_count | default: col.products_count | default: col.products.size | default: 0 -%}
@@ -174,7 +174,7 @@
       </div>
     </div>
     {%- if section.settings.show_divider -%}
-      <div class="rule-gold mb-8 max-w-[240px]"></div>
+      <div class="rule-energy mb-8 max-w-[240px]"></div>
     {%- endif -%}
     <div class="carousel">
       {%- if col.products.size > 6 and section.settings.products_to_show > 6 -%}
@@ -188,7 +188,7 @@
           {%- endfor -%}
         {%- else -%}
           {%- for i in (1..6) -%}
-            <article class="cell"><span class="block cell__img"><img src="{{ 'card-back.svg' | asset_url }}" alt=""></span><h3 class="mt-3 font-bold text-sm leading-tight">Add products</h3><p class="text-xs text-slate">Pick a collection in the editor</p><p class="mt-1 font-bold text-gold">$0.00</p></article>
+            <article class="cell"><span class="block cell__img"><img src="{{ 'card-back.svg' | asset_url }}" alt=""></span><h3 class="mt-3 font-bold text-sm leading-tight">Add products</h3><p class="text-xs text-slate">Pick a collection in the editor</p><p class="mt-1 font-bold text-volt">$0.00</p></article>
           {%- endfor -%}
         {%- endif -%}
       </div>
@@ -204,7 +204,7 @@
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 4, "max": 20, "step": 1, "default": 8 },
     { "type": "header", "content": "Ambient Glow Effect" },
-    { "type": "checkbox", "id": "enable_ambient_glow", "label": "Enable ambient gold glow backdrop", "default": true },
+    { "type": "checkbox", "id": "enable_ambient_glow", "label": "Enable ambient energy glow backdrop", "default": true },
     { "type": "header", "content": "Product Count Badge" },
     { "type": "checkbox", "id": "show_product_count", "label": "Show product count badge", "default": true },
     { "type": "text", "id": "product_count_label", "label": "Count suffix", "default": "PRODUCTS" },
@@ -212,7 +212,7 @@
     { "type": "checkbox", "id": "show_view_all", "label": "Show 'Shop all' link", "default": true },
     { "type": "text", "id": "view_all_label", "label": "Button label", "default": "Shop all" },
     { "type": "url", "id": "view_all_link", "label": "Custom link (optional)" },
-    { "type": "checkbox", "id": "show_divider", "label": "Show gold divider", "default": false }
+    { "type": "checkbox", "id": "show_divider", "label": "Show energy divider", "default": false }
   ],
   "presets": [{ "name": "TCG Bestsellers" }]
 }

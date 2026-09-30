@@ -56,15 +56,15 @@
           <!-- 3 Value Micro-Badges -->
           <div class="tcg-mystery-chips mt-6 flex flex-wrap gap-2 text-xs font-semibold">
             <span class="tcg-mystery-chip">
-              <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              <svg class="w-3.5 h-3.5 text-volt shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
               Guaranteed Value Floor
             </span>
             <span class="tcg-mystery-chip">
-              <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              <svg class="w-3.5 h-3.5 text-volt shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
               Graded Slabs & Alt-Arts
             </span>
             <span class="tcg-mystery-chip">
-              <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              <svg class="w-3.5 h-3.5 text-volt shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
               Fast Tracked Shipping
             </span>
           </div>
@@ -94,7 +94,7 @@
                   {%- if forloop.index == 2 -%}
                     <span class="tcg-tier-badge">POPULAR</span>
                   {%- elsif forloop.index == 3 -%}
-                    <span class="tcg-tier-badge tcg-tier-badge--gold">GRADED</span>
+                    <span class="tcg-tier-badge tcg-tier-badge--fire">GRADED</span>
                   {%- endif -%}
 
                   <div class="tcg-tier-icon-box">
@@ -139,7 +139,7 @@
 
               <a href="{{ default_mystery_url }}" class="tcg-tier-card group" tabindex="0" aria-label="Mystery Slab - $49.99">
                 <span class="tcg-tier-card__shine" aria-hidden="true"></span>
-                <span class="tcg-tier-badge tcg-tier-badge--gold">GRADED</span>
+                <span class="tcg-tier-badge tcg-tier-badge--fire">GRADED</span>
                 <div class="tcg-tier-icon-box">{{ icon_slab }}</div>
                 <h3 class="tcg-tier-name">Mystery Slab</h3>
                 <p class="tcg-tier-price">$49.99</p>
@@ -159,14 +159,14 @@
     .tcg-mystery-cabinet {
       position: relative;
       border-radius: 22px;
-      background: linear-gradient(150deg, rgba(12, 12, 12, 0.98) 0%, rgba(0, 0, 0, 0.99) 55%, rgba(26, 20, 10, 0.98) 100%);
-      border: 1.5px solid rgba(255, 199, 44, 0.32);
+      background: linear-gradient(150deg, rgba(12, 12, 12, 0.98) 0%, rgba(0, 0, 0, 0.99) 55%, rgba(22, 10, 32, 0.98) 100%);
+      border: 1.5px solid rgba(77, 168, 255, 0.32);
       padding: 1.75rem 1.1rem;
       overflow: hidden;
       box-shadow:
         0 14px 36px -10px rgba(0, 0, 0, 0.92),
         inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 0 40px rgba(255, 199, 44, 0.08);
+        0 0 40px rgba(77, 168, 255, 0.08);
       transition:
         transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.35s ease,
@@ -191,7 +191,10 @@
     .tcg-mystery-bg-glow {
       position: absolute;
       inset: -20%;
-      background: radial-gradient(circle at 75% 45%, rgba(255, 199, 44, 0.14) 0%, transparent 60%);
+      background:
+        radial-gradient(circle at 22% 40%, rgba(62, 193, 255, 0.14) 0%, transparent 55%),
+        radial-gradient(circle at 80% 60%, rgba(255, 106, 26, 0.12) 0%, transparent 55%),
+        radial-gradient(circle at 52% 50%, rgba(139, 61, 255, 0.10) 0%, transparent 60%);
       pointer-events: none;
       animation: tcg-mystery-glow-pulse 6.5s ease-in-out infinite alternate;
       z-index: 1;
@@ -206,14 +209,14 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(to right, rgba(255, 199, 44, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 199, 44, 0.03) 1px, transparent 1px);
+        linear-gradient(to right, rgba(77, 168, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(77, 168, 255, 0.03) 1px, transparent 1px);
       background-size: 30px 30px;
       pointer-events: none;
       z-index: 2;
     }
 
-    /* Decorative Gold Corner Brackets */
+    /* Corner brackets: blue (top-left) / fire (bottom-right) */
     .tcg-mystery-cabinet::before,
     .tcg-mystery-cabinet::after {
       content: "";
@@ -221,7 +224,7 @@
       width: 26px;
       height: 26px;
       pointer-events: none;
-      border: 2px solid #FFC72C;
+      border: 2px solid #4DA8FF;
       opacity: 0.55;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 4;
@@ -238,6 +241,7 @@
       right: 14px;
       border-left: none;
       border-top: none;
+      border-color: #FF6A1A;
       border-radius: 0 0 9px 0;
     }
 
@@ -248,7 +252,11 @@
       opacity: 1;
       width: 36px;
       height: 36px;
-      filter: drop-shadow(0 0 8px rgba(255, 199, 44, 0.9));
+      filter: drop-shadow(0 0 8px rgba(77, 168, 255, 0.9));
+    }
+    .tcg-mystery-cabinet:hover::after,
+    .tcg-mystery-cabinet.is-active::after {
+      filter: drop-shadow(0 0 8px rgba(255, 106, 26, 0.9));
     }
 
     /* Sweep Shine Beam */
@@ -262,7 +270,7 @@
         90deg,
         transparent 0%,
         rgba(255, 255, 255, 0.03) 30%,
-        rgba(255, 199, 44, 0.14) 50%,
+        rgba(77, 168, 255, 0.14) 50%,
         rgba(255, 255, 255, 0.03) 70%,
         transparent 100%
       );
@@ -279,17 +287,17 @@
 
     /* Eyebrow Badge */
     .tcg-mystery-badge {
-      background: rgba(255, 199, 44, 0.1);
-      border: 1px solid rgba(255, 199, 44, 0.38);
-      color: #FFC72C;
-      box-shadow: 0 0 16px rgba(255, 199, 44, 0.12);
+      background: rgba(77, 168, 255, 0.1);
+      border: 1px solid rgba(77, 168, 255, 0.38);
+      color: #4DA8FF;
+      box-shadow: 0 0 16px rgba(77, 168, 255, 0.12);
     }
     .tcg-mystery-dot {
       width: 7px;
       height: 7px;
       border-radius: 9999px;
-      background: #FFC72C;
-      box-shadow: 0 0 8px #FFC72C;
+      background: #FF6A1A;
+      box-shadow: 0 0 8px #FF6A1A, 0 0 14px rgba(232, 41, 44, 0.6);
       animation: tcg-myst-dot-pulse 2s ease-in-out infinite;
     }
     @keyframes tcg-myst-dot-pulse {
@@ -328,8 +336,8 @@
     }
     .tcg-mystery-cabinet:hover .tcg-mystery-chip,
     .tcg-mystery-cabinet.is-active .tcg-mystery-chip {
-      background: rgba(255, 199, 44, 0.08);
-      border-color: rgba(255, 199, 44, 0.32);
+      background: rgba(77, 168, 255, 0.08);
+      border-color: rgba(77, 168, 255, 0.32);
       color: #FFFFFF;
     }
 
@@ -340,28 +348,29 @@
       align-items: center;
       gap: 0.65rem;
       border-radius: 9999px;
-      background: linear-gradient(135deg, #FFC72C 0%, #FFA800 100%);
+      background: linear-gradient(135deg, #FF9A2E 0%, #FF4D1A 50%, #E8292C 100%);
       padding: 0.85rem 2rem;
       font-family: 'Manrope', system-ui, sans-serif;
       font-weight: 800;
       font-size: 0.98rem;
-      color: #0B0B0E;
+      color: #FFFFFF;
+      text-shadow: 0 1px 2px rgba(120, 20, 0, 0.45);
       text-decoration: none;
       overflow: hidden;
       box-shadow:
         0 10px 24px -4px rgba(0, 0, 0, 0.65),
-        0 0 24px rgba(255, 199, 44, 0.45);
+        0 0 24px rgba(255, 106, 26, 0.45);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
     }
     .tcg-mystery-btn:hover,
     .tcg-mystery-btn:focus-visible {
       transform: translateY(-2px) scale(1.03);
-      background: linear-gradient(135deg, #FFD54F 0%, #FFB300 100%);
+      background: linear-gradient(135deg, #FFB347 0%, #FF6A1A 50%, #FF3B30 100%);
       box-shadow:
         0 14px 30px -4px rgba(0, 0, 0, 0.75),
-        0 0 35px rgba(255, 199, 44, 0.8);
-      color: #000000;
+        0 0 35px rgba(255, 106, 26, 0.8);
+      color: #FFFFFF;
     }
     .tcg-mystery-btn__shine {
       position: absolute;
@@ -390,7 +399,7 @@
       text-align: center;
       border-radius: 14px;
       background: linear-gradient(165deg, rgba(24, 24, 24, 0.92) 0%, rgba(10, 10, 10, 0.96) 100%);
-      border: 1.5px solid rgba(255, 199, 44, 0.22);
+      border: 1.5px solid rgba(77, 168, 255, 0.22);
       padding: 0.85rem 0.35rem 0.75rem;
       text-decoration: none;
       overflow: hidden;
@@ -420,17 +429,17 @@
     /* Featured Center Tier Card (Mystery Box) */
     .tcg-tier-card--featured {
       background: linear-gradient(165deg, rgba(32, 32, 32, 0.95) 0%, rgba(14, 14, 14, 0.98) 100%);
-      border-color: rgba(255, 199, 44, 0.45);
+      border-color: rgba(77, 168, 255, 0.45);
       box-shadow:
         0 8px 22px -4px rgba(0, 0, 0, 0.85),
-        0 0 18px rgba(255, 199, 44, 0.14),
+        0 0 18px rgba(77, 168, 255, 0.14),
         inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
     @media (min-width: 640px) {
       .tcg-tier-card--featured {
         box-shadow:
           0 12px 32px -6px rgba(0, 0, 0, 0.85),
-          0 0 24px rgba(255, 199, 44, 0.16),
+          0 0 24px rgba(77, 168, 255, 0.16),
           inset 0 1px 0 rgba(255, 255, 255, 0.12);
       }
     }
@@ -440,11 +449,11 @@
     .tcg-tier-card:focus-visible,
     .tcg-tier-card.is-active {
       transform: translateY(-6px) scale(1.025);
-      border-color: rgba(255, 199, 44, 0.85);
+      border-color: rgba(77, 168, 255, 0.85);
       box-shadow:
         0 16px 36px -8px rgba(0, 0, 0, 0.95),
-        0 0 28px rgba(255, 199, 44, 0.32),
-        inset 0 0 16px rgba(255, 199, 44, 0.08);
+        0 0 28px rgba(77, 168, 255, 0.32),
+        inset 0 0 16px rgba(77, 168, 255, 0.08);
     }
     .tcg-tier-card:active {
       transform: translateY(-2px) scale(0.99);
@@ -462,7 +471,7 @@
         90deg,
         transparent 0%,
         rgba(255, 255, 255, 0.04) 30%,
-        rgba(255, 199, 44, 0.16) 50%,
+        rgba(77, 168, 255, 0.16) 50%,
         rgba(255, 255, 255, 0.04) 70%,
         transparent 100%
       );
@@ -483,15 +492,15 @@
       right: 5px;
       padding: 0.15rem 0.35rem;
       border-radius: 9999px;
-      background: rgba(255, 199, 44, 0.18);
-      border: 1px solid rgba(255, 199, 44, 0.5);
-      color: #FFC72C;
+      background: rgba(77, 168, 255, 0.18);
+      border: 1px solid rgba(77, 168, 255, 0.5);
+      color: #4DA8FF;
       font-family: 'Manrope', system-ui, sans-serif;
       font-size: 0.48rem;
       font-weight: 800;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      box-shadow: 0 0 8px rgba(255, 199, 44, 0.2);
+      box-shadow: 0 0 8px rgba(77, 168, 255, 0.2);
       white-space: nowrap;
       line-height: 1;
     }
@@ -504,10 +513,11 @@
         letter-spacing: 0.06em;
       }
     }
-    .tcg-tier-badge--gold {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.3);
+    .tcg-tier-badge--fire {
+      background: linear-gradient(135deg, #FF9A2E 0%, #FF4D1A 55%, #E8292C 100%);
+      border-color: rgba(255, 154, 46, 0.7);
       color: #FFFFFF;
+      box-shadow: 0 0 10px rgba(255, 106, 26, 0.45);
     }
 
     /* Icon Container */
@@ -515,14 +525,14 @@
       width: 36px;
       height: 36px;
       border-radius: 10px;
-      background: rgba(255, 199, 44, 0.08);
-      border: 1.5px solid rgba(255, 199, 44, 0.35);
-      color: #FFC72C;
+      background: rgba(77, 168, 255, 0.08);
+      border: 1.5px solid rgba(77, 168, 255, 0.35);
+      color: #4DA8FF;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 0.45rem;
-      box-shadow: 0 0 10px rgba(255, 199, 44, 0.1);
+      box-shadow: 0 0 10px rgba(77, 168, 255, 0.1);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       flex-shrink: 0;
     }
@@ -532,7 +542,7 @@
         height: 46px;
         border-radius: 12px;
         margin-bottom: 0.85rem;
-        box-shadow: 0 0 14px rgba(255, 199, 44, 0.12);
+        box-shadow: 0 0 14px rgba(77, 168, 255, 0.12);
       }
     }
     .tcg-tier-icon {
@@ -548,10 +558,10 @@
     }
     .tcg-tier-card:hover .tcg-tier-icon-box,
     .tcg-tier-card.is-active .tcg-tier-icon-box {
-      background: rgba(255, 199, 44, 0.22);
-      border-color: #FFC72C;
+      background: rgba(77, 168, 255, 0.22);
+      border-color: #4DA8FF;
       transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(255, 199, 44, 0.4);
+      box-shadow: 0 0 20px rgba(77, 168, 255, 0.4);
     }
     .tcg-tier-card:hover .tcg-tier-icon,
     .tcg-tier-card.is-active .tcg-tier-icon {
@@ -581,7 +591,7 @@
     }
     .tcg-tier-card:hover .tcg-tier-name,
     .tcg-tier-card.is-active .tcg-tier-name {
-      color: #FFC72C;
+      color: #4DA8FF;
     }
 
     /* Tier Price */
@@ -589,10 +599,10 @@
       font-family: 'Manrope', system-ui, sans-serif;
       font-weight: 800;
       font-size: 0.96rem;
-      color: #FFC72C;
+      color: #4DA8FF;
       margin-top: 0.2rem;
       letter-spacing: -0.01em;
-      text-shadow: 0 0 10px rgba(255, 199, 44, 0.25);
+      text-shadow: 0 0 10px rgba(77, 168, 255, 0.25);
       transition: transform 0.25s ease;
       white-space: nowrap;
     }
@@ -600,7 +610,7 @@
       .tcg-tier-price {
         font-size: 1.25rem;
         margin-top: 0.35rem;
-        text-shadow: 0 0 14px rgba(255, 199, 44, 0.3);
+        text-shadow: 0 0 14px rgba(77, 168, 255, 0.3);
       }
     }
     .tcg-tier-card:hover .tcg-tier-price,

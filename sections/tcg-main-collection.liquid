@@ -13,19 +13,19 @@
 
 <section class="tcg-scope smoke overflow-hidden pt-8 pb-6">
   <div class="mx-auto max-w-site px-4 sm:px-6">
-    <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-gold">{{ shop.name }}</a><span class="mx-2">/</span><span class="text-paper">{{ collection.title }}</span></nav>
+    <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-volt">{{ shop.name }}</a><span class="mx-2">/</span><span class="text-paper">{{ collection.title }}</span></nav>
     <div class="mt-4 flex items-end justify-between gap-6 flex-wrap">
       <div>
         <h1 class="font-display text-4xl sm:text-5xl">{{ collection.title }}</h1>
         <p class="mt-2 text-paper-dim">{{ section.settings.count_prefix }} <span>{{ collection.products_count }}</span> {{ section.settings.count_suffix }}</p>
         {%- if collection.current_type != blank or collection.current_vendor != blank -%}
-          <p class="mt-2 text-sm"><a href="{{ collection.url }}" class="text-gold hover:underline">← All cards</a></p>
+          <p class="mt-2 text-sm"><a href="{{ collection.url }}" class="text-volt hover:underline">← All cards</a></p>
         {%- endif -%}
       </div>
       <div class="flex items-center gap-3">
-        <button type="button" data-filters-toggle class="lg:hidden rounded-full border border-gold/35 px-4 py-2.5 font-bold text-gold">Filters</button>
+        <button type="button" data-filters-toggle class="lg:hidden rounded-full border border-volt/35 px-4 py-2.5 font-bold text-volt">Filters</button>
         <label class="sr-only" for="sort">Sort</label>
-        <select id="sort" data-sort class="rounded-full bg-felt-2 border border-gold/25 px-4 py-2.5 font-semibold focus:border-gold">
+        <select id="sort" data-sort class="rounded-full bg-felt-2 border border-volt/25 px-4 py-2.5 font-semibold focus:border-volt">
           {%- for option in collection.sort_options -%}
             <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>
           {%- endfor -%}
@@ -42,35 +42,35 @@
       <div class="cabinet bg-ink p-6 lg:sticky lg:top-24 space-y-7">
         <div class="flex items-center justify-between">
           <h2 class="font-display text-xl">Filter</h2>
-          <a href="{{ collection.url }}{% if sort_by %}?sort_by={{ sort_by }}{% endif %}" class="text-sm text-slate hover:text-gold">Clear all</a>
+          <a href="{{ collection.url }}{% if sort_by %}?sort_by={{ sort_by }}{% endif %}" class="text-sm text-slate hover:text-volt">Clear all</a>
         </div>
         {%- if collection.filters.size > 0 -%}
           <form data-filter-form method="get" action="{{ collection.url }}" class="space-y-7">
             <input type="hidden" name="sort_by" value="{{ sort_by }}">
             {%- for filter in collection.filters -%}
-              {%- if forloop.index > 1 -%}<div class="rule-gold"></div>{%- endif -%}
+              {%- if forloop.index > 1 -%}<div class="rule-energy"></div>{%- endif -%}
               <fieldset>
-                <legend class="font-bold text-xs tracking-widest text-gold mb-3">{{ filter.label | upcase }}</legend>
+                <legend class="font-bold text-xs tracking-widest text-volt mb-3">{{ filter.label | upcase }}</legend>
                 <div class="space-y-2.5 text-[15px] text-paper-dim">
                   {%- case filter.type -%}
                     {%- when 'price_range' -%}
                       {%- assign max_val = filter.range_max | money_without_currency | replace: ',', '' -%}
                       <div class="flex items-center gap-2">
                         <label class="sr-only" for="{{ filter.min_value.param_name }}">Min</label>
-                        <input id="{{ filter.min_value.param_name }}" name="{{ filter.min_value.param_name }}" type="number" inputmode="decimal" min="0" max="{{ max_val }}" placeholder="$ min"{% if filter.min_value.value %} value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %} class="w-full rounded-lg bg-felt-2 border border-gold/20 px-3 py-2 text-sm placeholder:text-slate focus:border-gold">
+                        <input id="{{ filter.min_value.param_name }}" name="{{ filter.min_value.param_name }}" type="number" inputmode="decimal" min="0" max="{{ max_val }}" placeholder="$ min"{% if filter.min_value.value %} value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %} class="w-full rounded-lg bg-felt-2 border border-volt/20 px-3 py-2 text-sm placeholder:text-slate focus:border-volt">
                         <span class="text-slate">–</span>
                         <label class="sr-only" for="{{ filter.max_value.param_name }}">Max</label>
-                        <input id="{{ filter.max_value.param_name }}" name="{{ filter.max_value.param_name }}" type="number" inputmode="decimal" min="0" max="{{ max_val }}" placeholder="$ max"{% if filter.max_value.value %} value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %} class="w-full rounded-lg bg-felt-2 border border-gold/20 px-3 py-2 text-sm placeholder:text-slate focus:border-gold">
+                        <input id="{{ filter.max_value.param_name }}" name="{{ filter.max_value.param_name }}" type="number" inputmode="decimal" min="0" max="{{ max_val }}" placeholder="$ max"{% if filter.max_value.value %} value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %} class="w-full rounded-lg bg-felt-2 border border-volt/20 px-3 py-2 text-sm placeholder:text-slate focus:border-volt">
                       </div>
                     {%- else -%}
                       {%- for value in filter.values -%}
-                        <label class="flex items-center gap-3 cursor-pointer hover:text-paper"><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %} class="h-4 w-4 accent-[#FFC72C]"> {{ value.label }}</label>
+                        <label class="flex items-center gap-3 cursor-pointer hover:text-paper"><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %} class="h-4 w-4 accent-[#4DA8FF]"> {{ value.label }}</label>
                       {%- endfor -%}
                   {%- endcase -%}
                 </div>
               </fieldset>
             {%- endfor -%}
-            <noscript><button type="submit" class="rounded-full border border-gold/35 px-4 py-2 text-sm font-bold text-gold">Apply</button></noscript>
+            <noscript><button type="submit" class="rounded-full border border-volt/35 px-4 py-2 text-sm font-bold text-volt">Apply</button></noscript>
           </form>
         {%- else -%}
           <p class="text-sm text-slate">Add filters in Shopify's Search &amp; Discovery app to show them here.</p>
@@ -87,7 +87,7 @@
             <div class="col-span-full cabinet bg-ink p-12 text-center">
               <p class="font-display text-2xl">No cards found</p>
               <p class="mt-2 text-slate">Try adjusting your filters.</p>
-              <a href="{{ collection.url }}" class="mt-6 inline-flex rounded-full bg-gold px-5 py-2.5 font-bold text-ink hover:bg-gold-deep">Clear filters</a>
+              <a href="{{ collection.url }}" class="mt-6 inline-flex rounded-full bg-fire px-5 py-2.5 font-bold text-white">Clear filters</a>
             </div>
           {%- endfor -%}
         </div>
@@ -95,19 +95,19 @@
         {%- if paginate.pages > 1 -%}
           <nav class="mt-12 flex justify-center gap-2" aria-label="Pagination">
             {%- if paginate.previous -%}
-              <a href="{{ paginate.previous.url }}" class="rounded-full border border-gold/25 px-4 py-2 font-semibold text-gold hover:bg-gold/10">← Prev</a>
+              <a href="{{ paginate.previous.url }}" class="rounded-full border border-volt/25 px-4 py-2 font-semibold text-volt hover:bg-volt/10">← Prev</a>
             {%- endif -%}
             {%- for part in paginate.parts -%}
               {%- if part.is_link -%}
-                <a href="{{ part.url }}" class="rounded-full border border-gold/25 px-4 py-2 font-semibold text-gold hover:bg-gold/10">{{ part.title }}</a>
+                <a href="{{ part.url }}" class="rounded-full border border-volt/25 px-4 py-2 font-semibold text-volt hover:bg-volt/10">{{ part.title }}</a>
               {%- elsif part.title == paginate.current_page -%}
-                <span class="rounded-full bg-gold text-ink px-4 py-2 font-bold">{{ part.title }}</span>
+                <span class="rounded-full bg-fire text-white px-4 py-2 font-bold">{{ part.title }}</span>
               {%- else -%}
                 <span class="px-2 py-2 text-slate">{{ part.title }}</span>
               {%- endif -%}
             {%- endfor -%}
             {%- if paginate.next -%}
-              <a href="{{ paginate.next.url }}" class="rounded-full border border-gold/25 px-4 py-2 font-semibold text-gold hover:bg-gold/10">Next →</a>
+              <a href="{{ paginate.next.url }}" class="rounded-full border border-volt/25 px-4 py-2 font-semibold text-volt hover:bg-volt/10">Next →</a>
             {%- endif -%}
           </nav>
         {%- endif -%}
@@ -120,7 +120,7 @@
   <section class="tcg-scope pb-16">
     <div class="mx-auto max-w-site px-4 sm:px-6">
       <h2 class="stitle">{{ section.settings.rest_heading }}</h2>
-      <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
+      <div class="rule-energy my-7 max-w-[240px] mx-auto"></div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {%- for block in section.blocks -%}
           {%- liquid
@@ -131,7 +131,7 @@
               assign img = fb | asset_url
             endif
           -%}
-          <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="wcat h-[170px]" {{ block.shopify_attributes }}><img src="{{ img }}" alt="{{ block.settings.heading | escape }}" loading="lazy"><div class="wcat__body"><p class="font-display text-lg">{{ block.settings.heading }}</p><p class="text-xs text-gold">{{ block.settings.subheading }}</p></div></a>
+          <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="wcat h-[170px]" {{ block.shopify_attributes }}><img src="{{ img }}" alt="{{ block.settings.heading | escape }}" loading="lazy"><div class="wcat__body"><p class="font-display text-lg">{{ block.settings.heading }}</p><p class="text-xs text-volt">{{ block.settings.subheading }}</p></div></a>
         {%- endfor -%}
       </div>
     </div>
