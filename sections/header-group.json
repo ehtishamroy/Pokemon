@@ -12,7 +12,7 @@
   "name": "t:names.header",
   "sections": {
     "tcg_top_bar": {
-      "type": "tcg-top-bar",
+      "type": "tcg_top_bar",
       "settings": {
         "message": "CHASE THE RARE · MYSTERY PACKS RESTOCKED WEEKLY"
       }
