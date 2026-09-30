@@ -14,14 +14,14 @@
   assign nav_blocks = section.blocks | where: 'type', 'nav_link'
 -%}
 
-<header class="tcg-scope sticky top-0 z-40 bg-ink/90 backdrop-blur border-b border-gold/15 font-sans antialiased text-paper">
+<header class="tcg-scope sticky top-0 z-40 bg-ink/90 backdrop-blur border-b border-volt/15 font-sans antialiased text-paper">
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <div class="flex h-[72px] items-center gap-6">
       <a href="{{ routes.root_url }}" class="shrink-0" aria-label="{{ shop.name | escape }} home"><img src="{{ logo_url }}" alt="{{ shop.name | escape }} — Chase the Rare" class="h-12 w-auto"></a>
-      <nav data-nav class="hidden flex lg:!flex items-stretch lg:items-center gap-0.5 text-[14px] font-semibold absolute lg:static left-0 right-0 top-[72px] bg-ink lg:bg-transparent p-4 lg:p-0 flex-col lg:flex-row border-b border-gold/15 lg:border-0 z-40">
+      <nav data-nav class="hidden flex lg:!flex items-stretch lg:items-center gap-0.5 text-[14px] font-semibold absolute lg:static left-0 right-0 top-[72px] bg-ink lg:bg-transparent p-4 lg:p-0 flex-col lg:flex-row border-b border-volt/15 lg:border-0 z-40">
         {%- if section.settings.mega_label != blank -%}
           <div class="has-mega relative">
-            <a href="{{ section.settings.mega_link | default: routes.all_products_collection_url }}" class="px-3 py-2 rounded-md hover:bg-felt-3 {% if template.name == 'collection' %} bg-felt-3 text-gold{% endif %} inline-flex items-center gap-1">{{ section.settings.mega_label }}
+            <a href="{{ section.settings.mega_link | default: routes.all_products_collection_url }}" class="px-3 py-2 rounded-md hover:bg-felt-3 {% if template.name == 'collection' %} bg-felt-3 text-volt{% endif %} inline-flex items-center gap-1">{{ section.settings.mega_label }}
               <svg class="h-3.5 w-3.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg></a>
             {%- if mega_blocks.size > 0 -%}
               <div class="mega absolute left-0 top-full pt-3 w-[520px] max-w-[92vw]">
@@ -35,11 +35,11 @@
           </div>
         {%- endif -%}
         {%- for block in nav_blocks -%}
-          <a href="{{ block.settings.link }}" class="px-3 py-2 rounded-md hover:bg-felt-3{% if block.settings.gold %} text-gold{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+          <a href="{{ block.settings.link }}" class="px-3 py-2 rounded-md hover:bg-felt-3{% if block.settings.gold %} text-volt{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
         {%- endfor -%}
       </nav>
       <div class="flex items-center gap-1.5 ml-auto">
-        <button type="button" data-search-open class="p-2 rounded-full hover:bg-felt-3 text-paper hover:text-gold transition-colors" aria-label="Search" title="Search (Press /)">
+        <button type="button" data-search-open class="p-2 rounded-full hover:bg-felt-3 text-paper hover:text-volt transition-colors" aria-label="Search" title="Search (Press /)">
           <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="7"/>
             <path stroke-linecap="round" d="m20 20-3.5-3.5"/>
@@ -64,7 +64,7 @@
             height="34"
             loading="eager"
           >
-          <span data-cart-count class="{% if cart.item_count == 0 %}hidden {% endif %}absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-gold text-ink text-[11px] font-extrabold grid place-items-center shadow-md ring-2 ring-ink">
+          <span data-cart-count class="{% if cart.item_count == 0 %}hidden {% endif %}absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-fire text-white text-[11px] font-extrabold grid place-items-center shadow-md ring-2 ring-ink">
             {{ cart.item_count }}
           </span>
         </button>
@@ -154,11 +154,11 @@
       position: absolute;
       width: 16px;
       height: 16px;
-      fill: #FFF500;
+      fill: #9FDBFF;
       filter:
         drop-shadow(0 0 4px #FFFFFF)
-        drop-shadow(0 0 8px #FFC72C)
-        drop-shadow(0 0 14px #FFA800);
+        drop-shadow(0 0 8px #4DA8FF)
+        drop-shadow(0 0 14px #1E7BFF);
       opacity: 0;
       transform: scale(0);
       transition: opacity 0.2s ease, transform 0.2s ease;
@@ -185,7 +185,7 @@
       position: absolute;
       inset: 4px;
       border-radius: 9999px;
-      background: radial-gradient(circle, rgba(255, 245, 0, 0.25) 0%, rgba(255, 200, 44, 0.15) 50%, transparent 75%);
+      background: radial-gradient(circle, rgba(159, 219, 255, 0.25) 0%, rgba(77, 168, 255, 0.15) 50%, transparent 75%);
       opacity: 0;
       transition: opacity 0.25s ease, transform 0.25s ease;
       pointer-events: none;
@@ -195,8 +195,8 @@
     .tcg-pikachu-cart-btn:hover .tcg-pikachu-cart-img {
       animation: pikachu-wiggle-joy 0.55s ease-in-out infinite;
       filter:
-        drop-shadow(0 0 12px rgba(255, 245, 0, 0.95))
-        drop-shadow(0 0 20px rgba(255, 168, 0, 0.6))
+        drop-shadow(0 0 12px rgba(159, 219, 255, 0.95))
+        drop-shadow(0 0 20px rgba(30, 123, 255, 0.6))
         drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
     }
 
@@ -274,10 +274,11 @@
     .tcg-pikachu-cart-btn:has([data-cart-count].is-bumping) .tcg-pikachu-cart-img {
       animation: pikachu-bounce-bump 0.55s cubic-bezier(0.16, 1, 0.3, 1);
       filter:
-        drop-shadow(0 0 16px rgba(255, 245, 0, 1))
-        drop-shadow(0 0 25px rgba(255, 168, 0, 0.8));
+        drop-shadow(0 0 16px rgba(159, 219, 255, 1))
+        drop-shadow(0 0 25px rgba(30, 123, 255, 0.8));
     }
   </style>
+  <div class="tcg-energy-line absolute left-0 right-0 -bottom-px pointer-events-none" aria-hidden="true"></div>
 </header>
 
 {% schema %}
@@ -308,7 +309,7 @@
       "settings": [
         { "type": "text", "id": "label", "label": "Label", "default": "Mystery" },
         { "type": "url", "id": "link", "label": "Link" },
-        { "type": "checkbox", "id": "gold", "label": "Highlight in gold", "default": false }
+        { "type": "checkbox", "id": "gold", "label": "Highlight in electric blue", "default": false }
       ]
     }
   ],

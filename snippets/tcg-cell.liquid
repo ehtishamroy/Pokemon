@@ -56,17 +56,17 @@
 -%}
 
 {%- if style == 'compact' -%}
-  <a href="{{ product.url }}" class="tcg-scope cell w-full"><span class="block cell__img">{% if badge != blank %}<span class="cell__badge">{{ badge }}</span>{% endif %}<img src="{{ img }}" alt="{{ product.title | escape }}" loading="lazy"></span><h3 class="mt-2 text-xs font-bold leading-tight">{{ product.title }}</h3><p class="text-xs text-gold font-bold">{{ variant.price | money }}</p></a>
+  <a href="{{ product.url }}" class="tcg-scope cell w-full"><span class="block cell__img">{% if badge != blank %}<span class="cell__badge">{{ badge }}</span>{% endif %}<img src="{{ img }}" alt="{{ product.title | escape }}" loading="lazy"></span><h3 class="mt-2 text-xs font-bold leading-tight">{{ product.title }}</h3><p class="text-xs text-volt font-bold">{{ variant.price | money }}</p></a>
 {%- elsif style == 'link' -%}
-  <a href="{{ product.url }}" class="tcg-scope cell w-full"><span class="block cell__img">{% if badge != blank %}<span class="cell__badge">{{ badge }}</span>{% endif %}<img src="{{ img }}" alt="{{ product.title | escape }}" loading="lazy"></span><h3 class="mt-3 font-bold text-sm">{{ product.title }}</h3><p class="text-xs text-slate">{{ meta }}</p><p class="mt-1 font-bold text-gold">{{ variant.price | money }}</p></a>
+  <a href="{{ product.url }}" class="tcg-scope cell w-full"><span class="block cell__img">{% if badge != blank %}<span class="cell__badge">{{ badge }}</span>{% endif %}<img src="{{ img }}" alt="{{ product.title | escape }}" loading="lazy"></span><h3 class="mt-3 font-bold text-sm">{{ product.title }}</h3><p class="text-xs text-slate">{{ meta }}</p><p class="mt-1 font-bold text-volt">{{ variant.price | money }}</p></a>
 {%- else -%}
   <article class="tcg-scope cell{% if full %} w-full{% endif %}">
     <a href="{{ product.url }}" class="block cell__img">{% if badge != blank %}<span class="cell__badge">{{ badge }}</span>{% endif %}<img src="{{ img }}" alt="{{ product.title | escape }}" loading="lazy"></a>
-    <h3 class="mt-3 font-bold text-sm leading-tight"><a href="{{ product.url }}" class="hover:text-gold">{{ product.title }}</a></h3>
+    <h3 class="mt-3 font-bold text-sm leading-tight"><a href="{{ product.url }}" class="hover:text-volt">{{ product.title }}</a></h3>
     <p class="text-xs text-slate">{{ meta }}</p>
-    <p class="mt-1 font-bold text-gold">{{ variant.price | money }}</p>
+    <p class="mt-1 font-bold text-volt">{{ variant.price | money }}</p>
     {%- if product.available -%}
-      <button type="button" data-add data-variant-id="{{ variant.id }}" class="mt-2 w-full rounded-full border border-gold/35 py-1.5 text-xs font-bold text-gold hover:bg-gold hover:text-ink">ADD</button>
+      <button type="button" data-add data-variant-id="{{ variant.id }}" class="mt-2 w-full rounded-full border border-volt/35 py-1.5 text-xs font-bold text-volt hover:bg-volt hover:text-white">ADD</button>
     {%- else -%}
       <button type="button" disabled class="mt-2 w-full rounded-full border border-white/15 py-1.5 text-xs font-bold text-slate cursor-not-allowed">SOLD OUT</button>
     {%- endif -%}

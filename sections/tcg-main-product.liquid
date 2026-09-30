@@ -31,7 +31,7 @@
 
 <section class="tcg-scope smoke pt-8 pb-10 lg:pt-10" style="overflow-x: clip;">
   <div class="mx-auto max-w-site px-4 sm:px-6">
-    <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-gold">{{ shop.name }}</a><span class="mx-2">/</span>{% if collection %}<a href="{{ collection.url }}" class="hover:text-gold">{{ collection.title }}</a><span class="mx-2">/</span>{% endif %}{% if card_set != blank %}<a href="{{ routes.search_url }}?q={{ card_set | url_encode }}" class="hover:text-gold">{{ card_set }}</a><span class="mx-2">/</span>{% endif %}<span class="text-paper">{{ product.title }}</span></nav>
+    <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-volt">{{ shop.name }}</a><span class="mx-2">/</span>{% if collection %}<a href="{{ collection.url }}" class="hover:text-volt">{{ collection.title }}</a><span class="mx-2">/</span>{% endif %}{% if card_set != blank %}<a href="{{ routes.search_url }}?q={{ card_set | url_encode }}" class="hover:text-volt">{{ card_set }}</a><span class="mx-2">/</span>{% endif %}<span class="text-paper">{{ product.title }}</span></nav>
 
     <div class="mt-6 grid lg:grid-cols-12 gap-10 lg:gap-14">
 
@@ -51,7 +51,7 @@
             {%- if product.media.size > 1 -%}
               <div class="thumbs mt-6 flex gap-3 overflow-x-auto pb-1 justify-center">
                 {%- for media in product.media -%}
-                  <button type="button" data-thumb="{{ media | image_url: width: 1000 }}" class="{% if forloop.first %}ring-2 ring-gold {% endif %}shrink-0 w-[66px] h-[92px] rounded-lg overflow-hidden bg-felt-2" aria-label="{{ media.alt | default: 'Photo' | escape }}"><img src="{{ media | image_url: width: 160 }}" alt="" class="w-full h-full object-cover"></button>
+                  <button type="button" data-thumb="{{ media | image_url: width: 1000 }}" class="{% if forloop.first %}ring-2 ring-volt {% endif %}shrink-0 w-[66px] h-[92px] rounded-lg overflow-hidden bg-felt-2" aria-label="{{ media.alt | default: 'Photo' | escape }}"><img src="{{ media | image_url: width: 160 }}" alt="" class="w-full h-full object-cover"></button>
                 {%- endfor -%}
               </div>
             {%- endif -%}
@@ -66,13 +66,13 @@
         {%- endif -%}
         <h1 class="font-display text-4xl sm:text-5xl leading-[1.04] mt-2">{{ product.title }}</h1>
         {%- if card_rarity != blank -%}
-          <p class="mt-3 inline-flex items-center gap-2 text-sm font-bold text-gold">
-            <span class="h-1.5 w-1.5 rounded-full bg-gold"></span> {{ card_rarity | upcase }}
+          <p class="mt-3 inline-flex items-center gap-2 text-sm font-bold text-volt">
+            <span class="h-1.5 w-1.5 rounded-full bg-blaze"></span> {{ card_rarity | upcase }}
           </p>
         {%- endif -%}
 
         <div class="mt-6 flex items-center gap-4">
-          <span data-price class="font-display text-[42px] leading-none text-gold">{{ current_variant.price | money }}</span>
+          <span data-price class="font-display text-[42px] leading-none text-volt">{{ current_variant.price | money }}</span>
           <span data-stock class="rounded-full {% if current_variant.available %}bg-mint/15 text-mint{% else %}bg-chase/15 text-chase{% endif %} px-3 py-1 text-sm font-bold">{{ stock_text | strip }}</span>
         </div>
 
@@ -87,9 +87,9 @@
                 {%- if variant.option2 != blank -%}{%- assign v_rest = v_rest | append: ' · ' | append: variant.option2 -%}{%- endif -%}
                 {%- if variant.option3 != blank -%}{%- assign v_rest = v_rest | append: ' · ' | append: variant.option3 -%}{%- endif -%}
                 <button type="button" data-variant data-id="{{ variant.id }}" data-price="{{ variant.price | money }}" data-stock="{{ v_stock | strip }}" data-available="{{ variant.available }}" data-label="{{ variant.title | escape }}"{% if variant.featured_image %} data-image="{{ variant.featured_image | image_url: width: 1000 }}"{% endif %} role="radio" aria-checked="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}"
-                  class="w-full flex items-center justify-between rounded-lg border border-gold/20 bg-felt-2/60 px-4 py-3.5 text-left hover:border-gold transition">
+                  class="w-full flex items-center justify-between rounded-lg border border-volt/20 bg-felt-2/60 px-4 py-3.5 text-left hover:border-volt transition">
                   <span><span class="font-bold">{{ variant.option1 }}</span> <span class="text-slate">{{ v_rest }}</span><span class="block text-xs text-slate mt-0.5">{{ v_stock | strip }}</span></span>
-                  <span class="font-display text-lg text-gold">{{ variant.price | money }}</span>
+                  <span class="font-display text-lg text-volt">{{ variant.price | money }}</span>
                 </button>
               {%- endfor -%}
             </div>
@@ -98,16 +98,16 @@
 
         <input type="hidden" data-variant-input name="id" value="{{ current_variant.id }}">
         <div class="mt-7 flex items-center gap-4">
-          <div class="qty inline-flex items-center rounded-full bg-felt-2 border border-gold/25">
-            <button type="button" data-qty-dec class="rounded-full text-xl text-gold" aria-label="Decrease quantity">−</button>
+          <div class="qty inline-flex items-center rounded-full bg-felt-2 border border-volt/25">
+            <button type="button" data-qty-dec class="rounded-full text-xl text-volt" aria-label="Decrease quantity">−</button>
             <span data-qty-value class="w-8 text-center font-bold" aria-live="polite">1</span>
-            <button type="button" data-qty-inc class="rounded-full text-xl text-gold" aria-label="Increase quantity">+</button>
+            <button type="button" data-qty-inc class="rounded-full text-xl text-volt" aria-label="Increase quantity">+</button>
           </div>
           <button type="button" data-add data-add-main data-variant-id="{{ current_variant.id }}"{% unless current_variant.available %} disabled{% endunless %}
-                  class="flex-1 rounded-full bg-gold px-6 py-4 font-bold text-ink hover:bg-gold-deep{% unless current_variant.available %} opacity-60{% endunless %}">{% if current_variant.available %}ADD TO CART{% else %}SOLD OUT{% endif %}</button>
+                  class="flex-1 rounded-full bg-fire px-6 py-4 font-bold text-white{% unless current_variant.available %} opacity-60{% endunless %}">{% if current_variant.available %}ADD TO CART{% else %}SOLD OUT{% endif %}</button>
         </div>
         <div class="mt-3 flex flex-wrap gap-5 text-sm">
-          <a href="{{ section.settings.sell_link | default: '/pages/sell' }}" class="text-slate hover:text-gold">Have this card? Sell it to us →</a>
+          <a href="{{ section.settings.sell_link | default: '/pages/sell' }}" class="text-slate hover:text-volt">Have this card? Sell it to us →</a>
         </div>
 
         <ul class="mt-8 grid sm:grid-cols-3 gap-3">
@@ -119,27 +119,27 @@
         {%- if card_set != blank or card_number != blank or card_rarity != blank or card_language != blank or card_type != blank or card_artist != blank -%}
           <section class="mt-10">
             <h2 class="font-display text-2xl">Card details</h2>
-            <div class="rule-gold my-4"></div>
+            <div class="rule-energy my-4"></div>
             <dl class="grid grid-cols-2 gap-x-6 gap-y-3.5 text-[15px]">
-              {%- if card_set != blank -%}<div class="border-b border-gold/10 pb-2"><dt class="text-slate text-sm">Set</dt><dd class="font-semibold">{{ card_set }}</dd></div>{%- endif -%}
-              {%- if card_number != blank -%}<div class="border-b border-gold/10 pb-2"><dt class="text-slate text-sm">Collector number</dt><dd class="font-semibold">{{ card_number }}</dd></div>{%- endif -%}
-              {%- if card_rarity != blank -%}<div class="border-b border-gold/10 pb-2"><dt class="text-slate text-sm">Rarity</dt><dd class="font-semibold">{{ card_rarity }}</dd></div>{%- endif -%}
-              {%- if card_language != blank -%}<div class="border-b border-gold/10 pb-2"><dt class="text-slate text-sm">Language</dt><dd class="font-semibold">{{ card_language }}</dd></div>{%- endif -%}
-              {%- if card_type != blank -%}<div class="border-b border-gold/10 pb-2"><dt class="text-slate text-sm">Card type</dt><dd class="font-semibold">{{ card_type }}</dd></div>{%- endif -%}
-              {%- if card_artist != blank -%}<div class="border-b border-gold/10 pb-2"><dt class="text-slate text-sm">Artist</dt><dd class="font-semibold">{{ card_artist }}</dd></div>{%- endif -%}
+              {%- if card_set != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Set</dt><dd class="font-semibold">{{ card_set }}</dd></div>{%- endif -%}
+              {%- if card_number != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Collector number</dt><dd class="font-semibold">{{ card_number }}</dd></div>{%- endif -%}
+              {%- if card_rarity != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Rarity</dt><dd class="font-semibold">{{ card_rarity }}</dd></div>{%- endif -%}
+              {%- if card_language != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Language</dt><dd class="font-semibold">{{ card_language }}</dd></div>{%- endif -%}
+              {%- if card_type != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Card type</dt><dd class="font-semibold">{{ card_type }}</dd></div>{%- endif -%}
+              {%- if card_artist != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Artist</dt><dd class="font-semibold">{{ card_artist }}</dd></div>{%- endif -%}
             </dl>
           </section>
         {%- elsif product.description != blank -%}
           <section class="mt-10">
             <h2 class="font-display text-2xl">Details</h2>
-            <div class="rule-gold my-4"></div>
+            <div class="rule-energy my-4"></div>
             <div class="text-[15px] text-paper-dim leading-relaxed space-y-3">{{ product.description }}</div>
           </section>
         {%- endif -%}
 
         <details class="faq mt-6 cabinet bg-ink p-5 group">
           <summary class="cursor-pointer font-bold flex items-center justify-between">What do the conditions mean?
-            <svg class="chev h-5 w-5 text-gold transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg>
+            <svg class="chev h-5 w-5 text-volt transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg>
           </summary>
           <dl class="mt-4 space-y-3 text-[15px]">
             <div><dt class="font-semibold">Near Mint (NM)</dt><dd class="text-paper-dim text-sm">Looks unplayed. Crisp corners and edges, clean surface, little to no wear.</dd></div>
@@ -165,7 +165,7 @@
     <section class="tcg-scope py-12 lg:py-16">
       <div class="mx-auto max-w-site px-4 sm:px-6">
         <h2 class="stitle">{{ section.settings.related_heading }}</h2>
-        <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
+        <div class="rule-energy my-7 max-w-[240px] mx-auto"></div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
           {%- assign shown = 0 -%}
           {%- for related in related_source.products -%}
@@ -189,15 +189,15 @@
         <input type="hidden" name="contact[subject]" value="Question about {{ product.title | escape }}">
         <input type="hidden" name="contact[product]" value="{{ shop.url }}{{ product.url }}">
         {%- if form.posted_successfully? -%}
-          <p class="text-center rounded-full bg-gold/10 border border-gold/45 text-gold px-5 py-3 font-bold">SENT — we'll reply within a day.</p>
+          <p class="text-center rounded-full bg-volt/10 border border-volt/45 text-volt px-5 py-3 font-bold">SENT — we'll reply within a day.</p>
         {%- else -%}
           {%- if form.errors -%}<p class="mb-3 text-sm text-chase text-center">{{ form.errors | default_errors }}</p>{%- endif -%}
           <div class="flex flex-col sm:flex-row gap-3">
             <label class="sr-only" for="tcg-question-email">Your email</label>
-            <input id="tcg-question-email" name="contact[email]" type="email" required placeholder="Your email" class="sm:w-56 rounded-full bg-felt-2 border border-gold/25 px-5 py-3 placeholder:text-slate focus:border-gold">
+            <input id="tcg-question-email" name="contact[email]" type="email" required placeholder="Your email" class="sm:w-56 rounded-full bg-felt-2 border border-volt/25 px-5 py-3 placeholder:text-slate focus:border-volt">
             <label class="sr-only" for="tcg-question">Your question</label>
-            <input id="tcg-question" name="contact[body]" type="text" required placeholder="e.g. Any whitening on the back corners?" class="flex-1 rounded-full bg-felt-2 border border-gold/25 px-5 py-3 placeholder:text-slate focus:border-gold">
-            <button type="submit" class="rounded-full border border-gold/45 px-6 py-3 font-bold text-gold hover:bg-gold hover:text-ink disabled:opacity-70">ASK</button>
+            <input id="tcg-question" name="contact[body]" type="text" required placeholder="e.g. Any whitening on the back corners?" class="flex-1 rounded-full bg-felt-2 border border-volt/25 px-5 py-3 placeholder:text-slate focus:border-volt">
+            <button type="submit" class="rounded-full border border-volt/45 px-6 py-3 font-bold text-volt hover:bg-volt hover:text-white disabled:opacity-70">ASK</button>
           </div>
         {%- endif -%}
       {%- endform -%}

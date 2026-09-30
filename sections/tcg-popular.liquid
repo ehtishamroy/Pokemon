@@ -7,7 +7,7 @@
 <section class="tcg-scope py-10 lg:py-14">
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <h2 class="stitle">{{ section.settings.heading }}</h2>
-    <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
+    <div class="rule-energy my-7 max-w-[240px] mx-auto"></div>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
       {%- for block in section.blocks -%}
         {%- liquid
@@ -18,7 +18,7 @@
             assign img = fb | asset_url
           endif
         -%}
-        <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="wcat h-[190px]" {{ block.shopify_attributes }}><img src="{{ img }}" alt="{{ block.settings.heading | escape }}" loading="lazy"><div class="wcat__body"><p class="font-display text-xl">{{ block.settings.heading }}</p><p class="text-xs text-gold">{{ block.settings.subheading }}</p></div></a>
+        <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="wcat h-[190px]" {{ block.shopify_attributes }}><img src="{{ img }}" alt="{{ block.settings.heading | escape }}" loading="lazy"><div class="wcat__body"><p class="font-display text-xl">{{ block.settings.heading }}</p><p class="text-xs text-volt">{{ block.settings.subheading }}</p></div></a>
       {%- endfor -%}
     </div>
   </div>

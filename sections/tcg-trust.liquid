@@ -10,7 +10,7 @@
 <section class="tcg-scope py-12 lg:py-16">
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <h2 class="stitle">{{ section.settings.heading }}</h2>
-    <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
+    <div class="rule-energy my-7 max-w-[240px] mx-auto"></div>
     <div class="tcg-trust-grid">
       {%- if section.blocks.size > 0 -%}
         {%- for block in section.blocks -%}
@@ -66,7 +66,7 @@
       position: relative;
       border-radius: 20px;
       background: linear-gradient(165deg, rgba(22, 22, 28, 0.96) 0%, rgba(10, 10, 13, 0.98) 100%);
-      border: 1.5px solid rgba(255, 199, 44, 0.28);
+      border: 1.5px solid rgba(77, 168, 255, 0.28);
       padding: 1.85rem 1.65rem;
       overflow: hidden;
       box-shadow:
@@ -105,11 +105,11 @@
     .tcg-trust-card:focus-visible,
     .tcg-trust-card.is-active {
       transform: translateY(-8px) scale(1.018);
-      border-color: rgba(255, 199, 44, 0.85);
+      border-color: rgba(77, 168, 255, 0.85);
       box-shadow:
         0 22px 48px -12px rgba(0, 0, 0, 0.95),
-        0 0 32px rgba(255, 199, 44, 0.28),
-        inset 0 0 18px rgba(255, 199, 44, 0.09);
+        0 0 32px rgba(77, 168, 255, 0.28),
+        inset 0 0 18px rgba(77, 168, 255, 0.09);
     }
 
     .tcg-trust-card:active {
@@ -117,7 +117,7 @@
       transition-duration: 0.12s;
     }
 
-    /* Decorative Gold Corner Brackets */
+    /* Corner brackets: blue (top-left) / fire (bottom-right) */
     .tcg-trust-card::before,
     .tcg-trust-card::after {
       content: "";
@@ -125,7 +125,7 @@
       width: 24px;
       height: 24px;
       pointer-events: none;
-      border: 2px solid #FFC72C;
+      border: 2px solid #4DA8FF;
       opacity: 0.55;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -141,6 +141,7 @@
       right: 10px;
       border-left: none;
       border-top: none;
+      border-color: #FF6A1A;
       border-radius: 0 0 7px 0;
     }
     .tcg-trust-card:hover::before,
@@ -152,7 +153,7 @@
       opacity: 1;
       width: 32px;
       height: 32px;
-      filter: drop-shadow(0 0 7px rgba(255, 199, 44, 0.9));
+      filter: drop-shadow(0 0 7px rgba(77, 168, 255, 0.9));
     }
 
     /* Diagonal Shine Sweep */
@@ -166,7 +167,7 @@
         90deg,
         transparent 0%,
         rgba(255, 255, 255, 0.04) 30%,
-        rgba(255, 199, 44, 0.14) 50%,
+        rgba(77, 168, 255, 0.14) 50%,
         rgba(255, 255, 255, 0.04) 70%,
         transparent 100%
       );
@@ -185,22 +186,22 @@
       width: 50px;
       height: 50px;
       border-radius: 14px;
-      background: rgba(255, 199, 44, 0.08);
-      border: 1.5px solid rgba(255, 199, 44, 0.42);
-      color: #FFC72C;
+      background: rgba(77, 168, 255, 0.08);
+      border: 1.5px solid rgba(77, 168, 255, 0.42);
+      color: #4DA8FF;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 0 16px rgba(255, 199, 44, 0.12);
+      box-shadow: 0 0 16px rgba(77, 168, 255, 0.12);
     }
     .tcg-trust-card:hover .tcg-trust-icon-box,
     .tcg-trust-card:focus-visible .tcg-trust-icon-box,
     .tcg-trust-card.is-active .tcg-trust-icon-box {
-      background: rgba(255, 199, 44, 0.22);
-      border-color: #FFC72C;
+      background: rgba(77, 168, 255, 0.22);
+      border-color: #4DA8FF;
       transform: scale(1.12) translateY(-2px);
-      box-shadow: 0 0 24px rgba(255, 199, 44, 0.45);
+      box-shadow: 0 0 24px rgba(77, 168, 255, 0.45);
     }
 
     /* Icon Pop Animation */
@@ -229,7 +230,7 @@
     .tcg-trust-card:hover .tcg-trust-heading,
     .tcg-trust-card:focus-visible .tcg-trust-heading,
     .tcg-trust-card.is-active .tcg-trust-heading {
-      color: #FFC72C;
+      color: #4DA8FF;
       transform: translateX(3px);
     }
 

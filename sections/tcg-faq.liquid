@@ -6,10 +6,10 @@
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <h2 class="stitle">{{ section.settings.heading }}</h2>
     {%- if section.settings.subheading != blank -%}<p class="text-center text-paper-dim mt-3">{{ section.settings.subheading }}</p>{%- endif -%}
-    <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
+    <div class="rule-energy my-7 max-w-[240px] mx-auto"></div>
     <div class="grid md:grid-cols-2 gap-3 max-w-4xl mx-auto">
       {%- for block in section.blocks -%}
-        <details class="rounded-card bg-felt-2 border border-gold/15 p-5" {{ block.shopify_attributes }}><summary class="flex items-center justify-between font-semibold">{{ block.settings.question }}<svg class="chev h-5 w-5 text-gold transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg></summary><p class="mt-3 text-sm text-paper-dim">{{ block.settings.answer }}</p></details>
+        <details class="rounded-card bg-felt-2 border border-volt/15 p-5" {{ block.shopify_attributes }}><summary class="flex items-center justify-between font-semibold">{{ block.settings.question }}<svg class="chev h-5 w-5 text-volt transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg></summary><p class="mt-3 text-sm text-paper-dim">{{ block.settings.answer }}</p></details>
       {%- endfor -%}
     </div>
   </div>

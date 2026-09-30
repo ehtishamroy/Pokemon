@@ -108,16 +108,16 @@
             padding: 6px 16px;
             border-radius: 9999px;
             background: rgba(0, 0, 0, 0.75);
-            border: 1px solid rgba(255, 199, 44, 0.35);
+            border: 1px solid rgba(77, 168, 255, 0.35);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
           }
           .tcg-stars-badge .stars-icons {
-            color: #FFC72C;
+            color: #FF8A2A;
             letter-spacing: 2px;
             font-size: 0.85rem;
-            filter: drop-shadow(0 0 6px rgba(255, 199, 44, 0.5));
+            filter: drop-shadow(0 0 6px rgba(255, 106, 26, 0.55));
           }
           .tcg-stars-badge .stars-label {
             color: #F3F5FA;
@@ -147,7 +147,9 @@
             transform: translate(-50%, -50%);
             width: 140%;
             height: 120%;
-            background: radial-gradient(ellipse at center, rgba(255, 199, 44, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+            background:
+              radial-gradient(ellipse at 35% 50%, rgba(62, 193, 255, 0.18) 0%, rgba(0, 0, 0, 0) 60%),
+              radial-gradient(ellipse at 75% 55%, rgba(255, 106, 26, 0.12) 0%, rgba(0, 0, 0, 0) 60%);
             filter: blur(36px);
             pointer-events: none;
             z-index: -1;
@@ -181,14 +183,14 @@
               0 6px 20px rgba(0, 0, 0, 0.95),
               0 14px 42px rgba(0, 0, 0, 0.9);
             filter:
-              drop-shadow(0 0 22px rgba(255, 199, 44, 0.65))
+              drop-shadow(0 0 22px rgba(77, 168, 255, 0.65))
               drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
             animation:
               word-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-              tcg-gold-foil-shimmer 4.5s ease-in-out infinite 0.8s;
+              tcg-energy-shimmer 4.5s ease-in-out infinite 0.8s;
           }
 
-          /* Glowing Gold Energy Underline Accent */
+          /* Glowing energy underline (blue → purple → fire) */
           .tcg-word-highlight::after {
             content: '';
             position: absolute;
@@ -197,20 +199,20 @@
             right: 2px;
             height: 4px;
             border-radius: 9999px;
-            background: linear-gradient(90deg, transparent 0%, rgba(255, 199, 44, 0.9) 20%, #FFF3B0 50%, rgba(255, 199, 44, 0.9) 80%, transparent 100%);
-            box-shadow: 0 0 12px rgba(255, 199, 44, 0.85), 0 0 24px rgba(255, 199, 44, 0.4);
+            background: linear-gradient(90deg, transparent 0%, rgba(62, 193, 255, 0.95) 18%, #C13CFF 50%, rgba(255, 106, 26, 0.95) 82%, transparent 100%);
+            box-shadow: 0 0 12px rgba(139, 61, 255, 0.75), 0 0 24px rgba(62, 193, 255, 0.35), 0 0 24px rgba(255, 106, 26, 0.3);
             pointer-events: none;
           }
 
-          @keyframes tcg-gold-foil-shimmer {
+          @keyframes tcg-energy-shimmer {
             0%, 100% {
               filter:
-                drop-shadow(0 0 18px rgba(255, 199, 44, 0.5))
+                drop-shadow(0 0 18px rgba(77, 168, 255, 0.5))
                 drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
             }
             50% {
               filter:
-                drop-shadow(0 0 32px rgba(255, 199, 44, 0.85))
+                drop-shadow(0 0 32px rgba(139, 61, 255, 0.8))
                 drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
             }
           }
@@ -271,12 +273,12 @@
           {{ section.settings.subheading }}
         </p>
         <div class="mt-7 flex flex-wrap gap-3">
-          <a href="{{ section.settings.cta_primary_link | default: routes.all_products_collection_url }}" class="rounded-full bg-gold px-7 py-3.5 font-bold text-ink hover:bg-gold-deep shadow-lg">{{ section.settings.cta_primary_label }}</a>
-          <a href="{{ section.settings.cta_secondary_link | default: '#mystery' }}" class="rounded-full border border-gold/45 px-7 py-3.5 font-bold text-gold hover:bg-gold/10 backdrop-blur-sm">{{ section.settings.cta_secondary_label }}</a>
+          <a href="{{ section.settings.cta_primary_link | default: routes.all_products_collection_url }}" class="rounded-full bg-fire px-7 py-3.5 font-bold text-white shadow-lg">{{ section.settings.cta_primary_label }}</a>
+          <a href="{{ section.settings.cta_secondary_link | default: '#mystery' }}" class="rounded-full border border-volt/45 px-7 py-3.5 font-bold text-volt hover:bg-volt/10 backdrop-blur-sm">{{ section.settings.cta_secondary_label }}</a>
         </div>
         <div class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-          <span class="tcg-hero-perk flex items-center gap-2"><span class="text-gold">✦</span> {{ section.settings.perk_1 }}</span>
-          <span class="tcg-hero-perk flex items-center gap-2"><span class="text-gold">✦</span> {{ section.settings.perk_2 }}</span>
+          <span class="tcg-hero-perk flex items-center gap-2"><span class="text-blaze">✦</span> {{ section.settings.perk_1 }}</span>
+          <span class="tcg-hero-perk flex items-center gap-2"><span class="text-blaze">✦</span> {{ section.settings.perk_2 }}</span>
         </div>
       </div>
       <div class="flex justify-center">
@@ -308,7 +310,7 @@
               </div>
             </div>
           </div>
-          <figcaption class="mt-4 text-center text-sm"><a href="{{ card_link }}" class="font-semibold text-gold hover:underline">{{ section.settings.caption_label }}</a></figcaption>
+          <figcaption class="mt-4 text-center text-sm"><a href="{{ card_link }}" class="font-semibold text-volt hover:underline">{{ section.settings.caption_label }}</a></figcaption>
         </figure>
       </div>
     </div>
@@ -317,15 +319,15 @@
       <input type="hidden" name="type" value="product">
       <label class="sr-only" for="q">Search</label>
       <div class="relative cursor-pointer" onclick="window.openTcgSearchModal && window.openTcgSearchModal(document.getElementById('q')?.value);">
-        <input id="q" name="q" type="search" placeholder="{{ section.settings.search_placeholder | escape }}" data-search-open class="w-full rounded-full bg-felt-2/80 border border-gold/25 pl-12 pr-4 py-3.5 placeholder:text-slate focus:border-gold cursor-pointer transition-colors duration-200 hover:border-gold/60">
-        <svg class="absolute left-4 top-4 h-5 w-5 text-gold/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>
+        <input id="q" name="q" type="search" placeholder="{{ section.settings.search_placeholder | escape }}" data-search-open class="w-full rounded-full bg-felt-2/80 border border-volt/25 pl-12 pr-4 py-3.5 placeholder:text-slate focus:border-volt cursor-pointer transition-colors duration-200 hover:border-volt/60">
+        <svg class="absolute left-4 top-4 h-5 w-5 text-volt/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>
       </div>
     </form>
 
     {%- if section.blocks.size > 0 -%}
       <div class="mt-8 flex flex-wrap justify-center gap-3">
         {%- for block in section.blocks -%}
-          <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="brand text-center min-w-[150px]" {{ block.shopify_attributes }}><span class="block font-display text-xl text-gold">{{ block.settings.name }}</span><span class="text-xs text-slate">{{ block.settings.sub }}</span></a>
+          <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="brand text-center min-w-[150px]" {{ block.shopify_attributes }}><span class="block font-display text-xl text-volt">{{ block.settings.name }}</span><span class="text-xs text-slate">{{ block.settings.sub }}</span></a>
         {%- endfor -%}
       </div>
     {%- endif -%}
@@ -444,14 +446,14 @@
 
     .tcg-bolt-stroke {
       fill: none;
-      stroke: #FFF500;
+      stroke: #9FDBFF;
       stroke-width: 2.8;
       stroke-linecap: round;
       stroke-linejoin: round;
       filter:
         drop-shadow(0 0 4px #FFFFFF)
-        drop-shadow(0 0 10px #FFC72C)
-        drop-shadow(0 0 20px #FFA800);
+        drop-shadow(0 0 10px #4DA8FF)
+        drop-shadow(0 0 20px #1E7BFF);
       opacity: 0;
     }
 
@@ -468,11 +470,11 @@
       }
       87% {
         opacity: 0.2;
-        stroke: #FFF500;
+        stroke: #9FDBFF;
       }
       89% {
         opacity: 1;
-        stroke: #FFF500;
+        stroke: #9FDBFF;
       }
       91% {
         opacity: 0.35;
@@ -508,10 +510,10 @@
       position: absolute;
       font-size: 1.15rem;
       line-height: 1;
-      color: #FFF500;
+      color: #9FDBFF;
       filter:
-        drop-shadow(0 0 6px #FFF500)
-        drop-shadow(0 0 14px #FFA800);
+        drop-shadow(0 0 6px #9FDBFF)
+        drop-shadow(0 0 14px #1E7BFF);
       opacity: 0;
       transform: scale(0);
       pointer-events: none;
@@ -526,7 +528,7 @@
     .tcg-thunder-flash {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.45) 0%, rgba(255, 245, 0, 0.2) 45%, transparent 75%);
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.45) 0%, rgba(159, 219, 255, 0.2) 45%, transparent 75%);
       opacity: 0;
       pointer-events: none;
     }
@@ -542,7 +544,7 @@
     { "type": "video", "id": "bg_video", "label": "Shopify-hosted video" },
     { "type": "video_url", "id": "bg_video_url", "label": "Or YouTube / Vimeo URL", "accept": ["youtube", "vimeo"] },
     { "type": "url", "id": "bg_video_mp4", "label": "Or direct MP4 link (from Shopify Files)" },
-    { "type": "checkbox", "id": "disable_smoke", "label": "Hide default gold smoke when media is set", "default": true },
+    { "type": "checkbox", "id": "disable_smoke", "label": "Hide default energy smoke when media is set", "default": true },
     { "type": "header", "content": "Background Overlay" },
     { "type": "color", "id": "overlay_color", "label": "Overlay tint color", "default": "#000000" },
     { "type": "range", "id": "overlay_opacity", "label": "Overlay tint opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 60 },
@@ -560,7 +562,7 @@
     { "type": "text", "id": "stars_text", "label": "Stars line", "default": "Trusted at card shows every weekend" },
     { "type": "text", "id": "heading_line1", "label": "Heading line 1", "default": "CHASE" },
     { "type": "text", "id": "heading_line2", "label": "Heading line 2", "default": "THE RARE" },
-    { "type": "text", "id": "highlight_word", "label": "Word to highlight", "default": "RARE", "info": "Word in the heading to highlight in 24K gold foil gradient & glow (e.g. RARE, or ALL)" },
+    { "type": "text", "id": "highlight_word", "label": "Word to highlight", "default": "RARE", "info": "Word in the heading to highlight in electric energy gradient & glow (e.g. RARE, or ALL)" },
     { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Pokémon singles with real photos of the actual card, sealed boxes, mystery packs, graded slabs — plus our own TCG Hitz vending machines." },
     { "type": "text", "id": "cta_primary_label", "label": "Primary button", "default": "SHOP NOW" },
     { "type": "url", "id": "cta_primary_link", "label": "Primary link" },

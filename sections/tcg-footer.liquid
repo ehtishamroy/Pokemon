@@ -10,24 +10,24 @@
   endif
 -%}
 
-<footer class="tcg-scope border-t border-gold/15 py-12 mt-8 font-sans antialiased text-paper">
+<footer class="tcg-scope border-t border-volt/15 py-12 mt-8 font-sans antialiased text-paper">
   <div class="mx-auto max-w-site px-4 sm:px-6 grid md:grid-cols-4 gap-10">
     <div class="md:col-span-2">{% if section.settings.show_logo %}<img src="{{ logo_url }}" alt="{{ shop.name | escape }}" class="h-14 w-auto">{% endif %}<p class="{% if section.settings.show_logo %}mt-4 {% endif %}text-paper-dim max-w-[44ch] text-sm">{{ section.settings.blurb }}</p></div>
     {%- for block in section.blocks -%}
       {%- if block.type == 'column' -%}
-        <div {{ block.shopify_attributes }}><h3 class="font-bold text-gold text-sm tracking-widest">{{ block.settings.heading }}</h3><ul class="mt-3 space-y-2 text-paper-dim text-sm">
+        <div {{ block.shopify_attributes }}><h3 class="font-bold text-volt text-sm tracking-widest">{{ block.settings.heading }}</h3><ul class="mt-3 space-y-2 text-paper-dim text-sm">
           {%- assign lines = block.settings.links | strip | newline_to_br | split: '<br />' -%}
           {%- for line in lines -%}
             {%- assign parts = line | strip | split: '|' -%}
             {%- if parts[0] != blank -%}
-              <li><a href="{{ parts[1] | strip | default: '#' }}" class="hover:text-gold">{{ parts[0] | strip }}</a></li>
+              <li><a href="{{ parts[1] | strip | default: '#' }}" class="hover:text-volt">{{ parts[0] | strip }}</a></li>
             {%- endif -%}
           {%- endfor -%}
         </ul></div>
       {%- endif -%}
     {%- endfor -%}
   </div>
-  <div class="mx-auto max-w-site px-4 sm:px-6 mt-10 pt-6 border-t border-gold/10 flex flex-wrap gap-4 justify-between text-xs text-slate">
+  <div class="mx-auto max-w-site px-4 sm:px-6 mt-10 pt-6 border-t border-volt/10 flex flex-wrap gap-4 justify-between text-xs text-slate">
     <p>© {{ 'now' | date: '%Y' }} {{ section.settings.copyright }}</p>
     <p>{{ section.settings.legal }}</p>
   </div>

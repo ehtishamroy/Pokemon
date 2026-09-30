@@ -203,8 +203,8 @@ document.querySelector('[data-nav-toggle]')?.addEventListener('click', (e) => {
   const gallery = document.querySelector('[data-main-img]');
 
   const select = (el, updateUrl) => {
-    opts.forEach((o) => { o.classList.remove('ring-2', 'ring-gold', 'bg-felt-3'); o.setAttribute('aria-checked', 'false'); });
-    el.classList.add('ring-2', 'ring-gold', 'bg-felt-3'); el.setAttribute('aria-checked', 'true');
+    opts.forEach((o) => { o.classList.remove('ring-2', 'ring-volt', 'bg-felt-3'); o.setAttribute('aria-checked', 'false'); });
+    el.classList.add('ring-2', 'ring-volt', 'bg-felt-3'); el.setAttribute('aria-checked', 'true');
     const d = el.dataset;
     if (price) price.textContent = d.price;
     if (stock) {
@@ -238,8 +238,8 @@ document.querySelector('[data-nav-toggle]')?.addEventListener('click', (e) => {
   // thumbnails swap the main (tilting) image
   document.querySelectorAll('[data-thumb]').forEach((t) => t.addEventListener('click', () => {
     if (gallery) gallery.src = t.dataset.thumb;
-    document.querySelectorAll('[data-thumb]').forEach((x) => x.classList.remove('ring-2', 'ring-gold'));
-    t.classList.add('ring-2', 'ring-gold');
+    document.querySelectorAll('[data-thumb]').forEach((x) => x.classList.remove('ring-2', 'ring-volt'));
+    t.classList.add('ring-2', 'ring-volt');
   }));
 })();
 

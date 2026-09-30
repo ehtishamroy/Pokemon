@@ -43,6 +43,24 @@
   </head>
   
   <body class="machine font-sans antialiased page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+    {%- if settings.tcg_live_bg -%}
+      {% comment %} Decorative live energy background (CSS field + canvas FX in assets/tcg-live-bg.js) {% endcomment %}
+      <div
+        class="tcg-live-bg"
+        aria-hidden="true"
+        data-intensity="{{ settings.tcg_live_bg_intensity | default: 'normal' }}"
+        data-lightning="{{ settings.tcg_live_bg_lightning }}"
+      >
+        <div class="tcg-live-bg__field">
+          <span class="tcg-live-bg__blob tcg-live-bg__blob--volt"></span>
+          <span class="tcg-live-bg__blob tcg-live-bg__blob--cyan"></span>
+          <span class="tcg-live-bg__blob tcg-live-bg__blob--fire"></span>
+          <span class="tcg-live-bg__blob tcg-live-bg__blob--arc"></span>
+        </div>
+        <canvas class="tcg-live-bg__fx"></canvas>
+      </div>
+      <script src="{{ 'tcg-live-bg.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
 
     {% render 'chat-drawer' %}

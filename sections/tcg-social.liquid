@@ -50,7 +50,7 @@
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <h2 class="stitle">{{ section.settings.heading }}</h2>
     <p class="text-center text-paper-dim mt-3">{{ section.settings.subheading }}</p>
-    <div class="rule-gold my-7 max-w-[240px] mx-auto"></div>
+    <div class="rule-energy my-7 max-w-[240px] mx-auto"></div>
 
     <div class="overflow-hidden flex w-full relative tcg-marquee-container mt-4 pb-3" style="-webkit-mask-image: linear-gradient(to right, transparent 0%, black 140px, black calc(100% - 140px), transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 140px, black calc(100% - 140px), transparent 100%);">
       <!-- Fade masks aligned to the container -->
@@ -69,7 +69,7 @@
                 assign img = fb | asset_url
               endif
             -%}
-            <img src="{{ img }}" alt="{{ block.settings.image.alt | default: section.settings.heading | escape }}" loading="lazy" class="shrink-0 w-[190px] h-[250px] object-cover rounded-card border border-gold/15 transition-transform duration-300 hover:scale-105" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
+            <img src="{{ img }}" alt="{{ block.settings.image.alt | default: section.settings.heading | escape }}" loading="lazy" class="shrink-0 w-[190px] h-[250px] object-cover rounded-card border border-volt/15 transition-transform duration-300 hover:scale-105" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
           {%- endfor -%}
         </div>
       {%- endfor -%}

@@ -25,23 +25,27 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        felt:   { DEFAULT: '#000000', 2: '#0D0D11', 3: '#18181D' },   // pure black & dark charcoal surfaces
-        glow:   { DEFAULT: '#FFC72C', dim: '#C8860D' },               // gold accent (replaces cyan blue)
-        hit:    { DEFAULT: '#FFC72C', deep: '#E0A600' },              // logo gold — price & buy CTA only
+        // Palette follows the logo + vending-machine wrap: electric-blue lightning on
+        // one side, orange/red fire on the other, purple where they collide.
+        felt:   { DEFAULT: '#05060D', 2: '#0C0E18', 3: '#161926' },   // blue-black surfaces
+        volt:   { DEFAULT: '#4DA8FF', glow: '#3EC1FF', deep: '#1446D9' }, // accents, prices, borders, focus
+        blaze:  { DEFAULT: '#FF6A1A', hot: '#FF9A2E', deep: '#E8292C' },  // fire: CTAs, stars, hot badges
+        arc:    { DEFAULT: '#8B3DFF', magenta: '#C13CFF' },           // collision colour (gradients/glows)
+        glow:   { DEFAULT: '#3EC1FF', dim: '#1446D9' },
         chase:  { DEFAULT: '#E8402C' },                               // logo red
         paper:  { DEFAULT: '#F3F5FA', dim: '#C5CCE0' },
         slate:  { DEFAULT: '#8A96B8' },
         mint:   { DEFAULT: '#3DD68C' },                               // in-stock
-        gold:   { DEFAULT: '#FFC72C', deep: '#C8860D' },
-        ink:    { DEFAULT: '#000000' },
+        ink:    { DEFAULT: '#06070F' },
       },
       fontFamily: {
         display: ['"Titan One"', 'system-ui', 'sans-serif'],
         sans: ['Manrope', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        glow: '0 0 0 1px rgba(255,199,44,.35), 0 0 32px rgba(255,199,44,.35)',
-        lift: '0 18px 40px -18px rgba(255,199,44,.45)',
+        glow: '0 0 0 1px rgba(77,168,255,.35), 0 0 32px rgba(62,193,255,.35)',
+        lift: '0 18px 40px -18px rgba(77,168,255,.45)',
+        fire: '0 10px 28px -8px rgba(255,90,26,.6), 0 0 24px rgba(255,106,26,.35)',
         card: '0 30px 60px -20px rgba(0,0,0,.75)',
       },
       borderRadius: { card: '14px' },

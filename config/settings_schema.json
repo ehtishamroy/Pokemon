@@ -2116,5 +2116,37 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "TCG live background",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Animated energy field behind every page: blue lightning, fire embers and a purple glow where they meet. Automatically pauses in background tabs and stays still for visitors who prefer reduced motion."
+      },
+      {
+        "type": "checkbox",
+        "id": "tcg_live_bg",
+        "label": "Enable live background",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "tcg_live_bg_intensity",
+        "label": "Particle intensity",
+        "options": [
+          { "value": "subtle", "label": "Subtle" },
+          { "value": "normal", "label": "Normal" },
+          { "value": "intense", "label": "Intense" }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "checkbox",
+        "id": "tcg_live_bg_lightning",
+        "label": "Show lightning strikes",
+        "default": true
+      }
+    ]
   }
 ]
