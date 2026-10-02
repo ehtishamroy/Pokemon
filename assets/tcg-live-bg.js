@@ -49,10 +49,14 @@
   var EMBER = [
     sprite([[0, 'rgba(255,240,210,1)'], [0.12, 'rgba(255,170,60,.95)'], [0.35, 'rgba(255,90,20,.45)'], [1, 'rgba(232,41,44,0)']]),
     sprite([[0, 'rgba(255,220,180,1)'], [0.12, 'rgba(255,110,30,.9)'], [0.4, 'rgba(232,41,44,.35)'], [1, 'rgba(160,20,40,0)']]),
+    // neon yellow ember (hot core) — fire side spark of electric yellow
+    sprite([[0, 'rgba(255,252,220,1)'], [0.12, 'rgba(255,226,74,.98)'], [0.4, 'rgba(255,160,30,.4)'], [1, 'rgba(255,120,20,0)']]),
   ];
   var SPARK = [
     sprite([[0, 'rgba(235,250,255,1)'], [0.12, 'rgba(120,210,255,.95)'], [0.4, 'rgba(62,140,255,.4)'], [1, 'rgba(20,70,217,0)']]),
     sprite([[0, 'rgba(240,230,255,1)'], [0.12, 'rgba(170,120,255,.9)'], [0.4, 'rgba(139,61,255,.35)'], [1, 'rgba(90,30,200,0)']]),
+    // neon pink spark
+    sprite([[0, 'rgba(255,235,250,1)'], [0.12, 'rgba(255,110,220,.95)'], [0.4, 'rgba(255,79,216,.4)'], [1, 'rgba(193,60,255,0)']]),
   ];
 
   function rand(a, b) { return a + Math.random() * (b - a); }
@@ -72,7 +76,7 @@
       r: rand(2.2, 6.5),
       life: 0,
       ttl: rand(5, 11),
-      s: EMBER[Math.random() < 0.65 ? 0 : 1],
+      s: EMBER[(function (q) { return q < 0.55 ? 0 : q < 0.82 ? 1 : 2; })(Math.random())],
     };
   }
   function newSpark(initial) {
@@ -86,7 +90,7 @@
       life: 0,
       ttl: rand(2.5, 6),
       flick: rand(8, 18),
-      s: SPARK[Math.random() < 0.8 ? 0 : 1],
+      s: SPARK[(function (q) { return q < 0.58 ? 0 : q < 0.78 ? 1 : 2; })(Math.random())],
     };
   }
 
@@ -110,7 +114,7 @@
       bolt(from[0], from[1], from[0] + W * rand(0.03, 0.12), from[1] + H * rand(0.12, 0.25), Math.min(W, H) * 0.08, br);
       paths.push(br);
     }
-    bolts.push({ paths: paths, life: 0, ttl: 0.42, x: x1 });
+    bolts.push({ paths: paths, life: 0, ttl: 0.42, x: x1, pink: Math.random() < 0.35 });
     flash = 1;
   }
   function scheduleBolt(now) {
@@ -130,8 +134,8 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     var area = Math.max(0.45, Math.min(1.5, (W * H) / (1440 * 900)));
-    var nE = Math.round(30 * density * area);
-    var nS = Math.round(20 * density * area);
+    var nE = Math.round(40 * density * area);
+    var nS = Math.round(28 * density * area);
     while (embers.length < nE) embers.push(newEmber(true));
     while (sparks.length < nS) sparks.push(newSpark(true));
     embers.length = nE;
@@ -157,7 +161,7 @@
       p.x += (p.vx + Math.sin(p.life * p.freq + p.phase) * p.sway) * dt;
       t = p.life / p.ttl;
       a = t < 0.15 ? t / 0.15 : 1 - (t - 0.15) / 0.85;
-      ctx.globalAlpha = Math.max(0, a) * 0.85;
+      ctx.globalAlpha = Math.max(0, a) * 0.95;
       var er = p.r * 4 * (1 - t * 0.5);
       ctx.drawImage(p.s, p.x - er / 2, p.y - er / 2, er, er);
     }
@@ -170,7 +174,7 @@
       p.y += p.vy * dt;
       t = p.life / p.ttl;
       a = (t < 0.2 ? t / 0.2 : 1 - (t - 0.2) / 0.8) * (0.55 + 0.45 * Math.sin(p.life * p.flick));
-      ctx.globalAlpha = Math.max(0, a) * 0.9;
+      ctx.globalAlpha = Math.max(0, a);
       var sr = p.r * 4;
       ctx.drawImage(p.s, p.x - sr / 2, p.y - sr / 2, sr, sr);
     }
@@ -181,10 +185,12 @@
 
       if (flash > 0) {
         // Faint sky flash on the lightning side; decays in ~0.3s (well under 3 flashes/s).
-        var fx = bolts.length ? bolts[bolts.length - 1].x : W * 0.15;
+        var lastBolt = bolts.length ? bolts[bolts.length - 1] : null;
+        var fx = lastBolt ? lastBolt.x : W * 0.15;
+        var flashPink = lastBolt && lastBolt.pink;
         var g = ctx.createRadialGradient(fx, H * 0.2, 0, fx, H * 0.2, Math.max(W, H) * 0.55);
-        g.addColorStop(0, 'rgba(120,190,255,' + (0.16 * flash).toFixed(3) + ')');
-        g.addColorStop(1, 'rgba(20,70,217,0)');
+        g.addColorStop(0, (flashPink ? 'rgba(255,120,220,' : 'rgba(120,190,255,') + (0.16 * flash).toFixed(3) + ')');
+        g.addColorStop(1, flashPink ? 'rgba(193,60,255,0)' : 'rgba(20,70,217,0)');
         ctx.globalAlpha = 1;
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, W, H);
@@ -198,6 +204,9 @@
         t = b.life / b.ttl;
         // flicker: bright, dip, bright, fade
         a = t < 0.2 ? 1 : t < 0.32 ? 0.35 : t < 0.5 ? 0.95 : 1 - (t - 0.5) / 0.5;
+        var glowStroke = b.pink ? 'rgba(255,110,220,.9)' : 'rgba(62,160,255,.9)';
+        var glowShadow = b.pink ? 'rgba(255,90,210,1)' : 'rgba(62,193,255,1)';
+        var coreStroke = b.pink ? '#FFEAFB' : '#EAF7FF';
         for (var k = 0; k < b.paths.length; k++) {
           var path = b.paths[k];
           ctx.beginPath();
@@ -205,14 +214,14 @@
           for (var j = 1; j < path.length; j++) ctx.lineTo(path[j][0], path[j][1]);
           ctx.lineJoin = 'round';
           ctx.globalAlpha = a * (k ? 0.55 : 0.8);
-          ctx.strokeStyle = 'rgba(62,160,255,.9)';
+          ctx.strokeStyle = glowStroke;
           ctx.lineWidth = k ? 3 : 6;
-          ctx.shadowColor = 'rgba(62,193,255,1)';
+          ctx.shadowColor = glowShadow;
           ctx.shadowBlur = 18;
           ctx.stroke();
           ctx.shadowBlur = 0;
           ctx.globalAlpha = a * (k ? 0.7 : 1);
-          ctx.strokeStyle = '#EAF7FF';
+          ctx.strokeStyle = coreStroke;
           ctx.lineWidth = k ? 0.8 : 1.6;
           ctx.stroke();
         }
