@@ -31,6 +31,8 @@ module.exports = {
         volt:   { DEFAULT: '#4DA8FF', glow: '#3EC1FF', deep: '#1446D9' }, // accents, prices, borders, focus
         blaze:  { DEFAULT: '#FF6A1A', hot: '#FF9A2E', deep: '#E8292C' },  // fire: CTAs, stars, hot badges
         arc:    { DEFAULT: '#8B3DFF', magenta: '#C13CFF' },           // collision colour (gradients/glows)
+        neon:   { DEFAULT: '#FFE24A', soft: '#FFF07A' },             // electric yellow — glow/bloom only
+        flare:  { DEFAULT: '#FF4FD8', hot: '#FF2EA6' },              // neon pink — glow/bloom only
         glow:   { DEFAULT: '#3EC1FF', dim: '#1446D9' },
         chase:  { DEFAULT: '#E8402C' },                               // logo red
         paper:  { DEFAULT: '#F3F5FA', dim: '#C5CCE0' },
@@ -43,9 +45,10 @@ module.exports = {
         sans: ['Manrope', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        glow: '0 0 0 1px rgba(77,168,255,.35), 0 0 32px rgba(62,193,255,.35)',
-        lift: '0 18px 40px -18px rgba(77,168,255,.45)',
-        fire: '0 10px 28px -8px rgba(255,90,26,.6), 0 0 24px rgba(255,106,26,.35)',
+        glow: '0 0 0 1px rgba(77,168,255,.42), 0 0 28px rgba(62,193,255,.5), 0 0 60px rgba(255,79,216,.22)',
+        lift: '0 18px 40px -18px rgba(77,168,255,.5), 0 0 34px -6px rgba(255,79,216,.3)',
+        fire: '0 10px 28px -8px rgba(255,90,26,.7), 0 0 26px rgba(255,106,26,.5), 0 0 48px rgba(255,226,74,.22)',
+        neon: '0 0 20px rgba(62,193,255,.55), 0 0 42px rgba(255,79,216,.4), 0 0 68px rgba(255,226,74,.22)',
         card: '0 30px 60px -20px rgba(0,0,0,.75)',
       },
       borderRadius: { card: '14px' },
