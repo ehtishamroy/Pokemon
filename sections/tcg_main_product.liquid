@@ -6,12 +6,9 @@
 
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
-  assign card_set      = product.metafields.card.set.value | default: product.metafields.custom.set.value | default: product.metafields.card.set | default: product.metafields.custom.set
-  assign card_number   = product.metafields.card.number.value | default: product.metafields.custom.number.value | default: product.metafields.card.number | default: product.metafields.custom.number
-  assign card_rarity   = product.metafields.card.rarity.value | default: product.metafields.custom.rarity.value | default: product.metafields.card.rarity | default: product.metafields.custom.rarity
-  assign card_language = product.metafields.card.language.value | default: product.metafields.custom.language.value | default: product.metafields.card.language | default: product.metafields.custom.language
-  assign card_type     = product.metafields.card.type.value | default: product.metafields.custom.type.value | default: product.metafields.card.type | default: product.metafields.custom.type
-  assign card_artist   = product.metafields.card.artist.value | default: product.metafields.custom.artist.value | default: product.metafields.card.artist | default: product.metafields.custom.artist
+  assign card_set      = product.metafields.custom.group_name.value | default: product.metafields.custom.group_name | default: product.metafields.card.set.value | default: product.metafields.custom.set.value | default: product.metafields.card.set | default: product.metafields.custom.set
+  assign card_number   = product.metafields.custom.card_number.value | default: product.metafields.custom.card_number | default: product.metafields.card.number.value | default: product.metafields.custom.number.value | default: product.metafields.card.number | default: product.metafields.custom.number
+  assign card_rarity   = product.metafields.custom.rarity.value | default: product.metafields.custom.rarity | default: product.metafields.card.rarity.value | default: product.metafields.card.rarity
 
   if product.featured_image
     assign main_img = product.featured_image | image_url: width: 1000
@@ -71,6 +68,24 @@
           </p>
         {%- endif -%}
 
+        {%- comment -%} At-a-glance SortSwift flags — only the ones set to true show {%- endcomment -%}
+        {%- capture flag_chips -%}
+          {%- assign flag_pairs = 'Full Art::full_art,Promo::promo,Story Spotlight::story_spotlight,Presale::is_presale,Sealed::sealed,Single::single,Booster::booster,Reprint::reprint,Reserved List::reserved,Textless::textless' | split: ',' -%}
+          {%- for pair in flag_pairs -%}
+            {%- assign fp = pair | split: '::' -%}
+            {%- assign fv = product.metafields.custom[fp[1]].value -%}
+            {%- if fv == true or fv == 'true' or fv == 1 -%}
+              {%- assign hot = false -%}
+              {%- if fp[1] == 'full_art' or fp[1] == 'promo' or fp[1] == 'story_spotlight' or fp[1] == 'is_presale' -%}{%- assign hot = true -%}{%- endif -%}
+              <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold {% if hot %}bg-blaze/15 border border-blaze/45 text-blaze-hot{% else %}bg-volt/10 border border-volt/40 text-volt{% endif %}"><span class="h-1.5 w-1.5 rounded-full {% if hot %}bg-blaze{% else %}bg-volt{% endif %}"></span>{{ fp[0] }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+        {%- assign flag_chips_s = flag_chips | strip -%}
+        {%- if flag_chips_s != blank -%}
+          <div class="mt-4 flex flex-wrap gap-2">{{ flag_chips }}</div>
+        {%- endif -%}
+
         <div class="mt-6 flex items-center gap-4">
           <span data-price class="font-display text-[42px] leading-none text-volt">{{ current_variant.price | money }}</span>
           <span data-stock class="rounded-full {% if current_variant.available %}bg-mint/15 text-mint{% else %}bg-chase/15 text-chase{% endif %} px-3 py-1 text-sm font-bold">{{ stock_text | strip }}</span>
@@ -116,26 +131,7 @@
           <li class="cabinet bg-ink p-4"><span class="block font-bold text-sm">Fair returns</span><span class="text-xs text-slate">Not as described? Refund</span></li>
         </ul>
 
-        {%- if card_set != blank or card_number != blank or card_rarity != blank or card_language != blank or card_type != blank or card_artist != blank -%}
-          <section class="mt-10">
-            <h2 class="font-display text-2xl">Card details</h2>
-            <div class="rule-energy my-4"></div>
-            <dl class="grid grid-cols-2 gap-x-6 gap-y-3.5 text-[15px]">
-              {%- if card_set != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Set</dt><dd class="font-semibold">{{ card_set }}</dd></div>{%- endif -%}
-              {%- if card_number != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Collector number</dt><dd class="font-semibold">{{ card_number }}</dd></div>{%- endif -%}
-              {%- if card_rarity != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Rarity</dt><dd class="font-semibold">{{ card_rarity }}</dd></div>{%- endif -%}
-              {%- if card_language != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Language</dt><dd class="font-semibold">{{ card_language }}</dd></div>{%- endif -%}
-              {%- if card_type != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Card type</dt><dd class="font-semibold">{{ card_type }}</dd></div>{%- endif -%}
-              {%- if card_artist != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Artist</dt><dd class="font-semibold">{{ card_artist }}</dd></div>{%- endif -%}
-            </dl>
-          </section>
-        {%- elsif product.description != blank -%}
-          <section class="mt-10">
-            <h2 class="font-display text-2xl">Details</h2>
-            <div class="rule-energy my-4"></div>
-            <div class="text-[15px] text-paper-dim leading-relaxed space-y-3">{{ product.description }}</div>
-          </section>
-        {%- endif -%}
+        {% render 'tcg-card-specs', product: product %}
 
         <details class="faq mt-6 cabinet bg-ink p-5 group">
           <summary class="cursor-pointer font-bold flex items-center justify-between">What do the conditions mean?
