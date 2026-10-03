@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "tcg-main-page",
+      "type": "tcg_main_page",
       "settings": { "show_breadcrumb": true, "max_width": "normal" }
     }
   },

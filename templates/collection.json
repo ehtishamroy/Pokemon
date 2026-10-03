@@ -10,7 +10,7 @@
 {
   "sections": {
     "tcg_collection": {
-      "type": "tcg-main-collection",
+      "type": "tcg_main_collection",
       "blocks": {
         "w1": { "type": "wcat", "settings": { "heading": "Mystery Packs", "subheading": "Chase the rare", "link": "/collections/mystery" } },
         "w2": { "type": "wcat", "settings": { "heading": "Graded Slabs", "subheading": "PSA · CGC · BGS", "link": "/collections/slabs" } },

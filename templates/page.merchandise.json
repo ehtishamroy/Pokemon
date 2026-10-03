@@ -10,7 +10,7 @@
 {
   "sections": {
     "tcg_merch": {
-      "type": "tcg-merch-promo",
+      "type": "tcg_merch_promo",
       "settings": {
         "heading": "Merchandise",
         "subheading": "Our own 3D prints, plus plushies, figures and collectibles.",
