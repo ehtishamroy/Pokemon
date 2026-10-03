@@ -1,0 +1,156 @@
+{% comment %}
+  TCG Hitz — card specs (SortSwift metafields)
+
+  Renders the SortSwift `custom.*` fields as readable, grouped specs. Every field
+  is optional: a group only appears when at least one of its fields is populated,
+  so a Pokémon single shows its handful of fields and an MTG card shows its stats,
+  from the same markup. Flags are rendered as badges by the caller, not here.
+
+  Usage: {% render 'tcg-card-specs', product: product %}
+{% endcomment %}
+
+{%- liquid
+  assign cf = product.metafields.custom
+  assign kf = product.metafields.card
+
+  # Core fields keep their legacy fallbacks (card.* / older custom keys) so cards
+  # synced before SortSwift still render.
+  assign v_rarity = cf.rarity.value | default: cf.rarity | default: kf.rarity.value | default: kf.rarity
+  assign v_cardtype = cf.card_type.value | default: cf.card_type
+  assign v_subtype = cf.sub_type.value | default: cf.sub_type
+  assign v_color = cf.color.value | default: cf.color
+  assign v_number = cf.card_number.value | default: cf.card_number | default: cf.number.value | default: cf.number | default: kf.number.value | default: kf.number
+  assign v_set = cf.group_name.value | default: cf.group_name | default: cf.set.value | default: cf.set | default: kf.set.value | default: kf.set
+  assign v_setabbr = cf.group_abbreviation.value | default: cf.group_abbreviation
+  assign v_category = cf.category_name.value | default: cf.category_name
+  assign v_artist = cf.artist.value | default: cf.artist | default: kf.artist.value | default: kf.artist
+  assign v_language = cf.language.value | default: cf.language | default: kf.language.value | default: kf.language
+-%}
+
+{%- capture specs_body -%}
+
+  {%- comment -%} ---- Card text (oracle / rules text) ---------------------- {%- endcomment -%}
+  {%- assign v_desc = cf.description.value | default: cf.description -%}
+  {%- if v_desc != blank -%}
+    <div class="mt-6 rounded-card border border-volt/15 bg-felt-2/50 p-4 sm:p-5">
+      <p class="text-xs font-bold tracking-widest text-slate uppercase mb-2">Card text</p>
+      <div class="text-[15px] leading-relaxed text-paper-dim">{{ v_desc | escape | newline_to_br }}</div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---- Core card details ------------------------------------ {%- endcomment -%}
+  {%- capture core_rows -%}
+    {%- if v_rarity != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Rarity</dt><dd class="font-semibold">{{ v_rarity }}</dd></div>{%- endif -%}
+    {%- if v_cardtype != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Card type</dt><dd class="font-semibold">{{ v_cardtype }}</dd></div>{%- endif -%}
+    {%- if v_subtype != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Sub type</dt><dd class="font-semibold">{{ v_subtype }}</dd></div>{%- endif -%}
+    {%- if v_color != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Color</dt><dd class="font-semibold">{{ v_color }}</dd></div>{%- endif -%}
+    {%- if v_number != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Card number</dt><dd class="font-semibold">{{ v_number }}</dd></div>{%- endif -%}
+    {%- if v_set != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Set</dt><dd class="font-semibold">{{ v_set }}{% if v_setabbr != blank %} <span class="text-slate font-normal">({{ v_setabbr }})</span>{% endif %}</dd></div>{%- endif -%}
+    {%- if v_category != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Category</dt><dd class="font-semibold">{{ v_category }}</dd></div>{%- endif -%}
+    {%- if v_artist != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Artist</dt><dd class="font-semibold">{{ v_artist }}</dd></div>{%- endif -%}
+    {%- if v_language != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Language</dt><dd class="font-semibold">{{ v_language }}</dd></div>{%- endif -%}
+  {%- endcapture -%}
+  {%- assign core_rows_s = core_rows | strip -%}
+  {%- if core_rows_s != blank -%}
+    <section class="mt-8">
+      <h3 class="font-display text-lg">Card details</h3>
+      <div class="rule-energy my-4"></div>
+      <dl class="grid grid-cols-2 gap-x-6 gap-y-3.5 text-[15px]">{{ core_rows }}</dl>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---- Game stats (MTG-style) ------------------------------- {%- endcomment -%}
+  {%- capture stat_rows -%}
+    {%- assign v_power = cf.power.value | default: cf.power -%}
+    {%- assign v_tough = cf.toughness.value | default: cf.toughness -%}
+    {%- if v_power != blank or v_tough != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Power / Toughness</dt><dd class="font-semibold">{{ v_power | default: '—' }} / {{ v_tough | default: '—' }}</dd></div>{%- endif -%}
+    {%- assign stat_pairs = 'Mana cost::mana_cost,Mana value::cmc,Colors::colors,Color identity::color_identity,Type::type,Card types::major_card_types,Creature types::creature_types,Keywords::keywords,Frame::frame,Frame effects::frame_effects' | split: ',' -%}
+    {%- for pair in stat_pairs -%}
+      {%- assign p = pair | split: '::' -%}
+      {%- assign val = cf[p[1]].value | default: cf[p[1]] -%}
+      {%- if val != blank -%}
+        {%- if val.size and val.first -%}{%- assign val = val | join: ', ' -%}{%- endif -%}
+        <div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">{{ p[0] }}</dt><dd class="font-semibold">{{ val }}</dd></div>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign stat_rows_s = stat_rows | strip -%}
+  {%- if stat_rows_s != blank -%}
+    <section class="mt-8">
+      <h3 class="font-display text-lg">Game stats</h3>
+      <div class="rule-energy my-4"></div>
+      <dl class="grid grid-cols-2 gap-x-6 gap-y-3.5 text-[15px]">{{ stat_rows }}</dl>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---- FFTCG / other TCG fields ----------------------------- {%- endcomment -%}
+  {%- capture other_rows -%}
+    {%- assign other_pairs = 'Element::element,Cost::cost,Job::job,Card category::card_category' | split: ',' -%}
+    {%- for pair in other_pairs -%}
+      {%- assign p = pair | split: '::' -%}
+      {%- assign val = cf[p[1]].value | default: cf[p[1]] -%}
+      {%- if val != blank -%}
+        {%- if val.size and val.first -%}{%- assign val = val | join: ', ' -%}{%- endif -%}
+        <div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">{{ p[0] }}</dt><dd class="font-semibold">{{ val }}</dd></div>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign other_rows_s = other_rows | strip -%}
+  {%- if other_rows_s != blank -%}
+    <section class="mt-8">
+      <h3 class="font-display text-lg">Card stats</h3>
+      <div class="rule-energy my-4"></div>
+      <dl class="grid grid-cols-2 gap-x-6 gap-y-3.5 text-[15px]">{{ other_rows }}</dl>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---- Legalities ------------------------------------------- {%- endcomment -%}
+  {%- assign v_leg = cf.legalities.value | default: cf.legalities -%}
+  {%- if v_leg != blank -%}
+    {%- if v_leg.size and v_leg.first -%}{%- assign v_leg = v_leg | join: ', ' -%}{%- endif -%}
+    {%- unless v_leg contains '{' or v_leg contains '[' -%}
+      <section class="mt-8">
+        <h3 class="font-display text-lg">Format legality</h3>
+        <div class="rule-energy my-4"></div>
+        <p class="text-[15px] text-paper-dim">{{ v_leg }}</p>
+      </section>
+    {%- endunless -%}
+  {%- endif -%}
+
+  {%- comment -%} ---- Identifiers (muted) ---------------------------------- {%- endcomment -%}
+  {%- capture id_rows -%}
+    {%- assign id_pairs = 'UPC::upc,TCGplayer ID::tcgplayer_id,Scryfall ID::scryfall_id' | split: ',' -%}
+    {%- for pair in id_pairs -%}
+      {%- assign p = pair | split: '::' -%}
+      {%- assign val = cf[p[1]].value | default: cf[p[1]] -%}
+      {%- assign valstr = val | append: '' -%}
+      {%- if valstr != blank -%}
+        {%- unless valstr contains '{' -%}
+          <div><dt class="text-slate">{{ p[0] }}</dt><dd class="font-mono text-paper-dim break-all">{{ valstr }}</dd></div>
+        {%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign id_rows_s = id_rows | strip -%}
+  {%- if id_rows_s != blank -%}
+    <details class="faq mt-8 group">
+      <summary class="cursor-pointer text-sm font-bold text-slate hover:text-volt flex items-center gap-2">
+        Identifiers
+        <svg class="chev h-4 w-4 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <dl class="mt-3 grid grid-cols-2 gap-x-6 gap-y-3 text-xs">{{ id_rows }}</dl>
+    </details>
+  {%- endif -%}
+
+{%- endcapture -%}
+
+{%- assign specs_body_s = specs_body | strip -%}
+{%- if specs_body_s != blank -%}
+  {{ specs_body }}
+{%- elsif product.description != blank -%}
+  <section class="mt-8">
+    <h3 class="font-display text-lg">Details</h3>
+    <div class="rule-energy my-4"></div>
+    <div class="text-[15px] text-paper-dim leading-relaxed space-y-3">{{ product.description }}</div>
+  </section>
+{%- endif -%}
