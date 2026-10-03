@@ -49,6 +49,8 @@
     {%- if v_category != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Category</dt><dd class="font-semibold">{{ v_category }}</dd></div>{%- endif -%}
     {%- if v_artist != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Artist</dt><dd class="font-semibold">{{ v_artist }}</dd></div>{%- endif -%}
     {%- if v_language != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Language</dt><dd class="font-semibold">{{ v_language }}</dd></div>{%- endif -%}
+    {%- assign v_release = cf.release_date.value | default: cf.release_date -%}
+    {%- if v_release != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">Release date</dt><dd class="font-semibold">{{ v_release | date: '%b %-d, %Y' }}</dd></div>{%- endif -%}
   {%- endcapture -%}
   {%- assign core_rows_s = core_rows | strip -%}
   {%- if core_rows_s != blank -%}
