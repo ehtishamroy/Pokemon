@@ -1,0 +1,24 @@
+# Files that are NOT part of the Shopify theme. This keeps `shopify theme push`
+# (and pull) from uploading them or trying to delete them during cleanup.
+# A Shopify theme only uses these directories:
+#   assets/ blocks/ config/ layout/ locales/ sections/ snippets/ templates/
+# Everything below lives in the repo for development only.
+
+# Agent / documentation notes (an untracked AGENTS.md was failing the push)
+AGENTS.md
+*.md
+
+# Node tooling & build config
+node_modules/
+package.json
+package-lock.json
+tailwind.config.js
+.gitattributes
+.github/
+
+# Tailwind source — the compiled output (assets/tcg.css) is what the theme uses
+assets/tailwind-input.css
+
+# Static reference site and stray root-level assets (theme images live in assets/)
+tcg-hitz-store/
+pikachu.png
