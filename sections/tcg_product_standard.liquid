@@ -1,0 +1,232 @@
+{% comment %}
+  TCG Hitz — Standard product page (for non-card physical goods: vending
+  machines / ATMs, 3D prints, merchandise). Same neon theme as the card
+  product page, but a normal image gallery, generic specifications, rich
+  description and a shipping/returns accordion instead of the card-only UI.
+
+  Reuses the reference variant / qty / ADD-TO-CART markup so assets/tcg.js
+  posts the selected variant to /cart/add.js and opens the drawer, exactly
+  like the card template.
+{% endcomment %}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  if current_variant.featured_image
+    assign main_img = current_variant.featured_image | image_url: width: 1100
+  elsif product.featured_image
+    assign main_img = product.featured_image | image_url: width: 1100
+  endif
+-%}
+
+{%- capture stock_text -%}
+  {%- if current_variant.available -%}
+    {%- if current_variant.inventory_management != blank and current_variant.inventory_quantity == 1 -%}Only 1 left{%- elsif current_variant.inventory_management != blank and current_variant.inventory_quantity > 0 -%}{{ current_variant.inventory_quantity }} in stock{%- else -%}In stock{%- endif -%}
+  {%- else -%}Sold out{%- endif -%}
+{%- endcapture -%}
+
+<section class="tcg-scope smoke pt-8 pb-10 lg:pt-10" style="overflow-x: clip;">
+  <div class="mx-auto max-w-site px-4 sm:px-6">
+    <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-volt">{{ shop.name }}</a><span class="mx-2">/</span>{% if collection %}<a href="{{ collection.url }}" class="hover:text-volt">{{ collection.title }}</a><span class="mx-2">/</span>{% endif %}<span class="text-paper">{{ product.title }}</span></nav>
+
+    <div class="mt-6 grid lg:grid-cols-12 gap-10 lg:gap-14">
+
+      {%- comment -%} ---- Gallery ---------------------------------------------- {%- endcomment -%}
+      <div class="lg:col-span-6">
+        <div class="lg:sticky lg:top-24">
+          <div class="cabinet bg-ink p-5 sm:p-7">
+            <div class="rounded-card overflow-hidden bg-felt-2/40 grid place-items-center" style="min-height:320px;">
+              {%- if main_img -%}
+                <img data-main-img src="{{ main_img }}" alt="{{ product.title | escape }}" class="w-full h-auto max-h-[520px] object-contain">
+              {%- else -%}
+                <div class="w-full aspect-square grid place-items-center text-slate">{{ 'image' | placeholder_svg_tag: 'w-24 h-24 opacity-40' }}</div>
+              {%- endif -%}
+            </div>
+            {%- if product.media.size > 1 -%}
+              <div class="thumbs mt-5 flex gap-3 overflow-x-auto pb-1">
+                {%- for media in product.media -%}
+                  <button type="button" data-thumb="{{ media | image_url: width: 1100 }}" class="{% if forloop.first %}ring-2 ring-volt {% endif %}shrink-0 w-[72px] h-[72px] rounded-lg overflow-hidden bg-felt-2" aria-label="{{ media.alt | default: 'Photo' | escape }}"><img src="{{ media | image_url: width: 160 }}" alt="" class="w-full h-full object-cover"></button>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+            {%- if section.settings.gallery_note != blank -%}<p class="mt-4 text-center text-sm text-slate">{{ section.settings.gallery_note }}</p>{%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} ---- Buy box ---------------------------------------------- {%- endcomment -%}
+      <div class="lg:col-span-6">
+        {%- if product.vendor != blank or product.type != blank -%}
+          <p class="text-sm text-slate tracking-wide">{{ product.vendor }}{% if product.vendor != blank and product.type != blank %} · {% endif %}{{ product.type }}</p>
+        {%- endif -%}
+        <h1 class="font-display text-4xl sm:text-5xl leading-[1.04] mt-2">{{ product.title }}</h1>
+
+        <div class="mt-6 flex items-center gap-4 flex-wrap">
+          <span data-price class="font-display text-[42px] leading-none text-volt">{{ current_variant.price | money }}</span>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="text-lg text-slate line-through">{{ current_variant.compare_at_price | money }}</span>
+          {%- endif -%}
+          <span data-stock class="rounded-full {% if current_variant.available %}bg-mint/15 text-mint{% else %}bg-chase/15 text-chase{% endif %} px-3 py-1 text-sm font-bold">{{ stock_text | strip }}</span>
+        </div>
+
+        {%- unless product.has_only_default_variant -%}
+          <fieldset class="mt-7">
+            <legend class="font-bold tracking-widest text-xs text-slate">{{ product.options | join: ' & ' | upcase }}</legend>
+            <p class="text-sm text-slate mt-1.5">Selected: <span data-selected class="text-paper font-semibold">{{ current_variant.title }}</span></p>
+            <div class="mt-3 space-y-2.5" role="radiogroup">
+              {%- for variant in product.variants -%}
+                {%- capture v_stock -%}{%- if variant.available -%}{%- if variant.inventory_management != blank and variant.inventory_quantity == 1 -%}Only 1 left{%- elsif variant.inventory_management != blank and variant.inventory_quantity > 0 -%}{{ variant.inventory_quantity }} in stock{%- else -%}In stock{%- endif -%}{%- else -%}Sold out{%- endif -%}{%- endcapture -%}
+                {%- assign v_rest = '' -%}
+                {%- if variant.option2 != blank -%}{%- assign v_rest = v_rest | append: ' · ' | append: variant.option2 -%}{%- endif -%}
+                {%- if variant.option3 != blank -%}{%- assign v_rest = v_rest | append: ' · ' | append: variant.option3 -%}{%- endif -%}
+                <button type="button" data-variant data-id="{{ variant.id }}" data-price="{{ variant.price | money }}" data-stock="{{ v_stock | strip }}" data-available="{{ variant.available }}" data-label="{{ variant.title | escape }}"{% if variant.featured_image %} data-image="{{ variant.featured_image | image_url: width: 1100 }}"{% endif %} role="radio" aria-checked="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}"
+                  class="w-full flex items-center justify-between rounded-lg border border-volt/20 bg-felt-2/60 px-4 py-3.5 text-left hover:border-volt transition">
+                  <span><span class="font-bold">{{ variant.option1 }}</span> <span class="text-slate">{{ v_rest }}</span><span class="block text-xs text-slate mt-0.5">{{ v_stock | strip }}</span></span>
+                  <span class="font-display text-lg text-volt">{{ variant.price | money }}</span>
+                </button>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- endunless -%}
+
+        <input type="hidden" data-variant-input name="id" value="{{ current_variant.id }}">
+        <div class="mt-7 flex items-center gap-4">
+          <div class="qty inline-flex items-center rounded-full bg-felt-2 border border-volt/25">
+            <button type="button" data-qty-dec class="rounded-full text-xl text-volt" aria-label="Decrease quantity">−</button>
+            <span data-qty-value class="w-8 text-center font-bold" aria-live="polite">1</span>
+            <button type="button" data-qty-inc class="rounded-full text-xl text-volt" aria-label="Increase quantity">+</button>
+          </div>
+          <button type="button" data-add data-add-main data-variant-id="{{ current_variant.id }}"{% unless current_variant.available %} disabled{% endunless %}
+                  class="flex-1 rounded-full bg-fire px-6 py-4 font-bold text-white{% unless current_variant.available %} opacity-60{% endunless %}">{% if current_variant.available %}ADD TO CART{% else %}SOLD OUT{% endif %}</button>
+        </div>
+
+        <ul class="mt-8 grid sm:grid-cols-3 gap-3">
+          <li class="cabinet bg-ink p-4"><span class="block font-bold text-sm">{{ section.settings.badge_1_title }}</span><span class="text-xs text-slate">{{ section.settings.badge_1_text }}</span></li>
+          <li class="cabinet bg-ink p-4"><span class="block font-bold text-sm">{{ section.settings.badge_2_title }}</span><span class="text-xs text-slate">{{ section.settings.badge_2_text }}</span></li>
+          <li class="cabinet bg-ink p-4"><span class="block font-bold text-sm">{{ section.settings.badge_3_title }}</span><span class="text-xs text-slate">{{ section.settings.badge_3_text }}</span></li>
+        </ul>
+
+        {%- comment -%} ---- Specifications (generic physical-product metafields) ---- {%- endcomment -%}
+        {%- if section.settings.show_specs -%}
+          {%- capture spec_rows -%}
+            {%- assign cf = product.metafields.custom -%}
+            {%- if current_variant.sku != blank -%}<div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">SKU</dt><dd class="font-semibold">{{ current_variant.sku }}</dd></div>{%- endif -%}
+            {%- assign spec_pairs = 'Material::material,Dimensions::dimensions,Weight::weight,Color::color,Finish::finish,Scale::scale,Capacity::capacity,Power::power,Connectivity::connectivity,Warranty::warranty,Lead time::lead_time,In the box::includes' | split: ',' -%}
+            {%- for pair in spec_pairs -%}
+              {%- assign p = pair | split: '::' -%}
+              {%- assign val = cf[p[1]].value | default: cf[p[1]] -%}
+              {%- if val != blank -%}
+                {%- if val.size and val.first -%}{%- assign val = val | join: ', ' -%}{%- endif -%}
+                <div class="border-b border-volt/10 pb-2"><dt class="text-slate text-sm">{{ p[0] }}</dt><dd class="font-semibold">{{ val }}</dd></div>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endcapture -%}
+          {%- assign spec_rows_s = spec_rows | strip -%}
+          {%- if spec_rows_s != blank -%}
+            <section class="mt-10">
+              <h2 class="font-display text-2xl">Specifications</h2>
+              <div class="rule-energy my-4"></div>
+              <dl class="grid grid-cols-2 gap-x-6 gap-y-3.5 text-[15px]">{{ spec_rows }}</dl>
+            </section>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if product.description != blank -%}
+          <section class="mt-10">
+            <h2 class="font-display text-2xl">Details</h2>
+            <div class="rule-energy my-4"></div>
+            <div class="tcg-prose">{{ product.description }}</div>
+          </section>
+        {%- endif -%}
+
+        {%- if section.settings.shipping_info != blank -%}
+          <details class="faq mt-6 cabinet bg-ink p-5 group">
+            <summary class="cursor-pointer font-bold flex items-center justify-between">{{ section.settings.shipping_heading }}
+              <svg class="chev h-5 w-5 text-volt transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="tcg-prose mt-4 text-[15px]">{{ section.settings.shipping_info }}</div>
+          </details>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- if section.settings.show_related -%}
+  {%- liquid
+    assign related_source = section.settings.related_collection
+    if related_source == blank
+      assign related_source = product.collections.first
+    endif
+  -%}
+  {%- if related_source != blank -%}
+    <section class="tcg-scope py-12 lg:py-16">
+      <div class="mx-auto max-w-site px-4 sm:px-6">
+        <h2 class="stitle">{{ section.settings.related_heading }}</h2>
+        <div class="rule-energy my-7 max-w-[240px] mx-auto"></div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+          {%- assign shown = 0 -%}
+          {%- for related in related_source.products -%}
+            {%- if related.id != product.id and shown < 4 -%}
+              {% render 'tcg-cell', product: related, full: true %}
+              {%- assign shown = shown | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+{%- endif -%}
+
+<section class="tcg-scope py-10 lg:py-14">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6">
+    <div class="cabinet bg-ink p-8">
+      <h2 class="font-display text-2xl text-center">{{ section.settings.questions_heading }}</h2>
+      <p class="mt-2 text-center text-paper-dim">No questions yet — ask the first one and we'll answer within a day.</p>
+      {%- form 'contact', id: 'tcg-question-form', class: 'mt-6' -%}
+        <input type="hidden" name="contact[subject]" value="Question about {{ product.title | escape }}">
+        <input type="hidden" name="contact[product]" value="{{ shop.url }}{{ product.url }}">
+        {%- if form.posted_successfully? -%}
+          <p class="text-center rounded-full bg-volt/10 border border-volt/45 text-volt px-5 py-3 font-bold">SENT — we'll reply within a day.</p>
+        {%- else -%}
+          {%- if form.errors -%}<p class="mb-3 text-sm text-chase text-center">{{ form.errors | default_errors }}</p>{%- endif -%}
+          <div class="flex flex-col sm:flex-row gap-3">
+            <label class="sr-only" for="tcg-q-email">Your email</label>
+            <input id="tcg-q-email" name="contact[email]" type="email" required placeholder="Your email" class="sm:w-56 rounded-full bg-felt-2 border border-volt/25 px-5 py-3 placeholder:text-slate focus:border-volt">
+            <label class="sr-only" for="tcg-q-body">Your question</label>
+            <input id="tcg-q-body" name="contact[body]" type="text" required placeholder="e.g. What are the dimensions?" class="flex-1 rounded-full bg-felt-2 border border-volt/25 px-5 py-3 placeholder:text-slate focus:border-volt">
+            <button type="submit" class="rounded-full border border-volt/45 px-6 py-3 font-bold text-volt hover:bg-volt hover:text-white disabled:opacity-70">ASK</button>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG – Standard Product",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "gallery_note", "label": "Gallery note", "default": "Photos of the actual item." },
+    { "type": "header", "content": "Trust badges" },
+    { "type": "text", "id": "badge_1_title", "label": "Badge 1 title", "default": "Fast dispatch" },
+    { "type": "text", "id": "badge_1_text", "label": "Badge 1 text", "default": "Ships in 1–2 days" },
+    { "type": "text", "id": "badge_2_title", "label": "Badge 2 title", "default": "Secure checkout" },
+    { "type": "text", "id": "badge_2_text", "label": "Badge 2 text", "default": "Shopify-protected payment" },
+    { "type": "text", "id": "badge_3_title", "label": "Badge 3 title", "default": "Easy returns" },
+    { "type": "text", "id": "badge_3_text", "label": "Badge 3 text", "default": "30-day return window" },
+    { "type": "header", "content": "Specifications" },
+    { "type": "checkbox", "id": "show_specs", "label": "Show specifications block", "default": true },
+    { "type": "header", "content": "Shipping & returns" },
+    { "type": "text", "id": "shipping_heading", "label": "Heading", "default": "Shipping & returns" },
+    { "type": "richtext", "id": "shipping_info", "label": "Shipping & returns text", "default": "<p>Orders ship within 1–2 business days with tracking. Larger items (such as vending machines) may be sent by freight — we'll confirm delivery details by email. Returns accepted within 30 days in original condition.</p>" },
+    { "type": "header", "content": "Related" },
+    { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
+    { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You might also like" },
+    { "type": "collection", "id": "related_collection", "label": "Related collection (defaults to the product's first collection)" },
+    { "type": "header", "content": "Questions" },
+    { "type": "text", "id": "questions_heading", "label": "Questions heading", "default": "Questions about this product" }
+  ],
+  "presets": []
+}
+{% endschema %}
