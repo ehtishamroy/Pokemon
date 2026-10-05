@@ -9,16 +9,16 @@ AGENTS.md
 *.md
 
 # Node tooling & build config
-node_modules/
+node_modules/*
 package.json
 package-lock.json
 tailwind.config.js
 .gitattributes
-.github/
+.github/*
 
 # Tailwind source — the compiled output (assets/tcg.css) is what the theme uses
 assets/tailwind-input.css
 
 # Static reference site and stray root-level assets (theme images live in assets/)
-tcg-hitz-store/
+tcg-hitz-store/*
 pikachu.png
