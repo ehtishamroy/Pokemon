@@ -1,0 +1,46 @@
+{% comment %}
+  TCG Hitz — Profit calculator section (wraps snippets/tcg-profit-calculator.liquid).
+{% endcomment %}
+
+{%- assign calc_cta_link = section.settings.cta_link | default: '#machines' -%}
+
+<section class="tcg-scope py-12 lg:py-16" id="{{ section.settings.anchor | default: 'profit-calculator' }}">
+  <div class="mx-auto max-w-site px-4 sm:px-6">
+    {%- if section.settings.section_heading != blank -%}
+      <h2 class="stitle">{{ section.settings.section_heading }}</h2>
+      <div class="rule-energy my-7 max-w-[240px] mx-auto"></div>
+    {%- endif -%}
+    {% render 'tcg-profit-calculator',
+      uid: section.id,
+      heading: section.settings.heading,
+      subheading: section.settings.text,
+      machines: section.settings.machines,
+      pack_cost: section.settings.cost,
+      vend_price: section.settings.price,
+      vends_per_day: section.settings.vends,
+      machine_price: section.settings.machine_price,
+      cta_label: section.settings.cta_label,
+      cta_link: calc_cta_link
+    %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Profit Calculator",
+  "settings": [
+    { "type": "text", "id": "section_heading", "label": "Section heading", "default": "What could a machine earn you?" },
+    { "type": "text", "id": "heading", "label": "Calculator heading", "default": "Profit calculator" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Move the sliders to estimate your monthly profit." },
+    { "type": "number", "id": "machines", "label": "Default number of machines", "default": 1 },
+    { "type": "number", "id": "cost", "label": "Default cost per pack", "default": 4 },
+    { "type": "number", "id": "price", "label": "Default selling price per pack", "default": 9 },
+    { "type": "number", "id": "vends", "label": "Default sales per day, per machine", "default": 15 },
+    { "type": "number", "id": "machine_price", "label": "Machine price for payback estimate (optional)", "info": "Leave empty to hide the payback line. Each machine's own page uses its real price." },
+    { "type": "text", "id": "cta_label", "label": "Button", "default": "Shop machines" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "profit-calculator" }
+  ],
+  "presets": [{ "name": "TCG Profit Calculator" }]
+}
+{% endschema %}

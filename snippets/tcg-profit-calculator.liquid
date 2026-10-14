@@ -1,0 +1,78 @@
+{% comment %}
+  TCG Hitz — vending profit calculator (assets/tcg.js wires it up via [data-calc]).
+
+  Params (all optional):
+    heading, subheading, disclaimer
+    machines, pack_cost, vend_price, vends_per_day   — starting values
+    machine_price                                     — price per machine in major units (dollars,
+                                                         e.g. product.price | divided_by: 100.0);
+                                                         enables the payback estimate
+    uid                                               — unique id for input labels (e.g. section.id)
+    cta_label, cta_link                              — optional button under the results
+
+  Usage: {% render 'tcg-profit-calculator', uid: section.id, machine_price: price_dollars, heading: 'Profit calculator' %}
+{% endcomment %}
+
+{%- liquid
+  assign c_machines = machines | default: 1
+  assign c_cost = pack_cost | default: 4
+  assign c_price = vend_price | default: 9
+  assign c_vends = vends_per_day | default: 15
+  assign c_machine_price = machine_price | default: 0
+  assign c_uid = uid | default: 'calc'
+-%}
+
+<div class="tcg-calc grid lg:grid-cols-12 gap-6 lg:gap-8" data-calc data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-machine-price="{{ c_machine_price }}">
+  <div class="lg:col-span-7 cabinet bg-ink p-6 sm:p-8">
+    {%- if heading != blank -%}<h3 class="font-display text-2xl sm:text-3xl">{{ heading }}</h3>{%- endif -%}
+    {%- if subheading != blank -%}<p class="mt-2 text-paper-dim text-[15px]">{{ subheading }}</p>{%- endif -%}
+    <div class="rule-energy my-5"></div>
+
+    <div class="space-y-6">
+      <div>
+        <div class="flex items-center justify-between gap-4">
+          <label for="calc-machines-{{ c_uid }}" class="font-bold text-sm tracking-wide">Number of machines</label>
+          <input type="number" min="1" max="50" step="1" value="{{ c_machines }}" data-calc-num="machines" aria-label="Number of machines" class="tcg-calc__num">
+        </div>
+        <input id="calc-machines-{{ c_uid }}" type="range" min="1" max="20" step="1" value="{{ c_machines }}" data-calc-range="machines" class="tcg-calc__range">
+      </div>
+      <div>
+        <div class="flex items-center justify-between gap-4">
+          <label for="calc-cost-{{ c_uid }}" class="font-bold text-sm tracking-wide">Your cost per pack</label>
+          <input type="number" min="0" max="500" step="0.5" value="{{ c_cost }}" data-calc-num="cost" aria-label="Cost per pack" class="tcg-calc__num">
+        </div>
+        <input id="calc-cost-{{ c_uid }}" type="range" min="0" max="60" step="0.5" value="{{ c_cost }}" data-calc-range="cost" class="tcg-calc__range">
+      </div>
+      <div>
+        <div class="flex items-center justify-between gap-4">
+          <label for="calc-price-{{ c_uid }}" class="font-bold text-sm tracking-wide">Selling price per pack</label>
+          <input type="number" min="0" max="500" step="0.5" value="{{ c_price }}" data-calc-num="price" aria-label="Selling price per pack" class="tcg-calc__num">
+        </div>
+        <input id="calc-price-{{ c_uid }}" type="range" min="0" max="100" step="0.5" value="{{ c_price }}" data-calc-range="price" class="tcg-calc__range">
+      </div>
+      <div>
+        <div class="flex items-center justify-between gap-4">
+          <label for="calc-vends-{{ c_uid }}" class="font-bold text-sm tracking-wide">Sales per day, per machine</label>
+          <input type="number" min="0" max="500" step="1" value="{{ c_vends }}" data-calc-num="vends" aria-label="Sales per day per machine" class="tcg-calc__num">
+        </div>
+        <input id="calc-vends-{{ c_uid }}" type="range" min="0" max="80" step="1" value="{{ c_vends }}" data-calc-range="vends" class="tcg-calc__range">
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:col-span-5 tcg-calc__result p-6 sm:p-8 flex flex-col">
+    <p class="text-xs font-bold tracking-widest text-paper-dim uppercase">Estimated monthly profit</p>
+    <p class="mt-2 font-display text-5xl sm:text-6xl leading-none energytext" data-calc-out="monthly" aria-live="polite">—</p>
+    <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 text-[15px]">
+      <div class="border-b border-volt/15 pb-2"><dt class="text-slate text-sm">Profit per sale</dt><dd class="font-bold" data-calc-out="per_sale">—</dd></div>
+      <div class="border-b border-volt/15 pb-2"><dt class="text-slate text-sm">Daily profit</dt><dd class="font-bold" data-calc-out="daily">—</dd></div>
+      <div class="border-b border-volt/15 pb-2"><dt class="text-slate text-sm">Monthly sales</dt><dd class="font-bold" data-calc-out="revenue">—</dd></div>
+      <div class="border-b border-volt/15 pb-2"><dt class="text-slate text-sm">Yearly profit</dt><dd class="font-bold" data-calc-out="yearly">—</dd></div>
+      <div class="col-span-2" data-calc-payback-row{% if c_machine_price == 0 %} hidden{% endif %}><dt class="text-slate text-sm">Machine pays for itself in about</dt><dd class="font-display text-2xl text-volt" data-calc-out="payback">—</dd></div>
+    </dl>
+    {%- if cta_label != blank -%}
+      <a href="{{ cta_link | default: '#' }}" class="mt-6 inline-flex justify-center rounded-full bg-fire px-6 py-3.5 font-bold text-white">{{ cta_label }}</a>
+    {%- endif -%}
+    <p class="mt-auto pt-6 text-xs text-slate leading-relaxed">{{ disclaimer | default: 'Estimates only, based on 30-day months. Real results depend on location, foot traffic, product mix and pricing.' }}</p>
+  </div>
+</div>

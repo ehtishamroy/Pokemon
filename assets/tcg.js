@@ -71,9 +71,13 @@ const Cart = {
     return res.json();
   },
 
-  async add(variantId, qty) {
+  // extraIds: optional add-on variant ids (vending machines) added in the same request
+  async add(variantId, qty, extraIds) {
     if (!variantId) return;
-    await this.request('cart/add.js', { items: [{ id: Number(variantId), quantity: Math.max(1, qty || 1) }] });
+    const quantity = Math.max(1, qty || 1);
+    const items = [{ id: Number(variantId), quantity }];
+    (extraIds || []).forEach((id) => { if (id) items.push({ id: Number(id), quantity }); });
+    await this.request('cart/add.js', { items });
     await this.refresh();
     this.open();
   },
@@ -141,7 +145,10 @@ document.addEventListener('click', async (e) => {
     const label = add.textContent;
     Cart.busy = true;
     try {
-      await Cart.add(add.dataset.variantId, qty);
+      const addons = add.hasAttribute('data-add-main')
+        ? Array.from(document.querySelectorAll('[data-addon]:checked')).map((el) => el.dataset.variantId)
+        : [];
+      await Cart.add(add.dataset.variantId, qty, addons);
       add.textContent = 'ADDED ✓';
       setTimeout(() => { add.textContent = label; }, 1200);
     } catch (err) {
@@ -194,7 +201,6 @@ document.querySelector('[data-nav-toggle]')?.addEventListener('click', (e) => {
 /* ---------- Product page: printing/condition + quantity ---------- */
 (function initProduct() {
   const opts = document.querySelectorAll('[data-variant]');
-  if (!opts.length) return;
   const price = document.querySelector('[data-price]');
   const stock = document.querySelector('[data-stock]');
   const label = document.querySelector('[data-selected]');
@@ -222,18 +228,25 @@ document.querySelector('[data-nav-toggle]')?.addEventListener('click', (e) => {
       addBtn.classList.toggle('opacity-60', d.available !== 'true');
     }
     if (d.image && gallery) gallery.src = d.image;
+    document.dispatchEvent(new CustomEvent('tcg:variant-change', { detail: d }));
     if (updateUrl && window.history && d.id) {
       const url = new URL(window.location.href); url.searchParams.set('variant', d.id);
       window.history.replaceState({}, '', url);
     }
   };
-  opts.forEach((o) => o.addEventListener('click', () => select(o, true)));
-  select(document.querySelector('[data-variant][aria-checked="true"]') || opts[0], false);
+  // Variant rows only exist when a product has more than one variant; quantity and
+  // thumbnails below must still work for single-variant products.
+  if (opts.length) {
+    opts.forEach((o) => o.addEventListener('click', () => select(o, true)));
+    select(document.querySelector('[data-variant][aria-checked="true"]') || opts[0], false);
+  }
 
   // quantity
   const q = document.querySelector('[data-qty-value]');
-  document.querySelector('[data-qty-dec]')?.addEventListener('click', () => { q.textContent = Math.max(1, parseInt(q.textContent, 10) - 1); });
-  document.querySelector('[data-qty-inc]')?.addEventListener('click', () => { q.textContent = parseInt(q.textContent, 10) + 1; });
+  if (q) {
+    document.querySelector('[data-qty-dec]')?.addEventListener('click', () => { q.textContent = Math.max(1, parseInt(q.textContent, 10) - 1); });
+    document.querySelector('[data-qty-inc]')?.addEventListener('click', () => { q.textContent = parseInt(q.textContent, 10) + 1; });
+  }
 
   // thumbnails swap the main (tilting) image
   document.querySelectorAll('[data-thumb]').forEach((t) => t.addEventListener('click', () => {
@@ -268,4 +281,92 @@ document.querySelectorAll('.carousel').forEach((c) => {
   const step = () => Math.max(rail.clientWidth * 0.8, 200);
   c.querySelector('.prev')?.addEventListener('click', () => rail.scrollBy({ left: -step(), behavior: 'smooth' }));
   c.querySelector('.next')?.addEventListener('click', () => rail.scrollBy({ left:  step(), behavior: 'smooth' }));
+});
+
+/* ---------- Money helper (shop currency, from data-currency) ---------- */
+function tcgMoney(amount, currency, digits) {
+  try {
+    return new Intl.NumberFormat(undefined, {
+      style: 'currency', currency: currency || 'USD',
+      minimumFractionDigits: digits, maximumFractionDigits: digits,
+    }).format(amount);
+  } catch (e) {
+    return '$' + Number(amount).toFixed(digits);
+  }
+}
+
+/* ---------- Vending product: add-on picker + running total ---------- */
+(function initAddons() {
+  const totalEl = document.querySelector('[data-addon-total]');
+  const boxes = document.querySelectorAll('[data-addon]');
+  if (!totalEl || !boxes.length) return;
+  const currency = totalEl.dataset.currency;
+  const countEl = document.querySelector('[data-addon-count]');
+  let base = Number(
+    (document.querySelector('[data-variant][aria-checked="true"]') || {}).dataset?.priceCents
+    || totalEl.dataset.baseCents || 0
+  );
+  const render = () => {
+    let extra = 0; let n = 0;
+    boxes.forEach((b) => { if (b.checked) { extra += Number(b.dataset.priceCents || 0); n += 1; } });
+    totalEl.textContent = tcgMoney((base + extra) / 100, currency, 2);
+    if (countEl) countEl.textContent = n ? `Machine + ${n} add-on${n > 1 ? 's' : ''}` : 'Machine only';
+  };
+  boxes.forEach((b) => b.addEventListener('change', render));
+  document.addEventListener('tcg:variant-change', (e) => {
+    if (e.detail && e.detail.priceCents) { base = Number(e.detail.priceCents); render(); }
+  });
+  render();
+})();
+
+/* ---------- Vending profit calculator ([data-calc]) ---------- */
+function tcgCalcProfit(v) {
+  const perSale = v.price - v.cost;
+  const daily = v.machines * v.vends * perSale;
+  const monthly = daily * 30;
+  const revenue = v.machines * v.vends * v.price * 30;
+  const yearly = daily * 365;
+  const outlay = v.machines * (v.machinePrice || 0);
+  const payback = outlay > 0 && monthly > 0 ? outlay / monthly : null;
+  return { perSale, daily, monthly, revenue, yearly, payback };
+}
+window.tcgCalcProfit = tcgCalcProfit;
+
+document.querySelectorAll('[data-calc]').forEach((root) => {
+  const currency = root.dataset.currency;
+  const machinePrice = Number(root.dataset.machinePrice || 0);
+  const keys = ['machines', 'cost', 'price', 'vends'];
+  const read = (k) => Number(root.querySelector(`[data-calc-num="${k}"]`)?.value || 0);
+  const out = (k, text) => { const el = root.querySelector(`[data-calc-out="${k}"]`); if (el) el.textContent = text; };
+  const update = () => {
+    const r = tcgCalcProfit({
+      machines: Math.max(0, read('machines')), cost: read('cost'), price: read('price'),
+      vends: Math.max(0, read('vends')), machinePrice,
+    });
+    out('monthly', tcgMoney(r.monthly, currency, 0));
+    out('per_sale', tcgMoney(r.perSale, currency, 2));
+    out('daily', tcgMoney(r.daily, currency, 0));
+    out('revenue', tcgMoney(r.revenue, currency, 0));
+    out('yearly', tcgMoney(r.yearly, currency, 0));
+    if (r.payback === null) out('payback', '—');
+    else out('payback', r.payback < 1 ? 'under a month' : `${r.payback.toFixed(1)} months`);
+  };
+  keys.forEach((k) => {
+    const num = root.querySelector(`[data-calc-num="${k}"]`);
+    const range = root.querySelector(`[data-calc-range="${k}"]`);
+    range?.addEventListener('input', () => { if (num) num.value = range.value; update(); });
+    num?.addEventListener('input', () => { if (range) range.value = num.value; update(); });
+  });
+  update();
+});
+
+/* ---------- Tabs ([data-tabs] > [data-tab="id"] + [data-panel="id"]) ---------- */
+document.querySelectorAll('[data-tabs]').forEach((wrap) => {
+  const tabs = wrap.querySelectorAll('[data-tab]');
+  const show = (id) => {
+    tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === id)));
+    wrap.querySelectorAll('[data-panel]').forEach((p) => { p.hidden = p.dataset.panel !== id; });
+  };
+  tabs.forEach((t) => t.addEventListener('click', () => show(t.dataset.tab)));
+  if (tabs[0]) show(tabs[0].dataset.tab);
 });

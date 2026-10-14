@@ -1,0 +1,66 @@
+{% comment %}
+  TCG Hitz — Vending machines for sale: page hero (Optic-style: headline + machine shot).
+  Defaults to assets/machine-premium.jpg until a photo or video is chosen.
+{% endcomment %}
+
+{%- liquid
+  if section.settings.image != blank
+    assign img = section.settings.image | image_url: width: 1400
+  else
+    assign img = 'machine-premium.jpg' | asset_url
+  endif
+-%}
+
+<section class="tcg-scope smoke pt-10 pb-12 lg:pt-16 lg:pb-20" style="overflow-x: clip;">
+  <div class="mx-auto max-w-site px-4 sm:px-6 grid lg:grid-cols-12 gap-10 items-center">
+    <div class="lg:col-span-6">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="inline-flex items-center gap-2 rounded-full border border-flare/45 bg-flare/10 px-3.5 py-1.5 text-xs font-bold tracking-widest text-paper uppercase"><span class="h-1.5 w-1.5 rounded-full bg-flare"></span>{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h1 class="mt-5 font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.02]">{{ section.settings.heading }} <span class="energytext">{{ section.settings.heading_highlight }}</span></h1>
+      {%- if section.settings.text != blank -%}<p class="mt-5 text-lg text-paper-dim leading-relaxed max-w-[52ch]">{{ section.settings.text }}</p>{%- endif -%}
+      <div class="mt-8 flex flex-wrap gap-3">
+        {%- if section.settings.cta_label != blank -%}<a href="{{ section.settings.cta_link | default: '#machines' }}" class="rounded-full bg-fire px-7 py-4 font-bold text-white">{{ section.settings.cta_label }}</a>{%- endif -%}
+        {%- if section.settings.cta2_label != blank -%}<a href="{{ section.settings.cta2_link | default: '#profit-calculator' }}" class="rounded-full border border-volt/45 px-7 py-4 font-bold text-volt hover:bg-volt hover:text-white transition">{{ section.settings.cta2_label }}</a>{%- endif -%}
+      </div>
+      <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-paper-dim">
+        {%- for i in (1..3) -%}
+          {%- assign k = 'point_' | append: i -%}
+          {%- if section.settings[k] != blank -%}<li class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-volt"></span>{{ section.settings[k] }}</li>{%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+    <div class="lg:col-span-6">
+      <div class="sign cabinet bg-ink overflow-hidden relative aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5]">
+        {%- if section.settings.video != blank -%}
+          {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'absolute inset-0 w-full h-full object-cover' }}
+        {%- else -%}
+          <img src="{{ img }}" alt="{{ section.settings.heading | escape }}" class="absolute inset-0 w-full h-full object-cover" width="1400" height="1750" loading="eager">
+        {%- endif -%}
+        <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, transparent 55%, rgba(5,6,13,.75));"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Vending Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Badge", "default": "Built to order · Free shipping" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Trading card vending machines" },
+    { "type": "text", "id": "heading_highlight", "label": "Highlighted words", "default": "that sell themselves" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "The same eye-catching machines you see at our shows — built for your shop, arcade or event. Pick your machine, add a custom wrap and payment options, and we deliver it to your door." },
+    { "type": "text", "id": "cta_label", "label": "Primary button", "default": "Shop machines" },
+    { "type": "url", "id": "cta_link", "label": "Primary link (defaults to the machine grid)" },
+    { "type": "text", "id": "cta2_label", "label": "Secondary button", "default": "Calculate your profit" },
+    { "type": "url", "id": "cta2_link", "label": "Secondary link (defaults to the calculator)" },
+    { "type": "text", "id": "point_1", "label": "Point 1", "default": "Built in 3–4 weeks" },
+    { "type": "text", "id": "point_2", "label": "Point 2", "default": "Free shipping" },
+    { "type": "text", "id": "point_3", "label": "Point 3", "default": "Custom wraps available" },
+    { "type": "image_picker", "id": "image", "label": "Machine image (defaults to machine-premium.jpg)" },
+    { "type": "video", "id": "video", "label": "Or video (overrides image)" }
+  ],
+  "presets": [{ "name": "TCG Vending Hero" }]
+}
+{% endschema %}

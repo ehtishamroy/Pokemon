@@ -49,12 +49,10 @@
     background-color: var(--ink);
     background-attachment: fixed;
     background-image:
-      radial-gradient(900px 520px at 50% -6%, rgba(62,193,255,.16), transparent 62%),
-      radial-gradient(60vw 70vh at -8% 28%, rgba(30,110,255,.30), transparent 70%),
-      radial-gradient(44vw 50vh at 6% 8%, rgba(255,226,74,.12), transparent 68%),
-      radial-gradient(55vw 65vh at 108% 72%, rgba(232,41,44,.24), transparent 70%),
-      radial-gradient(42vw 46vh at 92% 20%, rgba(255,79,216,.16), transparent 70%),
-      radial-gradient(46vw 46vh at 50% 55%, rgba(139,61,255,.14), transparent 70%),
+      radial-gradient(900px 520px at 50% -6%, rgba(62,193,255,.10), transparent 62%),
+      radial-gradient(60vw 70vh at -10% 30%, rgba(30,110,255,.20), transparent 70%),
+      radial-gradient(55vw 65vh at 110% 62%, rgba(255,79,216,.14), transparent 70%),
+      radial-gradient(48vw 48vh at 50% 58%, rgba(139,61,255,.12), transparent 70%),
       repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px);
   }
 
@@ -448,67 +446,123 @@
     [data-cart-count].is-bumping { animation: none; }
   }
   /* ------------------------------------------------------------------------
-     Live energy background (layout/theme.liquid + assets/tcg-live-bg.js).
-     Fixed layer at z-index:-1: paints above <body>'s background and below all
-     page content, never takes pointer events. The field is three huge soft
-     gradient blobs — blue lightning (left), fire (right), purple collision
-     (centre) — drifting on transform/opacity only (compositor, no repaints).
+     Vending: profit calculator, add-on picker, spec tabs
+     ------------------------------------------------------------------------ */
+  .tcg-calc__range { width: 100%; margin-top: .65rem; accent-color: var(--volt); cursor: pointer; }
+  .tcg-calc__num {
+    width: 6.5rem; text-align: right; border-radius: 10px; padding: .35rem .6rem;
+    background: rgba(12,14,24,.85); border: 1px solid rgba(77,168,255,.3); color: var(--paper); font-weight: 700;
+  }
+  .tcg-calc__num:focus { border-color: var(--volt); outline: none; box-shadow: 0 0 0 3px rgba(77,168,255,.2); }
+  .tcg-calc__result {
+    position: relative; border-radius: 16px; border: 1px solid rgba(255,79,216,.35);
+    background:
+      radial-gradient(120% 90% at 0% 0%, rgba(30,110,255,.22), transparent 60%),
+      radial-gradient(120% 90% at 100% 100%, rgba(255,79,216,.18), transparent 60%),
+      rgba(8,9,18,.9);
+    box-shadow: 0 0 0 1px rgba(77,168,255,.12) inset, 0 0 40px -10px rgba(255,79,216,.35), 0 20px 50px -20px rgba(0,0,0,.8);
+  }
+
+  /* Add-on picker: whole card is the label for its checkbox */
+  .tcg-addon {
+    display: flex; align-items: center; gap: .9rem; cursor: pointer;
+    border-radius: 14px; padding: .75rem .9rem;
+    border: 1px solid rgba(77,168,255,.22); background: rgba(12,14,24,.6);
+    transition: border-color .15s, box-shadow .15s, background-color .15s;
+  }
+  .tcg-addon:hover { border-color: rgba(77,168,255,.55); }
+  .tcg-addon:has(input:checked) {
+    border-color: rgba(255,79,216,.65); background: rgba(40,18,48,.55);
+    box-shadow: 0 0 0 1px rgba(255,79,216,.35) inset, 0 0 22px -6px rgba(255,79,216,.45);
+  }
+  .tcg-addon:has(input:focus-visible) { outline: 2px solid var(--glow); outline-offset: 3px; }
+  .tcg-addon__check {
+    flex: none; width: 22px; height: 22px; border-radius: 7px; display: grid; place-items: center;
+    border: 1.5px solid rgba(77,168,255,.6); color: transparent; transition: .15s;
+  }
+  .tcg-addon:has(input:checked) .tcg-addon__check { background: var(--flare); border-color: var(--flare); color: #fff; }
+
+  /* Spec tabs */
+  .tcg-tabs__btn {
+    border-radius: 999px; padding: .5rem 1rem; font-weight: 700; font-size: .875rem;
+    color: #8A96B8; border: 1px solid rgba(77,168,255,.2); transition: .15s;
+  }
+  .tcg-tabs__btn:hover { color: var(--paper); border-color: rgba(77,168,255,.5); }
+  .tcg-tabs__btn[aria-selected="true"] { color: #fff; border-color: transparent; background: var(--fire-gradient); box-shadow: 0 0 18px -4px rgba(255,106,26,.55); }
+
+  /* Numbered purchase-to-profit steps */
+  .tcg-step__num {
+    width: 2.75rem; height: 2.75rem; border-radius: 12px; display: grid; place-items: center;
+    font-family: 'Titan One', system-ui, sans-serif; font-size: 1.25rem; color: #fff;
+    background: linear-gradient(135deg, #1E6EFF, #8B3DFF 55%, #FF4FD8);
+    box-shadow: 0 0 20px -4px rgba(139,61,255,.7);
+  }
+
+  /* ------------------------------------------------------------------------
+     Live background — "Collector's Universe" (layout/theme.liquid +
+     assets/tcg-live-bg.js). Fixed layer at z-index:-1: paints above <body>'s
+     background and below all page content, never takes pointer events.
+     Near-black base, slow electric-blue / violet / magenta nebula drifting on
+     transform+opacity only (compositor, no repaints), and a faint perspective
+     neon grid on the floor. The canvas adds particles, card outlines, gold
+     sparkles and rare lightning. Kept deliberately quiet so products read first.
      ------------------------------------------------------------------------ */
   .tcg-live-bg {
     position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
-    background-color: var(--ink);
+    background-color: #05060D;
   }
   .tcg-live-bg__field { position: absolute; inset: 0; }
   .tcg-live-bg__blob {
     position: absolute; border-radius: 50%; will-change: transform, opacity;
-    animation: tcg-drift-a 26s ease-in-out infinite alternate;
+    animation: tcg-nebula-a 38s ease-in-out infinite alternate;
   }
+  /* electric blue — left */
   .tcg-live-bg__blob--volt {
-    width: 85vmax; height: 85vmax; left: -42vmax; top: -18vmax;
-    background: radial-gradient(closest-side, rgba(30,110,255,.55), rgba(20,70,217,.24) 45%, transparent 72%);
+    width: 80vmax; height: 80vmax; left: -44vmax; top: -16vmax;
+    background: radial-gradient(closest-side, rgba(30,110,255,.30), rgba(20,70,217,.12) 48%, transparent 72%);
   }
-  .tcg-live-bg__blob--cyan {
-    width: 50vmax; height: 50vmax; left: -14vmax; top: 30vh;
-    background: radial-gradient(closest-side, rgba(62,193,255,.32), transparent 70%);
-    animation-name: tcg-drift-c; animation-duration: 19s;
-  }
-  .tcg-live-bg__blob--fire {
-    width: 80vmax; height: 80vmax; right: -40vmax; bottom: -30vmax;
-    background: radial-gradient(closest-side, rgba(255,77,26,.46), rgba(232,41,44,.22) 45%, transparent 72%);
-    animation-name: tcg-drift-b; animation-duration: 31s;
-  }
-  .tcg-live-bg__blob--arc {
-    width: 60vmax; height: 60vmax; left: calc(50% - 30vmax); top: calc(50% - 30vmax);
-    background: radial-gradient(closest-side, rgba(255,79,216,.3), rgba(139,61,255,.14) 50%, transparent 72%);
-    animation-name: tcg-drift-arc; animation-duration: 23s;
-  }
-  /* Neon yellow accent glow (top-left lightning corner) */
-  .tcg-live-bg__blob--neon {
-    width: 46vmax; height: 46vmax; left: -6vmax; top: -10vmax;
-    background: radial-gradient(closest-side, rgba(255,226,74,.22), rgba(255,170,40,.08) 46%, transparent 72%);
-    animation-name: tcg-drift-c; animation-duration: 27s; animation-delay: -6s;
-  }
-  /* Neon pink accent glow (fire/collision corner) */
+  /* magenta / pink — right */
   .tcg-live-bg__blob--pink {
-    width: 58vmax; height: 58vmax; right: -16vmax; top: 24vh;
-    background: radial-gradient(closest-side, rgba(255,79,216,.3), rgba(193,60,255,.12) 48%, transparent 72%);
-    animation-name: tcg-drift-arc; animation-duration: 34s; animation-delay: -11s;
+    width: 72vmax; height: 72vmax; right: -40vmax; top: 18vh;
+    background: radial-gradient(closest-side, rgba(255,79,216,.20), rgba(193,60,255,.10) 50%, transparent 72%);
+    animation-name: tcg-nebula-b; animation-duration: 44s;
   }
-  @keyframes tcg-drift-a   { from { transform: translate3d(0,0,0) scale(1); opacity: .9; } to { transform: translate3d(6vw,8vh,0) scale(1.12); opacity: 1; } }
-  @keyframes tcg-drift-b   { from { transform: translate3d(0,0,0) scale(1.05); opacity: 1; } to { transform: translate3d(-7vw,-10vh,0) scale(.94); opacity: .85; } }
-  @keyframes tcg-drift-c   { from { transform: translate3d(0,0,0); opacity: .55; } to { transform: translate3d(5vw,-14vh,0); opacity: 1; } }
-  @keyframes tcg-drift-arc { from { transform: translate3d(-6vw,4vh,0) scale(.9); opacity: .6; } to { transform: translate3d(6vw,-4vh,0) scale(1.15); opacity: 1; } }
-  /* Keep the reading column legible: a soft centre veil (lighter than before so the
-     neon reads through), plus the fine weave texture. */
+  /* soft violet — centre */
+  .tcg-live-bg__blob--arc {
+    width: 64vmax; height: 64vmax; left: calc(50% - 32vmax); top: calc(55% - 32vmax);
+    background: radial-gradient(closest-side, rgba(139,61,255,.14), rgba(90,40,200,.06) 50%, transparent 72%);
+    animation-name: tcg-nebula-c; animation-duration: 52s;
+  }
+  @keyframes tcg-nebula-a { from { transform: translate3d(0,0,0) scale(1); opacity: .85; } to { transform: translate3d(5vw,6vh,0) scale(1.1); opacity: 1; } }
+  @keyframes tcg-nebula-b { from { transform: translate3d(0,0,0) scale(1.05); opacity: 1; } to { transform: translate3d(-6vw,-8vh,0) scale(.95); opacity: .8; } }
+  @keyframes tcg-nebula-c { from { transform: translate3d(-4vw,3vh,0) scale(.92); opacity: .7; } to { transform: translate3d(4vw,-3vh,0) scale(1.08); opacity: 1; } }
+
+  /* Faint perspective neon grid on the "floor" (bottom of the viewport) */
+  .tcg-live-bg__grid {
+    position: absolute; left: -50%; right: -50%; bottom: -12vh; height: 52vh;
+    background-image:
+      linear-gradient(rgba(77,168,255,.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,79,216,.08) 1px, transparent 1px);
+    background-size: 64px 64px;
+    transform: perspective(420px) rotateX(64deg);
+    transform-origin: 50% 100%;
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,.9), transparent 85%);
+            mask-image: linear-gradient(to top, rgba(0,0,0,.9), transparent 85%);
+    animation: tcg-grid-flow 18s linear infinite;
+    opacity: .55;
+  }
+  @keyframes tcg-grid-flow { from { background-position: 0 0, 0 0; } to { background-position: 0 64px, 0 0; } }
+
+  /* Readability veil over the centre column + fine weave texture */
   .tcg-live-bg__field::after {
     content: ""; position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse 52% 60% at 50% 45%, rgba(6,7,15,.42), transparent 88%),
+      radial-gradient(ellipse 55% 62% at 50% 42%, rgba(5,6,13,.55), transparent 88%),
       repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px);
   }
   .tcg-live-bg__fx { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   @media (prefers-reduced-motion: reduce) {
-    .tcg-live-bg__blob { animation: none; }
+    .tcg-live-bg__blob, .tcg-live-bg__grid { animation: none; }
     .tcg-live-bg__fx { display: none; }
   }
 }

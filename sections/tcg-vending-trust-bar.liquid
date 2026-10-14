@@ -1,0 +1,56 @@
+{% comment %}
+  TCG Hitz — Vending trust bar: a strip of short selling points with icons (blocks).
+{% endcomment %}
+
+<section class="tcg-scope py-6">
+  <div class="mx-auto max-w-site px-4 sm:px-6">
+    <ul class="cabinet bg-ink grid sm:grid-cols-2 lg:[grid-template-columns:repeat(var(--tcg-cols),minmax(0,1fr))]" style="--tcg-cols: {{ section.blocks.size | at_most: 5 | at_least: 1 }};">
+      {%- for block in section.blocks -%}
+        <li class="flex items-start gap-3 p-5" {{ block.shopify_attributes }}>
+          <span class="shrink-0 grid place-items-center h-10 w-10 rounded-xl border border-volt/30 bg-volt/10 text-volt">
+            {%- case block.settings.icon -%}
+              {%- when 'truck' -%}<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+              {%- when 'build' -%}<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-2.5z"/></svg>
+              {%- when 'card' -%}<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path stroke-linecap="round" d="M3 10h18M7 15h4"/></svg>
+              {%- when 'brush' -%}<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 3 9 13l2 2L21 5zM9 13c-3 0-4 2-4 4 0 1-1 2-2 2 2 2 7 2 8-2z"/></svg>
+              {%- when 'chat' -%}<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
+              {%- else -%}<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/></svg>
+            {%- endcase -%}
+          </span>
+          <span>
+            <span class="block font-bold text-sm">{{ block.settings.title }}</span>
+            <span class="block text-xs text-slate mt-0.5">{{ block.settings.text }}</span>
+          </span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Vending Trust Bar",
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Selling point",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "truck", "label": "Truck" }, { "value": "build", "label": "Build / tools" },
+          { "value": "card", "label": "Card / payment" }, { "value": "brush", "label": "Brush / wrap" },
+          { "value": "chat", "label": "Chat / support" }, { "value": "shield", "label": "Shield" }
+        ], "default": "truck" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Free shipping" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Delivered to your door" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "TCG Vending Trust Bar", "blocks": [
+    { "type": "item", "settings": { "icon": "build", "title": "Built to order", "text": "Ready in 3–4 weeks" } },
+    { "type": "item", "settings": { "icon": "truck", "title": "Free shipping", "text": "Delivered in 3–4 weeks" } },
+    { "type": "item", "settings": { "icon": "card", "title": "Card & cash ready", "text": "Add a Nayax reader or bill acceptor" } },
+    { "type": "item", "settings": { "icon": "brush", "title": "Custom wraps", "text": "Make it unmistakably yours" } }
+  ] }]
+}
+{% endschema %}

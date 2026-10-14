@@ -9,29 +9,86 @@
  */
 {
   "sections": {
-    "tcg_vending": {
-      "type": "tcg-vending",
+    "vending_hero": {
+      "type": "tcg-vending-hero",
       "settings": {
-        "heading": "Pokémon card vending machines",
-        "body": "The machines you've seen at the shows — now available for your shop, event or arcade. Custom TCG Hitz wrap, Pokémon · Magic · One Piece, built to draw a crowd.",
-        "cta_label": "Enquire about a machine",
-        "cta_link": "/pages/contact"
+        "eyebrow": "Built to order · Free shipping",
+        "heading": "Trading card vending machines",
+        "heading_highlight": "that sell themselves",
+        "text": "The same eye-catching machines you see at our shows — built for your shop, arcade or event. Pick your machine, add a custom wrap and payment options, and we deliver it to your door.",
+        "cta_label": "Shop machines",
+        "cta2_label": "Calculate your profit",
+        "point_1": "Built in 3–4 weeks",
+        "point_2": "Free shipping",
+        "point_3": "Custom wraps available"
       }
     },
-    "tcg_trust": {
-      "type": "tcg-trust",
-      "settings": { "heading": "Why our machines" }
+    "vending_trust": {
+      "type": "tcg-vending-trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "build", "title": "Built to order", "text": "Ready in 3–4 weeks" } },
+        "t2": { "type": "item", "settings": { "icon": "truck", "title": "Free shipping", "text": "Delivered in 3–4 weeks" } },
+        "t3": { "type": "item", "settings": { "icon": "card", "title": "Card & cash ready", "text": "Add a Nayax reader or bill acceptor" } },
+        "t4": { "type": "item", "settings": { "icon": "brush", "title": "Custom wraps", "text": "Make it unmistakably yours" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": {}
     },
-    "tcg_faq": {
+    "vending_grid": {
+      "type": "tcg-vending-grid",
+      "settings": {
+        "heading": "Choose your machine",
+        "text": "Every machine is built to order and ships free. Open a machine to see its specs, add-ons and profit estimate.",
+        "collection": "vending-machines",
+        "limit": 6,
+        "anchor": "machines"
+      }
+    },
+    "vending_addons": {
+      "type": "tcg-vending-addons",
+      "settings": {
+        "heading": "Make it yours",
+        "text": "Add these when you order your machine.",
+        "note": "Tick add-ons on any machine's page — they're added to the same order."
+      }
+    },
+    "vending_calc": {
+      "type": "tcg-profit-calculator",
+      "settings": {
+        "section_heading": "What could a machine earn you?",
+        "heading": "Profit calculator",
+        "text": "Move the sliders to estimate your monthly profit.",
+        "machines": 1,
+        "cost": 4,
+        "price": 9,
+        "vends": 15,
+        "cta_label": "Shop machines",
+        "anchor": "profit-calculator"
+      }
+    },
+    "vending_steps": {
+      "type": "tcg-vending-steps",
+      "blocks": {
+        "s1": { "type": "step", "settings": { "title": "Order your machine", "text": "Pick your machine and any add-ons, then check out securely online." } },
+        "s2": { "type": "step", "settings": { "title": "We build it", "text": "Your machine is built to order in 3–4 weeks, with your wrap and payment options." } },
+        "s3": { "type": "step", "settings": { "title": "Free delivery", "text": "It ships to you in 3–4 weeks — shipping is included." } },
+        "s4": { "type": "step", "settings": { "title": "Start earning", "text": "Load it with packs, plug it in and start selling." } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"],
+      "settings": { "heading": "From purchase to profit" }
+    },
+    "vending_faq": {
       "type": "tcg-faq",
       "blocks": {
-        "q1": { "type": "qa", "settings": { "question": "Can I buy a vending machine?", "answer": "Yes — we build custom-wrapped machines for shops and events. Send an enquiry and we'll scope it with you." } },
-        "q2": { "type": "qa", "settings": { "question": "Which games can it dispense?", "answer": "Pokémon, Magic and One Piece packs and mystery products — configurable per machine." } },
-        "q3": { "type": "qa", "settings": { "question": "Do you help with setup?", "answer": "We handle the wrap and configuration, and support you with restocking and spares." } }
+        "q1": { "type": "qa", "settings": { "question": "How long does it take to get a machine?", "answer": "Every machine is built to order in 3–4 weeks, then ships in 3–4 weeks — about 6–8 weeks in total." } },
+        "q2": { "type": "qa", "settings": { "question": "Is shipping included?", "answer": "Yes — shipping is included in the price of every machine." } },
+        "q3": { "type": "qa", "settings": { "question": "How do I pay?", "answer": "You pay the full price securely online at checkout, and we start building your machine." } },
+        "q4": { "type": "qa", "settings": { "question": "Can I add a custom wrap, bill acceptor or card reader?", "answer": "Yes. On any machine's page, tick the add-ons you want — custom wrap, cash bill acceptor or Nayax credit card reader — and they're added to the same order." } },
+        "q5": { "type": "qa", "settings": { "question": "Which games can it sell?", "answer": "Pokémon, Magic and One Piece packs and mystery products." } }
       },
-      "block_order": ["q1", "q2", "q3"],
-      "settings": { "heading": "Vending FAQ", "subheading": "Everything about our machines." }
+      "block_order": ["q1", "q2", "q3", "q4", "q5"],
+      "settings": { "heading": "Vending machine FAQ", "subheading": "Everything about buying a machine." }
     }
   },
-  "order": ["tcg_vending", "tcg_trust", "tcg_faq"]
+  "order": ["vending_hero", "vending_trust", "vending_grid", "vending_addons", "vending_calc", "vending_steps", "vending_faq"]
 }

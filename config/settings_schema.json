@@ -2139,12 +2139,12 @@
           { "value": "normal", "label": "Normal" },
           { "value": "intense", "label": "Intense" }
         ],
-        "default": "normal"
+        "default": "subtle"
       },
       {
         "type": "checkbox",
         "id": "tcg_live_bg_lightning",
-        "label": "Show lightning strikes",
+        "label": "Show occasional lightning",
         "default": true
       }
     ]

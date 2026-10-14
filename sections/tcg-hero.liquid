@@ -31,8 +31,13 @@
       {%- if section.settings.bg_video != blank -%}
         {{ section.settings.bg_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'w-full h-full object-cover', style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;' }}
       {%- elsif section.settings.bg_video_mp4 != blank -%}
-        <video autoplay loop muted playsinline webkit-playsinline preload="auto" x5-playsinline disablepictureinpicture disableremoteplayback class="w-full h-full object-cover" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
-          <source src="{{ section.settings.bg_video_mp4 }}" type="video/mp4">
+        <video autoplay loop muted playsinline webkit-playsinline preload="auto" x5-playsinline disablepictureinpicture disableremoteplayback{% if section.settings.bg_poster != blank %} poster="{{ section.settings.bg_poster | image_url: width: 1920 }}"{% endif %} class="w-full h-full object-cover" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+          {%- if section.settings.bg_video_mp4_mobile != blank -%}
+            <source src="{{ section.settings.bg_video_mp4 }}" type="video/mp4" media="(min-width: 750px)">
+            <source src="{{ section.settings.bg_video_mp4_mobile }}" type="video/mp4">
+          {%- else -%}
+            <source src="{{ section.settings.bg_video_mp4 }}" type="video/mp4">
+          {%- endif -%}
         </video>
       {%- elsif section.settings.bg_video_url != blank -%}
         {%- if section.settings.bg_video_url.type == 'youtube' -%}
@@ -352,6 +357,11 @@
       (function initMobileHeroVideo() {
         const video = document.querySelector('.tcg-hero-bg-media video');
         if (!video) return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          video.removeAttribute('autoplay');
+          video.pause();
+          return;
+        }
 
         // Force muted & inline playback properties (critical for iOS WebKit & Android Chrome)
         video.muted = true;
@@ -544,6 +554,8 @@
     { "type": "video", "id": "bg_video", "label": "Shopify-hosted video" },
     { "type": "video_url", "id": "bg_video_url", "label": "Or YouTube / Vimeo URL", "accept": ["youtube", "vimeo"] },
     { "type": "url", "id": "bg_video_mp4", "label": "Or direct MP4 link (from Shopify Files)" },
+    { "type": "url", "id": "bg_video_mp4_mobile", "label": "Mobile MP4 link (vertical, optional)", "info": "Used on phones (under 750px wide) with the MP4 link above. A vertical 1080×1350 loop keeps the scene centred on small screens." },
+    { "type": "image_picker", "id": "bg_poster", "label": "Video poster (still frame)", "info": "Shown while the MP4 loads and to visitors who prefer reduced motion." },
     { "type": "checkbox", "id": "disable_smoke", "label": "Hide default energy smoke when media is set", "default": true },
     { "type": "header", "content": "Background Overlay" },
     { "type": "color", "id": "overlay_color", "label": "Overlay tint color", "default": "#000000" },

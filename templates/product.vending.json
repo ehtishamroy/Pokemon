@@ -1,0 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "tcg_vending_product": {
+      "type": "tcg_vending_product",
+      "blocks": {
+        "faq_lead": {
+          "type": "faq",
+          "settings": {
+            "question": "How long until I get my machine?",
+            "answer": "<p>Every machine is built to order in 3–4 weeks, then shipped to you in 3–4 weeks — about 6–8 weeks in total.</p>"
+          }
+        },
+        "faq_shipping": {
+          "type": "faq",
+          "settings": {
+            "question": "Is shipping included?",
+            "answer": "<p>Yes — shipping is included in the price of the machine.</p>"
+          }
+        },
+        "faq_payment": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I pay?",
+            "answer": "<p>You pay the full price securely online at checkout, and we start building your machine.</p>"
+          }
+        },
+        "faq_addons": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I add a custom wrap or extra payment options?",
+            "answer": "<p>Yes. Tick the add-ons you want (custom wrap, cash bill acceptor, Nayax credit card reader) before you add the machine to your cart — they're added to the same order.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_lead",
+        "faq_shipping",
+        "faq_payment",
+        "faq_addons"
+      ],
+      "settings": {
+        "breadcrumb_label": "Vending machines",
+        "show_calc": true,
+        "show_steps": true,
+        "show_related": true,
+        "related_heading": "More machines"
+      }
+    }
+  },
+  "order": [
+    "tcg_vending_product"
+  ]
+}
