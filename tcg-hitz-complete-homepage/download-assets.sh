@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+cd "$(dirname "$0")"
+mkdir -p assets
+echo "Downloading TCG HITZ images from Figma..."
+while read -r name url; do
+  if curl -fsSL -o "assets/$name" "$url"; then echo "  ok  $name"; else echo "  FAILED  $name"; fi
+done <<'LIST'
+icon-truck.svg https://www.figma.com/api/mcp/asset/2a56ff41-19b8-470f-b651-9fa12fefc023/a1432.svg
+divider-line.svg https://www.figma.com/api/mcp/asset/2a56ff41-19b8-470f-b651-9fa12fefc023/929ca.svg
+logo.png https://www.figma.com/api/mcp/asset/b6b052d9-b917-431e-bfed-a5b04a1c9992/41460.png
+chevron-down.svg https://www.figma.com/api/mcp/asset/b6b052d9-b917-431e-bfed-a5b04a1c9992/d5f0b.svg
+icon-search.svg https://www.figma.com/api/mcp/asset/b6b052d9-b917-431e-bfed-a5b04a1c9992/a8617.svg
+icon-user-mask.svg https://www.figma.com/api/mcp/asset/b6b052d9-b917-431e-bfed-a5b04a1c9992/51437.svg
+icon-user.svg https://www.figma.com/api/mcp/asset/b6b052d9-b917-431e-bfed-a5b04a1c9992/09840.svg
+icon-cart.svg https://www.figma.com/api/mcp/asset/b6b052d9-b917-431e-bfed-a5b04a1c9992/3d10c.svg
+hero-bg.png https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/cb0e7.png
+hero-logo.png https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/b6fa4.png
+hero-character.png https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/84dd8.png
+hero-pattern-1.svg https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/d8279.svg
+hero-pattern-2.svg https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/f96a9.svg
+dot.svg https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/ad64c.svg
+arrow-up-right.svg https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/ac6b8.svg
+arrow-up-right-outline.svg https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/0bbf3.svg
+stars.svg https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/a6eeb.svg
+hero-glow-1.svg https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/4d319.svg
+hero-glow-2.svg https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/6bb37.svg
+strip-dot.svg https://www.figma.com/api/mcp/asset/b4067f5b-b70b-42a5-9161-e5840694ac9f/ee70d.svg
+cat-pokemon.png https://www.figma.com/api/mcp/asset/8872603e-734b-493a-80c2-8a11f04f5f39/34e0e.png
+cat-mystery.png https://www.figma.com/api/mcp/asset/8872603e-734b-493a-80c2-8a11f04f5f39/52ba3.png
+cat-graded.png https://www.figma.com/api/mcp/asset/8872603e-734b-493a-80c2-8a11f04f5f39/08ab1.png
+cat-trading.png https://www.figma.com/api/mcp/asset/8872603e-734b-493a-80c2-8a11f04f5f39/c42a2.png
+cat-merch.png https://www.figma.com/api/mcp/asset/8872603e-734b-493a-80c2-8a11f04f5f39/e24f7.png
+cat-vending.png https://www.figma.com/api/mcp/asset/8872603e-734b-493a-80c2-8a11f04f5f39/2654a.png
+arrow-up-right-sm.svg https://www.figma.com/api/mcp/asset/8872603e-734b-493a-80c2-8a11f04f5f39/535cd.svg
+banner-mystery.png https://www.figma.com/api/mcp/asset/7795bdaf-b251-4999-ba20-6296be7c7294/0d27c.png
+glow-a.svg https://www.figma.com/api/mcp/asset/2f13bc13-8cef-4bd6-9b21-fed8a755aca0/5b855.svg
+glow-b.svg https://www.figma.com/api/mcp/asset/3ff7a196-d773-4f21-87e8-a8aab8d7c652/bdf06.svg
+glow-c.svg https://www.figma.com/api/mcp/asset/d048a1f2-7cab-4eee-aa58-13d410c85f97/def15.svg
+glow-d.svg https://www.figma.com/api/mcp/asset/7c585812-bd3a-42b7-a576-af26b998334c/be9f1.svg
+heart-mask.png https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/42eae.png
+p-umbreon.png https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/6cd67.png
+p-booster.png https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/32c3e.png
+p-charizard.png https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/2004f.png
+p-mystery.png https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/46815.png
+p-etb.png https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/3c7e1.png
+p-promo.png https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/7166f.png
+p-onepiece.png https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/76b93.png
+p-sleeves.png https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/36a15.png
+arrow-up-right-xs.svg https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/133ba.svg
+icon-cart-sm.svg https://www.figma.com/api/mcp/asset/2619bc89-e86d-40b1-9207-3a2545e24237/7c474.svg
+vending.png https://www.figma.com/api/mcp/asset/8b0fa5ed-d7bd-4b83-ab0e-699d08d764ca/e53d9.png
+play-mask.png https://www.figma.com/api/mcp/asset/8b0fa5ed-d7bd-4b83-ab0e-699d08d764ca/e2b55.png
+icon-machine.svg https://www.figma.com/api/mcp/asset/8b0fa5ed-d7bd-4b83-ab0e-699d08d764ca/a6cea.svg
+icon-customize.svg https://www.figma.com/api/mcp/asset/8b0fa5ed-d7bd-4b83-ab0e-699d08d764ca/ce517.svg
+icon-payment.svg https://www.figma.com/api/mcp/asset/8b0fa5ed-d7bd-4b83-ab0e-699d08d764ca/ed9b8.svg
+merch-figures.png https://www.figma.com/api/mcp/asset/915916f0-a6bb-4a5d-b1ef-458e350562c6/c1e90.png
+merch-glow-1.svg https://www.figma.com/api/mcp/asset/915916f0-a6bb-4a5d-b1ef-458e350562c6/9f53c.svg
+merch-glow-2.svg https://www.figma.com/api/mcp/asset/915916f0-a6bb-4a5d-b1ef-458e350562c6/398b7.svg
+merch-glow-3.svg https://www.figma.com/api/mcp/asset/915916f0-a6bb-4a5d-b1ef-458e350562c6/f5e60.svg
+merch-glow-4.svg https://www.figma.com/api/mcp/asset/915916f0-a6bb-4a5d-b1ef-458e350562c6/580de.svg
+icon-world.svg https://www.figma.com/api/mcp/asset/17345ac9-5051-4e17-a229-5f5fe8a11903/38cb6.svg
+icon-discover.svg https://www.figma.com/api/mcp/asset/17345ac9-5051-4e17-a229-5f5fe8a11903/459c8.svg
+icon-beyond.svg https://www.figma.com/api/mcp/asset/17345ac9-5051-4e17-a229-5f5fe8a11903/d293c.svg
+banner-cta.png https://www.figma.com/api/mcp/asset/c3e8f382-3eeb-4c51-b68c-4f15d1dbb03c/3cba2.png
+gallery-1.png https://www.figma.com/api/mcp/asset/0f62040d-5a0b-4c81-a664-8a31f2efe25c/16aeb.png
+gallery-2.png https://www.figma.com/api/mcp/asset/0f62040d-5a0b-4c81-a664-8a31f2efe25c/39538.png
+gallery-3.png https://www.figma.com/api/mcp/asset/0f62040d-5a0b-4c81-a664-8a31f2efe25c/e53d9.png
+gallery-4.png https://www.figma.com/api/mcp/asset/0f62040d-5a0b-4c81-a664-8a31f2efe25c/df4af.png
+gallery-5.png https://www.figma.com/api/mcp/asset/0f62040d-5a0b-4c81-a664-8a31f2efe25c/21696.png
+gallery-6.png https://www.figma.com/api/mcp/asset/0f62040d-5a0b-4c81-a664-8a31f2efe25c/00bbe.png
+community.png https://www.figma.com/api/mcp/asset/a38bc98a-98b7-48a2-b599-14ee112920d5/606f0.png
+social-facebook.png https://www.figma.com/api/mcp/asset/80eca6dd-36c8-4099-a56f-6775ecfd9eea/47c3f.png
+social-x.png https://www.figma.com/api/mcp/asset/80eca6dd-36c8-4099-a56f-6775ecfd9eea/d02a3.png
+social-instagram.png https://www.figma.com/api/mcp/asset/80eca6dd-36c8-4099-a56f-6775ecfd9eea/5c1de.png
+social-linkedin.png https://www.figma.com/api/mcp/asset/80eca6dd-36c8-4099-a56f-6775ecfd9eea/0b671.png
+icon-phone.svg https://www.figma.com/api/mcp/asset/80eca6dd-36c8-4099-a56f-6775ecfd9eea/76ce3.svg
+icon-mail.svg https://www.figma.com/api/mcp/asset/80eca6dd-36c8-4099-a56f-6775ecfd9eea/c4c08.svg
+icon-location.svg https://www.figma.com/api/mcp/asset/80eca6dd-36c8-4099-a56f-6775ecfd9eea/4b263.svg
+LIST
+echo "Done. Open index.html in your browser."

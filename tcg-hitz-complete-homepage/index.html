@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TCG HITZ | Trading Cards, Collectibles &amp; Vending Machines</title>
+  <meta name="description" content="Discover trading cards, mystery packs, graded collectibles, merchandise and trading-card vending machines at TCG HITZ.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Titan+One&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          screens: { '2xl': '1440px' },
+          colors: {
+            void: '#080A12',       // Sections & Cards Bg / Void Black
+            card: '#111827',       // Card Surface
+            elevated: '#182338',   // Elevated Surface
+            electric: '#2563FF',   // Electric Blue
+            btn: '#2F7BFF',        // Primary button fill
+            lightning: '#38BDF8',  // Lightning Blue
+            pink: '#EC4899',       // Electric Pink
+            neon: '#8B5CF6',       // Neon Purple
+            cool: '#A7B0C0',       // Cool Gray
+            success: '#22C55E',    // Success Green
+            crimson: '#EF4444',    // Crimson Red
+            fire: '#FF6B35',       // Fire Orange
+            gold: '#FACC15',       // Gold
+          },
+          fontFamily: {
+            titan: ['"Titan One"', 'cursive'],
+            manrope: ['Manrope', 'sans-serif'],
+            switzer: ['Switzer', 'Manrope', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Gradient borders (Figma "Neon Gradient" strokes). Set the width with --bw. */
+    .gb { --bw: 1px; --g: linear-gradient(75deg, #2563FF 5.3632%, #EC4899 101.59%); border-color: transparent !important; }
+    .gb-red { --g: linear-gradient(75deg, #EF4444 0%, #FF6B35 100%); }
+    .gb::before {
+      content: ""; position: absolute; inset: calc(var(--bw) * -1); padding: var(--bw);
+      border-radius: inherit; background: var(--g); pointer-events: none;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+    }
+  </style>
+</head>
+<body class="bg-void font-manrope text-white antialiased">
+<div class="relative overflow-hidden">
+
+  <!-- Background glows (behind content) -->
+  <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-0 z-0 h-full w-[1440px] -translate-x-1/2">
+    <div class="absolute" style="left:21.2115px;top:919px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-a.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:1274.0895px;top:1441.9503px;width:543.4576px;height:535.6529px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-b.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:-2.7885px;top:2574px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-c.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:1304.2115px;top:3172px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-d.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:-2.7885px;top:4074px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-c.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:1331.2115px;top:4812px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-d.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:18.2115px;top:5347px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-c.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:1290.2115px;top:5955px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-d.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:46.2115px;top:6992px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-c.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:398.5339px;top:7229.8008px;width:670.0661px;height:669.5267px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-a.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:1251.2115px;top:7354px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-d.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:59.2115px;top:7924px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-c.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:1355.2115px;top:7914px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-d.svg" alt="" class="block size-full max-w-none"></div></div>
+  </div>
+
+  <header class="relative">
+    <div class="relative z-[3] flex h-[44px] items-center justify-center px-5 md:px-[80px]" style="background-image:linear-gradient(11.584141235161752deg, rgb(37, 99, 255) 5.3632%, rgb(236, 72, 153) 101.59%)">
+      <div class="flex items-center justify-center gap-[8px]">
+        <img src="assets/icon-truck.svg" alt="" class="size-[18px] shrink-0">
+        <div class="flex items-center gap-[20px]">
+          <p class="whitespace-nowrap text-[14px] font-medium leading-[1.5] text-white">Free Shipping on Orders Over $75</p>
+          <div class="hidden md:block"><div class="flex h-[20px] w-0 items-center justify-center"><div class="flex-none rotate-90"><div class="relative h-0 w-[20px]"><div class="absolute inset-[-1px_0_0_0]"><img src="assets/divider-line.svg" alt="" class="block size-full max-w-none"></div></div></div></div></div>
+          <p class="hidden whitespace-nowrap font-switzer text-[14px] font-medium leading-[1.5] text-white md:block">Authentic Products</p>
+          <div class="hidden md:block"><div class="flex h-[20px] w-0 items-center justify-center"><div class="flex-none rotate-90"><div class="relative h-0 w-[20px]"><div class="absolute inset-[-1px_0_0_0]"><img src="assets/divider-line.svg" alt="" class="block size-full max-w-none"></div></div></div></div></div>
+          <p class="hidden whitespace-nowrap font-switzer text-[14px] font-medium leading-[1.5] text-white md:block">New Arrivals Weekly!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative z-[1]">
+      <!-- Hero -->
+      <section class="relative mb-[-52px] pt-[152.5px] 2xl:h-[955.5px]">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-full 2xl:h-[955px]">
+          <img src="assets/hero-bg.png" alt="" class="absolute size-full max-w-none object-cover">
+          <div class="absolute inset-0" style="background-image:url(&quot;data:image/svg+xml;utf8,<svg viewBox='0 0 1440 955' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.4000000059604645'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-8.8754e-15 47.692 -71.912 -5.1523e-15 720 478.08)'><stop stop-color='rgba(0,0,0,0.8)' offset='0'/><stop stop-color='rgba(0,0,0,0.87019)' offset='0.35096'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>&quot;), linear-gradient(90deg, rgba(0, 0, 0, 0.64) 0%, rgba(0, 0, 0, 0.64) 100%)"></div>
+        </div>
+        <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-full 2xl:h-[955.107px]">
+          <div class="absolute inset-[1.15%_0_0_0]"><img src="assets/hero-pattern-1.svg" alt="" class="absolute inset-0 block size-full max-w-none"></div>
+          <div class="absolute inset-[1.15%_1.29%_6.29%_0]"><img src="assets/hero-pattern-2.svg" alt="" class="absolute inset-0 block size-full max-w-none"></div>
+        </div>
+
+        <div class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] relative flex flex-col items-center gap-12 py-[30px] xl:flex-row xl:justify-between xl:gap-0">
+          <div class="flex w-full max-w-[593px] flex-col items-start justify-center gap-[32px]">
+            <div class="flex w-full flex-col items-start justify-center gap-[24px]">
+              <div class="flex w-full flex-col items-start justify-center gap-[24px]">
+                <div class="flex items-center gap-[12px]">
+              <img src="assets/dot.svg" alt="" class="size-[8px] shrink-0">
+              <p class="whitespace-nowrap text-[12px] font-medium uppercase leading-[1.5] text-neon">THE TCG HITZ EXPERIENCE</p>
+            </div>
+                <h1 class="w-full max-w-[535px] font-titan text-[52px] leading-none text-white sm:text-[72px] xl:text-[88px]">CHASE THE <span class="bg-clip-text text-transparent" style="background-image:linear-gradient(65.6236620375546deg, rgb(37, 99, 255) 5.3632%, rgb(236, 72, 153) 50.699%)">RARE</span>.</h1>
+              </div>
+              <p class="w-full text-[16px] leading-[1.5] text-white">Discover trading cards, mystery packs, graded collectibles, and merchandise—all in one place. Explore the TCG HITZ experience and discover our trading-card vending machines.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-[18px]">
+              <a href="#" class="inline-flex h-[48px] shrink-0 items-center justify-center gap-[6px] rounded-[999px] border border-lightning bg-btn px-[23px] py-[12px] drop-shadow-[0px_10px_28px_rgba(47,123,255,0.64)] transition hover:brightness-110">
+                <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">SHOP TRADING CARDS</span>
+                <img src="assets/arrow-up-right.svg" alt="" class="size-[20px] shrink-0">
+              </a>
+              <a href="#" class="relative inline-flex h-[48px] shrink-0 items-center justify-center gap-[6px] rounded-[999px] border-[1.5px] border-transparent gb [--bw:1.5px] bg-black/[0.06] px-[22.5px] py-[12px] transition hover:bg-electric/20">
+                <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">EXPLORE VENDING MACHINES</span>
+                <img src="assets/arrow-up-right-outline.svg" alt="" class="size-[20px] shrink-0">
+              </a>
+            </div>
+            <div class="flex flex-col items-start gap-[12px]">
+              <img src="assets/stars.svg" alt="5 stars" class="h-[16px] w-[108.235px]">
+              <p class="whitespace-nowrap text-[14px] font-semibold capitalize leading-[1.5] text-white">Trusted at card shows every weekend</p>
+            </div>
+          </div>
+
+          <div class="relative h-[743px] w-[482px] shrink-0 max-xl:-mb-[297px] max-xl:origin-top max-xl:scale-[0.6]">
+            <div class="absolute left-[92px] top-[46px] flex h-[396px] w-[359px] items-center justify-center">
+              <div class="flex-none rotate-90"><div class="relative h-[359px] w-[396px]"><div class="absolute inset-[-83.57%_-75.76%]"><img src="assets/hero-glow-1.svg" alt="" class="block size-full max-w-none"></div></div></div>
+            </div>
+            <div class="absolute left-0 top-[326px] flex h-[396px] w-[543px] items-center justify-center">
+              <div class="flex-none rotate-90"><div class="relative h-[543px] w-[396px]"><div class="absolute inset-[-55.25%_-75.76%]"><img src="assets/hero-glow-2.svg" alt="" class="block size-full max-w-none"></div></div></div>
+            </div>
+            <img src="assets/hero-logo.png" alt="" class="absolute left-[148px] top-[106px] h-[150px] w-[222px] max-w-none object-cover">
+            <div class="absolute left-[29px] top-0 h-[743px] w-[468px] overflow-hidden">
+              <img src="assets/hero-character.png" alt="TCG HITZ character" class="absolute left-[-0.08%] top-[-1.45%] h-[101.66%] w-full max-w-none">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Strip -->
+      <div class="relative flex w-full flex-col items-start">
+        <div class="flex items-center rounded-tr-[35px] border-b-2 border-white px-5 py-[8px] md:px-[80px]" style="background-image:linear-gradient(32.453762221683945deg, rgb(37, 99, 255) 5.3632%, rgb(236, 72, 153) 101.59%)">
+          <p class="whitespace-pre font-titan text-[16px] leading-[33px] text-white sm:text-[20px]">COLLECT  ✦  TRADE  ✦  RIP  ✦  REPEAT</p>
+        </div>
+        <div class="relative flex h-[87px] w-full items-center justify-center overflow-hidden" style="background-image:linear-gradient(21.980171781323023deg, rgb(37, 99, 255) 5.3632%, rgb(236, 72, 153) 101.59%)">
+          <div class="flex shrink-0 items-center justify-center gap-[48px] py-[24px]">
+            <p class="shrink-0 whitespace-nowrap text-[24px] font-bold leading-[1.63] text-white">POKÉMON CARDS</p>
+            <img src="assets/strip-dot.svg" alt="" class="size-[12px] shrink-0">
+            <p class="shrink-0 whitespace-nowrap text-[24px] font-bold leading-[1.63] text-white">MYSTERY PACKS</p>
+            <img src="assets/strip-dot.svg" alt="" class="size-[12px] shrink-0">
+            <p class="shrink-0 whitespace-nowrap text-[24px] font-bold leading-[1.63] text-white">GRADED CARDS</p>
+            <img src="assets/strip-dot.svg" alt="" class="size-[12px] shrink-0">
+            <p class="shrink-0 whitespace-nowrap text-[24px] font-bold leading-[1.63] text-white">MERCHANDISE</p>
+            <img src="assets/strip-dot.svg" alt="" class="size-[12px] shrink-0">
+            <p class="shrink-0 whitespace-nowrap text-[24px] font-bold leading-[1.63] text-white">VENDING MACHINES</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Glows that sit above the hero -->
+    <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-0 z-[2] h-full w-[1440px] -translate-x-1/2">
+      <div class="absolute" style="left:385.2115px;top:-296px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-c.svg" alt="" class="block size-full max-w-none"></div></div><div class="absolute" style="left:1431.2115px;top:-120px;width:499.1869px;height:492.0181px"><div class="absolute" style="inset:-437.3px -403.2px"><img src="assets/glow-d.svg" alt="" class="block size-full max-w-none"></div></div>
+    </div>
+
+    <nav class="absolute inset-x-0 top-[44px] z-[3] border-b-[1.5px] border-transparent bg-black/[0.08] shadow-[0px_10px_24px_0px_rgba(224,74,159,0.12)] backdrop-blur-[4px]">
+      <span aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-[-1.5px] h-[1.5px]" style="background-image:linear-gradient(90deg, rgb(37, 99, 255) 5.3632%, rgb(236, 72, 153) 101.59%)"></span>
+      <div class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] flex items-center justify-between py-[24px]">
+        <div class="flex items-center gap-[88px]">
+          <a href="#" class="block h-[92px] w-[134px] shrink-0"><img src="assets/logo.png" alt="TCG HITZ" class="size-full object-cover"></a>
+          <div class="hidden items-center xl:flex">
+            <a href="#" class="flex h-[50px] items-center justify-center gap-[6px] rounded-[75px] py-[12px] pr-[16px] text-[14px] capitalize text-white transition hover:text-lightning">
+              Trading Cards
+              <img src="assets/chevron-down.svg" alt="" class="h-[11.065px] w-[10.839px] shrink-0">
+            </a>
+            <a href="#" class="flex h-[50px] items-center justify-center rounded-[75px] px-[16px] py-[12px] text-[14px] capitalize text-white transition hover:text-lightning">Mystery Packs</a>
+<a href="#" class="flex h-[50px] items-center justify-center rounded-[75px] px-[16px] py-[12px] text-[14px] capitalize text-white transition hover:text-lightning">Graded Cards</a>
+<a href="#" class="flex h-[50px] items-center justify-center rounded-[75px] px-[16px] py-[12px] text-[14px] capitalize text-white transition hover:text-lightning">Merchandise</a>
+<a href="#" class="flex h-[50px] items-center justify-center rounded-[75px] px-[16px] py-[12px] text-[14px] capitalize text-white transition hover:text-lightning">Vending Machines</a>
+          </div>
+        </div>
+        <div class="flex items-center gap-[12px]">
+          <label class="relative hidden h-[42px] w-[252px] items-center gap-[10px] rounded-[21px] border-[0.75px] border-transparent gb [--bw:0.75px] bg-white/[0.06] px-[11.25px] py-[9px] xl:flex">
+            <img src="assets/icon-search.svg" alt="" class="size-[24px] shrink-0">
+            <input type="search" placeholder="Search cards, products ..." class="w-full min-w-0 bg-transparent text-[12px] text-white outline-none placeholder:capitalize placeholder:text-white">
+          </label>
+          <a href="#" aria-label="Account" class="relative flex size-[42px] items-center justify-center rounded-[21px] border-[0.75px] border-transparent gb [--bw:0.75px] bg-white/[0.06] px-[8px] py-[9px]">
+            <span class="relative block h-[20.099px] w-[20px]" style="-webkit-mask-image:url(assets/icon-user-mask.svg);mask-image:url(assets/icon-user-mask.svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:20px 20.098px;mask-size:20px 20.098px;"><img src="assets/icon-user.svg" alt="" class="absolute inset-0 block size-full max-w-none"></span>
+          </a>
+          <a href="#" aria-label="Cart" class="relative block size-[42px]">
+            <span class="absolute left-0 top-0 flex size-[42px] items-center justify-center rounded-[21px] border-[0.75px] border-transparent gb [--bw:0.75px] bg-white/[0.06] px-[8px] py-[9px]"><img src="assets/icon-cart.svg" alt="" class="size-[24px]"></span>
+            <span class="absolute right-[-2.57px] top-[-4px] flex h-[16px] w-[15.568px] items-center justify-center rounded-[100px] bg-fire px-[5px] py-px text-[10px] font-semibold uppercase text-white">3</span>
+          </a>
+          <button type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle class="relative flex size-[42px] items-center justify-center rounded-[21px] border-[0.75px] border-transparent gb [--bw:0.75px] bg-white/[0.06] xl:hidden">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden border-t border-electric/40 bg-void/95 px-5 pb-5 pt-3 md:px-10 xl:hidden">
+        <label class="relative mb-3 flex h-[42px] items-center gap-[10px] rounded-[21px] border-[0.75px] border-transparent gb [--bw:0.75px] bg-white/[0.06] px-[12px]">
+          <img src="assets/icon-search.svg" alt="" class="size-[24px] shrink-0">
+          <input type="search" placeholder="Search cards, products ..." class="w-full min-w-0 bg-transparent text-[14px] text-white outline-none placeholder:capitalize placeholder:text-white">
+        </label>
+        <a href="#" class="block rounded-[12px] px-4 py-3 text-[16px] text-white hover:bg-white/[0.06]">Trading Cards</a>
+<a href="#" class="block rounded-[12px] px-4 py-3 text-[16px] text-white hover:bg-white/[0.06]">Mystery Packs</a>
+<a href="#" class="block rounded-[12px] px-4 py-3 text-[16px] text-white hover:bg-white/[0.06]">Graded Cards</a>
+<a href="#" class="block rounded-[12px] px-4 py-3 text-[16px] text-white hover:bg-white/[0.06]">Merchandise</a>
+<a href="#" class="block rounded-[12px] px-4 py-3 text-[16px] text-white hover:bg-white/[0.06]">Vending Machines</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="relative z-[1]">
+    <!-- Explore the collection -->
+    <section class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] flex flex-col items-start gap-[56px] pb-[20px] pt-[100px]">
+      <div class="flex w-full items-end justify-center gap-[24px]">
+        <div class="flex flex-col items-center justify-center gap-[16px]">
+          <div class="flex items-center gap-[12px] justify-center">
+              <img src="assets/dot.svg" alt="" class="size-[8px] shrink-0">
+              <p class="whitespace-nowrap text-[12px] font-medium uppercase leading-[1.5] text-neon">EXPLORE THE COLLECTION</p>
+            </div>
+          <h2 class="w-full max-w-[535px] text-center font-titan text-[36px] leading-[1.15] text-white md:text-[44px] xl:text-[56px] xl:leading-[64px]">FIND YOUR NEXT FAVORITE.</h2>
+        </div>
+      </div>
+      <div class="grid w-full grid-cols-2 gap-[16px] sm:grid-cols-3 lg:grid-cols-6">
+          <a href="#" class="group relative flex h-[250px] flex-col items-start justify-end rounded-[8px] border-[0.75px] border-white/40 py-[11.25px] pl-[11.25px] pr-[13.25px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[8px]">
+              <div class="absolute inset-0 overflow-hidden rounded-[8px]"><img src="assets/cat-pokemon.png" alt="" class="absolute left-[-6.45%] top-[-18.2%] h-[118.52%] w-[110.3%] max-w-none"></div>
+              <div class="absolute inset-0 rounded-[8px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[35.047%] to-[rgba(0,0,0,0.84)] to-[79.907%]"></div>
+            </div>
+            <div class="relative flex w-full max-w-[171px] flex-col items-start gap-[12px]">
+              <div class="flex w-full flex-col items-start gap-[6px] text-white">
+                <h3 class="whitespace-nowrap font-titan text-[16px] leading-[1.15] sm:text-[18px]">POKÉMON CARDS</h3>
+                <p class="w-full max-w-[171px] text-[8px] leading-[1.5]">Explore Pokémon cards, from individual singles to collectible finds.</p>
+              </div>
+              <span class="relative flex items-center justify-center gap-[2px] rounded-[100px] border-[0.6px] border-transparent gb [--bw:0.6px] px-[7.4px] py-[5.4px] transition group-hover:bg-electric/30">
+                <span class="whitespace-nowrap text-[8px] font-semibold uppercase leading-[1.3] text-white">SHOP POKÉMON</span>
+                <img src="assets/arrow-up-right-sm.svg" alt="" class="size-[10px] shrink-0">
+              </span>
+            </div>
+          </a>
+          <a href="#" class="group relative flex h-[250px] flex-col items-start justify-end rounded-[8px] border-[0.75px] border-white/40 py-[11.25px] pl-[11.25px] pr-[13.25px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[8px]">
+              <img src="assets/cat-mystery.png" alt="" class="absolute size-full max-w-none rounded-[8px] object-cover">
+              <div class="absolute inset-0 rounded-[8px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[35.047%] to-[rgba(0,0,0,0.84)] to-[79.907%]"></div>
+            </div>
+            <div class="relative flex w-full max-w-[171px] flex-col items-start gap-[12px]">
+              <div class="flex w-full flex-col items-start gap-[6px] text-white">
+                <h3 class="whitespace-nowrap font-titan text-[16px] leading-[1.15] sm:text-[18px]">MYSTERY PACKS</h3>
+                <p class="w-full max-w-[171px] text-[8px] leading-[1.5]">Explore mystery packs and discover your next collectible addition.</p>
+              </div>
+              <span class="relative flex items-center justify-center gap-[2px] rounded-[100px] border-[0.6px] border-transparent gb [--bw:0.6px] px-[7.4px] py-[5.4px] transition group-hover:bg-electric/30">
+                <span class="whitespace-nowrap text-[8px] font-semibold uppercase leading-[1.3] text-white">EXPLORE PACKS</span>
+                <img src="assets/arrow-up-right-sm.svg" alt="" class="size-[10px] shrink-0">
+              </span>
+            </div>
+          </a>
+          <a href="#" class="group relative flex h-[250px] flex-col items-start justify-end rounded-[8px] border-[0.75px] border-white/40 py-[11.25px] pl-[11.25px] pr-[13.25px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[8px]">
+              <img src="assets/cat-graded.png" alt="" class="absolute size-full max-w-none rounded-[8px] object-cover">
+              <div class="absolute inset-0 rounded-[8px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[35.047%] to-[rgba(0,0,0,0.84)] to-[79.907%]"></div>
+            </div>
+            <div class="relative flex w-full max-w-[171px] flex-col items-start gap-[12px]">
+              <div class="flex w-full flex-col items-start gap-[6px] text-white">
+                <h3 class="whitespace-nowrap font-titan text-[16px] leading-[1.15] sm:text-[18px]">GRADED CARDS</h3>
+                <p class="w-full max-w-[166px] text-[8px] leading-[1.5]">Browse graded trading cards and collectible slabs.</p>
+              </div>
+              <span class="relative flex items-center justify-center gap-[2px] rounded-[100px] border-[0.6px] border-transparent gb [--bw:0.6px] px-[7.4px] py-[5.4px] transition group-hover:bg-electric/30">
+                <span class="whitespace-nowrap text-[8px] font-semibold uppercase leading-[1.3] text-white">SHOP GRADED</span>
+                <img src="assets/arrow-up-right-sm.svg" alt="" class="size-[10px] shrink-0">
+              </span>
+            </div>
+          </a>
+          <a href="#" class="group relative flex h-[250px] flex-col items-start justify-end rounded-[8px] border-[0.75px] border-white/40 py-[11.25px] pl-[11.25px] pr-[13.25px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[8px]">
+              <img src="assets/cat-trading.png" alt="" class="absolute size-full max-w-none rounded-[8px] object-cover">
+              <div class="absolute inset-0 rounded-[8px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[35.047%] to-[rgba(0,0,0,0.84)] to-[79.907%]"></div>
+            </div>
+            <div class="relative flex w-full max-w-[171px] flex-col items-start gap-[12px]">
+              <div class="flex w-full flex-col items-start gap-[6px] text-white">
+                <h3 class="whitespace-nowrap font-titan text-[16px] leading-[1.15] sm:text-[18px]">TRADING CARDS</h3>
+                <p class="w-full max-w-[174px] text-[8px] leading-[1.5]">Explore trading-card products and accessories available in the store.</p>
+              </div>
+              <span class="relative flex items-center justify-center gap-[2px] rounded-[100px] border-[0.6px] border-transparent gb [--bw:0.6px] px-[7.4px] py-[5.4px] transition group-hover:bg-electric/30">
+                <span class="whitespace-nowrap text-[8px] font-semibold uppercase leading-[1.3] text-white">EXPLORE TRADING CARDS</span>
+                <img src="assets/arrow-up-right-sm.svg" alt="" class="size-[10px] shrink-0">
+              </span>
+            </div>
+          </a>
+          <a href="#" class="group relative flex h-[250px] flex-col items-start justify-end rounded-[8px] border-[0.75px] border-white/40 py-[11.25px] pl-[11.25px] pr-[13.25px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[8px]">
+              <img src="assets/cat-merch.png" alt="" class="absolute size-full max-w-none rounded-[8px] object-cover">
+              <div class="absolute inset-0 rounded-[8px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[35.047%] to-[rgba(0,0,0,0.84)] to-[79.907%]"></div>
+            </div>
+            <div class="relative flex w-full max-w-[171px] flex-col items-start gap-[12px]">
+              <div class="flex w-full flex-col items-start gap-[6px] text-white">
+                <h3 class="whitespace-nowrap font-titan text-[16px] leading-[1.15] sm:text-[18px]">MERCHANDISE</h3>
+                <p class="w-full max-w-[171px] text-[8px] leading-[1.5]">Explore apparel, accessories, and collectibles from TCG HITZ.</p>
+              </div>
+              <span class="relative flex items-center justify-center gap-[2px] rounded-[100px] border-[0.6px] border-transparent gb [--bw:0.6px] px-[7.4px] py-[5.4px] transition group-hover:bg-electric/30">
+                <span class="whitespace-nowrap text-[8px] font-semibold uppercase leading-[1.3] text-white">SHOP MERCHANDISE</span>
+                <img src="assets/arrow-up-right-sm.svg" alt="" class="size-[10px] shrink-0">
+              </span>
+            </div>
+          </a>
+          <a href="#" class="group relative flex h-[250px] flex-col items-start justify-end rounded-[8px] border-[0.75px] border-white/40 py-[11.25px] pl-[11.25px] pr-[13.25px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[8px]">
+              <img src="assets/cat-vending.png" alt="" class="absolute size-full max-w-none rounded-[8px] object-cover">
+              <div class="absolute inset-0 rounded-[8px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[35.047%] to-[rgba(0,0,0,0.84)] to-[79.907%]"></div>
+            </div>
+            <div class="relative flex w-full max-w-[171px] flex-col items-start gap-[12px]">
+              <div class="flex w-full flex-col items-start gap-[6px] text-white">
+                <h3 class="whitespace-nowrap font-titan text-[16px] leading-[1.15] sm:text-[18px]">VENDING MACHINE</h3>
+                <p class="w-full max-w-[171px] text-[8px] leading-[1.5]">Explore trading-card vending machines available from TCG HITZ.</p>
+              </div>
+              <span class="relative flex items-center justify-center gap-[2px] rounded-[100px] border-[0.6px] border-transparent gb [--bw:0.6px] px-[7.4px] py-[5.4px] transition group-hover:bg-electric/30">
+                <span class="whitespace-nowrap text-[8px] font-semibold uppercase leading-[1.3] text-white">EXPLORE MACHINES</span>
+                <img src="assets/arrow-up-right-sm.svg" alt="" class="size-[10px] shrink-0">
+              </span>
+            </div>
+          </a>
+      </div>
+    </section>
+
+    <!-- Featured products -->
+    <section class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] flex flex-col items-start gap-[56px] py-[100px]">
+      <div class="flex w-full flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+        <div class="flex flex-col items-start justify-end gap-[16px]">
+          <div class="flex flex-col items-start justify-center gap-[16px]">
+            <div class="flex items-center gap-[12px]">
+              <img src="assets/dot.svg" alt="" class="size-[8px] shrink-0">
+              <p class="whitespace-nowrap text-[12px] font-medium uppercase leading-[1.5] text-neon">FEATURED PRODUCTS</p>
+            </div>
+            <h2 class="xl:whitespace-nowrap font-titan text-[36px] leading-[1.15] text-white md:text-[44px] xl:text-[56px] xl:leading-[64px]">COLLECTOR'S PICKS.</h2>
+          </div>
+          <p class="text-[16px] leading-[1.5] text-white xl:whitespace-nowrap">Discover selected trading cards and collectibles from the TCG HITZ collection.</p>
+        </div>
+        <a href="#" class="relative inline-flex h-[48px] shrink-0 items-center justify-center gap-[6px] rounded-[999px] border-[1.5px] border-transparent gb [--bw:1.5px] bg-black/[0.06] px-[22.5px] py-[12px] transition hover:bg-electric/20">
+                <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">VIEW ALL PRODUCTS</span>
+                <img src="assets/arrow-up-right-outline.svg" alt="" class="size-[20px] shrink-0">
+              </a>
+      </div>
+      <div class="grid w-full grid-cols-1 gap-x-[24px] gap-y-[30px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-pink text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">Near Mint</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[119px] shrink-0">
+                    <div class="absolute inset-0 overflow-hidden"><img src="assets/p-umbreon.png" alt="Umbreon VMAX Alternate Art" class="absolute max-w-none left-[-40.44%] top-[-14.47%] h-[125.9%] w-[180.87%]"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool">POKÉMON · SINGLE CARD</p>
+                    <h3 class="w-full max-w-[213px] font-titan text-[20px] leading-[1.2] text-white">Umbreon VMAX — Alternate Art</h3>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-success text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">In Stock</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[147px] shrink-0">
+                    <div class="absolute inset-0 overflow-hidden"><img src="assets/p-booster.png" alt="Pokémon Booster Box" class="absolute max-w-none left-[-25.68%] top-[-13.11%] h-[121.34%] w-[141.65%]"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool">POKÉMON · SEALED PRODUCT</p>
+                    <h3 class="w-full max-w-[179px] font-titan text-[20px] leading-[1.2] text-white">Pokémon Booster Box</h3>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-crimson text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">Graded Collectible</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[120px] shrink-0">
+                    <div class="absolute left-1/2 top-[2.5px] h-[150px] w-[90px] -translate-x-1/2">
+                      <div class="absolute inset-0 overflow-hidden"><img src="assets/p-charizard.png" alt="Charizard Graded Card" class="absolute left-[-43.44%] top-[-7.1%] h-[114.17%] w-[216.34%] max-w-none"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool">POKÉMON · GRADED CARD</p>
+                    <h3 class="w-full max-w-[169px] font-titan text-[20px] leading-[1.2] text-white">Charizard Graded Card</h3>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center h-[168px]">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-success text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">In Stock</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[186px] shrink-0">
+                    <div class="absolute left-0 top-[calc(50%_+_0.5px)] h-[102px] w-[186px] -translate-y-1/2">
+                      <div class="absolute inset-0 overflow-hidden"><img src="assets/p-mystery.png" alt="TCG HITZ Mystery Pack" class="absolute left-[-10.87%] top-[-10.81%] h-[127.03%] w-[123.48%] max-w-none"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool">MYSTERY PRODUCTS</p>
+                    <h3 class="w-full max-w-[181px] font-titan text-[20px] leading-[1.2] text-white">TCG HITZ Mystery Pack</h3>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-success text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">In Stock</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[163px] shrink-0">
+                    <div class="absolute inset-0 overflow-hidden"><img src="assets/p-etb.png" alt="Pokémon Elite Trainer Box" class="absolute max-w-none left-[-31.13%] top-[-7.02%] h-[113.04%] w-[162.25%]"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool">POKÉMON · SEALED PRODUCT</p>
+                    <h3 class="w-full max-w-[213px] font-titan text-[20px] leading-[1.2] text-white">Pokémon Elite Trainer Box</h3>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-pink text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">Near Mint</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[110px] shrink-0">
+                    <div class="absolute inset-0 overflow-hidden"><img src="assets/p-promo.png" alt="Pokémon Promo Card" class="absolute max-w-none left-[-74.5%] top-[-10.22%] h-[119.29%] w-[254.7%]"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool">POKÉMON · PROMO CARD</p>
+                    <h3 class="w-full max-w-[176px] font-titan text-[20px] leading-[1.2] text-white">Pokémon Promo Card</h3>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-success text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">In Stock</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[113px] shrink-0">
+                    <div class="absolute inset-0 overflow-hidden"><img src="assets/p-onepiece.png" alt="One Piece Trading Card" class="absolute max-w-none left-[-76.27%] top-[-10.72%] h-[121.44%] w-[252.54%]"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool">ONE PIECE · SINGLE CARD</p>
+                    <h3 class="w-full max-w-[166px] font-titan text-[20px] leading-[1.2] text-white">One Piece Trading Card</h3>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-success text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">In Stock</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[143px] w-[180px] shrink-0">
+                    <div class="absolute left-[-30px] top-[calc(50%_+_8px)] h-[130px] w-[240px] -translate-y-1/2">
+                      <div class="absolute inset-0 overflow-hidden"><img src="assets/p-sleeves.png" alt="Trading Card Protective Sleeves" class="absolute left-0 top-[-11.38%] h-[118.3%] w-full max-w-none"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool">CARD ACCESSORIES</p>
+                    <h3 class="w-full max-w-[213px] font-titan text-[20px] leading-[1.2] text-white">Trading Card Protective Sleeves</h3>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <!-- Mystery packs banner -->
+    <section class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] flex flex-col items-start py-[20px]">
+      <div class="relative flex w-full flex-col items-start justify-center rounded-[24px] border-2 border-transparent gb [--bw:2px] px-6 py-16 md:px-[48px] md:py-[96px] xl:h-[506px]">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px]">
+          <img src="assets/banner-mystery.png" alt="" class="absolute left-[-0.56%] top-[-4.64%] h-[106.41%] w-[110.33%] max-w-none object-cover max-xl:inset-0 max-xl:size-full">
+        </div>
+        <div class="relative flex w-full max-w-[543px] flex-col items-start gap-[40px]">
+          <div class="flex w-full flex-col items-start justify-end gap-[16px]">
+            <div class="flex w-full flex-col items-start justify-center gap-[16px]">
+              <div class="flex items-center gap-[12px]">
+              <img src="assets/dot.svg" alt="" class="size-[8px] shrink-0">
+              <p class="whitespace-nowrap text-[12px] font-medium uppercase leading-[1.5] text-neon">THE THRILL OF THE UNKNOWN</p>
+            </div>
+              <h2 class="w-full max-w-[498px] font-titan text-[36px] leading-[1.15] text-white md:text-[44px] xl:text-[56px] xl:leading-[64px]">CHASE YOUR NEXT RARE FIND.</h2>
+            </div>
+            <p class="w-full text-[16px] leading-[1.5] text-white">Every collection has room for another surprise. Explore TCG HITZ mystery packs and discover your next collectible addition.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-[18px]">
+            <a href="#" class="inline-flex h-[48px] items-center justify-center gap-[8px] rounded-[1000px] bg-gradient-to-r from-crimson to-fire px-[24px] py-[12px] transition hover:brightness-110">
+              <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">SHOP MYSTERY PACKS</span>
+              <img src="assets/arrow-up-right.svg" alt="" class="size-[20px] shrink-0">
+            </a>
+            <a href="#" class="relative inline-flex h-[48px] items-center justify-center gap-[8px] rounded-[1000px] border-[1.5px] border-transparent gb gb-red [--bw:1.5px] px-[22.5px] py-[12px] transition hover:bg-crimson/20">
+              <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">EXPLORE ALL COLLECTIBLES</span>
+              <img src="assets/arrow-up-right-outline.svg" alt="" class="size-[20px] shrink-0">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vending machines -->
+    <section class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] flex flex-col items-center gap-[44px] py-[100px] xl:flex-row">
+      <div class="relative flex h-[420px] w-full flex-col items-center justify-center rounded-[24px] border-2 border-transparent gb [--bw:2px] px-[48px] py-[96px] md:h-[600px] xl:h-[722px] xl:w-[596px] xl:shrink-0">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[24px]">
+          <img src="assets/vending.png" alt="" class="absolute size-full max-w-none rounded-[24px] object-cover">
+          <div class="absolute inset-0 rounded-[24px]" style="background-image:url(&quot;data:image/svg+xml;utf8,<svg viewBox='0 0 596 722' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.6399999856948853'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-1.3045e-14 36.05 -29.759 2.2074e-15 298 361.5)'><stop stop-color='rgba(0,0,0,0.12)' offset='0'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>&quot;), linear-gradient(90deg, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0.32) 100%)"></div>
+        </div>
+        <button type="button" aria-label="Play video" class="relative flex size-[60px] items-center justify-end rounded-[999px] border-[7px] border-[rgba(80,130,255,0.56)] bg-electric px-[19px] py-[12px] drop-shadow-[0px_10px_28px_rgba(47,123,255,0.64)] transition hover:scale-105">
+          <span class="block h-[21.6px] w-[19.2px] shrink-0 bg-white" style="-webkit-mask-image:url(assets/play-mask.png);mask-image:url(assets/play-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:19.2px 21.6px;mask-size:19.2px 21.6px;"></span>
+        </button>
+      </div>
+      <div class="flex w-full max-w-[640px] flex-col items-start gap-[48px]">
+        <div class="flex w-full flex-col items-start gap-[32px]">
+          <div class="flex w-full flex-col items-start justify-end gap-[16px]">
+            <div class="flex w-full flex-col items-start justify-center gap-[16px]">
+              <div class="flex items-center gap-[12px]">
+              <img src="assets/dot.svg" alt="" class="size-[8px] shrink-0">
+              <p class="whitespace-nowrap text-[12px] font-medium uppercase leading-[1.5] text-neon">MEET THE TCG HITZ MACHINES</p>
+            </div>
+              <h2 class="w-full max-w-[626px] font-titan text-[36px] leading-[1.15] text-white md:text-[44px] xl:text-[56px] xl:leading-[64px]">BRING THE TCG HITZ EXPERIENCE TO YOUR LOCATION.</h2>
+            </div>
+            <p class="w-full text-[16px] leading-[1.5] text-white">Explore trading-card vending machines designed for businesses and locations looking to offer collectible products in a distinctive way.</p>
+          </div>
+          <div class="flex w-full flex-col items-start gap-[14px]">
+            <div class="relative flex w-full items-start gap-[16px] rounded-[16px] border border-transparent gb [--bw:1px] bg-white/[0.03] px-[24px] py-[20px]">
+              <div class="relative size-[40px] shrink-0">
+                <div class="absolute left-0 top-0 flex size-[40px] items-center justify-center rounded-[20px] border-[0.714px] border-transparent gb [--bw:0.714px] bg-white/[0.06] px-[7.619px] py-[8.571px]">
+                  <img src="assets/icon-machine.svg" alt="" class="size-[22px]">
+                </div>
+              </div>
+              <div class="flex flex-col items-start justify-center gap-[8px] text-white">
+                <h3 class="font-titan text-[20px] leading-[1.2] xl:whitespace-nowrap">MACHINE OPTIONS</h3>
+                <p class="text-[12px] leading-[1.5] xl:whitespace-nowrap">Explore available vending-machine models and find the option that fits your intended location.</p>
+              </div>
+            </div>
+            <div class="relative flex w-full items-start gap-[16px] rounded-[16px] border border-transparent gb [--bw:1px] bg-white/[0.03] px-[24px] py-[20px]">
+              <div class="relative size-[40px] shrink-0">
+                <div class="absolute left-0 top-0 flex size-[40px] items-center justify-center rounded-[20px] border-[0.714px] border-transparent gb [--bw:0.714px] bg-white/[0.06] px-[7.619px] py-[8.571px]">
+                  <img src="assets/icon-customize.svg" alt="" class="size-[22px]">
+                </div>
+              </div>
+              <div class="flex flex-col items-start justify-center gap-[8px] text-white">
+                <h3 class="font-titan text-[20px] leading-[1.2] xl:whitespace-nowrap">CUSTOMIZATION OPTIONS</h3>
+                <p class="text-[12px] leading-[1.5] xl:whitespace-nowrap">Discover available machine finishes and customization options for your vending-machine setup.</p>
+              </div>
+            </div>
+            <div class="relative flex w-full items-start gap-[16px] rounded-[16px] border border-transparent gb [--bw:1px] bg-white/[0.03] px-[24px] py-[20px]">
+              <div class="relative size-[40px] shrink-0">
+                <div class="absolute left-0 top-0 flex size-[40px] items-center justify-center rounded-[20px] border-[0.714px] border-transparent gb [--bw:0.714px] bg-white/[0.06] px-[7.619px] py-[8.571px]">
+                  <img src="assets/icon-payment.svg" alt="" class="size-[22px]">
+                </div>
+              </div>
+              <div class="flex flex-col items-start justify-center gap-[8px] text-white">
+                <h3 class="font-titan text-[20px] leading-[1.2] xl:whitespace-nowrap">PAYMENT CONFIGURATIONS</h3>
+                <p class="text-[12px] leading-[1.5] xl:whitespace-nowrap">Explore available payment configurations and supported machine features.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-[18px]">
+          <a href="#" class="inline-flex h-[48px] shrink-0 items-center justify-center gap-[6px] rounded-[999px] border border-lightning bg-btn px-[23px] py-[12px] drop-shadow-[0px_10px_28px_rgba(47,123,255,0.64)] transition hover:brightness-110">
+                <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">EXPLORE VENDING MACHINES</span>
+                <img src="assets/arrow-up-right.svg" alt="" class="size-[20px] shrink-0">
+              </a>
+          <a href="#" class="relative inline-flex h-[48px] shrink-0 items-center justify-center gap-[6px] rounded-[999px] border-[1.5px] border-transparent gb [--bw:1.5px] bg-black/[0.06] px-[22.5px] py-[12px] transition hover:bg-electric/20">
+                <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">VIEW AVAILABLE MODELS</span>
+                <img src="assets/arrow-up-right-outline.svg" alt="" class="size-[20px] shrink-0">
+              </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Merch & collectibles -->
+    <section class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] flex flex-col items-start gap-[56px] pb-[100px] pt-[20px]">
+      <div class="flex w-full flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+        <div class="flex flex-col items-start justify-end gap-[16px]">
+          <div class="flex flex-col items-start justify-center gap-[16px]">
+            <div class="flex items-center gap-[12px]">
+              <img src="assets/dot.svg" alt="" class="size-[8px] shrink-0">
+              <p class="whitespace-nowrap text-[12px] font-medium uppercase leading-[1.5] text-neon">Merch &amp; collectibles</p>
+            </div>
+            <h2 class="uppercase xl:whitespace-nowrap font-titan text-[36px] leading-[1.15] text-white md:text-[44px] xl:text-[56px] xl:leading-[64px]">More than just cards</h2>
+          </div>
+          <p class="text-[16px] leading-[1.5] text-white xl:whitespace-nowrap">Explore merchandise and collectibles from the TCG HITZ universe.</p>
+        </div>
+        <a href="#" class="relative inline-flex h-[48px] shrink-0 items-center justify-center gap-[6px] rounded-[999px] border-[1.5px] border-transparent gb [--bw:1.5px] bg-black/[0.06] px-[22.5px] py-[12px] transition hover:bg-electric/20">
+                <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">VIEW ALL MERCHANDISE</span>
+                <img src="assets/arrow-up-right-outline.svg" alt="" class="size-[20px] shrink-0">
+              </a>
+      </div>
+      <div class="grid w-full grid-cols-1 gap-[24px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-pink text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">COLLECTIBLE FIGURE</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[116.723px] shrink-0">
+                    <div class="absolute left-0 top-[26px] h-[106.091px] w-[116.723px]"><div class="absolute inset-[-75.41%_-68.54%]"><img src="assets/merch-glow-1.svg" alt="" class="block size-full max-w-none"></div></div>
+                    <div class="absolute left-[-11.64px] top-[-18.5px] h-[187px] w-[141px] overflow-hidden"><img src="assets/merch-figures.png" alt="Umbreon Collectible Figure" class="absolute max-w-none left-[-17.13%] top-[-15.87%] h-[129.94%] w-[407.97%]"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool uppercase">3D-Printed Collectible · Placeholder</p>
+                    <h3 class="w-full max-w-[213px] font-titan text-[20px] leading-[1.2] text-white uppercase">Umbreon Collectible Figure</h3>
+                    <p class="w-full max-w-[234px] text-[8px] font-medium leading-[1.5] text-cool">A striking dark-type character figure with bold pink accents and a premium display-ready finish.</p>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-lightning text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">FAN FAVORITE</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[116.723px] shrink-0">
+                    <div class="absolute left-0 top-[26px] h-[106.091px] w-[116.723px]"><div class="absolute inset-[-75.41%_-68.54%]"><img src="assets/merch-glow-2.svg" alt="" class="block size-full max-w-none"></div></div>
+                    <div class="absolute left-[-5.64px] top-[-12.5px] h-[176px] w-[146px] overflow-hidden"><img src="assets/merch-figures.png" alt="Electric-Type Character Figure" class="absolute max-w-none left-[-109.12%] top-[-28.57%] h-[144.19%] w-[407.97%]"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool uppercase">Character Collectible · Placeholder</p>
+                    <h3 class="w-full max-w-[213px] font-titan text-[20px] leading-[1.2] text-white uppercase">Electric-Type Character Figure</h3>
+                    <p class="w-full max-w-[234px] text-[8px] font-medium leading-[1.5] text-cool">A vibrant character collectible featuring electric-blue details, a dynamic pose, and eye-catching shelf appeal.</p>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-neon text-white whitespace-nowrap text-[8px] font-medium leading-[1.5]">COLLECTOR'S PICK</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[116.723px] shrink-0">
+                    <div class="absolute left-0 top-[26px] h-[106.091px] w-[116.723px]"><div class="absolute inset-[-75.41%_-68.54%]"><img src="assets/merch-glow-3.svg" alt="" class="block size-full max-w-none"></div></div>
+                    <div class="absolute left-[calc(50%_+_9px)] top-[-6.5px] h-[172px] w-[154px] -translate-x-1/2 overflow-hidden"><img src="assets/merch-figures.png" alt="Ghost-Type Character Figure" class="absolute max-w-none left-[-196.51%] top-[-37.72%] h-[154.45%] w-[407.97%]"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool uppercase">Character Collectible · Placeholder</p>
+                    <h3 class="w-full max-w-[213px] font-titan text-[20px] leading-[1.2] text-white uppercase">Ghost-Type Character Figure</h3>
+                    <p class="w-full max-w-[243px] text-[8px] font-medium leading-[1.5] text-cool">A playful, expressive collectible with rich purple tones, sculpted details, and a distinctive display presence.</p>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="relative flex items-start justify-center rounded-[20px] border border-transparent gb [--bw:1px] bg-card px-[14px] pb-[18px] pt-[14px]">
+            <div class="flex w-full flex-col items-start gap-[17px] 2xl:w-[274px] 2xl:shrink-0">
+              <div class="flex h-[202px] w-full flex-col items-start rounded-[12px] bg-elevated px-[10px] pb-[24px] pt-[10px]">
+                <div class="flex w-full flex-col items-center">
+                  <div class="flex w-full items-center justify-between">
+                    <span class="flex items-center justify-center rounded-[48px] px-[8px] py-[3px] bg-gold text-void whitespace-nowrap text-[8px] font-medium leading-[1.5]">UNIQUE FIND</span>
+                    <button type="button" aria-label="Add to wishlist" class="flex size-[18px] shrink-0 flex-col items-start rounded-[9px] bg-white/[0.12] px-[4px] pb-[4px] pt-[5px] transition hover:bg-pink/60"><span class="block h-[8.75px] w-[10px] bg-white" style="-webkit-mask-image:url(assets/heart-mask.png);mask-image:url(assets/heart-mask.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10px 8.75px;mask-size:10px 8.75px;"></span></button>
+                  </div>
+                  <div class="relative h-[150px] w-[116.723px] shrink-0">
+                    <div class="absolute left-0 top-[26px] h-[106.091px] w-[116.723px]"><div class="absolute inset-[-75.41%_-68.54%]"><img src="assets/merch-glow-4.svg" alt="" class="block size-full max-w-none"></div></div>
+                    <div class="absolute left-[-24.64px] top-[calc(50%_-_3.5px)] h-[192px] w-[166px] -translate-y-1/2 overflow-hidden"><img src="assets/merch-figures.png" alt="Golden Character Collectible" class="absolute max-w-none left-[-289.11%] top-[-32.99%] h-[149.14%] w-[407.97%]"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full flex-col items-start gap-[14px] px-[10px]">
+                <div class="flex w-full max-w-[213px] flex-col items-start gap-[10px]">
+                  <div class="flex w-full flex-col items-start gap-[6px]">
+                    <p class="w-full max-w-[166px] text-[8px] font-medium leading-[1.5] text-cool uppercase">Character Collectible · Placeholder</p>
+                    <h3 class="w-full max-w-[213px] font-titan text-[20px] leading-[1.2] text-white uppercase">Golden Character Collectible</h3>
+                    <p class="w-full max-w-[234px] text-[8px] font-medium leading-[1.5] text-cool">A charming character figure with warm gold and cream tones, designed to stand out in any collectible display.</p>
+                  </div>
+                  <p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-pink">$24.00</p>
+                </div>
+                <div class="flex w-full items-center gap-[8px]">
+                  <a href="#" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-[666px] border-[0.667px] border-lightning bg-btn px-[16px] py-[8px] drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110 2xl:w-[214px] 2xl:flex-none">
+                    <span class="whitespace-nowrap text-[10px] font-bold uppercase leading-[1.3] text-white">View Product</span>
+                    <img src="assets/arrow-up-right-xs.svg" alt="" class="size-[12px] shrink-0">
+                  </a>
+                  <button type="button" aria-label="Add to cart" class="relative flex size-[32px] shrink-0 items-center justify-center rounded-[16px] border-[0.571px] border-transparent gb [--bw:0.571px] bg-white/[0.06] px-[6.095px] py-[6.857px] transition hover:bg-electric/30">
+                    <img src="assets/icon-cart-sm.svg" alt="" class="size-[18.286px]">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <!-- Why shop -->
+    <section class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] flex flex-col items-center gap-[48px] pb-[100px] pt-[20px]">
+      <div class="flex w-full flex-col items-center justify-center gap-[12px]">
+        <div class="flex flex-col items-center justify-center gap-[12px]">
+          <div class="flex items-center gap-[12px] justify-center">
+              <img src="assets/dot.svg" alt="" class="size-[8px] shrink-0">
+              <p class="whitespace-nowrap text-[12px] font-medium uppercase leading-[1.5] text-neon">THE TCG HITZ EXPERIENCE</p>
+            </div>
+          <h2 class="text-center xl:whitespace-nowrap font-titan text-[36px] leading-[1.15] text-white md:text-[44px] xl:text-[56px] xl:leading-[64px]">WHY SHOP TCG HITZ?</h2>
+        </div>
+        <p class="w-full max-w-[644px] text-center text-[16px] leading-[1.5] text-white">From trading cards to collectibles and vending machines, explore more of what makes collecting exciting.</p>
+      </div>
+      <div class="grid w-full grid-cols-1 gap-[20px] md:grid-cols-3">
+        <div class="relative flex flex-col items-start gap-[24px] rounded-[16px] border border-transparent gb [--bw:1px] bg-white/[0.03] p-[24px]">
+          <div class="relative size-[40px] shrink-0">
+            <div class="absolute left-[-4px] top-[-4px] flex size-[48px] items-center justify-center rounded-[24px] border-[0.857px] border-transparent gb [--bw:0.857px] bg-white/[0.06] px-[9.143px] py-[10.286px]">
+              <img src="assets/icon-world.svg" alt="" class="size-[26px]">
+            </div>
+          </div>
+          <div class="flex flex-col items-start justify-center gap-[8px] text-white">
+            <h3 class="font-titan text-[20px] leading-[1.2] xl:whitespace-nowrap">A WORLD OF COLLECTIBLES</h3>
+            <p class="w-full max-w-[374px] text-[12px] leading-[1.5]">Explore trading cards, mystery packs, graded cards, and merchandise in one place.</p>
+          </div>
+        </div>
+        <div class="relative flex flex-col items-start gap-[24px] rounded-[16px] border border-transparent gb [--bw:1px] bg-white/[0.03] p-[24px]">
+          <div class="relative size-[40px] shrink-0">
+            <div class="absolute left-[-4px] top-[-4px] flex size-[48px] items-center justify-center rounded-[24px] border-[0.857px] border-transparent gb [--bw:0.857px] bg-white/[0.06] px-[9.143px] py-[10.286px]">
+              <img src="assets/icon-discover.svg" alt="" class="size-[26px]">
+            </div>
+          </div>
+          <div class="flex flex-col items-start justify-center gap-[8px] text-white">
+            <h3 class="font-titan text-[20px] leading-[1.2] xl:whitespace-nowrap">DISCOVER SOMETHING NEW</h3>
+            <p class="w-full max-w-[378px] text-[12px] leading-[1.5]">Browse collectible finds and explore products that could become your next favorite addition.</p>
+          </div>
+        </div>
+        <div class="relative flex flex-col items-start gap-[24px] rounded-[16px] border border-transparent gb [--bw:1px] bg-white/[0.03] p-[24px]">
+          <div class="relative size-[40px] shrink-0">
+            <div class="absolute left-[-4px] top-[-4px] flex size-[48px] items-center justify-center rounded-[24px] border-[0.857px] border-transparent gb [--bw:0.857px] bg-white/[0.06] px-[9.143px] py-[10.286px]">
+              <img src="assets/icon-beyond.svg" alt="" class="size-[28px]">
+            </div>
+          </div>
+          <div class="flex flex-col items-start justify-center gap-[8px] text-white">
+            <h3 class="font-titan text-[20px] leading-[1.2] xl:whitespace-nowrap">BEYOND THE CARDS</h3>
+            <p class="w-full max-w-[360px] text-[12px] leading-[1.5]">Explore trading-card vending machines alongside the store&#39;s collectible products.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA banner -->
+    <section class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] flex flex-col items-start py-[20px]">
+      <div class="relative flex w-full flex-col items-center justify-center rounded-[24px] border-2 border-transparent gb [--bw:2px] px-6 py-16 md:px-[48px] md:py-[80px]">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px]">
+          <img src="assets/banner-cta.png" alt="" class="absolute left-[-2.81%] top-[-9.94%] h-[119.87%] w-[105.62%] max-w-none object-cover max-xl:inset-0 max-xl:size-full">
+        </div>
+        <div class="relative flex w-full max-w-[543px] flex-col items-center justify-center gap-[40px]">
+          <div class="flex w-full flex-col items-center justify-center gap-[16px]">
+            <div class="flex flex-col items-center justify-center gap-[16px]">
+              <div class="flex items-center gap-[12px] justify-center">
+              <img src="assets/dot.svg" alt="" class="size-[8px] shrink-0">
+              <p class="whitespace-nowrap text-[12px] font-medium uppercase leading-[1.5] text-neon">READY TO EXPLORE?</p>
+            </div>
+              <h2 class="w-full text-center xl:w-[694px] font-titan text-[36px] leading-[1.15] text-white md:text-[44px] xl:text-[56px] xl:leading-[64px]">YOUR NEXT GREAT FIND STARTS HERE.</h2>
+            </div>
+            <p class="w-full max-w-[428px] text-center text-[16px] leading-[1.5] text-white">Explore the TCG HITZ collection and discover something worth adding to your collection.</p>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-[18px]">
+            <a href="#" class="inline-flex h-[48px] shrink-0 items-center justify-center gap-[6px] rounded-[999px] border border-lightning bg-btn px-[23px] py-[12px] drop-shadow-[0px_10px_28px_rgba(47,123,255,0.64)] transition hover:brightness-110">
+                <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">EXPLORE THE STORE</span>
+                <img src="assets/arrow-up-right.svg" alt="" class="size-[20px] shrink-0">
+              </a>
+            <a href="#" class="relative inline-flex h-[48px] shrink-0 items-center justify-center gap-[6px] rounded-[999px] border-[1.5px] border-transparent gb [--bw:1.5px] bg-black/[0.06] px-[22.5px] py-[12px] transition hover:bg-electric/20">
+                <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">EXPLORE VENDING MACHINES</span>
+                <img src="assets/arrow-up-right-outline.svg" alt="" class="size-[20px] shrink-0">
+              </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inside the TCG HITZ universe -->
+    <section class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] flex flex-col items-start gap-[64px] pb-[60px] pt-[100px]">
+      <div class="flex w-full flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+        <div class="flex flex-col items-start justify-end gap-[16px]">
+          <div class="flex flex-col items-start justify-center gap-[16px]">
+            <div class="flex items-center gap-[12px]">
+              <img src="assets/dot.svg" alt="" class="size-[8px] shrink-0">
+              <p class="whitespace-nowrap text-[12px] font-medium uppercase leading-[1.5] text-neon">INSIDE THE TCG HITZ UNIVERSE</p>
+            </div>
+            <h2 class="w-full max-w-[847px] uppercase font-titan text-[36px] leading-[1.15] text-white md:text-[44px] xl:text-[56px] xl:leading-[64px]">MORE THAN A COLLECTION. IT'S AN EXPERIENCE.</h2>
+          </div>
+          <p class="text-[16px] leading-[1.5] text-white xl:whitespace-nowrap">From collectible cards and rare finds to our signature vending machines, explore the world of TCG HITZ.</p>
+        </div>
+        <a href="#" class="relative inline-flex h-[48px] shrink-0 items-center justify-center gap-[6px] rounded-[999px] border-[1.5px] border-transparent gb [--bw:1.5px] bg-black/[0.06] px-[22.5px] py-[12px] transition hover:bg-electric/20">
+                <span class="whitespace-nowrap text-[14px] font-bold uppercase leading-[1.3] text-white">EXPLORE TCG HITZ</span>
+                <img src="assets/arrow-up-right-outline.svg" alt="" class="size-[20px] shrink-0">
+              </a>
+      </div>
+      <div class="flex w-full flex-col items-start gap-[28px]">
+        <div class="flex w-full items-center justify-center gap-[24px]">
+          <div class="relative h-[220px] shrink-0 rounded-[16px] border-[0.75px] border-white/40 md:h-[346px] w-[330px] md:w-[519px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[16px]">
+              <img src="assets/gallery-1.png" alt="" class="absolute size-full max-w-none rounded-[16px] object-cover">
+              <div class="absolute inset-0 rounded-[16px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[46.098%] to-[rgba(0,0,0,0.84)]"></div>
+            </div>
+          </div><div class="relative h-[220px] shrink-0 rounded-[16px] border-[0.75px] border-white/40 md:h-[346px] w-[192px] md:w-[302px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[16px]">
+              <img src="assets/gallery-2.png" alt="" class="absolute size-full max-w-none rounded-[16px] object-cover">
+              <div class="absolute inset-0 rounded-[16px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[46.098%] to-[rgba(0,0,0,0.84)]"></div>
+            </div>
+          </div><div class="relative h-[220px] shrink-0 rounded-[16px] border-[0.75px] border-white/40 md:h-[346px] w-[330px] md:w-[519px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[16px]">
+              <img src="assets/gallery-3.png" alt="" class="absolute size-full max-w-none rounded-[16px] object-cover">
+              <div class="absolute inset-0 rounded-[16px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[46.098%] to-[rgba(0,0,0,0.84)]"></div>
+            </div>
+          </div><div class="relative h-[220px] shrink-0 rounded-[16px] border-[0.75px] border-white/40 md:h-[346px] w-[192px] md:w-[302px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[16px]">
+              <img src="assets/gallery-2.png" alt="" class="absolute size-full max-w-none rounded-[16px] object-cover">
+              <div class="absolute inset-0 rounded-[16px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[46.098%] to-[rgba(0,0,0,0.84)]"></div>
+            </div>
+          </div><div class="relative h-[220px] shrink-0 rounded-[16px] border-[0.75px] border-white/40 md:h-[346px] w-[192px] md:w-[302px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[16px]">
+              <img src="assets/gallery-1.png" alt="" class="absolute size-full max-w-none rounded-[16px] object-cover">
+              <div class="absolute inset-0 rounded-[16px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[46.098%] to-[rgba(0,0,0,0.84)]"></div>
+            </div>
+          </div>
+        </div>
+        <div class="flex w-full items-center justify-center gap-[24px]">
+          <div class="relative h-[220px] shrink-0 rounded-[16px] border-[0.75px] border-white/40 md:h-[346px] w-[192px] md:w-[302px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[16px]">
+              <img src="assets/gallery-1.png" alt="" class="absolute size-full max-w-none rounded-[16px] object-cover">
+              <div class="absolute inset-0 rounded-[16px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[46.098%] to-[rgba(0,0,0,0.84)]"></div>
+            </div>
+          </div><div class="relative h-[220px] shrink-0 rounded-[16px] border-[0.75px] border-white/40 md:h-[346px] w-[330px] md:w-[519px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[16px]">
+              <img src="assets/gallery-4.png" alt="" class="absolute size-full max-w-none rounded-[16px] object-cover">
+              <div class="absolute inset-0 rounded-[16px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[46.098%] to-[rgba(0,0,0,0.84)]"></div>
+            </div>
+          </div><div class="relative h-[220px] shrink-0 rounded-[16px] border-[0.75px] border-white/40 md:h-[346px] w-[192px] md:w-[302px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[16px]">
+              <img src="assets/gallery-5.png" alt="" class="absolute size-full max-w-none rounded-[16px] object-cover">
+              <div class="absolute inset-0 rounded-[16px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[46.098%] to-[rgba(0,0,0,0.84)]"></div>
+            </div>
+          </div><div class="relative h-[220px] shrink-0 rounded-[16px] border-[0.75px] border-white/40 md:h-[346px] w-[330px] md:w-[519px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[16px]">
+              <img src="assets/gallery-6.png" alt="" class="absolute size-full max-w-none rounded-[16px] object-cover">
+              <div class="absolute inset-0 rounded-[16px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[46.098%] to-[rgba(0,0,0,0.84)]"></div>
+            </div>
+          </div><div class="relative h-[220px] shrink-0 rounded-[16px] border-[0.75px] border-white/40 md:h-[346px] w-[192px] md:w-[302px]">
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[16px]">
+              <img src="assets/gallery-1.png" alt="" class="absolute size-full max-w-none rounded-[16px] object-cover">
+              <div class="absolute inset-0 rounded-[16px] bg-gradient-to-b from-[rgba(0,0,0,0.13)] from-[46.098%] to-[rgba(0,0,0,0.84)]"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Join the community -->
+    <section class="mx-auto flex w-full max-w-[1440px] flex-col items-center gap-[42px] pt-[20px] xl:flex-row xl:pr-[80px]">
+      <div class="relative h-[300px] w-full shrink-0 sm:h-[472px] xl:w-[651px]">
+        <div class="absolute inset-0 overflow-hidden"><img src="assets/community.png" alt="TCG HITZ community" class="absolute left-[-0.01%] top-0 h-full w-[123.46%] max-w-none max-xl:w-full max-xl:object-cover"></div>
+      </div>
+      <div class="flex w-full flex-col items-start gap-[32px] px-5 pb-[32px] md:px-10 xl:w-auto xl:px-0">
+        <div class="flex flex-col items-start justify-end gap-[16px]">
+          <div class="flex flex-col items-start justify-center gap-[16px]">
+            <div class="flex items-center gap-[12px]">
+              <img src="assets/dot.svg" alt="" class="size-[8px] shrink-0">
+              <p class="whitespace-nowrap text-[12px] font-medium uppercase leading-[1.5] text-neon">get Started</p>
+            </div>
+            <h2 class="w-full max-w-[454px] font-titan text-[36px] uppercase leading-[1.15] text-white md:text-[48px] md:leading-[55px]">JOIN THE TCG HITZ COMMUNITY.</h2>
+          </div>
+          <p class="text-[16px] leading-[1.5] text-white xl:whitespace-nowrap">Get updates on new arrivals, collectible drops, and store news.</p>
+        </div>
+        <form class="flex w-full flex-col items-stretch gap-[16px] sm:flex-row sm:items-center" onsubmit="event.preventDefault()">
+          <label class="relative flex h-[56px] w-full items-center rounded-[1000px] border-[1.5px] border-transparent gb gb-red [--bw:1.5px] bg-white/[0.08] px-[22.5px] py-[12px] sm:w-[480px]">
+            <span class="sr-only">Email address</span>
+            <input type="email" required placeholder="Type your email address ..." class="w-full min-w-0 bg-transparent text-[16px] leading-[1.3] text-white outline-none placeholder:text-white">
+          </label>
+          <button type="submit" class="flex h-[56px] w-full shrink-0 items-center justify-center gap-[8px] rounded-[1000px] bg-gradient-to-r from-crimson to-fire px-[24px] py-[12px] transition hover:brightness-110 sm:w-[171px]">
+            <span class="whitespace-nowrap text-[16.333px] font-bold uppercase leading-[1.3] text-white">Subscribe</span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="relative z-[1] border-t-[1.5px] border-transparent shadow-[0px_-10px_24px_0px_rgba(224,74,159,0.12)] backdrop-blur-[4px]">
+    <span aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-[-1.5px] h-[1.5px]" style="background-image:linear-gradient(90deg, rgb(37, 99, 255) 5.3632%, rgb(236, 72, 153) 101.59%)"></span>
+    <div class="mx-auto w-full max-w-[1440px] px-5 md:px-10 2xl:px-[80px] flex flex-col items-center gap-[64px] pt-[80px]">
+      <div class="flex w-full flex-wrap items-start justify-between gap-x-8 gap-y-12 xl:flex-nowrap xl:gap-0">
+        <div class="flex w-full flex-col items-start gap-[32px] sm:w-auto">
+          <a href="#" class="block h-[92px] w-[134px]"><img src="assets/logo.png" alt="TCG HITZ" class="size-full object-cover"></a>
+          <div class="flex flex-col items-start gap-[28px]">
+            <p class="w-full max-w-[292px] text-[14px] leading-[1.5] text-white">Trading cards, collectibles, merchandise, and vending machines—all in one place.</p>
+            <div class="flex items-center justify-center gap-[10px]">
+              <a href="#" aria-label="Facebook" class="relative flex size-[40px] items-center justify-center rounded-[97.778px] border-[1.111px] border-transparent gb [--bw:1.111px] bg-white/[0.12] transition hover:bg-electric/40"><span class="block h-[18px] w-[10.28px] bg-white" style="-webkit-mask-image:url(assets/social-facebook.png);mask-image:url(assets/social-facebook.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:10.28px 18px;mask-size:10.28px 18px;"></span></a>
+              <a href="#" aria-label="X (Twitter)" class="relative flex size-[40px] items-center justify-center rounded-[97.778px] border-[1.111px] border-transparent gb [--bw:1.111px] bg-white/[0.12] transition hover:bg-electric/40"><span class="block size-[16px] bg-white" style="-webkit-mask-image:url(assets/social-x.png);mask-image:url(assets/social-x.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:16px 16px;mask-size:16px 16px;"></span></a>
+              <a href="#" aria-label="Instagram" class="relative flex size-[40px] items-center justify-center rounded-[97.778px] border-[1.111px] border-transparent gb [--bw:1.111px] bg-white/[0.12] transition hover:bg-electric/40"><span class="block size-[18px] bg-white" style="-webkit-mask-image:url(assets/social-instagram.png);mask-image:url(assets/social-instagram.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:18px 18px;mask-size:18px 18px;"></span></a>
+              <a href="#" aria-label="LinkedIn" class="relative flex size-[40px] items-center justify-center rounded-[97.778px] border-[1.111px] border-transparent gb [--bw:1.111px] bg-white/[0.12] transition hover:bg-electric/40"><span class="block size-[16px] bg-white" style="-webkit-mask-image:url(assets/social-linkedin.png);mask-image:url(assets/social-linkedin.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:16px 16px;mask-size:16px 16px;"></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-start gap-[28px] whitespace-nowrap text-white">
+            <p class="font-titan text-[20px] leading-[1.5]">SHOP</p>
+            <div class="flex flex-col items-start gap-[16px]">
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">Trading Cards</a>
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">Mystery Packs</a>
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">Graded Cards</a>
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">Merchandise</a>
+            </div>
+          </div>
+        <div class="flex flex-col items-start gap-[28px] whitespace-nowrap text-white">
+            <p class="font-titan text-[20px] leading-[1.5]">MACHINES</p>
+            <div class="flex flex-col items-start gap-[16px]">
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">Vending Machines</a>
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">Browse Machines</a>
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">Machine Information</a>
+            </div>
+          </div>
+        <div class="flex flex-col items-start gap-[28px] whitespace-nowrap text-white">
+            <p class="font-titan text-[20px] leading-[1.5]">HELP</p>
+            <div class="flex flex-col items-start gap-[16px]">
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">About Us</a>
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">Contact Us</a>
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">Shipping Policy</a>
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">Returns &amp; Refunds</a>
+              <a href="#" class="text-[14px] leading-[1.5] text-white transition hover:text-lightning">FAQs</a>
+            </div>
+          </div>
+        <div class="flex flex-col items-start gap-[28px]">
+          <p class="whitespace-nowrap font-titan text-[20px] leading-[1.5] text-white">Our Contact</p>
+          <div class="flex flex-col items-start gap-[18px]">
+            <a href="tel:+12086207749" class="flex items-center gap-[8px]">
+              <span class="relative flex size-[28px] shrink-0 items-center justify-center rounded-[14px] border-[0.75px] border-transparent gb [--bw:0.75px] bg-white/[0.06]"><img src="assets/icon-phone.svg" alt="" class="size-[14px]"></span>
+              <span class="whitespace-nowrap text-[14px] leading-[1.5] text-white">+1 208-620-7749</span>
+            </a>
+            <a href="mailto:admin@tcghitz.com" class="flex items-center gap-[8px]">
+              <span class="relative flex size-[28px] shrink-0 items-center justify-center rounded-[14px] border-[0.75px] border-transparent gb [--bw:0.75px] bg-white/[0.06]"><img src="assets/icon-mail.svg" alt="" class="h-[10.111px] w-[14px]"></span>
+              <span class="whitespace-nowrap text-[14px] leading-[1.5] text-white">admin@tcghitz.com</span>
+            </a>
+            <div class="flex items-start gap-[8px]">
+              <span class="relative flex size-[28px] shrink-0 items-center justify-center rounded-[14px] border-[0.75px] border-transparent gb [--bw:0.75px] bg-white/[0.06]"><img src="assets/icon-location.svg" alt="" class="size-[15px]"></span>
+              <p class="w-[136px] pt-[2px] text-[14px] leading-[1.5] text-white">&nbsp;Skate Plaza in Coeur d’Alene, Idaho</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex w-full flex-col items-start justify-between gap-2 border-t border-white/40 py-[16px] text-[14px] font-light leading-[1.5] text-white sm:h-[50px] sm:flex-row sm:gap-0">
+        <p class="whitespace-nowrap">© 2026 TCG HITZ. All rights reserved.</p>
+        <p class="whitespace-nowrap">&nbsp;<a href="#" class="hover:text-lightning">Terms</a> | <a href="#" class="hover:text-lightning">Privacy</a> | <a href="#" class="hover:text-lightning">Cookies Policy</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Mobile menu
+  document.querySelector('[data-menu-toggle]').addEventListener('click', function () {
+    var menu = document.getElementById('mobile-menu');
+    var open = menu.classList.toggle('hidden') === false;
+    this.setAttribute('aria-expanded', String(open));
+  });
+</script>
+</body>
+</html>
