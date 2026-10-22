@@ -9,206 +9,215 @@
  */
 {
   "sections": {
-    "tcg_hero": {
-      "type": "tcg-hero",
+    "home_hero": {
+      "type": "tcg-home-hero",
+      "settings": {
+        "bg_video_url": "",
+        "overlay_opacity": 64,
+        "show_glows": true,
+        "under_header": true,
+        "eyebrow": "THE TCG HITZ EXPERIENCE",
+        "heading_before": "CHASE THE",
+        "heading_highlight": "RARE",
+        "heading_after": ".",
+        "text": "Discover trading cards, mystery packs, graded collectibles, and merchandise—all in one place. Explore the TCG HITZ experience and discover our trading-card vending machines.",
+        "btn1_label": "SHOP TRADING CARDS",
+        "btn1_link": "/collections/all",
+        "btn2_label": "EXPLORE VENDING MACHINES",
+        "btn2_link": "/pages/vending-machines",
+        "show_stars": true,
+        "stars_text": "Trusted at card shows every weekend",
+        "art_alt": "TCG HITZ vending machine",
+        "show_logo": true
+      }
+    },
+    "home_strip": {
+      "type": "tcg-home-strip",
       "blocks": {
-        "b1": {
-          "type": "brand",
+        "w1": {
+          "type": "item",
           "settings": {
-            "name": "Pokémon",
-            "sub": "Singles · Sealed · Slabs",
-            "link": "/collections/all"
+            "text": "POKÉMON CARDS"
           }
         },
-        "b2": {
-          "type": "brand",
+        "w2": {
+          "type": "item",
           "settings": {
-            "name": "Magic",
-            "sub": "Coming soon",
-            "link": "/collections/all"
+            "text": "MYSTERY PACKS"
           }
         },
-        "b3": {
-          "type": "brand",
+        "w3": {
+          "type": "item",
           "settings": {
-            "name": "One Piece",
-            "sub": "Coming soon",
-            "link": "/collections/all"
+            "text": "GRADED CARDS"
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "text": "MERCHANDISE"
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "text": "VENDING MACHINES"
           }
         }
       },
       "block_order": [
-        "b1",
-        "b2",
-        "b3"
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
       ],
       "settings": {
-        "bg_video_url": "",
-        "bg_video_mp4": "https://cdn.shopify.com/videos/c/o/v/1672fa246e8c4f34b8cf81cbd8ca6788.mp4",
-        "disable_smoke": true,
-        "overlay_color": "#000000",
-        "overlay_opacity": 40,
-        "enable_gradient_overlay": true,
-        "gradient_direction": "to bottom",
-        "gradient_color": "#000000",
-        "gradient_opacity": 85,
-        "stars_text": "Trusted at card shows every weekend",
-        "heading_line1": "CHASE",
-        "heading_line2": "THE RARE",
-        "highlight_word": "RARE",
-        "subheading": "Pokémon singles with real photos of the actual card, sealed boxes, mystery packs, graded slabs — plus our own TCG Hitz vending machines.",
-        "cta_primary_label": "SHOP NOW",
-        "cta_primary_link": "/collections/all",
-        "cta_secondary_label": "MYSTERY PACKS",
-        "cta_secondary_link": "/collections/all#mystery",
-        "perk_1": "Real photos, every single",
-        "perk_2": "Ships in 1 business day",
-        "featured_product": "",
-        "caption_label": "See this week's chase →",
-        "caption_link": "",
-        "search_placeholder": "Search a card, set or number…"
+        "tagline": "COLLECT  ✦  TRADE  ✦  RIP  ✦  REPEAT",
+        "animate": true,
+        "speed": "normal",
+        "overlap": true
       }
     },
-    "tcg_bestsellers": {
-      "type": "tcg-bestsellers",
-      "settings": {
-        "heading": "Bestsellers",
-        "collection": "frontpage",
-        "products_to_show": 8,
-        "enable_ambient_glow": true,
-        "show_product_count": true,
-        "product_count_label": "PRODUCTS",
-        "show_view_all": true,
-        "view_all_label": "Shop all",
-        "view_all_link": "",
-        "show_divider": false
-      }
-    },
-    "tcg_popular": {
-      "type": "tcg-popular",
+    "home_categories": {
+      "type": "tcg-home-categories",
       "blocks": {
-        "pop1": {
-          "type": "item",
+        "c1": {
+          "type": "category",
           "settings": {
-            "heading": "Singles",
-            "subheading": "Real photos · 1 of each",
+            "fallback": "pokemon",
+            "title": "POKÉMON CARDS",
+            "text": "Explore Pokémon cards, from individual singles to collectible finds.",
+            "label": "SHOP POKÉMON",
             "link": "/collections/all"
           }
         },
-        "pop2": {
-          "type": "item",
+        "c2": {
+          "type": "category",
           "settings": {
-            "heading": "Mystery Packs",
-            "subheading": "Chase the rare",
+            "fallback": "mystery",
+            "title": "MYSTERY PACKS",
+            "text": "Explore mystery packs and discover your next collectible addition.",
+            "label": "EXPLORE PACKS",
             "link": "/collections/mystery"
           }
         },
-        "pop3": {
-          "type": "item",
+        "c3": {
+          "type": "category",
           "settings": {
-            "heading": "Graded Slabs",
-            "subheading": "PSA · CGC · BGS",
+            "fallback": "graded",
+            "title": "GRADED CARDS",
+            "text": "Browse graded trading cards and collectible slabs.",
+            "label": "SHOP GRADED",
             "link": "/collections/slabs"
           }
         },
-        "pop4": {
-          "type": "item",
+        "c4": {
+          "type": "category",
           "settings": {
-            "heading": "Merchandise",
-            "subheading": "3D prints & collectibles",
+            "fallback": "trading",
+            "title": "TRADING CARDS",
+            "text": "Explore trading-card products and accessories available in the store.",
+            "label": "EXPLORE TRADING CARDS",
+            "link": "/collections/all"
+          }
+        },
+        "c5": {
+          "type": "category",
+          "settings": {
+            "fallback": "merch",
+            "title": "MERCHANDISE",
+            "text": "Explore apparel, accessories, and collectibles from TCG HITZ.",
+            "label": "SHOP MERCHANDISE",
             "link": "/collections/merchandise"
           }
-        }
-      },
-      "block_order": [
-        "pop1",
-        "pop2",
-        "pop3",
-        "pop4"
-      ],
-      "settings": {
-        "heading": "Most Popular"
-      }
-    },
-    "tcg_mystery": {
-      "type": "tcg-mystery",
-      "blocks": {
-        "t1": {
-          "type": "tier",
-          "settings": {
-            "name": "Mystery Pack",
-            "price": "$19.99",
-            "badge": "POPULAR",
-            "link": ""
-          }
         },
-        "t2": {
-          "type": "tier",
+        "c6": {
+          "type": "category",
           "settings": {
-            "name": "Mystery Box",
-            "price": "$74.99",
-            "badge": "POPULAR",
-            "link": ""
-          }
-        },
-        "t3": {
-          "type": "tier",
-          "settings": {
-            "name": "Mystery Slab",
-            "price": "$49.99",
-            "badge": "POPULAR",
-            "link": ""
+            "fallback": "vending",
+            "title": "VENDING MACHINE",
+            "text": "Explore trading-card vending machines available from TCG HITZ.",
+            "label": "EXPLORE MACHINES",
+            "link": "/pages/vending-machines"
           }
         }
       },
       "block_order": [
-        "t1",
-        "t2",
-        "t3"
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
       ],
       "settings": {
-        "eyebrow": "TCG HITZ EXCLUSIVE",
-        "heading": "Mystery packs & boxes",
-        "body": "Hand-built packs with a real shot at a hit — every one guarantees value, and the top tiers drop graded slabs and alt arts. The same thrill as our machines, shipped to your door.",
-        "cta_label": "Shop mystery",
-        "cta_link": "/collections/mystery"
+        "eyebrow": "EXPLORE THE COLLECTION",
+        "heading": "FIND YOUR NEXT FAVORITE.",
+        "glow": "left-purple"
       }
     },
-    "tcg_vending": {
-      "type": "tcg-vending",
+    "home_featured": {
+      "type": "tcg-home-products",
       "settings": {
-        "eyebrow": "OUR OWN MACHINES",
-        "heading": "Pokémon card vending machines",
-        "body": "The machines you've seen at the shows — now available for your shop, event or arcade. Custom TCG Hitz wrap, Pokémon · Magic · One Piece, built to draw a crowd.",
-        "cta_label": "Explore the machines",
-        "cta_link": "/pages/vending-machines"
+        "eyebrow": "FEATURED PRODUCTS",
+        "heading": "COLLECTOR'S PICKS.",
+        "text": "Discover selected trading cards and collectibles from the TCG HITZ collection.",
+        "btn_label": "VIEW ALL PRODUCTS",
+        "btn_link": "/collections/all",
+        "collection": "frontpage",
+        "limit": 8,
+        "show_desc": false,
+        "show_glow": false,
+        "padding": "normal",
+        "show_samples": true,
+        "samples": "featured",
+        "sample_price": "$24.00",
+        "glow": "right-blue"
       }
     },
-    "tcg_trust": {
-      "type": "tcg-trust",
+    "home_mystery": {
+      "type": "tcg-home-banner",
+      "settings": {
+        "fallback": "mystery",
+        "overlay": 0,
+        "align": "left",
+        "buttons": "red",
+        "eyebrow": "THE THRILL OF THE UNKNOWN",
+        "heading": "CHASE YOUR NEXT RARE FIND.",
+        "text": "Every collection has room for another surprise. Explore TCG HITZ mystery packs and discover your next collectible addition.",
+        "btn1_label": "SHOP MYSTERY PACKS",
+        "btn1_link": "/collections/mystery",
+        "btn2_label": "EXPLORE ALL COLLECTIBLES",
+        "btn2_link": "/collections/all",
+        "glow": "left-pink"
+      }
+    },
+    "home_vending": {
+      "type": "tcg-home-vending",
       "blocks": {
         "f1": {
           "type": "feature",
           "settings": {
-            "icon": "camera",
-            "heading": "Two real photos",
-            "body": "Front and back of the exact card you'll receive — never a stock image."
+            "icon": "machine",
+            "title": "MACHINE OPTIONS",
+            "text": "Explore available vending-machine models and find the option that fits your intended location."
           }
         },
         "f2": {
           "type": "feature",
           "settings": {
-            "icon": "truck",
-            "heading": "Ships in 1 business day",
-            "body": "Penny sleeve, top loader, team bag, bubble mailer. Protected end to end."
+            "icon": "customize",
+            "title": "CUSTOMIZATION OPTIONS",
+            "text": "Discover available machine finishes and customization options for your vending-machine setup."
           }
         },
         "f3": {
           "type": "feature",
           "settings": {
-            "icon": "shield",
-            "heading": "Honest conditions",
-            "body": "NM, LP, MP, HP — graded the same way every time, explained on every page."
+            "icon": "payment",
+            "title": "PAYMENT CONFIGURATIONS",
+            "text": "Explore available payment configurations and supported machine features."
           }
         }
       },
@@ -218,156 +227,235 @@
         "f3"
       ],
       "settings": {
-        "heading": "Why collectors trust TCG Hitz"
+        "video_url": "",
+        "play_label": "Play video",
+        "eyebrow": "MEET THE TCG HITZ MACHINES",
+        "heading": "BRING THE TCG HITZ EXPERIENCE TO YOUR LOCATION.",
+        "text": "Explore trading-card vending machines designed for businesses and locations looking to offer collectible products in a distinctive way.",
+        "btn1_label": "EXPLORE VENDING MACHINES",
+        "btn1_link": "/pages/vending-machines",
+        "btn2_label": "VIEW AVAILABLE MODELS",
+        "btn2_link": "/pages/vending-machines#machines",
+        "glow": "right-gold"
       }
     },
-    "tcg_just_landed": {
-      "type": "tcg-just-landed",
+    "home_merch": {
+      "type": "tcg-home-products",
       "settings": {
-        "heading": "Just Landed ✈",
-        "collection": "frontpage",
-        "products_to_show": 6,
-        "enable_ambient_glow": true,
-        "view_all_label": "LOAD MORE ARRIVALS",
-        "view_all_link": "/collections/all"
-      }
-    },
-    "tcg_merch_promo": {
-      "type": "tcg_merch_promo",
-      "settings": {
-        "heading": "Merchandise",
-        "subheading": "Our own 3D prints, plus plushies, figures and collectibles.",
+        "eyebrow": "Merch & collectibles",
+        "heading": "More than just cards",
+        "text": "Explore merchandise and collectibles from the TCG HITZ universe.",
+        "btn_label": "VIEW ALL MERCHANDISE",
+        "btn_link": "/collections/merchandise",
         "collection": "merchandise",
-        "products_to_show": 4
+        "limit": 4,
+        "show_desc": true,
+        "show_glow": true,
+        "padding": "tight",
+        "show_samples": true,
+        "samples": "merch",
+        "sample_price": "$24.00",
+        "glow": "left-pink"
       }
     },
-    "tcg_social": {
-      "type": "tcg-social",
+    "home_why": {
+      "type": "tcg-home-why",
       "blocks": {
-        "s1": {
-          "type": "image",
-          "settings": {}
-        },
-        "s2": {
-          "type": "image",
-          "settings": {}
-        },
-        "s3": {
-          "type": "image",
-          "settings": {}
-        },
-        "s4": {
-          "type": "image",
-          "settings": {}
-        },
-        "s5": {
-          "type": "image",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "s1",
-        "s2",
-        "s3",
-        "s4",
-        "s5"
-      ],
-      "settings": {
-        "heading": "Join the #HitzFamily",
-        "subheading": "Pulls, restocks and show days — follow along."
-      }
-    },
-    "tcg_sell_cta": {
-      "type": "tcg-sell-cta",
-      "settings": {
-        "badge": "FAST OFFERS · WE BUY DAILY",
-        "heading": "Sell or trade your cards",
-        "body": "Bring it to a show or send photos. We buy singles, slabs and sealed — fair offers, paid fast.",
-        "cta_label": "Get an offer",
-        "cta_link": "/pages/sell"
-      }
-    },
-    "tcg_faq": {
-      "type": "tcg-faq",
-      "blocks": {
-        "q1": {
-          "type": "qa",
+        "y1": {
+          "type": "card",
           "settings": {
-            "question": "Are your cards authentic?",
-            "answer": "Yes. Every card is inspected and photographed by us before it's listed."
+            "icon": "world",
+            "title": "A WORLD OF COLLECTIBLES",
+            "text": "Explore trading cards, mystery packs, graded cards, and merchandise in one place."
           }
         },
-        "q2": {
-          "type": "qa",
+        "y2": {
+          "type": "card",
           "settings": {
-            "question": "How fast do you ship?",
-            "answer": "Orders go out within one business day, tracked, in protective packaging."
+            "icon": "discover",
+            "title": "DISCOVER SOMETHING NEW",
+            "text": "Browse collectible finds and explore products that could become your next favorite addition."
           }
         },
-        "q3": {
-          "type": "qa",
+        "y3": {
+          "type": "card",
           "settings": {
-            "question": "What's in a mystery pack?",
-            "answer": "Every pack guarantees value, with a real chance at a graded slab or alt art."
-          }
-        },
-        "q4": {
-          "type": "qa",
-          "settings": {
-            "question": "Do you buy collections?",
-            "answer": "Yes — singles, slabs and sealed, any size. Send photos or catch us at a show."
-          }
-        },
-        "q5": {
-          "type": "qa",
-          "settings": {
-            "question": "Can I buy a vending machine?",
-            "answer": "We build custom-wrapped machines for shops and events — send an enquiry from the machines page."
-          }
-        },
-        "q6": {
-          "type": "qa",
-          "settings": {
-            "question": "What do the conditions mean?",
-            "answer": "NM, LP, MP, HP and DMG — the full guide is on every product page."
+            "icon": "beyond",
+            "title": "BEYOND THE CARDS",
+            "text": "Explore trading-card vending machines alongside the store's collectible products."
           }
         }
       },
       "block_order": [
-        "q1",
-        "q2",
-        "q3",
-        "q4",
-        "q5",
-        "q6"
+        "y1",
+        "y2",
+        "y3"
       ],
       "settings": {
-        "heading": "FAQ",
-        "subheading": "Questions? We've got answers."
+        "eyebrow": "THE TCG HITZ EXPERIENCE",
+        "heading": "WHY SHOP TCG HITZ?",
+        "text": "From trading cards to collectibles and vending machines, explore more of what makes collecting exciting.",
+        "glow": "right-gold"
       }
     },
-    "tcg_newsletter": {
-      "type": "tcg-newsletter",
+    "home_cta": {
+      "type": "tcg-home-banner",
       "settings": {
-        "heading": "Join the Hitz Insider List",
-        "subheading": "Restocks, drops and show dates. No spam.",
-        "button_label": "JOIN",
-        "success_text": "JOINED — welcome to the Hitz Family."
+        "fallback": "cta",
+        "overlay": 0,
+        "align": "center",
+        "buttons": "blue",
+        "eyebrow": "READY TO EXPLORE?",
+        "heading": "YOUR NEXT GREAT FIND STARTS HERE.",
+        "text": "Explore the TCG HITZ collection and discover something worth adding to your collection.",
+        "btn1_label": "EXPLORE THE STORE",
+        "btn1_link": "/collections/all",
+        "btn2_label": "EXPLORE VENDING MACHINES",
+        "btn2_link": "/pages/vending-machines",
+        "glow": "left-pink"
+      }
+    },
+    "home_gallery": {
+      "type": "tcg-home-gallery",
+      "blocks": {
+        "g1": {
+          "type": "photo",
+          "settings": {
+            "fallback": "1",
+            "size": "wide",
+            "row": "1",
+            "alt": "TCG HITZ machines and collectors"
+          }
+        },
+        "g2": {
+          "type": "photo",
+          "settings": {
+            "fallback": "2",
+            "size": "narrow",
+            "row": "1",
+            "alt": "TCG HITZ machines and collectors"
+          }
+        },
+        "g3": {
+          "type": "photo",
+          "settings": {
+            "fallback": "3",
+            "size": "wide",
+            "row": "1",
+            "alt": "TCG HITZ machines and collectors"
+          }
+        },
+        "g4": {
+          "type": "photo",
+          "settings": {
+            "fallback": "2",
+            "size": "narrow",
+            "row": "1",
+            "alt": "TCG HITZ machines and collectors"
+          }
+        },
+        "g5": {
+          "type": "photo",
+          "settings": {
+            "fallback": "1",
+            "size": "narrow",
+            "row": "1",
+            "alt": "TCG HITZ machines and collectors"
+          }
+        },
+        "g6": {
+          "type": "photo",
+          "settings": {
+            "fallback": "1",
+            "size": "narrow",
+            "row": "2",
+            "alt": "TCG HITZ machines and collectors"
+          }
+        },
+        "g7": {
+          "type": "photo",
+          "settings": {
+            "fallback": "4",
+            "size": "wide",
+            "row": "2",
+            "alt": "TCG HITZ machines and collectors"
+          }
+        },
+        "g8": {
+          "type": "photo",
+          "settings": {
+            "fallback": "5",
+            "size": "narrow",
+            "row": "2",
+            "alt": "TCG HITZ machines and collectors"
+          }
+        },
+        "g9": {
+          "type": "photo",
+          "settings": {
+            "fallback": "6",
+            "size": "wide",
+            "row": "2",
+            "alt": "TCG HITZ machines and collectors"
+          }
+        },
+        "g10": {
+          "type": "photo",
+          "settings": {
+            "fallback": "1",
+            "size": "narrow",
+            "row": "2",
+            "alt": "TCG HITZ machines and collectors"
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6",
+        "g7",
+        "g8",
+        "g9",
+        "g10"
+      ],
+      "settings": {
+        "eyebrow": "INSIDE THE TCG HITZ UNIVERSE",
+        "heading": "MORE THAN A COLLECTION. IT'S AN EXPERIENCE.",
+        "text": "From collectible cards and rare finds to our signature vending machines, explore the world of TCG HITZ.",
+        "btn_label": "EXPLORE TCG HITZ",
+        "btn_link": "/collections/all",
+        "motion": "static",
+        "glow": "right-gold"
+      }
+    },
+    "home_community": {
+      "type": "tcg-home-community",
+      "settings": {
+        "image_alt": "TCG HITZ community",
+        "eyebrow": "get Started",
+        "heading": "JOIN THE TCG HITZ COMMUNITY.",
+        "text": "Get updates on new arrivals, collectible drops, and store news.",
+        "placeholder": "Type your email address ...",
+        "button_label": "Subscribe",
+        "success_text": "You're in! Welcome to the TCG HITZ community.",
+        "glow": "left-pink"
       }
     }
   },
   "order": [
-    "tcg_hero",
-    "tcg_bestsellers",
-    "tcg_popular",
-    "tcg_mystery",
-    "tcg_vending",
-    "tcg_trust",
-    "tcg_just_landed",
-    "tcg_merch_promo",
-    "tcg_social",
-    "tcg_sell_cta",
-    "tcg_faq",
-    "tcg_newsletter"
+    "home_hero",
+    "home_strip",
+    "home_categories",
+    "home_featured",
+    "home_mystery",
+    "home_vending",
+    "home_merch",
+    "home_why",
+    "home_cta",
+    "home_gallery",
+    "home_community"
   ]
 }

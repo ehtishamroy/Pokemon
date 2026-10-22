@@ -1,0 +1,25 @@
+{%- comment -%}
+  Soft colour glow at the left/right edge of a homepage section (the design's blurred
+  background ellipses). Param: glow — 'none' | 'left-purple' | 'left-pink' | 'right-blue' | 'right-gold'
+{%- endcomment -%}
+{%- if glow != blank and glow != 'none' -%}
+  {%- liquid
+    case glow
+      when 'left-purple'
+        assign glow_class = 'hz-glow hz-glow--purple'
+        assign glow_x = '260px'
+      when 'left-pink'
+        assign glow_class = 'hz-glow hz-glow--pink'
+        assign glow_x = '260px'
+      when 'right-blue'
+        assign glow_class = 'hz-glow hz-glow--blue'
+        assign glow_x = '1560px'
+      else
+        assign glow_class = 'hz-glow hz-glow--gold'
+        assign glow_x = '1560px'
+    endcase
+  -%}
+  <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-0 h-full w-[1440px] -translate-x-1/2">
+    <span class="{{ glow_class }}" style="left: {{ glow_x }}; top: 50%;"></span>
+  </div>
+{%- endif -%}

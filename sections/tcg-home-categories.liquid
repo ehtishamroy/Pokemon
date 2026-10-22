@@ -1,0 +1,84 @@
+{% comment %}
+  TCG Hitz — "Explore the collection" category tiles (client-approved design).
+  Each tile is a block: image (or one of the design images), title, short text, pill label, link.
+{% endcomment %}
+
+<section class="tcg-scope hz relative">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-stretch gap-[56px] pb-[20px] pt-[100px]">
+    {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, align: 'center', heading_class: 'max-w-[535px]' %}
+    <div class="grid w-full grid-cols-2 gap-[16px] sm:grid-cols-3 lg:grid-cols-6">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          if block.settings.image != blank
+            assign tile_img = block.settings.image | image_url: width: 600
+          else
+            assign tile_img = 'home-cat-' | append: block.settings.fallback | append: '.webp' | asset_url
+          endif
+        -%}
+        <a href="{{ block.settings.link | default: '#' }}" class="group relative flex h-[250px] flex-col items-start justify-end overflow-hidden rounded-[8px] border-[0.75px] border-solid border-white/40 py-[11.25px] pl-[11.25px] pr-[13.25px]" {{ block.shopify_attributes }}>
+          <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[8px]">
+            <img src="{{ tile_img }}" alt="" loading="lazy" width="520" height="750" class="absolute inset-0 h-full w-full max-w-none rounded-[8px] object-cover transition-transform duration-500 group-hover:scale-105">
+            <div class="absolute inset-0 rounded-[8px]" style="background: linear-gradient(to bottom, rgba(0,0,0,.13) 35.047%, rgba(0,0,0,.84) 79.907%);"></div>
+          </div>
+          <div class="relative flex w-full max-w-[171px] flex-col items-start gap-[12px]">
+            <div class="flex w-full flex-col items-start gap-[6px] text-white">
+              <h3 class="font-display text-[16px] leading-[1.15] sm:text-[18px]">{{ block.settings.title }}</h3>
+              {%- if block.settings.text != blank -%}<p class="w-full text-[8px] leading-[1.5]">{{ block.settings.text }}</p>{%- endif -%}
+            </div>
+            {%- if block.settings.label != blank -%}
+              <span class="flex items-center justify-center gap-[2px] rounded-[100px] tcg-gb [--bw:0.6px] px-[7.4px] py-[5.4px] text-white transition group-hover:bg-hz-electric/30">
+                <span class="whitespace-nowrap text-[8px] font-semibold uppercase leading-[1.3]">{{ block.settings.label }}</span>{% render 'tcg-home-arrow', px: 10 %}
+              </span>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Home — Categories",
+  "class": "tcg-home-section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "EXPLORE THE COLLECTION" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "FIND YOUR NEXT FAVORITE." }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "select", "id": "fallback", "label": "Design image (used when no image is chosen)", "options": [
+          { "value": "pokemon", "label": "Pokémon cards" },
+          { "value": "mystery", "label": "Mystery packs" },
+          { "value": "graded", "label": "Graded cards" },
+          { "value": "trading", "label": "Trading cards" },
+          { "value": "merch", "label": "Merchandise" },
+          { "value": "vending", "label": "Vending machine" }
+        ], "default": "pokemon" },
+        { "type": "text", "id": "title", "label": "Title", "default": "POKÉMON CARDS" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Explore Pokémon cards, from individual singles to collectible finds." },
+        { "type": "text", "id": "label", "label": "Button label", "default": "SHOP POKÉMON" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "TCG Home — Categories",
+    "blocks": [
+      { "type": "category", "settings": { "fallback": "pokemon", "title": "POKÉMON CARDS", "text": "Explore Pokémon cards, from individual singles to collectible finds.", "label": "SHOP POKÉMON" } },
+      { "type": "category", "settings": { "fallback": "mystery", "title": "MYSTERY PACKS", "text": "Explore mystery packs and discover your next collectible addition.", "label": "EXPLORE PACKS" } },
+      { "type": "category", "settings": { "fallback": "graded", "title": "GRADED CARDS", "text": "Browse graded trading cards and collectible slabs.", "label": "SHOP GRADED" } },
+      { "type": "category", "settings": { "fallback": "trading", "title": "TRADING CARDS", "text": "Explore trading-card products and accessories available in the store.", "label": "EXPLORE TRADING CARDS" } },
+      { "type": "category", "settings": { "fallback": "merch", "title": "MERCHANDISE", "text": "Explore apparel, accessories, and collectibles from TCG HITZ.", "label": "SHOP MERCHANDISE" } },
+      { "type": "category", "settings": { "fallback": "vending", "title": "VENDING MACHINE", "text": "Explore trading-card vending machines available from TCG HITZ.", "label": "EXPLORE MACHINES" } }
+    ]
+  }]
+}
+{% endschema %}

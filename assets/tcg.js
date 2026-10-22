@@ -142,18 +142,21 @@ document.addEventListener('click', async (e) => {
     if (add.disabled || Cart.busy) return;
     const qtyEl = add.hasAttribute('data-add-main') ? document.querySelector('[data-qty-value]') : null;
     const qty = parseInt(add.dataset.qty || (qtyEl && qtyEl.textContent) || '1', 10);
-    const label = add.textContent;
+    // Save the full markup so icon-only buttons (homepage cards) get their icon back.
+    const label = add.innerHTML;
+    const done = add.hasAttribute('data-add-icon') ? '✓' : 'ADDED ✓';
+    const failed = add.hasAttribute('data-add-icon') ? '!' : 'TRY AGAIN';
     Cart.busy = true;
     try {
       const addons = add.hasAttribute('data-add-main')
         ? Array.from(document.querySelectorAll('[data-addon]:checked')).map((el) => el.dataset.variantId)
         : [];
       await Cart.add(add.dataset.variantId, qty, addons);
-      add.textContent = 'ADDED ✓';
-      setTimeout(() => { add.textContent = label; }, 1200);
+      add.textContent = done;
+      setTimeout(() => { add.innerHTML = label; }, 1200);
     } catch (err) {
-      add.textContent = 'TRY AGAIN';
-      setTimeout(() => { add.textContent = label; }, 1600);
+      add.textContent = failed;
+      setTimeout(() => { add.innerHTML = label; }, 1600);
       console.error(err);
     } finally { Cart.busy = false; }
     return;
@@ -370,3 +373,53 @@ document.querySelectorAll('[data-tabs]').forEach((wrap) => {
   tabs.forEach((t) => t.addEventListener('click', () => show(t.dataset.tab)));
   if (tabs[0]) show(tabs[0].dataset.tab);
 });
+
+/* ------------------------------------------------------------------------
+   Homepage v2 (sections/tcg-home-*.liquid)
+   - Favourite hearts on product cards (saved in this browser only)
+   - Vending video pop-up
+   ------------------------------------------------------------------------ */
+(function initHomeV2() {
+  const KEY = 'tcg-favs';
+  const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { return []; } };
+  const write = (list) => { try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) { /* storage blocked */ } };
+  const paint = () => {
+    const favs = read();
+    document.querySelectorAll('[data-hz-fav]').forEach((btn) => {
+      btn.setAttribute('aria-pressed', favs.includes(btn.dataset.hzFav) ? 'true' : 'false');
+    });
+  };
+  document.addEventListener('click', (e) => {
+    const fav = e.target.closest('[data-hz-fav]');
+    if (fav) {
+      e.preventDefault();
+      const id = fav.dataset.hzFav;
+      const favs = read();
+      const at = favs.indexOf(id);
+      if (at === -1) favs.push(id); else favs.splice(at, 1);
+      write(favs);
+      paint();
+      return;
+    }
+    const open = e.target.closest('[data-hz-video-open]');
+    if (open) {
+      const dialog = open.closest('section')?.querySelector('[data-hz-video-dialog]');
+      const video = dialog?.querySelector('[data-hz-video]');
+      if (!dialog || !video) return;
+      if (video.getAttribute('src') !== open.dataset.hzVideoOpen) video.setAttribute('src', open.dataset.hzVideoOpen);
+      if (typeof dialog.showModal === 'function') dialog.showModal(); else dialog.setAttribute('open', '');
+      video.play().catch(() => {});
+      return;
+    }
+    const dlg = e.target.closest('[data-hz-video-dialog]');
+    if (dlg && (e.target.closest('[data-hz-video-close]') || e.target === dlg)) {
+      dlg.querySelector('[data-hz-video]')?.pause();
+      if (typeof dlg.close === 'function') dlg.close(); else dlg.removeAttribute('open');
+    }
+  });
+  document.addEventListener('close', (e) => {
+    if (e.target.matches && e.target.matches('[data-hz-video-dialog]')) e.target.querySelector('[data-hz-video]')?.pause();
+  }, true);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+  document.addEventListener('shopify:section:load', paint);
+})();

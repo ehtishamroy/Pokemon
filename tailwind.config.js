@@ -39,6 +39,13 @@ module.exports = {
         slate:  { DEFAULT: '#8A96B8' },
         mint:   { DEFAULT: '#3DD68C' },                               // in-stock
         ink:    { DEFAULT: '#06070F' },
+        // Client-approved homepage design (tcg-hitz-complete-homepage) — namespaced so it
+        // doesn't clash with the tokens above (e.g. `neon` is yellow there, purple here).
+        hz: {
+          void: '#080A12', card: '#111827', elevated: '#182338', electric: '#2563FF',
+          btn: '#2F7BFF', lightning: '#38BDF8', pink: '#EC4899', neon: '#8B5CF6',
+          cool: '#A7B0C0', success: '#22C55E', crimson: '#EF4444', fire: '#FF6B35', gold: '#FACC15',
+        },
       },
       fontFamily: {
         display: ['"Titan One"', 'system-ui', 'sans-serif'],
@@ -52,7 +59,8 @@ module.exports = {
         card: '0 30px 60px -20px rgba(0,0,0,.75)',
       },
       borderRadius: { card: '14px' },
-      maxWidth: { site: '1280px' },
+      maxWidth: { site: '1280px', hz: '1440px' },
+      screens: { '2xl': '1440px' },
     },
   },
   plugins: [],

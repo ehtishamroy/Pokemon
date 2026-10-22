@@ -1,0 +1,126 @@
+{% comment %}
+  TCG Hitz — Homepage vending machines feature (client-approved design).
+  Framed machine photo with a play button (opens the video in a pop-up when one is set),
+  eyebrow + heading + text, feature rows (blocks), two buttons.
+{% endcomment %}
+
+{%- liquid
+  if section.settings.image != blank
+    assign machine_img = section.settings.image | image_url: width: 1200
+  else
+    assign machine_img = 'home-vending.webp' | asset_url
+  endif
+  assign video_src = ''
+  if section.settings.video != blank
+    assign mp4_source = section.settings.video.sources | where: 'format', 'mp4' | sort: 'height' | last
+    assign video_src = mp4_source.url
+  endif
+  if video_src == blank
+    assign video_src = section.settings.video_url | strip
+  endif
+-%}
+
+<section class="tcg-scope hz relative">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-center gap-[44px] py-[100px] xl:flex-row">
+    <div class="relative flex h-[420px] w-full flex-col items-center justify-center rounded-[24px] tcg-gb [--bw:2px] md:h-[600px] xl:h-[722px] xl:w-[596px] xl:shrink-0">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px]">
+        <img src="{{ machine_img }}" alt="" loading="lazy" width="1200" height="1600" class="absolute inset-0 h-full w-full max-w-none object-cover">
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.08) 0%, rgba(0,0,0,.64) 100%), rgba(0,0,0,.32);"></div>
+      </div>
+      {%- if video_src != blank -%}
+        <button type="button" data-hz-video-open="{{ video_src | escape }}" aria-label="{{ section.settings.play_label | escape }}" class="relative flex size-[60px] items-center justify-center rounded-full border-[7px] border-solid border-[rgba(80,130,255,0.56)] bg-hz-electric pl-[4px] drop-shadow-[0px_10px_28px_rgba(47,123,255,0.64)] transition hover:scale-105">
+          <svg width="19" height="22" viewBox="0 0 19 22" fill="#fff" aria-hidden="true"><path d="M17.6 9.27a2 2 0 0 1 0 3.46L3 21.16A2 2 0 0 1 0 19.43V2.57A2 2 0 0 1 3 .84l14.6 8.43Z"/></svg>
+        </button>
+      {%- endif -%}
+    </div>
+
+    <div class="flex w-full max-w-[640px] flex-col items-start gap-[48px]">
+      <div class="flex w-full flex-col items-start gap-[32px]">
+        {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, heading_class: 'max-w-[626px]' %}
+        <div class="flex w-full flex-col items-stretch gap-[14px]">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              if block.settings.icon_image != blank
+                assign icon_url = block.settings.icon_image | image_url: width: 88
+              else
+                assign icon_url = 'home-icon-' | append: block.settings.icon | append: '.svg' | asset_url
+              endif
+            -%}
+            <div class="relative flex w-full items-start gap-[16px] rounded-[16px] tcg-gb bg-white/[0.03] px-[24px] py-[20px]" {{ block.shopify_attributes }}>
+              <span class="relative flex size-[40px] shrink-0 items-center justify-center rounded-[20px] tcg-gb [--bw:0.714px] bg-white/[0.06]">
+                <img src="{{ icon_url }}" alt="" width="22" height="22" class="size-[22px] object-contain">
+              </span>
+              <div class="flex flex-col items-start justify-center gap-[8px] text-white">
+                <h3 class="font-display text-[20px] leading-[1.2]">{{ block.settings.title }}</h3>
+                {%- if block.settings.text != blank -%}<p class="text-[12px] leading-[1.5]">{{ block.settings.text }}</p>{%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-[18px]">
+        {% render 'tcg-home-button', label: section.settings.btn1_label, link: section.settings.btn1_link, kind: 'solid' %}
+        {% render 'tcg-home-button', label: section.settings.btn2_label, link: section.settings.btn2_link, kind: 'outline' %}
+      </div>
+    </div>
+  </div>
+
+  {%- if video_src != blank -%}
+    <dialog class="hz-video-dialog" data-hz-video-dialog aria-label="{{ section.settings.play_label | escape }}">
+      <div class="relative pt-12">
+        <button type="button" data-hz-video-close class="absolute right-0 top-0 flex size-9 items-center justify-center rounded-full bg-white/10 text-2xl leading-none text-white hover:bg-white/20" aria-label="Close video">&times;</button>
+        <video class="aspect-video w-full rounded-[16px] bg-black" controls playsinline preload="none" data-hz-video></video>
+      </div>
+    </dialog>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "TCG Home — Vending",
+  "class": "tcg-home-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
+    { "type": "image_picker", "id": "image", "label": "Machine image", "info": "Defaults to the design's machine photo." },
+    { "type": "video", "id": "video", "label": "Video (Shopify-hosted)", "info": "Optional. The play button only shows when a video is set." },
+    { "type": "text", "id": "video_url", "label": "…or video MP4 link" },
+    { "type": "text", "id": "play_label", "label": "Play button label (screen readers)", "default": "Play video" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "MEET THE TCG HITZ MACHINES" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "BRING THE TCG HITZ EXPERIENCE TO YOUR LOCATION." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Explore trading-card vending machines designed for businesses and locations looking to offer collectible products in a distinctive way." },
+    { "type": "text", "id": "btn1_label", "label": "Button 1 label", "default": "EXPLORE VENDING MACHINES" },
+    { "type": "url", "id": "btn1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "btn2_label", "label": "Button 2 label", "default": "VIEW AVAILABLE MODELS" },
+    { "type": "url", "id": "btn2_link", "label": "Button 2 link" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "machine", "label": "Machine" },
+          { "value": "customize", "label": "Customize" },
+          { "value": "payment", "label": "Payment" },
+          { "value": "world", "label": "World" },
+          { "value": "discover", "label": "Discover" },
+          { "value": "beyond", "label": "Beyond" }
+        ], "default": "machine" },
+        { "type": "image_picker", "id": "icon_image", "label": "Custom icon (optional)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "MACHINE OPTIONS" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Explore available vending-machine models and find the option that fits your intended location." }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "TCG Home — Vending",
+    "blocks": [
+      { "type": "feature", "settings": { "icon": "machine", "title": "MACHINE OPTIONS", "text": "Explore available vending-machine models and find the option that fits your intended location." } },
+      { "type": "feature", "settings": { "icon": "customize", "title": "CUSTOMIZATION OPTIONS", "text": "Discover available machine finishes and customization options for your vending-machine setup." } },
+      { "type": "feature", "settings": { "icon": "payment", "title": "PAYMENT CONFIGURATIONS", "text": "Explore available payment configurations and supported machine features." } }
+    ]
+  }]
+}
+{% endschema %}

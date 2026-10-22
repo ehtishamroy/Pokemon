@@ -1,0 +1,101 @@
+{% comment %}
+  TCG Hitz — Homepage product grid (client-approved design).
+  Used twice on the homepage: "Featured products / COLLECTOR'S PICKS." and
+  "Merch & collectibles / MORE THAN JUST CARDS". Pulls products from a collection; until the
+  collection has products it can show the design's example cards (turn off before launch).
+{% endcomment %}
+
+{%- liquid
+  assign coll = section.settings.collection
+  assign has_products = false
+  if coll != blank and coll.products_count > 0
+    assign has_products = true
+  endif
+  assign glows = 'pink,blue,purple,gold' | split: ','
+  if section.settings.padding == 'tight'
+    assign pad_class = 'pb-[100px] pt-[20px]'
+  else
+    assign pad_class = 'py-[100px]'
+  endif
+  assign view_all = section.settings.btn_link | default: coll.url
+-%}
+
+<section class="tcg-scope hz relative">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-stretch gap-[56px] {{ pad_class }}">
+    <div class="flex w-full flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+      {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, heading_class: 'uppercase xl:whitespace-nowrap', text_class: 'xl:whitespace-nowrap' %}
+      {% render 'tcg-home-button', label: section.settings.btn_label, link: view_all, kind: 'outline' %}
+    </div>
+
+    <div class="grid w-full grid-cols-1 gap-x-[24px] gap-y-[30px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {%- if has_products -%}
+        {%- for product in coll.products limit: section.settings.limit -%}
+          {%- liquid
+            assign glow = ''
+            if section.settings.show_glow
+              assign glow_index = forloop.index0 | modulo: 4
+              assign glow = glows[glow_index]
+            endif
+          -%}
+          {% render 'tcg-home-card', product: product, show_desc: section.settings.show_desc, glow: glow %}
+        {%- endfor -%}
+      {%- elsif section.settings.show_samples -%}
+        {%- liquid
+          if section.settings.samples == 'merch'
+            assign sample_rows = "merch-1^COLLECTIBLE FIGURE^pink^3D-Printed Collectible^Umbreon Collectible Figure^A striking dark-type character figure with bold pink accents and a premium display-ready finish.~~merch-2^FAN FAVORITE^lightning^Character Collectible^Electric-Type Character Figure^A vibrant character collectible featuring electric-blue details, a dynamic pose, and eye-catching shelf appeal.~~merch-3^COLLECTOR'S PICK^neon^Character Collectible^Ghost-Type Character Figure^A playful, expressive collectible with rich purple tones, sculpted details, and a distinctive display presence.~~merch-4^UNIQUE FIND^gold^Character Collectible^Golden Character Collectible^A charming character figure with warm gold and cream tones, designed to stand out in any collectible display." | split: '~~'
+          else
+            assign sample_rows = 'p-umbreon^Near Mint^pink^POKÉMON · SINGLE CARD^Umbreon VMAX — Alternate Art^~~p-booster^In Stock^success^POKÉMON · SEALED PRODUCT^Pokémon Booster Box^~~p-charizard^Graded Collectible^crimson^POKÉMON · GRADED CARD^Charizard Graded Card^~~p-mystery^In Stock^success^MYSTERY PRODUCTS^TCG HITZ Mystery Pack^~~p-etb^In Stock^success^POKÉMON · SEALED PRODUCT^Pokémon Elite Trainer Box^~~p-promo^Near Mint^pink^POKÉMON · PROMO CARD^Pokémon Promo Card^~~p-onepiece^In Stock^success^ONE PIECE · SINGLE CARD^One Piece Trading Card^~~p-sleeves^In Stock^success^CARD ACCESSORIES^Trading Card Protective Sleeves^' | split: '~~'
+          endif
+        -%}
+        {%- for row in sample_rows limit: section.settings.limit -%}
+          {%- liquid
+            assign cols = row | split: '^'
+            assign sample_img = 'home-' | append: cols[0] | append: '.webp' | asset_url
+            assign glow = ''
+            if section.settings.show_glow
+              assign glow_index = forloop.index0 | modulo: 4
+              assign glow = glows[glow_index]
+            endif
+            assign sample_desc = ''
+            if section.settings.show_desc
+              assign sample_desc = cols[5]
+            endif
+          -%}
+          {% render 'tcg-home-card', title: cols[4], meta: cols[3], price: section.settings.sample_price, img: sample_img, badge: cols[1], tone: cols[2], desc: sample_desc, show_desc: section.settings.show_desc, link: view_all, glow: glow %}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Home — Products",
+  "class": "tcg-home-section",
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FEATURED PRODUCTS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "COLLECTOR'S PICKS." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Discover selected trading cards and collectibles from the TCG HITZ collection." },
+    { "type": "text", "id": "btn_label", "label": "Button label", "default": "VIEW ALL PRODUCTS" },
+    { "type": "url", "id": "btn_link", "label": "Button link", "info": "Defaults to the collection below." },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 4, "max": 12, "step": 1, "default": 8 },
+    { "type": "checkbox", "id": "show_desc", "label": "Show short description (merch style)", "default": false },
+    { "type": "checkbox", "id": "show_glow", "label": "Colour glow behind product images", "default": false },
+    { "type": "select", "id": "padding", "label": "Spacing", "options": [
+      { "value": "normal", "label": "Normal (100px top and bottom)" },
+      { "value": "tight", "label": "Tight top (20px)" }
+    ], "default": "normal" },
+    { "type": "header", "content": "Example cards" },
+    { "type": "checkbox", "id": "show_samples", "label": "Show the design's example cards while the collection is empty", "default": true, "info": "Example cards are not real products. Turn this off before launch, or pick a collection with products." },
+    { "type": "select", "id": "samples", "label": "Example set", "options": [
+      { "value": "featured", "label": "Cards & sealed" },
+      { "value": "merch", "label": "Merch figures" }
+    ], "default": "featured" },
+    { "type": "text", "id": "sample_price", "label": "Example price", "default": "$24.00" }
+  ],
+  "presets": [{ "name": "TCG Home — Products" }]
+}
+{% endschema %}

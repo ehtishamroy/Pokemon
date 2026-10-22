@@ -1,0 +1,74 @@
+{% comment %}
+  TCG Hitz — "WHY SHOP TCG HITZ?" feature cards (client-approved design). Cards are blocks.
+{% endcomment %}
+
+<section class="tcg-scope hz relative">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-center gap-[48px] pb-[100px] pt-[20px]">
+    <div class="flex flex-col items-center gap-[12px] text-center">
+      {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, align: 'center', heading_class: 'xl:whitespace-nowrap' %}
+      {%- if section.settings.text != blank -%}<p class="w-full max-w-[644px] text-center text-[16px] leading-[1.5] text-white">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="grid w-full grid-cols-1 gap-[20px] md:grid-cols-3">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          if block.settings.icon_image != blank
+            assign icon_url = block.settings.icon_image | image_url: width: 104
+          else
+            assign icon_url = 'home-icon-' | append: block.settings.icon | append: '.svg' | asset_url
+          endif
+        -%}
+        <div class="relative flex flex-col items-start gap-[24px] rounded-[16px] tcg-gb bg-white/[0.03] p-[24px]" {{ block.shopify_attributes }}>
+          <span class="relative flex size-[48px] shrink-0 items-center justify-center rounded-[24px] tcg-gb [--bw:0.857px] bg-white/[0.06]">
+            <img src="{{ icon_url }}" alt="" width="26" height="26" class="size-[26px] object-contain">
+          </span>
+          <div class="flex flex-col items-start justify-center gap-[8px] text-white">
+            <h3 class="font-display text-[20px] leading-[1.2]">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="w-full max-w-[378px] text-[12px] leading-[1.5]">{{ block.settings.text }}</p>{%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Home — Why shop",
+  "class": "tcg-home-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE TCG HITZ EXPERIENCE" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "WHY SHOP TCG HITZ?" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "From trading cards to collectibles and vending machines, explore more of what makes collecting exciting." }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "world", "label": "World" },
+          { "value": "discover", "label": "Discover" },
+          { "value": "beyond", "label": "Beyond" },
+          { "value": "machine", "label": "Machine" },
+          { "value": "customize", "label": "Customize" },
+          { "value": "payment", "label": "Payment" }
+        ], "default": "world" },
+        { "type": "image_picker", "id": "icon_image", "label": "Custom icon (optional)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "A WORLD OF COLLECTIBLES" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Explore trading cards, mystery packs, graded cards, and merchandise in one place." }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "TCG Home — Why shop",
+    "blocks": [
+      { "type": "card", "settings": { "icon": "world", "title": "A WORLD OF COLLECTIBLES", "text": "Explore trading cards, mystery packs, graded cards, and merchandise in one place." } },
+      { "type": "card", "settings": { "icon": "discover", "title": "DISCOVER SOMETHING NEW", "text": "Browse collectible finds and explore products that could become your next favorite addition." } },
+      { "type": "card", "settings": { "icon": "beyond", "title": "BEYOND THE CARDS", "text": "Explore trading-card vending machines alongside the store's collectible products." } }
+    ]
+  }]
+}
+{% endschema %}

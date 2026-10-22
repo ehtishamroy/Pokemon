@@ -1,0 +1,81 @@
+{% comment %}
+  TCG Hitz — Homepage gradient strip (client-approved design).
+  A tab with the tagline ("COLLECT ✦ TRADE ✦ RIP ✦ REPEAT") above a blue→pink band of
+  category words separated by gold dots. Words are blocks; the band can scroll as a ticker.
+{% endcomment %}
+
+{%- liquid
+  assign items = section.blocks | where: 'type', 'item'
+  if section.settings.speed == 'slow'
+    assign speed = '60s'
+  elsif section.settings.speed == 'fast'
+    assign speed = '24s'
+  else
+    assign speed = '40s'
+  endif
+-%}
+
+<div class="tcg-scope hz relative z-[2] flex w-full flex-col items-start{% if section.settings.overlap %} -mt-[52px]{% endif %}">
+  {%- if section.settings.tagline != blank -%}
+    <div class="flex items-center rounded-tr-[35px] border-b-2 border-solid border-white px-5 py-[8px] md:px-[80px]" style="background-image: linear-gradient(32.45deg, #2563FF 5.3632%, #EC4899 101.59%);">
+      <p class="whitespace-pre font-display text-[16px] leading-[33px] text-white sm:text-[20px]">{{ section.settings.tagline }}</p>
+    </div>
+  {%- endif -%}
+  <div class="hz-grad-bg relative flex h-[87px] w-full items-center overflow-hidden{% unless section.settings.animate %} justify-center{% endunless %}">
+    {%- if section.settings.animate -%}
+      <div class="hz-marquee w-full">
+        <div class="hz-marquee__track" style="--hz-speed: {{ speed }};">
+          {%- for pass in (1..2) -%}
+            <div class="flex shrink-0 items-center gap-[48px] py-[24px] pr-[48px]"{% if forloop.last %} aria-hidden="true"{% endif %}>
+              {%- for block in items -%}
+                <p class="shrink-0 whitespace-nowrap text-[20px] font-bold uppercase leading-[1.63] text-white md:text-[24px]" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                <span class="size-[12px] shrink-0 rounded-full bg-hz-gold" aria-hidden="true"></span>
+              {%- endfor -%}
+              {%- comment -%} Repeat the list so short lists still fill wide screens {%- endcomment -%}
+              {%- for block in items -%}
+                <p class="shrink-0 whitespace-nowrap text-[20px] font-bold uppercase leading-[1.63] text-white md:text-[24px]" aria-hidden="true">{{ block.settings.text }}</p>
+                <span class="size-[12px] shrink-0 rounded-full bg-hz-gold" aria-hidden="true"></span>
+              {%- endfor -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- else -%}
+      <div class="flex shrink-0 items-center justify-center gap-[48px] py-[24px]">
+        {%- for block in items -%}
+          {%- unless forloop.first -%}<span class="size-[12px] shrink-0 rounded-full bg-hz-gold" aria-hidden="true"></span>{%- endunless -%}
+          <p class="shrink-0 whitespace-nowrap text-[20px] font-bold uppercase leading-[1.63] text-white md:text-[24px]" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "TCG Home — Strip",
+  "class": "tcg-home-section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "tagline", "label": "Tagline tab", "default": "COLLECT  ✦  TRADE  ✦  RIP  ✦  REPEAT" },
+    { "type": "checkbox", "id": "animate", "label": "Scroll the words (ticker)", "default": true },
+    { "type": "select", "id": "speed", "label": "Ticker speed", "options": [
+      { "value": "slow", "label": "Slow" }, { "value": "normal", "label": "Normal" }, { "value": "fast", "label": "Fast" }
+    ], "default": "normal" },
+    { "type": "checkbox", "id": "overlap", "label": "Overlap the section above (like the design)", "default": true }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Word", "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "POKÉMON CARDS" } ] }
+  ],
+  "presets": [{
+    "name": "TCG Home — Strip",
+    "blocks": [
+      { "type": "item", "settings": { "text": "POKÉMON CARDS" } },
+      { "type": "item", "settings": { "text": "MYSTERY PACKS" } },
+      { "type": "item", "settings": { "text": "GRADED CARDS" } },
+      { "type": "item", "settings": { "text": "MERCHANDISE" } },
+      { "type": "item", "settings": { "text": "VENDING MACHINES" } }
+    ]
+  }]
+}
+{% endschema %}

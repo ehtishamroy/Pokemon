@@ -1,0 +1,19 @@
+{%- comment -%}
+  Homepage section heading: eyebrow (gold dot + purple label), Titan heading, optional text.
+  Params: eyebrow, heading, text, align ('left' default | 'center'), heading_class, text_class, tag (default h2)
+{%- endcomment -%}
+{%- liquid
+  assign heading_tag = tag | default: 'h2'
+  if align == 'center'
+    assign align_class = 'items-center text-center'
+  else
+    assign align_class = 'items-start text-left'
+  endif
+-%}
+<div class="flex flex-col gap-[16px] {{ align_class }}">
+  <div class="flex flex-col gap-[16px] {{ align_class }}">
+    {%- if eyebrow != blank -%}<div class="hz-eyebrow"><span>{{ eyebrow }}</span></div>{%- endif -%}
+    {%- if heading != blank -%}<{{ heading_tag }} class="hz-h2 {{ heading_class }}">{{ heading }}</{{ heading_tag }}>{%- endif -%}
+  </div>
+  {%- if text != blank -%}<p class="text-[16px] leading-[1.5] text-white {{ text_class }}">{{ text }}</p>{%- endif -%}
+</div>

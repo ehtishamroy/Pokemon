@@ -22,3 +22,6 @@ assets/tailwind-input.css
 # Static reference site and stray root-level assets (theme images live in assets/)
 tcg-hitz-store/*
 pikachu.png
+
+# Client-approved homepage design reference (static HTML + source images)
+tcg-hitz-complete-homepage/*

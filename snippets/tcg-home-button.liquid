@@ -1,0 +1,19 @@
+{%- comment -%}
+  Homepage button (client-approved design).
+  Params: label, link, kind: 'solid' (blue, default) | 'outline' (gradient border) | 'red' | 'red-outline'
+{%- endcomment -%}
+{%- if label != blank -%}
+  {%- liquid
+    case kind
+      when 'outline'
+        assign btn_class = 'hz-btn-outline tcg-gb'
+      when 'red'
+        assign btn_class = 'hz-btn-red'
+      when 'red-outline'
+        assign btn_class = 'hz-btn-red-outline tcg-gb tcg-gb--red'
+      else
+        assign btn_class = 'hz-btn'
+    endcase
+  -%}
+  <a href="{{ link | default: '#' }}" class="{{ btn_class }}"><span>{{ label }}</span>{% render 'tcg-home-arrow' %}</a>
+{%- endif -%}

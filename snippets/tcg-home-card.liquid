@@ -1,0 +1,161 @@
+{%- comment -%}
+  Homepage product card (client-approved design, tcg-hitz-complete-homepage).
+
+  Real product:
+    {% render 'tcg-home-card', product: product, show_desc: true, glow: 'pink' %}
+  Sample card (shown before a collection is chosen / has products):
+    {% render 'tcg-home-card', title: '…', meta: '…', price: '$24.00', img: url, badge: 'In Stock', tone: 'success', desc: '…', link: '/collections/all' %}
+
+  Badge for real products: a product tag "badge:Your text" wins; otherwise Sold Out,
+  the card condition metafield (e.g. Near Mint), graded/slab tags, then "In Stock".
+  glow: optional colour behind the image — pink | blue | purple | gold.
+{%- endcomment -%}
+
+{%- liquid
+  assign card_link = link | default: '#'
+  assign card_title = title
+  assign card_meta = meta
+  assign card_price = price
+  assign card_img = img
+  assign card_badge = badge
+  assign card_tone = tone | default: 'success'
+  assign card_desc = desc
+  assign add_id = ''
+  assign card_multi = false
+
+  if product != blank
+    assign card_link = product.url
+    assign card_title = product.title
+    assign first_variant = product.selected_or_first_available_variant
+
+    if product.type != blank and product.vendor != blank
+      assign card_meta = product.vendor | append: ' · ' | append: product.type
+    else
+      assign card_meta = product.type | default: product.vendor
+    endif
+
+    assign card_price = product.price | money
+    if product.price_varies
+      assign card_price = 'From ' | append: card_price
+    endif
+
+    if product.featured_image
+      assign card_img = product.featured_image | image_url: width: 500
+    else
+      assign card_img = 'card-back.svg' | asset_url
+    endif
+
+    if show_desc
+      assign card_desc = product.description | strip_html | truncatewords: 18
+    endif
+
+    assign card_badge = ''
+    for tag in product.tags
+      assign tag_down = tag | downcase
+      if tag_down contains 'badge:'
+        assign card_badge = tag | split: ':' | last | strip
+        assign card_tone = 'pink'
+        break
+      endif
+    endfor
+
+    if card_badge == blank
+      assign condition = product.metafields.card.condition.value | default: product.metafields.custom.condition.value | default: product.metafields.custom.card_condition.value
+      assign tags_down = product.tags | join: ',' | downcase
+      if product.available == false
+        assign card_badge = 'Sold Out'
+        assign card_tone = 'crimson'
+      elsif condition != blank
+        assign card_badge = condition
+        assign card_tone = 'pink'
+      elsif tags_down contains 'graded' or tags_down contains 'slab' or tags_down contains 'psa'
+        assign card_badge = 'Graded Collectible'
+        assign card_tone = 'crimson'
+      else
+        assign card_badge = 'In Stock'
+        assign card_tone = 'success'
+      endif
+    endif
+
+    if product.available and product.has_only_default_variant
+      assign add_id = first_variant.id
+    elsif product.variants.size > 1
+      assign card_multi = true
+    endif
+  endif
+
+  case card_tone
+    when 'pink'
+      assign tone_class = 'bg-hz-pink text-white'
+    when 'crimson'
+      assign tone_class = 'bg-hz-crimson text-white'
+    when 'lightning'
+      assign tone_class = 'bg-hz-lightning text-white'
+    when 'neon'
+      assign tone_class = 'bg-hz-neon text-white'
+    when 'gold'
+      assign tone_class = 'bg-hz-gold text-hz-void'
+    else
+      assign tone_class = 'bg-hz-success text-white'
+  endcase
+
+  case glow
+    when 'pink'
+      assign glow_rgb = '236 72 153'
+    when 'blue'
+      assign glow_rgb = '56 189 248'
+    when 'purple'
+      assign glow_rgb = '139 92 246'
+    when 'gold'
+      assign glow_rgb = '250 204 21'
+    else
+      assign glow_rgb = ''
+  endcase
+-%}
+
+<article class="relative flex h-full flex-col gap-[17px] rounded-[20px] tcg-gb bg-hz-card px-[14px] pb-[18px] pt-[14px]">
+  <div class="flex h-[202px] w-full flex-col rounded-[12px] bg-hz-elevated px-[10px] pb-[16px] pt-[10px]">
+    <div class="relative z-[1] flex w-full items-center justify-between">
+      {%- if card_badge != blank -%}
+        <span class="flex items-center justify-center whitespace-nowrap rounded-[48px] px-[8px] py-[3px] text-[8px] font-medium leading-[1.5] {{ tone_class }}">{{ card_badge }}</span>
+      {%- else -%}
+        <span></span>
+      {%- endif -%}
+      <button type="button" class="hz-fav flex size-[18px] shrink-0 items-center justify-center rounded-[9px] bg-white/[0.12] transition hover:bg-hz-pink/60" data-hz-fav="{{ card_link | escape }}" aria-pressed="false" aria-label="Add {{ card_title | escape }} to favourites">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      </button>
+    </div>
+    <a href="{{ card_link }}" class="relative flex min-h-0 flex-1 items-center justify-center" tabindex="-1" aria-hidden="true">
+      {%- if glow_rgb != blank -%}
+        <span class="pointer-events-none absolute left-1/2 top-1/2 h-[200px] w-[220px] -translate-x-1/2 -translate-y-1/2 rounded-full" style="background:radial-gradient(closest-side, rgb({{ glow_rgb }} / .5), rgb({{ glow_rgb }} / .15) 60%, transparent);"></span>
+      {%- endif -%}
+      {%- if card_img != blank -%}
+        <img src="{{ card_img }}" alt="{{ card_title | escape }}" loading="lazy" width="400" height="400" class="relative max-h-[150px] w-auto max-w-full object-contain">
+      {%- endif -%}
+    </a>
+  </div>
+  <div class="flex w-full flex-1 flex-col gap-[14px] px-[10px]">
+    <div class="flex w-full flex-col items-start gap-[10px]">
+      <div class="flex w-full flex-col items-start gap-[6px]">
+        {%- if card_meta != blank -%}<p class="text-[8px] font-medium uppercase leading-[1.5] text-hz-cool">{{ card_meta }}</p>{%- endif -%}
+        <h3 class="font-display text-[20px] leading-[1.2] text-white{% if show_desc %} uppercase{% endif %}"><a href="{{ card_link }}" class="hover:text-hz-lightning">{{ card_title }}</a></h3>
+        {%- if card_desc != blank -%}<p class="text-[8px] font-medium leading-[1.5] text-hz-cool">{{ card_desc }}</p>{%- endif -%}
+      </div>
+      {%- if card_price != blank -%}<p class="whitespace-nowrap text-[15px] font-bold leading-[23px] text-hz-pink">{{ card_price }}</p>{%- endif -%}
+    </div>
+    <div class="mt-auto flex w-full items-center gap-[8px]">
+      <a href="{{ card_link }}" class="flex h-[32px] flex-1 items-center justify-center gap-[4px] rounded-full border-[0.667px] border-solid border-hz-lightning bg-hz-btn px-[16px] text-[10px] font-bold uppercase leading-[1.3] text-white drop-shadow-[0px_6.667px_18.667px_rgba(47,123,255,0.64)] transition hover:brightness-110">
+        <span class="whitespace-nowrap">{{ view_label | default: 'View Product' }}</span>{% render 'tcg-home-arrow', px: 12 %}
+      </a>
+      {%- if add_id != blank -%}
+        <button type="button" data-add data-add-icon data-variant-id="{{ add_id }}" aria-label="Add {{ card_title | escape }} to cart" class="flex size-[32px] shrink-0 items-center justify-center rounded-[16px] tcg-gb [--bw:0.571px] bg-white/[0.06] text-[14px] font-bold text-white transition hover:bg-hz-electric/30">
+          <img src="{{ 'home-icon-cart-sm.svg' | asset_url }}" alt="" width="18" height="18" class="size-[18px]">
+        </button>
+      {%- else -%}
+        <a href="{{ card_link }}" aria-label="{% if card_multi %}Choose options for{% else %}View{% endif %} {{ card_title | escape }}" class="flex size-[32px] shrink-0 items-center justify-center rounded-[16px] tcg-gb [--bw:0.571px] bg-white/[0.06] transition hover:bg-hz-electric/30">
+          <img src="{{ 'home-icon-cart-sm.svg' | asset_url }}" alt="" width="18" height="18" class="size-[18px]">
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</article>

@@ -1,37 +1,116 @@
 {% comment %}
-  TCG Hitz — Footer (1:1 with <footer> in tcg-hitz-store/index.html)
-  Link columns are blocks: one "Label|/url" per line in the Links field.
+  TCG Hitz — Footer (client-approved design, tcg-hitz-complete-homepage).
+  Logo + about text + round social buttons, link columns (blocks: one "Label|/url" per line),
+  "Our Contact" (phone / email / address), and a bottom bar with copyright + legal links.
 {% endcomment %}
 
 {%- liquid
-  assign logo_url = 'logo.png' | asset_url
+  assign logo_url = 'home-logo.webp' | asset_url
   if section.settings.logo != blank
     assign logo_url = section.settings.logo | image_url: width: 400
   endif
+  assign phone_href = section.settings.phone | remove: ' ' | remove: '-' | remove: '(' | remove: ')' | remove: '.'
 -%}
 
-<footer class="tcg-scope border-t border-volt/15 py-12 mt-8 font-sans antialiased text-paper">
-  <div class="mx-auto max-w-site px-4 sm:px-6 grid md:grid-cols-4 gap-10">
-    <div class="md:col-span-2">{% if section.settings.show_logo %}<img src="{{ logo_url }}" alt="{{ shop.name | escape }}" class="h-14 w-auto">{% endif %}<p class="{% if section.settings.show_logo %}mt-4 {% endif %}text-paper-dim max-w-[44ch] text-sm">{{ section.settings.blurb }}</p></div>
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'column' -%}
-        <div {{ block.shopify_attributes }}><h3 class="font-bold text-volt text-sm tracking-widest">{{ block.settings.heading }}</h3><ul class="mt-3 space-y-2 text-paper-dim text-sm">
-          {%- assign lines = block.settings.links | strip | newline_to_br | split: '<br />' -%}
-          {%- for line in lines -%}
+<div class="tcg-scope hz relative z-[1] mt-8 shadow-[0px_-10px_24px_0px_rgba(224,74,159,0.12)] backdrop-blur-[4px]">
+  <span aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-[1.5px]" style="background-image: linear-gradient(90deg, #2563FF 5.3632%, #EC4899 101.59%);"></span>
+  <div class="hz-wrap flex flex-col items-stretch gap-[64px] pt-[80px]">
+    <div class="flex w-full flex-wrap items-start justify-between gap-x-8 gap-y-12 xl:flex-nowrap xl:gap-x-10">
+      <div class="flex w-full flex-col items-start gap-[32px] sm:w-auto">
+        {%- if section.settings.show_logo -%}
+          <a href="{{ routes.root_url }}" class="block h-[92px] w-[134px]"><img src="{{ logo_url }}" alt="{{ shop.name | escape }}" width="268" height="184" loading="lazy" class="h-full w-full object-contain"></a>
+        {%- endif -%}
+        <div class="flex flex-col items-start gap-[28px]">
+          {%- if section.settings.blurb != blank -%}<p class="w-full max-w-[292px] text-[14px] leading-[1.5] text-white">{{ section.settings.blurb }}</p>{%- endif -%}
+          <div class="flex flex-wrap items-center gap-[10px]">
+            {%- if section.settings.facebook != blank -%}
+              <a href="{{ section.settings.facebook }}" target="_blank" rel="noopener" aria-label="Facebook" class="relative flex size-[40px] items-center justify-center rounded-full tcg-gb [--bw:1.111px] bg-white/[0.12] transition hover:bg-hz-electric/40"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.33-.04-1.56-.14-2.86-.14C11.93 2 10 3.66 10 6.7v2.8H7v4h3V22h4v-8.5z"/></svg></a>
+            {%- endif -%}
+            {%- if section.settings.x != blank -%}
+              <a href="{{ section.settings.x }}" target="_blank" rel="noopener" aria-label="X (Twitter)" class="relative flex size-[40px] items-center justify-center rounded-full tcg-gb [--bw:1.111px] bg-white/[0.12] transition hover:bg-hz-electric/40"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z"/></svg></a>
+            {%- endif -%}
+            {%- if section.settings.instagram != blank -%}
+              <a href="{{ section.settings.instagram }}" target="_blank" rel="noopener" aria-label="Instagram" class="relative flex size-[40px] items-center justify-center rounded-full tcg-gb [--bw:1.111px] bg-white/[0.12] transition hover:bg-hz-electric/40"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1" fill="#fff" stroke="none"/></svg></a>
+            {%- endif -%}
+            {%- if section.settings.tiktok != blank -%}
+              <a href="{{ section.settings.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok" class="relative flex size-[40px] items-center justify-center rounded-full tcg-gb [--bw:1.111px] bg-white/[0.12] transition hover:bg-hz-electric/40"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
+            {%- endif -%}
+            {%- if section.settings.youtube != blank -%}
+              <a href="{{ section.settings.youtube }}" target="_blank" rel="noopener" aria-label="YouTube" class="relative flex size-[40px] items-center justify-center rounded-full tcg-gb [--bw:1.111px] bg-white/[0.12] transition hover:bg-hz-electric/40"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></a>
+            {%- endif -%}
+            {%- if section.settings.linkedin != blank -%}
+              <a href="{{ section.settings.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn" class="relative flex size-[40px] items-center justify-center rounded-full tcg-gb [--bw:1.111px] bg-white/[0.12] transition hover:bg-hz-electric/40"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'column' -%}
+          <div class="flex flex-col items-start gap-[28px] text-white" {{ block.shopify_attributes }}>
+            <h3 class="font-display text-[20px] leading-[1.5]">{{ block.settings.heading }}</h3>
+            <ul class="flex flex-col items-start gap-[16px]">
+              {%- assign lines = block.settings.links | strip | newline_to_br | split: '<br />' -%}
+              {%- for line in lines -%}
+                {%- assign parts = line | strip | split: '|' -%}
+                {%- if parts[0] != blank -%}
+                  <li><a href="{{ parts[1] | strip | default: '#' }}" class="whitespace-nowrap text-[14px] leading-[1.5] text-white transition hover:text-hz-lightning">{{ parts[0] | strip }}</a></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if section.settings.phone != blank or section.settings.email != blank or section.settings.address != blank -%}
+        <div class="flex flex-col items-start gap-[28px]">
+          <h3 class="whitespace-nowrap font-display text-[20px] leading-[1.5] text-white">{{ section.settings.contact_heading }}</h3>
+          <div class="flex flex-col items-start gap-[18px]">
+            {%- if section.settings.phone != blank -%}
+              <a href="tel:{{ phone_href }}" class="flex items-center gap-[8px] hover:text-hz-lightning">
+                <span class="relative flex size-[28px] shrink-0 items-center justify-center rounded-[14px] tcg-gb [--bw:0.75px] bg-white/[0.06]"><img src="{{ 'home-icon-phone.svg' | asset_url }}" alt="" width="14" height="14" class="size-[14px]"></span>
+                <span class="whitespace-nowrap text-[14px] leading-[1.5] text-white">{{ section.settings.phone }}</span>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.email != blank -%}
+              <a href="mailto:{{ section.settings.email }}" class="flex items-center gap-[8px]">
+                <span class="relative flex size-[28px] shrink-0 items-center justify-center rounded-[14px] tcg-gb [--bw:0.75px] bg-white/[0.06]"><img src="{{ 'home-icon-mail.svg' | asset_url }}" alt="" width="14" height="10" class="h-[10px] w-[14px]"></span>
+                <span class="whitespace-nowrap text-[14px] leading-[1.5] text-white">{{ section.settings.email }}</span>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.address != blank -%}
+              <div class="flex items-start gap-[8px]">
+                <span class="relative flex size-[28px] shrink-0 items-center justify-center rounded-[14px] tcg-gb [--bw:0.75px] bg-white/[0.06]"><img src="{{ 'home-icon-location.svg' | asset_url }}" alt="" width="15" height="15" class="size-[15px]"></span>
+                <p class="max-w-[170px] pt-[2px] text-[14px] leading-[1.5] text-white">{{ section.settings.address }}</p>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="flex w-full flex-col pb-[16px]">
+    <div class="flex w-full flex-col items-start justify-between gap-2 border-t border-solid border-white/40 py-[16px] text-[14px] font-light leading-[1.5] text-white sm:flex-row sm:items-center">
+      <p>© {{ 'now' | date: '%Y' }} {{ section.settings.copyright }}</p>
+      {%- assign legal_lines = section.settings.legal_links | strip | newline_to_br | split: '<br />' -%}
+      {%- if legal_lines.size > 0 -%}
+        <p class="flex flex-wrap items-center gap-x-2">
+          {%- for line in legal_lines -%}
             {%- assign parts = line | strip | split: '|' -%}
             {%- if parts[0] != blank -%}
-              <li><a href="{{ parts[1] | strip | default: '#' }}" class="hover:text-volt">{{ parts[0] | strip }}</a></li>
+              {%- unless forloop.first %}<span aria-hidden="true">|</span>{% endunless -%}
+              <a href="{{ parts[1] | strip | default: '#' }}" class="hover:text-hz-lightning">{{ parts[0] | strip }}</a>
             {%- endif -%}
           {%- endfor -%}
-        </ul></div>
+        </p>
       {%- endif -%}
-    {%- endfor -%}
+    </div>
+    {%- if section.settings.legal != blank -%}
+      <p class="text-[11px] leading-[1.5] text-hz-cool">{{ section.settings.legal }}</p>
+    {%- endif -%}
+    </div>
   </div>
-  <div class="mx-auto max-w-site px-4 sm:px-6 mt-10 pt-6 border-t border-volt/10 flex flex-wrap gap-4 justify-between text-xs text-slate">
-    <p>© {{ 'now' | date: '%Y' }} {{ section.settings.copyright }}</p>
-    <p>{{ section.settings.legal }}</p>
-  </div>
-</footer>
+</div>
 
 {% schema %}
 {
@@ -41,10 +120,24 @@
   "enabled_on": { "groups": ["footer"] },
   "settings": [
     { "type": "checkbox", "id": "show_logo", "label": "Show logo", "default": true },
-    { "type": "image_picker", "id": "logo", "label": "Logo (defaults to assets/logo.png)" },
-    { "type": "textarea", "id": "blurb", "label": "About text", "default": "A family-run Pokémon store: singles, sealed, mystery, slabs, merchandise and our own card vending machines. Online and at card shows every weekend." },
-    { "type": "text", "id": "copyright", "label": "Copyright (after the year)", "default": "TCG Hitz. All rights reserved." },
-    { "type": "text", "id": "legal", "label": "Legal line", "default": "Pokémon, Magic and One Piece are trademarks of their respective owners. TCG Hitz is an independent reseller." }
+    { "type": "image_picker", "id": "logo", "label": "Logo (defaults to the design logo)" },
+    { "type": "textarea", "id": "blurb", "label": "About text", "default": "Trading cards, collectibles, merchandise, and vending machines—all in one place." },
+    { "type": "header", "content": "Social links (leave empty to hide)" },
+    { "type": "url", "id": "facebook", "label": "Facebook" },
+    { "type": "url", "id": "x", "label": "X (Twitter)" },
+    { "type": "url", "id": "instagram", "label": "Instagram" },
+    { "type": "url", "id": "tiktok", "label": "TikTok" },
+    { "type": "url", "id": "youtube", "label": "YouTube" },
+    { "type": "url", "id": "linkedin", "label": "LinkedIn" },
+    { "type": "header", "content": "Contact" },
+    { "type": "text", "id": "contact_heading", "label": "Heading", "default": "Our Contact" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "+1 208-620-7749" },
+    { "type": "text", "id": "email", "label": "Email", "default": "admin@tcghitz.com" },
+    { "type": "text", "id": "address", "label": "Address", "default": "Skate Plaza in Coeur d’Alene, Idaho" },
+    { "type": "header", "content": "Bottom bar" },
+    { "type": "text", "id": "copyright", "label": "Copyright (after the year)", "default": "TCG HITZ. All rights reserved." },
+    { "type": "textarea", "id": "legal_links", "label": "Legal links — one per line as Label|/url", "default": "Terms|/policies/terms-of-service\nPrivacy|/policies/privacy-policy\nCookies Policy|/policies/privacy-policy" },
+    { "type": "text", "id": "legal", "label": "Small print (optional)" }
   ],
   "blocks": [
     {
@@ -52,7 +145,7 @@
       "name": "Link column",
       "settings": [
         { "type": "text", "id": "heading", "label": "Heading", "default": "SHOP" },
-        { "type": "textarea", "id": "links", "label": "Links — one per line as Label|/url", "default": "Singles|/collections/all\nSealed|/collections/sealed" }
+        { "type": "textarea", "id": "links", "label": "Links — one per line as Label|/url", "default": "Trading Cards|/collections/all\nMystery Packs|/collections/mystery" }
       ]
     }
   ],

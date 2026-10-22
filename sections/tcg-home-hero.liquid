@@ -1,0 +1,129 @@
+{% comment %}
+  TCG Hitz — Homepage hero (client-approved design, tcg-hitz-complete-homepage).
+  Background image (or MP4 loop), dark overlay + light-ray pattern, eyebrow, "CHASE THE RARE."
+  heading with gradient word, two buttons, stars line, and the logo + machine artwork on the right.
+  Images default to the design's assets (assets/home-*.webp) until replaced in the editor.
+{% endcomment %}
+
+{%- liquid
+  if section.settings.bg_image != blank
+    assign bg_url = section.settings.bg_image | image_url: width: 2400
+  else
+    assign bg_url = 'home-hero-bg.webp' | asset_url
+  endif
+  if section.settings.art_image != blank
+    assign art_url = section.settings.art_image | image_url: width: 1000
+  else
+    assign art_url = 'home-hero-character.webp' | asset_url
+  endif
+  if section.settings.logo_image != blank
+    assign logo_url = section.settings.logo_image | image_url: width: 500
+  else
+    assign logo_url = 'home-hero-logo.webp' | asset_url
+  endif
+  assign overlay = section.settings.overlay_opacity | divided_by: 100.0
+  assign video_url = section.settings.bg_video_url | strip
+-%}
+
+<section class="tcg-scope hz relative overflow-hidden{% if section.settings.under_header %} hz-under-header{% endif %}" data-hz-hero>
+  {%- comment -%} Background {%- endcomment -%}
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+    {%- if video_url != blank -%}
+      <video class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline preload="metadata" poster="{{ bg_url }}" data-hz-hero-video>
+        <source src="{{ video_url }}" type="video/mp4">
+      </video>
+    {%- else -%}
+      <img src="{{ bg_url }}" alt="" width="1920" height="820" fetchpriority="high" class="absolute inset-0 h-full w-full max-w-none object-cover">
+    {%- endif -%}
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 72% 48% at 50% 50%, rgba(0,0,0,.32) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.4) 100%), rgba(0,0,0,{{ overlay }});"></div>
+    <img src="{{ 'home-hero-pattern-1.svg' | asset_url }}" alt="" width="1440" height="944" class="absolute inset-x-0 top-[1.15%] h-full w-full max-w-none">
+    <img src="{{ 'home-hero-pattern-2.svg' | asset_url }}" alt="" width="1440" height="944" class="absolute left-0 right-[1.29%] top-[1.15%] h-[92.5%] w-[98.7%] max-w-none">
+  </div>
+
+  {%- if section.settings.show_glows -%}
+    <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-0 z-[2] h-full w-[1440px] -translate-x-1/2">
+      <span class="hz-glow hz-glow--pink" style="left: 635px; top: -50px;"></span>
+      <span class="hz-glow hz-glow--gold" style="left: 1680px; top: 126px;"></span>
+    </div>
+  {%- endif -%}
+
+  <div class="hz-wrap relative z-[1] flex flex-col items-center gap-12 pb-[60px] pt-[calc(var(--tcg-header-h,72px)+48px)] xl:min-h-[880px] xl:flex-row xl:justify-between xl:gap-0 xl:pb-[30px]">
+    <div class="flex w-full max-w-[593px] flex-col items-start justify-center gap-[32px]">
+      <div class="flex w-full flex-col items-start gap-[24px]">
+        {%- if section.settings.eyebrow != blank -%}<div class="hz-eyebrow"><span>{{ section.settings.eyebrow }}</span></div>{%- endif -%}
+        <h1 class="w-full max-w-[535px] font-display text-[52px] leading-none text-white sm:text-[72px] xl:text-[88px]">
+          {{- section.settings.heading_before -}}
+          {%- if section.settings.heading_highlight != blank %} <span class="hz-grad-text">{{ section.settings.heading_highlight }}</span>{%- endif -%}
+          {{- section.settings.heading_after -}}
+        </h1>
+        {%- if section.settings.text != blank -%}<p class="w-full text-[16px] leading-[1.5] text-white">{{ section.settings.text }}</p>{%- endif -%}
+      </div>
+      <div class="flex flex-wrap items-center gap-[18px]">
+        {% render 'tcg-home-button', label: section.settings.btn1_label, link: section.settings.btn1_link, kind: 'solid' %}
+        {% render 'tcg-home-button', label: section.settings.btn2_label, link: section.settings.btn2_link, kind: 'outline' %}
+      </div>
+      {%- if section.settings.show_stars -%}
+        <div class="flex flex-col items-start gap-[12px]">
+          <img src="{{ 'home-stars.svg' | asset_url }}" alt="5 stars" width="108" height="16" class="h-[16px] w-[108px]">
+          {%- if section.settings.stars_text != blank -%}<p class="text-[14px] font-semibold capitalize leading-[1.5] text-white">{{ section.settings.stars_text }}</p>{%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Artwork: 482×743 on desktop, scaled to 60% below 1280px (like the design) {%- endcomment -%}
+    <div class="relative h-[743px] w-[482px] shrink-0 max-xl:-mb-[297px] max-xl:origin-top max-xl:scale-[0.6]">
+      {%- if section.settings.show_glows -%}
+        <span aria-hidden="true" class="hz-glow hz-glow--gold" style="left: 271px; top: 244px; width: 700px; height: 760px;"></span>
+        <span aria-hidden="true" class="hz-glow hz-glow--blue" style="left: 271px; top: 524px; width: 760px; height: 1000px;"></span>
+      {%- endif -%}
+      <div class="absolute left-[29px] top-0 h-[743px] w-[468px] overflow-hidden">
+        <img src="{{ art_url }}" alt="{{ section.settings.art_alt | escape }}" width="768" height="1376" class="absolute inset-0 h-full w-full max-w-none object-contain object-bottom">
+      </div>
+      {%- if section.settings.show_logo -%}
+        <img src="{{ logo_url }}" alt="" width="444" height="300" class="absolute left-[148px] top-[106px] h-[150px] w-[222px] max-w-none object-contain">
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- if video_url != blank -%}
+<script>
+  (function () {
+    var v = document.querySelector('[data-hz-hero-video]');
+    if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "TCG Home — Hero",
+  "class": "tcg-home-section",
+  "settings": [
+    { "type": "header", "content": "Background" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background image", "info": "Defaults to the approved design image." },
+    { "type": "text", "id": "bg_video_url", "label": "Background video (MP4 link, optional)", "info": "Paste a direct .mp4 link (e.g. from Content → Files). Plays muted on loop; the image is used as the poster." },
+    { "type": "range", "id": "overlay_opacity", "label": "Dark overlay", "min": 0, "max": 90, "step": 2, "unit": "%", "default": 64 },
+    { "type": "checkbox", "id": "show_glows", "label": "Show colour glows", "default": true },
+    { "type": "checkbox", "id": "under_header", "label": "Sit under the transparent header", "default": true },
+    { "type": "header", "content": "Text" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE TCG HITZ EXPERIENCE" },
+    { "type": "text", "id": "heading_before", "label": "Heading", "default": "CHASE THE" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading — gradient word", "default": "RARE" },
+    { "type": "text", "id": "heading_after", "label": "Heading — after gradient word", "default": "." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Discover trading cards, mystery packs, graded collectibles, and merchandise—all in one place. Explore the TCG HITZ experience and discover our trading-card vending machines." },
+    { "type": "text", "id": "btn1_label", "label": "Button 1 label", "default": "SHOP TRADING CARDS" },
+    { "type": "url", "id": "btn1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "btn2_label", "label": "Button 2 label", "default": "EXPLORE VENDING MACHINES" },
+    { "type": "url", "id": "btn2_link", "label": "Button 2 link" },
+    { "type": "checkbox", "id": "show_stars", "label": "Show stars line", "default": true },
+    { "type": "text", "id": "stars_text", "label": "Stars text", "default": "Trusted at card shows every weekend" },
+    { "type": "header", "content": "Artwork" },
+    { "type": "image_picker", "id": "art_image", "label": "Main artwork", "info": "Transparent PNG/WebP works best. Defaults to the design's machine artwork." },
+    { "type": "text", "id": "art_alt", "label": "Artwork description (alt text)", "default": "TCG HITZ vending machine" },
+    { "type": "checkbox", "id": "show_logo", "label": "Show logo over artwork", "default": true },
+    { "type": "image_picker", "id": "logo_image", "label": "Logo over artwork" }
+  ],
+  "presets": [{ "name": "TCG Home — Hero" }]
+}
+{% endschema %}

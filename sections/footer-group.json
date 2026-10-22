@@ -18,25 +18,49 @@
           "type": "column",
           "settings": {
             "heading": "SHOP",
-            "links": "Singles|/collections/all\nSealed|/collections/sealed\nMystery packs|/collections/mystery\nGraded slabs|/collections/slabs\nMerchandise|/collections/merchandise\nVending machines|/pages/vending-machines"
+            "links": "Trading Cards|/collections/all\nMystery Packs|/collections/mystery\nGraded Cards|/collections/slabs\nMerchandise|/collections/merchandise"
+          }
+        },
+        "machines": {
+          "type": "column",
+          "settings": {
+            "heading": "MACHINES",
+            "links": "Vending Machines|/pages/vending-machines\nBrowse Machines|/pages/vending-machines#machines\nMachine Information|/pages/vending-machines#profit-calculator"
           }
         },
         "help": {
           "type": "column",
           "settings": {
             "heading": "HELP",
-            "links": "Shipping policy|/policies/shipping-policy\nRefund policy|/policies/refund-policy\nCondition guide|/pages/condition-guide\nSell to us|/pages/sell\nContact|/pages/contact\nView cart|/cart"
+            "links": "Sell to Us|/pages/sell\nContact Us|/pages/contact\nShipping Policy|/policies/shipping-policy\nReturns & Refunds|/policies/refund-policy\nFAQs|/pages/vending-machines#faq"
           }
         }
       },
-      "block_order": ["shop", "help"],
+      "block_order": [
+        "shop",
+        "machines",
+        "help"
+      ],
       "settings": {
         "show_logo": true,
-        "blurb": "A family-run Pokémon store: singles, sealed, mystery, slabs, merchandise and our own card vending machines. Online and at card shows every weekend.",
-        "copyright": "TCG Hitz. All rights reserved.",
-        "legal": "Pokémon, Magic and One Piece are trademarks of their respective owners. TCG Hitz is an independent reseller."
+        "blurb": "Trading cards, collectibles, merchandise, and vending machines—all in one place.",
+        "facebook": "",
+        "x": "",
+        "instagram": "",
+        "tiktok": "",
+        "youtube": "",
+        "linkedin": "",
+        "contact_heading": "Our Contact",
+        "phone": "+1 208-620-7749",
+        "email": "admin@tcghitz.com",
+        "address": "Skate Plaza in Coeur d’Alene, Idaho",
+        "copyright": "TCG HITZ. All rights reserved.",
+        "legal_links": "Terms|/policies/terms-of-service\nPrivacy|/policies/privacy-policy\nCookies Policy|/policies/privacy-policy",
+        "legal": "Pokémon, Magic and One Piece are trademarks of their respective owners. TCG HITZ is an independent reseller."
       }
     }
   },
-  "order": ["tcg_footer"]
+  "order": [
+    "tcg_footer"
+  ]
 }
