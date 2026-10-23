@@ -591,7 +591,7 @@
   /* Eyebrow: purple dot + small caps label */
   .hz-eyebrow { display: flex; align-items: center; gap: 12px; }
   .hz-eyebrow::before { content: ""; width: 8px; height: 8px; flex: none; border-radius: 999px; background: #FACC15; }
-  .hz-eyebrow > span { font-size: 12px; font-weight: 500; line-height: 1.5; text-transform: uppercase; color: #8B5CF6; letter-spacing: .02em; }
+  .hz-eyebrow > span { font-size: 14px; font-weight: 500; line-height: 1.5; text-transform: uppercase; color: #8B5CF6; letter-spacing: .02em; }
 
   .hz-h2 { font-family: 'Titan One', system-ui, sans-serif; font-weight: 400; font-size: 36px; line-height: 1.15; color: #fff; }
   @media (min-width: 768px) { .hz-h2 { font-size: 44px; } }
