@@ -423,3 +423,37 @@ document.querySelectorAll('[data-tabs]').forEach((wrap) => {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
   document.addEventListener('shopify:section:load', paint);
 })();
+
+/* Homepage scroll-snap rows (sections/tcg-home-categories.liquid): arrows + end-of-row state */
+(function initHzRail() {
+  function setup(root) {
+    if (root.dataset.hzRailReady) return;
+    const track = root.querySelector('[data-hz-rail]') || root.parentElement.querySelector('[data-hz-rail]');
+    if (!track) return;
+    root.dataset.hzRailReady = '1';
+    const prev = root.querySelector('[data-hz-rail-prev]');
+    const next = root.querySelector('[data-hz-rail-next]');
+    const nav = root.querySelector('[data-hz-rail-nav]');
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const overflowing = max > 4;
+      if (nav) { if (overflowing) nav.style.removeProperty('display'); else nav.style.setProperty('display', 'none', 'important'); } // utilities are !important
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max - 2;
+    };
+    const page = (dir) => {
+      const item = track.querySelector('.hz-rail__item');
+      const step = item ? item.getBoundingClientRect().width + 16 : track.clientWidth;
+      const visible = Math.max(1, Math.round((track.clientWidth + 16) / step));
+      track.scrollBy({ left: dir * step * visible, behavior: 'smooth' });
+    };
+    prev && prev.addEventListener('click', () => page(-1));
+    next && next.addEventListener('click', () => page(1));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+  const run = () => document.querySelectorAll('[data-hz-rail-root]').forEach(setup);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+  document.addEventListener('shopify:section:load', run);
+})();

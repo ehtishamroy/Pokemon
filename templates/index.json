@@ -154,7 +154,9 @@
       "settings": {
         "eyebrow": "EXPLORE THE COLLECTION",
         "heading": "FIND YOUR NEXT FAVORITE.",
-        "glow": "left-purple"
+        "glow": "left-purple",
+        "cols_desktop": 5,
+        "show_arrows": true
       }
     },
     "home_featured": {

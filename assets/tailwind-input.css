@@ -638,10 +638,20 @@
   .hz-video-dialog { padding: 0; border: 0; background: transparent; max-width: min(1000px, 92vw); width: 100%; }
   .hz-video-dialog::backdrop { background: rgba(4,6,14,.85); backdrop-filter: blur(4px); }
 
+  /* Horizontal scroll-snap row (homepage categories): N tiles visible, the rest scroll */
+  .hz-rail { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+  .hz-rail::-webkit-scrollbar { display: none; }
+  .hz-rail:focus-visible { outline: 2px solid #38BDF8; outline-offset: 4px; border-radius: 8px; }
+  .hz-rail__item { flex: none; scroll-snap-align: start; width: calc((100% - (var(--hz-cols) - 1) * 16px) / var(--hz-cols)); }
+  .hz-rail-btn { display: flex; width: 42px; height: 42px; align-items: center; justify-content: center; border-radius: 999px; background: rgba(255,255,255,.06); color: #fff; transition: background-color .2s, opacity .2s; }
+  .hz-rail-btn:hover:not([disabled]) { background: rgba(37,99,255,.3); }
+  .hz-rail-btn[disabled] { opacity: .35; cursor: default; }
+
   /* Homepage: let the hero sit under the translucent header (like the design) */
   .hz-under-header { margin-top: calc(var(--tcg-header-h, 72px) * -1); }
 
   @media (prefers-reduced-motion: reduce) {
     .hz-marquee__track { animation: none; }
+    .hz-rail { scroll-behavior: auto; }
   }
 }
