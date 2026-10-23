@@ -5,11 +5,6 @@
 {% endcomment %}
 
 {%- liquid
-  if section.settings.image != blank
-    assign art_url = section.settings.image | image_url: width: 1400
-  else
-    assign art_url = 'home-community.webp' | asset_url
-  endif
   assign form_id = 'tcg-home-newsletter-' | append: section.id
 -%}
 
@@ -17,7 +12,7 @@
   {% render 'tcg-home-glow', glow: section.settings.glow %}
   <div class="relative mx-auto flex w-full max-w-[1440px] flex-col items-center gap-[42px] pt-[20px] xl:flex-row xl:pr-[80px]">
     <div class="relative h-[300px] w-full shrink-0 overflow-hidden sm:h-[472px] xl:w-[651px]">
-      <img src="{{ art_url }}" alt="{{ section.settings.image_alt | escape }}" loading="lazy" width="1300" height="1105" class="absolute inset-0 h-full w-full max-w-none object-cover object-left">
+      {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: 'home-community.webp', w: 1300, h: 1105, width: 1400, sizes: '(min-width: 1280px) 651px, 100vw', alt: section.settings.image_alt, class: 'absolute inset-0 h-full w-full max-w-none object-cover object-left' %}
     </div>
     <div class="flex w-full flex-col items-start gap-[32px] px-5 pb-[32px] md:px-10 xl:w-auto xl:px-0">
       <div class="flex flex-col items-start gap-[16px]">
@@ -51,6 +46,7 @@
   "settings": [
     { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
     { "type": "image_picker", "id": "image", "label": "Artwork", "info": "Defaults to the design's Pikachu artwork." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Artwork — mobile (optional)" },
     { "type": "text", "id": "image_alt", "label": "Artwork description (alt text)", "default": "TCG HITZ community" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "GET STARTED" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "JOIN THE TCG HITZ COMMUNITY." },

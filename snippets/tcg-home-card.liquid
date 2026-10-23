@@ -6,6 +6,10 @@
   Sample card (shown before a collection is chosen / has products):
     {% render 'tcg-home-card', title: '…', meta: '…', price: '$24.00', img: url, badge: 'In Stock', tone: 'success', desc: '…', link: '/collections/all' %}
 
+  Overrides (from a "Product card" block): image_override (image_picker) and any of
+  title / meta / price / badge+tone / desc / link replace the product's own data when filled.
+  attrs: block.shopify_attributes so the card is selectable in the theme editor.
+
   Badge for real products: a product tag "badge:Your text" wins; otherwise Sold Out,
   the card condition metafield (e.g. Near Mint), graded/slab tags, then "In Stock".
   glow: optional colour behind the image — pink | blue | purple | gold.
@@ -41,6 +45,8 @@
 
     if product.featured_image
       assign card_img = product.featured_image | image_url: width: 500
+    elsif settings.tcg_product_fallback_image != blank
+      assign card_img = settings.tcg_product_fallback_image | image_url: width: 500
     else
       assign card_img = 'card-back.svg' | asset_url
     endif
@@ -84,6 +90,31 @@
     endif
   endif
 
+  if product != blank
+    if title != blank
+      assign card_title = title
+    endif
+    if meta != blank
+      assign card_meta = meta
+    endif
+    if price != blank
+      assign card_price = price
+    endif
+    if desc != blank
+      assign card_desc = desc
+    endif
+    if link != blank
+      assign card_link = link
+    endif
+    if badge != blank
+      assign card_badge = badge
+      assign card_tone = tone | default: 'pink'
+    endif
+  endif
+  if image_override != blank
+    assign card_img = image_override | image_url: width: 600
+  endif
+
   case card_tone
     when 'pink'
       assign tone_class = 'bg-hz-pink text-white'
@@ -113,7 +144,7 @@
   endcase
 -%}
 
-<article class="relative flex h-full flex-col gap-[17px] rounded-[20px] tcg-gb bg-hz-card px-[14px] pb-[18px] pt-[14px]">
+<article class="relative flex h-full flex-col gap-[17px] rounded-[20px] tcg-gb bg-hz-card px-[14px] pb-[18px] pt-[14px]" {{ attrs }}>
   <div class="flex h-[202px] w-full flex-col rounded-[12px] bg-hz-elevated px-[10px] pb-[16px] pt-[10px]">
     <div class="relative z-[1] flex w-full items-center justify-between">
       {%- if card_badge != blank -%}

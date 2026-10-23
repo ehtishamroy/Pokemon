@@ -51,11 +51,7 @@
               {%- for block in section.blocks -%}
                 {%- liquid
                   assign block_row = block.settings.row | default: '1'
-                  if block.settings.image != blank
-                    assign photo_url = block.settings.image | image_url: width: 1100
-                  else
-                    assign photo_url = 'home-gallery-' | append: block.settings.fallback | append: '.webp' | asset_url
-                  endif
+                  assign photo_fallback = 'home-gallery-' | append: block.settings.fallback | append: '.webp'
                   if block.settings.size == 'wide'
                     assign size_class = 'w-[330px] md:w-[519px]'
                   else
@@ -69,7 +65,7 @@
                 -%}
                 {%- if block_row == row_key -%}
                 <{{ photo_tag }}{% if block.settings.link != blank %} href="{{ block.settings.link }}"{% endif %} class="group relative block h-[220px] shrink-0 overflow-hidden rounded-[16px] border-[0.75px] border-solid border-white/40 md:h-[346px] {{ size_class }}"{% if pass == 1 %} {{ block.shopify_attributes }}{% else %} aria-hidden="true" tabindex="-1"{% endif %}>
-                  <img src="{{ photo_url }}" alt="{{ block.settings.alt | escape }}" loading="lazy" width="1040" height="1040" class="absolute inset-0 h-full w-full max-w-none object-cover transition-transform duration-700 group-hover:scale-105">
+                  {% render 'tcg-home-img', image: block.settings.image, fallback: photo_fallback, w: 1040, h: 1040, width: 1100, sizes: '(min-width: 768px) 520px, 330px', alt: block.settings.alt, class: 'absolute inset-0 h-full w-full max-w-none object-cover transition-transform duration-700 group-hover:scale-105' %}
                   <span aria-hidden="true" class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(0,0,0,.13) 46.098%, rgba(0,0,0,.84));"></span>
                   {%- if block.settings.caption != blank -%}
                     <span class="absolute bottom-4 left-4 right-4 font-display text-[18px] leading-[1.2] text-white">{{ block.settings.caption }}</span>

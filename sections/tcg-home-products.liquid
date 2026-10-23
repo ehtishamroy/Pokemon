@@ -1,8 +1,10 @@
 {% comment %}
   TCG Hitz — Homepage product grid (client-approved design).
   Used twice on the homepage: "Featured products / COLLECTOR'S PICKS." and
-  "Merch & collectibles / MORE THAN JUST CARDS". Pulls products from a collection; until the
-  collection has products it can show the design's example cards (turn off before launch).
+  "Merch & collectibles / MORE THAN JUST CARDS". Shows a collection, or "Product card" blocks:
+  each block can pick a product and/or set its own image, badge, title, text, price and link.
+  "Collection" mode shows the collection and falls back to the card blocks while it is empty;
+  "Cards only" mode shows just the card blocks.
 {% endcomment %}
 
 {%- liquid
@@ -18,6 +20,17 @@
     assign pad_class = 'py-[100px]'
   endif
   assign view_all = section.settings.btn_link | default: coll.url
+  assign card_blocks = section.blocks | where: 'type', 'card'
+
+  assign show_collection = false
+  assign show_cards = false
+  if section.settings.source == 'cards'
+    assign show_cards = true
+  elsif has_products
+    assign show_collection = true
+  elsif section.settings.show_samples
+    assign show_cards = true
+  endif
 -%}
 
 <section class="tcg-scope hz relative">
@@ -29,7 +42,7 @@
     </div>
 
     <div class="grid w-full grid-cols-1 gap-x-[24px] gap-y-[30px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {%- if has_products -%}
+      {%- if show_collection -%}
         {%- for product in coll.products limit: section.settings.limit -%}
           {%- liquid
             assign glow = ''
@@ -40,29 +53,31 @@
           -%}
           {% render 'tcg-home-card', product: product, show_desc: section.settings.show_desc, glow: glow %}
         {%- endfor -%}
-      {%- elsif section.settings.show_samples -%}
-        {%- liquid
-          if section.settings.samples == 'merch'
-            assign sample_rows = "merch-1^COLLECTIBLE FIGURE^pink^3D-Printed Collectible^Umbreon Collectible Figure^A striking dark-type character figure with bold pink accents and a premium display-ready finish.~~merch-2^FAN FAVORITE^lightning^Character Collectible^Electric-Type Character Figure^A vibrant character collectible featuring electric-blue details, a dynamic pose, and eye-catching shelf appeal.~~merch-3^COLLECTOR'S PICK^neon^Character Collectible^Ghost-Type Character Figure^A playful, expressive collectible with rich purple tones, sculpted details, and a distinctive display presence.~~merch-4^UNIQUE FIND^gold^Character Collectible^Golden Character Collectible^A charming character figure with warm gold and cream tones, designed to stand out in any collectible display." | split: '~~'
-          else
-            assign sample_rows = 'p-umbreon^Near Mint^pink^POKÉMON · SINGLE CARD^Umbreon VMAX — Alternate Art^~~p-booster^In Stock^success^POKÉMON · SEALED PRODUCT^Pokémon Booster Box^~~p-charizard^Graded Collectible^crimson^POKÉMON · GRADED CARD^Charizard Graded Card^~~p-mystery^In Stock^success^MYSTERY PRODUCTS^TCG HITZ Mystery Pack^~~p-etb^In Stock^success^POKÉMON · SEALED PRODUCT^Pokémon Elite Trainer Box^~~p-promo^Near Mint^pink^POKÉMON · PROMO CARD^Pokémon Promo Card^~~p-onepiece^In Stock^success^ONE PIECE · SINGLE CARD^One Piece Trading Card^~~p-sleeves^In Stock^success^CARD ACCESSORIES^Trading Card Protective Sleeves^' | split: '~~'
-          endif
-        -%}
-        {%- for row in sample_rows limit: section.settings.limit -%}
+      {%- endif -%}
+      {%- if show_cards -%}
+        {%- for block in card_blocks limit: section.settings.limit -%}
           {%- liquid
-            assign cols = row | split: '^'
-            assign sample_img = 'home-' | append: cols[0] | append: '.webp' | asset_url
-            assign glow = ''
-            if section.settings.show_glow
-              assign glow_index = forloop.index0 | modulo: 4
-              assign glow = glows[glow_index]
+            assign opts = block.settings
+            assign card_fallback = ''
+            if opts.fallback != blank and opts.fallback != 'none'
+              assign card_fallback = 'home-' | append: opts.fallback | append: '.webp' | asset_url
             endif
-            assign sample_desc = ''
-            if section.settings.show_desc
-              assign sample_desc = cols[5]
+            assign glow = opts.glow
+            if glow == 'auto' or glow == blank
+              assign glow = ''
+              if section.settings.show_glow
+                assign glow_index = forloop.index0 | modulo: 4
+                assign glow = glows[glow_index]
+              endif
+            elsif glow == 'none'
+              assign glow = ''
+            endif
+            assign card_link = opts.link
+            if card_link == blank and opts.product == blank
+              assign card_link = view_all
             endif
           -%}
-          {% render 'tcg-home-card', title: cols[4], meta: cols[3], price: section.settings.sample_price, img: sample_img, badge: cols[1], tone: cols[2], desc: sample_desc, show_desc: section.settings.show_desc, link: view_all, glow: glow %}
+          {% render 'tcg-home-card', product: opts.product, image_override: opts.image, img: card_fallback, title: opts.title, meta: opts.meta, price: opts.price, badge: opts.badge, tone: opts.tone, desc: opts.desc, show_desc: section.settings.show_desc, link: card_link, glow: glow, attrs: block.shopify_attributes %}
         {%- endfor -%}
       {%- endif -%}
     </div>
@@ -74,28 +89,405 @@
   "name": "TCG Home — Products",
   "class": "tcg-home-section",
   "settings": [
-    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FEATURED PRODUCTS" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "COLLECTOR'S PICKS." },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Discover selected trading cards and collectibles from the TCG HITZ collection." },
-    { "type": "text", "id": "btn_label", "label": "Button label", "default": "VIEW ALL PRODUCTS" },
-    { "type": "url", "id": "btn_link", "label": "Button link", "info": "Defaults to the collection below." },
-    { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "range", "id": "limit", "label": "Products to show", "min": 4, "max": 12, "step": 1, "default": 8 },
-    { "type": "checkbox", "id": "show_desc", "label": "Show short description (merch style)", "default": false },
-    { "type": "checkbox", "id": "show_glow", "label": "Colour glow behind product images", "default": false },
-    { "type": "select", "id": "padding", "label": "Spacing", "options": [
-      { "value": "normal", "label": "Normal (100px top and bottom)" },
-      { "value": "tight", "label": "Tight top (20px)" }
-    ], "default": "normal" },
-    { "type": "header", "content": "Example cards" },
-    { "type": "checkbox", "id": "show_samples", "label": "Show the design's example cards while the collection is empty", "default": true, "info": "Example cards are not real products. Turn this off before launch, or pick a collection with products." },
-    { "type": "select", "id": "samples", "label": "Example set", "options": [
-      { "value": "featured", "label": "Cards & sealed" },
-      { "value": "merch", "label": "Merch figures" }
-    ], "default": "featured" },
-    { "type": "text", "id": "sample_price", "label": "Example price", "default": "$24.00" }
+    {
+      "type": "select",
+      "id": "glow",
+      "label": "Background glow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "left-purple",
+          "label": "Purple, left"
+        },
+        {
+          "value": "left-pink",
+          "label": "Pink, left"
+        },
+        {
+          "value": "right-blue",
+          "label": "Blue, right"
+        },
+        {
+          "value": "right-gold",
+          "label": "Gold, right"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "FEATURED PRODUCTS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "COLLECTOR'S PICKS."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Discover selected trading cards and collectibles from the TCG HITZ collection."
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button label",
+      "default": "VIEW ALL PRODUCTS"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button link",
+      "info": "Defaults to the collection below."
+    },
+    {
+      "type": "select",
+      "id": "source",
+      "label": "Show",
+      "options": [
+        {
+          "value": "collection",
+          "label": "Collection (cards below fill in while it's empty)"
+        },
+        {
+          "value": "cards",
+          "label": "Only the cards below (hand-picked)"
+        }
+      ],
+      "default": "collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Products / cards to show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_desc",
+      "label": "Show short description (merch style)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_glow",
+      "label": "Colour glow behind product images",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "padding",
+      "label": "Spacing",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal (100px top and bottom)"
+        },
+        {
+          "value": "tight",
+          "label": "Tight top (20px)"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Product cards (blocks)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_samples",
+      "label": "Show the cards below while the collection is empty",
+      "default": true,
+      "info": "The design's example cards aren't real products. Replace them with real products (pick a product in each card) or turn this off before launch."
+    }
   ],
-  "presets": [{ "name": "TCG Home — Products" }]
+  "presets": [
+    {
+      "name": "TCG Home — Products",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "fallback": "p-umbreon",
+            "badge": "Near Mint",
+            "tone": "pink",
+            "meta": "POKÉMON · SINGLE CARD",
+            "title": "Umbreon VMAX — Alternate Art",
+            "price": "$24.00"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "fallback": "p-booster",
+            "badge": "In Stock",
+            "tone": "success",
+            "meta": "POKÉMON · SEALED PRODUCT",
+            "title": "Pokémon Booster Box",
+            "price": "$24.00"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "fallback": "p-charizard",
+            "badge": "Graded Collectible",
+            "tone": "crimson",
+            "meta": "POKÉMON · GRADED CARD",
+            "title": "Charizard Graded Card",
+            "price": "$24.00"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "fallback": "p-mystery",
+            "badge": "In Stock",
+            "tone": "success",
+            "meta": "MYSTERY PRODUCTS",
+            "title": "TCG HITZ Mystery Pack",
+            "price": "$24.00"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "fallback": "p-etb",
+            "badge": "In Stock",
+            "tone": "success",
+            "meta": "POKÉMON · SEALED PRODUCT",
+            "title": "Pokémon Elite Trainer Box",
+            "price": "$24.00"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "fallback": "p-promo",
+            "badge": "Near Mint",
+            "tone": "pink",
+            "meta": "POKÉMON · PROMO CARD",
+            "title": "Pokémon Promo Card",
+            "price": "$24.00"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "fallback": "p-onepiece",
+            "badge": "In Stock",
+            "tone": "success",
+            "meta": "ONE PIECE · SINGLE CARD",
+            "title": "One Piece Trading Card",
+            "price": "$24.00"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "fallback": "p-sleeves",
+            "badge": "In Stock",
+            "tone": "success",
+            "meta": "CARD ACCESSORIES",
+            "title": "Trading Card Protective Sleeves",
+            "price": "$24.00"
+          }
+        }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Product card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product (optional)",
+          "info": "Uses the product's photo, title, price and badge. Anything you fill in below overrides it."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Overrides the product photo / design image."
+        },
+        {
+          "type": "select",
+          "id": "fallback",
+          "label": "Design image (used when no image or product photo)",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "p-umbreon",
+              "label": "Umbreon card"
+            },
+            {
+              "value": "p-booster",
+              "label": "Booster box"
+            },
+            {
+              "value": "p-charizard",
+              "label": "Charizard slab"
+            },
+            {
+              "value": "p-mystery",
+              "label": "Mystery pack"
+            },
+            {
+              "value": "p-etb",
+              "label": "Elite Trainer Box"
+            },
+            {
+              "value": "p-promo",
+              "label": "Promo card"
+            },
+            {
+              "value": "p-onepiece",
+              "label": "One Piece card"
+            },
+            {
+              "value": "p-sleeves",
+              "label": "Card sleeves"
+            },
+            {
+              "value": "merch-1",
+              "label": "Umbreon figure"
+            },
+            {
+              "value": "merch-2",
+              "label": "Electric figure"
+            },
+            {
+              "value": "merch-3",
+              "label": "Ghost figure"
+            },
+            {
+              "value": "merch-4",
+              "label": "Golden figure"
+            }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge"
+        },
+        {
+          "type": "select",
+          "id": "tone",
+          "label": "Badge colour",
+          "options": [
+            {
+              "value": "pink",
+              "label": "Pink"
+            },
+            {
+              "value": "success",
+              "label": "Green"
+            },
+            {
+              "value": "crimson",
+              "label": "Red"
+            },
+            {
+              "value": "lightning",
+              "label": "Light blue"
+            },
+            {
+              "value": "neon",
+              "label": "Purple"
+            },
+            {
+              "value": "gold",
+              "label": "Gold"
+            }
+          ],
+          "default": "success"
+        },
+        {
+          "type": "text",
+          "id": "meta",
+          "label": "Small line above title"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Short description"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price text",
+          "info": "Leave empty to use the product price."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Defaults to the product page."
+        },
+        {
+          "type": "select",
+          "id": "glow",
+          "label": "Glow behind image",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Section setting"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "pink",
+              "label": "Pink"
+            },
+            {
+              "value": "blue",
+              "label": "Blue"
+            },
+            {
+              "value": "purple",
+              "label": "Purple"
+            },
+            {
+              "value": "gold",
+              "label": "Gold"
+            }
+          ],
+          "default": "auto"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

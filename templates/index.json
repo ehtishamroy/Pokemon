@@ -171,10 +171,109 @@
         "show_glow": false,
         "padding": "normal",
         "show_samples": true,
-        "samples": "featured",
-        "sample_price": "$24.00",
-        "glow": "right-blue"
-      }
+        "glow": "right-blue",
+        "source": "collection"
+      },
+      "blocks": {
+        "card1": {
+          "type": "card",
+          "settings": {
+            "fallback": "p-umbreon",
+            "badge": "Near Mint",
+            "tone": "pink",
+            "meta": "POKÉMON · SINGLE CARD",
+            "title": "Umbreon VMAX — Alternate Art",
+            "price": "$24.00"
+          }
+        },
+        "card2": {
+          "type": "card",
+          "settings": {
+            "fallback": "p-booster",
+            "badge": "In Stock",
+            "tone": "success",
+            "meta": "POKÉMON · SEALED PRODUCT",
+            "title": "Pokémon Booster Box",
+            "price": "$24.00"
+          }
+        },
+        "card3": {
+          "type": "card",
+          "settings": {
+            "fallback": "p-charizard",
+            "badge": "Graded Collectible",
+            "tone": "crimson",
+            "meta": "POKÉMON · GRADED CARD",
+            "title": "Charizard Graded Card",
+            "price": "$24.00"
+          }
+        },
+        "card4": {
+          "type": "card",
+          "settings": {
+            "fallback": "p-mystery",
+            "badge": "In Stock",
+            "tone": "success",
+            "meta": "MYSTERY PRODUCTS",
+            "title": "TCG HITZ Mystery Pack",
+            "price": "$24.00"
+          }
+        },
+        "card5": {
+          "type": "card",
+          "settings": {
+            "fallback": "p-etb",
+            "badge": "In Stock",
+            "tone": "success",
+            "meta": "POKÉMON · SEALED PRODUCT",
+            "title": "Pokémon Elite Trainer Box",
+            "price": "$24.00"
+          }
+        },
+        "card6": {
+          "type": "card",
+          "settings": {
+            "fallback": "p-promo",
+            "badge": "Near Mint",
+            "tone": "pink",
+            "meta": "POKÉMON · PROMO CARD",
+            "title": "Pokémon Promo Card",
+            "price": "$24.00"
+          }
+        },
+        "card7": {
+          "type": "card",
+          "settings": {
+            "fallback": "p-onepiece",
+            "badge": "In Stock",
+            "tone": "success",
+            "meta": "ONE PIECE · SINGLE CARD",
+            "title": "One Piece Trading Card",
+            "price": "$24.00"
+          }
+        },
+        "card8": {
+          "type": "card",
+          "settings": {
+            "fallback": "p-sleeves",
+            "badge": "In Stock",
+            "tone": "success",
+            "meta": "CARD ACCESSORIES",
+            "title": "Trading Card Protective Sleeves",
+            "price": "$24.00"
+          }
+        }
+      },
+      "block_order": [
+        "card1",
+        "card2",
+        "card3",
+        "card4",
+        "card5",
+        "card6",
+        "card7",
+        "card8"
+      ]
     },
     "home_mystery": {
       "type": "tcg-home-banner",
@@ -253,10 +352,65 @@
         "show_glow": true,
         "padding": "tight",
         "show_samples": true,
-        "samples": "merch",
-        "sample_price": "$24.00",
-        "glow": "left-pink"
-      }
+        "glow": "left-pink",
+        "source": "collection"
+      },
+      "blocks": {
+        "card1": {
+          "type": "card",
+          "settings": {
+            "fallback": "merch-1",
+            "badge": "COLLECTIBLE FIGURE",
+            "tone": "pink",
+            "meta": "3D-Printed Collectible",
+            "title": "Umbreon Collectible Figure",
+            "price": "$24.00",
+            "desc": "A striking dark-type character figure with bold pink accents and a premium display-ready finish."
+          }
+        },
+        "card2": {
+          "type": "card",
+          "settings": {
+            "fallback": "merch-2",
+            "badge": "FAN FAVORITE",
+            "tone": "lightning",
+            "meta": "Character Collectible",
+            "title": "Electric-Type Character Figure",
+            "price": "$24.00",
+            "desc": "A vibrant character collectible featuring electric-blue details, a dynamic pose, and eye-catching shelf appeal."
+          }
+        },
+        "card3": {
+          "type": "card",
+          "settings": {
+            "fallback": "merch-3",
+            "badge": "COLLECTOR'S PICK",
+            "tone": "neon",
+            "meta": "Character Collectible",
+            "title": "Ghost-Type Character Figure",
+            "price": "$24.00",
+            "desc": "A playful, expressive collectible with rich purple tones, sculpted details, and a distinctive display presence."
+          }
+        },
+        "card4": {
+          "type": "card",
+          "settings": {
+            "fallback": "merch-4",
+            "badge": "UNIQUE FIND",
+            "tone": "gold",
+            "meta": "Character Collectible",
+            "title": "Golden Character Collectible",
+            "price": "$24.00",
+            "desc": "A charming character figure with warm gold and cream tones, designed to stand out in any collectible display."
+          }
+        }
+      },
+      "block_order": [
+        "card1",
+        "card2",
+        "card3",
+        "card4"
+      ]
     },
     "home_why": {
       "type": "tcg-home-why",

@@ -11,16 +11,6 @@
   else
     assign bg_url = 'home-hero-bg.webp' | asset_url
   endif
-  if section.settings.art_image != blank
-    assign art_url = section.settings.art_image | image_url: width: 1000
-  else
-    assign art_url = 'home-hero-character.webp' | asset_url
-  endif
-  if section.settings.logo_image != blank
-    assign logo_url = section.settings.logo_image | image_url: width: 500
-  else
-    assign logo_url = 'home-hero-logo.webp' | asset_url
-  endif
   assign overlay = section.settings.overlay_opacity | divided_by: 100.0
   assign video_url = section.settings.bg_video_url | strip
 -%}
@@ -33,11 +23,17 @@
         <source src="{{ video_url }}" type="video/mp4">
       </video>
     {%- else -%}
-      <img src="{{ bg_url }}" alt="" width="1920" height="820" fetchpriority="high" class="absolute inset-0 h-full w-full max-w-none object-cover">
+      {% render 'tcg-home-img', image: section.settings.bg_image, mobile: section.settings.bg_image_mobile, fallback: 'home-hero-bg.webp', w: 1920, h: 820, width: 2400, loading: 'eager', priority: true, class: 'absolute inset-0 h-full w-full max-w-none object-cover' %}
     {%- endif -%}
     <div class="absolute inset-0" style="background: radial-gradient(ellipse 72% 48% at 50% 50%, rgba(0,0,0,.32) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.4) 100%), rgba(0,0,0,{{ overlay }});"></div>
-    <img src="{{ 'home-hero-pattern-1.svg' | asset_url }}" alt="" width="1440" height="944" class="absolute inset-x-0 top-[1.15%] h-full w-full max-w-none">
-    <img src="{{ 'home-hero-pattern-2.svg' | asset_url }}" alt="" width="1440" height="944" class="absolute left-0 right-[1.29%] top-[1.15%] h-[92.5%] w-[98.7%] max-w-none">
+    {%- if section.settings.show_pattern -%}
+      {%- if section.settings.pattern_image != blank -%}
+        {% render 'tcg-home-img', image: section.settings.pattern_image, width: 2400, class: 'absolute inset-0 h-full w-full max-w-none object-cover' %}
+      {%- else -%}
+        <img src="{{ 'home-hero-pattern-1.svg' | asset_url }}" alt="" width="1440" height="944" class="absolute inset-x-0 top-[1.15%] h-full w-full max-w-none">
+        <img src="{{ 'home-hero-pattern-2.svg' | asset_url }}" alt="" width="1440" height="944" class="absolute left-0 right-[1.29%] top-[1.15%] h-[92.5%] w-[98.7%] max-w-none">
+      {%- endif -%}
+    {%- endif -%}
   </div>
 
   {%- if section.settings.show_glows -%}
@@ -64,7 +60,7 @@
       </div>
       {%- if section.settings.show_stars -%}
         <div class="flex flex-col items-start gap-[12px]">
-          <img src="{{ 'home-stars.svg' | asset_url }}" alt="5 stars" width="108" height="16" class="h-[16px] w-[108px]">
+          {% render 'tcg-home-img', image: section.settings.stars_image, fallback: 'home-stars.svg', w: 108, h: 16, width: 300, sizes: '108px', alt: '5 stars', class: 'h-[16px] w-auto max-w-[220px] object-contain object-left' %}
           {%- if section.settings.stars_text != blank -%}<p class="text-[14px] font-semibold capitalize leading-[1.5] text-white">{{ section.settings.stars_text }}</p>{%- endif -%}
         </div>
       {%- endif -%}
@@ -77,10 +73,10 @@
         <span aria-hidden="true" class="hz-glow hz-glow--blue" style="left: 271px; top: 524px; width: 760px; height: 1000px;"></span>
       {%- endif -%}
       <div class="absolute left-[29px] top-0 h-[743px] w-[468px] overflow-hidden">
-        <img src="{{ art_url }}" alt="{{ section.settings.art_alt | escape }}" width="768" height="1376" class="absolute inset-0 h-full w-full max-w-none object-contain object-bottom">
+        {% render 'tcg-home-img', image: section.settings.art_image, mobile: section.settings.art_image_mobile, fallback: 'home-hero-character.webp', w: 768, h: 1376, width: 1000, sizes: '(min-width: 1280px) 468px, 290px', loading: 'eager', alt: section.settings.art_alt, class: 'absolute inset-0 h-full w-full max-w-none object-contain object-bottom' %}
       </div>
       {%- if section.settings.show_logo -%}
-        <img src="{{ logo_url }}" alt="" width="444" height="300" class="absolute left-[148px] top-[106px] h-[150px] w-[222px] max-w-none object-contain">
+        {% render 'tcg-home-img', image: section.settings.logo_image, fallback: 'home-hero-logo.webp', w: 444, h: 300, width: 500, sizes: '222px', loading: 'eager', class: 'absolute left-[148px] top-[106px] h-[150px] w-[222px] max-w-none object-contain' %}
       {%- endif -%}
     </div>
   </div>
@@ -102,9 +98,12 @@
   "settings": [
     { "type": "header", "content": "Background" },
     { "type": "image_picker", "id": "bg_image", "label": "Background image", "info": "Defaults to the approved design image." },
+    { "type": "image_picker", "id": "bg_image_mobile", "label": "Background image — mobile (optional)", "info": "Shown on phones. Uses the image above when empty." },
     { "type": "text", "id": "bg_video_url", "label": "Background video (MP4 link, optional)", "info": "Paste a direct .mp4 link (e.g. from Content → Files). Plays muted on loop; the image is used as the poster." },
     { "type": "range", "id": "overlay_opacity", "label": "Dark overlay", "min": 0, "max": 90, "step": 2, "unit": "%", "default": 64 },
     { "type": "checkbox", "id": "show_glows", "label": "Show colour glows", "default": true },
+    { "type": "checkbox", "id": "show_pattern", "label": "Show light-ray pattern", "default": true },
+    { "type": "image_picker", "id": "pattern_image", "label": "Light-ray pattern image (optional)", "info": "Replaces the default rays. A transparent PNG/WebP works best." },
     { "type": "checkbox", "id": "under_header", "label": "Sit under the transparent header", "default": true },
     { "type": "header", "content": "Text" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE TCG HITZ EXPERIENCE" },
@@ -117,9 +116,11 @@
     { "type": "text", "id": "btn2_label", "label": "Button 2 label", "default": "EXPLORE VENDING MACHINES" },
     { "type": "url", "id": "btn2_link", "label": "Button 2 link" },
     { "type": "checkbox", "id": "show_stars", "label": "Show stars line", "default": true },
+    { "type": "image_picker", "id": "stars_image", "label": "Stars image (optional)", "info": "Replaces the 5-star graphic, e.g. a review badge." },
     { "type": "text", "id": "stars_text", "label": "Stars text", "default": "Trusted at card shows every weekend" },
     { "type": "header", "content": "Artwork" },
     { "type": "image_picker", "id": "art_image", "label": "Main artwork", "info": "Transparent PNG/WebP works best. Defaults to the design's machine artwork." },
+    { "type": "image_picker", "id": "art_image_mobile", "label": "Main artwork — mobile (optional)" },
     { "type": "text", "id": "art_alt", "label": "Artwork description (alt text)", "default": "TCG HITZ vending machine" },
     { "type": "checkbox", "id": "show_logo", "label": "Show logo over artwork", "default": true },
     { "type": "image_picker", "id": "logo_image", "label": "Logo over artwork" }

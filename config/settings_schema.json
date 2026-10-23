@@ -2118,7 +2118,7 @@
     ]
   },
   {
-    "name": "TCG live background",
+    "name": "TCG Hitz — background & images",
     "settings": [
       {
         "type": "paragraph",
@@ -2135,9 +2135,18 @@
         "id": "tcg_live_bg_intensity",
         "label": "Particle intensity",
         "options": [
-          { "value": "subtle", "label": "Subtle" },
-          { "value": "normal", "label": "Normal" },
-          { "value": "intense", "label": "Intense" }
+          {
+            "value": "subtle",
+            "label": "Subtle"
+          },
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "intense",
+            "label": "Intense"
+          }
         ],
         "default": "subtle"
       },
@@ -2146,6 +2155,16 @@
         "id": "tcg_live_bg_lightning",
         "label": "Show occasional lightning",
         "default": true
+      },
+      {
+        "type": "header",
+        "content": "Product images"
+      },
+      {
+        "type": "image_picker",
+        "id": "tcg_product_fallback_image",
+        "label": "Image for products without a photo",
+        "info": "Used on homepage product cards when a product has no image. Defaults to the TCG Hitz card back."
       }
     ]
   }

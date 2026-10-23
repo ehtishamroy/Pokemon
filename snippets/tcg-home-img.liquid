@@ -1,0 +1,29 @@
+{%- comment -%}
+  Editable image with a theme-file default (used by the homepage sections and footer).
+
+  Params:
+    image     – image_picker value (wins when set; gets a responsive srcset)
+    fallback  – asset filename used when no image is picked (e.g. 'home-hero-bg.webp')
+    mobile    – optional image_picker value shown below 750px
+    width     – largest width to request for a picked image (default 1600)
+    sizes     – sizes attribute (default 100vw)
+    w, h      – width/height attributes for the fallback asset
+    alt, class, loading ('lazy' default | 'eager'), priority (true → fetchpriority=high)
+{%- endcomment -%}
+{%- liquid
+  assign img_width = width | default: 1600
+  assign img_sizes = sizes | default: '100vw'
+  assign img_loading = loading | default: 'lazy'
+  assign img_alt = alt | default: ''
+-%}
+{%- if mobile != blank -%}<picture><source media="(max-width: 749px)" srcset="{{ mobile | image_url: width: 750 }} 750w, {{ mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{%- endif -%}
+{%- if image != blank -%}
+  {%- if priority -%}
+    {{- image | image_url: width: img_width | image_tag: alt: img_alt, class: class, sizes: img_sizes, loading: img_loading, fetchpriority: 'high' -}}
+  {%- else -%}
+    {{- image | image_url: width: img_width | image_tag: alt: img_alt, class: class, sizes: img_sizes, loading: img_loading -}}
+  {%- endif -%}
+{%- elsif fallback != blank -%}
+  <img src="{{ fallback | asset_url }}" alt="{{ img_alt | escape }}" width="{{ w | default: 800 }}" height="{{ h | default: 800 }}" loading="{{ img_loading }}"{% if priority %} fetchpriority="high"{% endif %} class="{{ class }}">
+{%- endif -%}
+{%- if mobile != blank -%}</picture>{%- endif -%}

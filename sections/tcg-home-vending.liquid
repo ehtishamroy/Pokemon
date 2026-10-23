@@ -5,11 +5,6 @@
 {% endcomment %}
 
 {%- liquid
-  if section.settings.image != blank
-    assign machine_img = section.settings.image | image_url: width: 1200
-  else
-    assign machine_img = 'home-vending.webp' | asset_url
-  endif
   assign video_src = ''
   if section.settings.video != blank
     assign mp4_source = section.settings.video.sources | where: 'format', 'mp4' | sort: 'height' | last
@@ -25,7 +20,7 @@
   <div class="hz-wrap flex flex-col items-center gap-[44px] py-[100px] xl:flex-row">
     <div class="relative flex h-[420px] w-full flex-col items-center justify-center rounded-[24px] tcg-gb [--bw:2px] md:h-[600px] xl:h-[722px] xl:w-[596px] xl:shrink-0">
       <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px]">
-        <img src="{{ machine_img }}" alt="" loading="lazy" width="1200" height="1600" class="absolute inset-0 h-full w-full max-w-none object-cover">
+        {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: 'home-vending.webp', w: 1200, h: 1600, width: 1400, sizes: '(min-width: 1280px) 596px, 100vw', class: 'absolute inset-0 h-full w-full max-w-none object-cover' %}
         <div class="absolute inset-0" style="background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.08) 0%, rgba(0,0,0,.64) 100%), rgba(0,0,0,.32);"></div>
       </div>
       {%- if video_src != blank -%}
@@ -84,6 +79,7 @@
   "settings": [
     { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
     { "type": "image_picker", "id": "image", "label": "Machine image", "info": "Defaults to the design's machine photo." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Machine image — mobile (optional)" },
     { "type": "video", "id": "video", "label": "Video (Shopify-hosted)", "info": "Optional. The play button only shows when a video is set." },
     { "type": "text", "id": "video_url", "label": "…or video MP4 link" },
     { "type": "text", "id": "play_label", "label": "Play button label (screen readers)", "default": "Play video" },

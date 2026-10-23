@@ -5,11 +5,7 @@
 {% endcomment %}
 
 {%- liquid
-  if section.settings.image != blank
-    assign banner_img = section.settings.image | image_url: width: 2000
-  else
-    assign banner_img = 'home-banner-' | append: section.settings.fallback | append: '.webp' | asset_url
-  endif
+  assign banner_fallback = 'home-banner-' | append: section.settings.fallback | append: '.webp'
   assign centered = false
   if section.settings.align == 'center'
     assign centered = true
@@ -28,7 +24,7 @@
   <div class="hz-wrap py-[20px]">
     <div class="relative flex w-full flex-col justify-center rounded-[24px] tcg-gb [--bw:2px] px-6 py-16 {% if centered %}items-center md:px-[48px] md:py-[80px]{% else %}items-start md:px-[48px] md:py-[96px] xl:min-h-[506px]{% endif %}">
       <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px]">
-        <img src="{{ banner_img }}" alt="" loading="lazy" width="1600" height="610" class="absolute inset-0 h-full w-full max-w-none object-cover">
+        {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: banner_fallback, w: 1600, h: 610, width: 2000, sizes: '(min-width: 1440px) 1280px, 100vw', class: 'absolute inset-0 h-full w-full max-w-none object-cover' %}
         {%- if section.settings.overlay > 0 -%}
           <div class="absolute inset-0" style="background: rgba(0,0,0,{{ section.settings.overlay | divided_by: 100.0 }});"></div>
         {%- endif -%}
@@ -55,6 +51,7 @@
   "settings": [
     { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
     { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Background image — mobile (optional)", "info": "Shown on phones. Uses the image above when empty." },
     { "type": "select", "id": "fallback", "label": "Design image (used when no image is chosen)", "options": [
       { "value": "mystery", "label": "Mystery packs banner" },
       { "value": "cta", "label": "Call-to-action banner" }
