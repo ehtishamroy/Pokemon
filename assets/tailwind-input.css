@@ -605,17 +605,15 @@
     display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex-shrink: 0;
     height: 48px; border-radius: 999px; padding: 12px 23px; white-space: nowrap;
     font-size: 14px; font-weight: 700; line-height: 1.3; text-transform: uppercase; color: #fff;
-    transition: filter .2s, background-color .2s, transform .2s;
   }
   .hz-btn img, .hz-btn-outline img, .hz-btn-red img, .hz-btn-red-outline img { width: 20px; height: 20px; flex: none; }
-  .hz-btn { background: #2F7BFF; border: 1px solid #38BDF8; filter: drop-shadow(0 10px 28px rgba(47,123,255,.64)); }
-  .hz-btn:hover { filter: drop-shadow(0 10px 28px rgba(47,123,255,.64)) brightness(1.1); }
-  .hz-btn-outline, .hz-btn-red-outline { --bw: 1.5px; padding: 12px 22.5px; background: rgba(0,0,0,.06); }
-  .hz-btn-outline:hover { background: rgba(37,99,255,.2); }
-  .hz-btn-red { background-image: linear-gradient(90deg, #EF4444, #FF6B35); padding: 12px 24px; gap: 8px; }
-  .hz-btn-red:hover { filter: brightness(1.1); }
+  .hz-btn { background-color: #2F7BFF; border: 1px solid #38BDF8; filter: drop-shadow(0 10px 28px rgba(47,123,255,.64)); }
+  .hz-btn-outline, .hz-btn-red-outline { --bw: 1.5px; padding: 12px 22.5px; background-color: rgba(0,0,0,.06); }
+  .hz-btn-outline:hover { background-color: rgba(37,99,255,.2); }
+  .hz-btn-red { padding: 12px 24px; gap: 8px; }
+  .hz-btn-red:hover { filter: brightness(1.08); }
   .hz-btn-red-outline { gap: 8px; }
-  .hz-btn-red-outline:hover { background: rgba(239,68,68,.2); }
+  .hz-btn-red-outline:hover { background-color: rgba(239,68,68,.2); }
 
   /* Soft colour glows (replaces the design's blurred SVG ellipses; no filter cost) */
   .hz-glow { position: absolute; width: 900px; height: 880px; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%);
@@ -647,11 +645,95 @@
   .hz-rail-btn:hover:not([disabled]) { background: rgba(37,99,255,.3); }
   .hz-rail-btn[disabled] { opacity: .35; cursor: default; }
 
+  /* ---------------------------------------------------------------------
+     Homepage motion: hover effects, idle float, fade-in on scroll
+     Hover only on real hover devices; phones get a light press instead.
+     --------------------------------------------------------------------- */
+  /* Button shine (a background layer, so gradient borders aren't clipped) */
+  .hz-btn, .hz-btn-outline, .hz-btn-red, .hz-btn-red-outline {
+    background-image: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.32) 50%, transparent 65%);
+    background-size: 250% 100%; background-position: 150% 0; background-repeat: no-repeat;
+    transition: filter .25s, background-color .25s, background-position .7s ease, transform .25s ease, box-shadow .25s;
+  }
+  .hz-btn-red { background-image: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.32) 50%, transparent 65%), linear-gradient(90deg, #EF4444, #FF6B35); background-size: 250% 100%, 100% 100%; background-position: 150% 0, 0 0; }
+  .hz-btn svg, .hz-btn-outline svg, .hz-btn-red svg, .hz-btn-red-outline svg { transition: transform .25s ease; }
+
+  .hz-tile { transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s; }
+  .hz-tile__img { transition: transform .6s cubic-bezier(.2,.7,.2,1), filter .4s; }
+  .hz-tile svg { transition: transform .25s ease; }
+
+  .hz-card { transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease; }
+  .hz-card__img { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+  .hz-card__glow { transform: translate(-50%, -50%); opacity: .85; transition: transform .5s ease, opacity .5s ease; }
+
+  .hz-lift-card { transition: transform .3s cubic-bezier(.2,.7,.2,1), background-color .3s, box-shadow .3s; }
+  .hz-icon { transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+
+  .hz-zoom-img { transition: transform 1.2s cubic-bezier(.2,.7,.2,1), filter .6s; }
+  .hz-frame { transition: box-shadow .4s ease; }
+
+  .hz-ulink { background-image: linear-gradient(90deg, #2563FF, #EC4899); background-size: 0 1.5px; background-position: 0 100%; background-repeat: no-repeat; padding-bottom: 2px; transition: background-size .3s ease, color .2s; }
+  .hz-social { transition: transform .25s ease, box-shadow .25s ease, background-color .25s; }
+
+  @media (hover: hover) {
+    .hz-btn:hover, .hz-btn-outline:hover, .hz-btn-red:hover, .hz-btn-red-outline:hover { transform: translateY(-2px); background-position: -50% 0; }
+    .hz-btn-red:hover { background-position: -50% 0, 0 0; }
+    .hz-btn:hover { filter: drop-shadow(0 14px 30px rgba(47,123,255,.8)) brightness(1.08); }
+    .hz-btn-outline:hover, .hz-btn-red-outline:hover { box-shadow: 0 10px 28px -10px rgba(236,72,153,.55); }
+    .hz-btn:hover svg, .hz-btn-outline:hover svg, .hz-btn-red:hover svg, .hz-btn-red-outline:hover svg { transform: translate(2px, -2px); }
+
+    .hz-tile:hover { transform: translateY(-6px); border-color: rgba(236,72,153,.7); box-shadow: 0 14px 26px -14px rgba(37,99,255,.75), 0 0 0 1px rgba(56,189,248,.35), 0 0 22px -6px rgba(236,72,153,.5); }
+    .hz-tile:hover .hz-tile__img { transform: scale(1.08); filter: brightness(1.12) saturate(1.1); }
+    .hz-tile:hover svg { transform: translate(2px, -2px); }
+
+    .hz-card:hover { transform: translateY(-6px); box-shadow: 0 26px 48px -22px rgba(37,99,255,.7), 0 0 34px -10px rgba(236,72,153,.45); }
+    .hz-card:hover .hz-card__img { transform: scale(1.07) rotate(-2deg); }
+    .hz-card:hover .hz-card__glow { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+
+    .hz-lift-card:hover { transform: translateY(-4px); background-color: rgba(255,255,255,.06); box-shadow: 0 18px 36px -20px rgba(37,99,255,.7), 0 0 24px -10px rgba(236,72,153,.4); }
+    .hz-lift-card:hover .hz-icon { transform: rotate(-10deg) scale(1.15); }
+
+    .hz-zoom:hover .hz-zoom-img { transform: scale(1.05); filter: brightness(1.08); }
+    .hz-zoom:hover.hz-frame, .hz-zoom:hover .hz-frame { box-shadow: 0 0 40px -8px rgba(236,72,153,.45), 0 0 60px -12px rgba(37,99,255,.45); }
+
+    .hz-ulink:hover { background-size: 100% 1.5px; }
+    .hz-social:hover { transform: translateY(-3px); box-shadow: 0 8px 20px -6px rgba(236,72,153,.6); }
+  }
+  @media (hover: none) {
+    .hz-tile:active, .hz-card:active, .hz-lift-card:active { transform: scale(.98); }
+    .hz-btn:active, .hz-btn-outline:active, .hz-btn-red:active, .hz-btn-red-outline:active { transform: scale(.97); }
+  }
+
+  /* Favourite heart pop */
+  .hz-fav[aria-pressed="true"] svg { animation: hz-pop .4s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes hz-pop { 0% { transform: scale(1); } 45% { transform: scale(1.5); } 100% { transform: scale(1); } }
+
+  /* Idle motion: floating hero art, pulsing play button */
+  .hz-float { animation: hz-float 6s ease-in-out infinite; }
+  .hz-float--late { animation-delay: -3s; }
+  @keyframes hz-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -14px; } }
+  .hz-pulse-ring::before, .hz-pulse-ring::after { content: ""; position: absolute; inset: -7px; border-radius: 999px; border: 2px solid rgba(56,189,248,.7); animation: hz-ring 2.2s ease-out infinite; pointer-events: none; }
+  .hz-pulse-ring::after { animation-delay: 1.1s; }
+  @keyframes hz-ring { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.8); opacity: 0; } }
+
+  /* Fade-in on scroll (assets/tcg.js adds html.hz-js + .is-in). Uses `translate`/opacity,
+     so hover effects on `transform` keep working. */
+  .hz-js [data-hz-reveal]:not(.is-in) { opacity: 0; translate: 0 26px; }
+  .hz-js [data-hz-reveal].is-in { animation: hz-reveal .75s cubic-bezier(.2,.7,.2,1) var(--hz-delay, 0ms) both; }
+  @keyframes hz-reveal { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: 0 0; } }
+
+  /* Marquee: pause on touch too; phones can run at their own speed */
+  .hz-marquee:active .hz-marquee__track { animation-play-state: paused; }
+  @media (max-width: 767px) { .hz-marquee__track { animation-duration: var(--hz-speed-m, var(--hz-speed, 40s)); } }
+
   /* Homepage: let the hero sit under the translucent header (like the design) */
   .hz-under-header { margin-top: calc(var(--tcg-header-h, 72px) * -1); }
 
   @media (prefers-reduced-motion: reduce) {
     .hz-marquee__track { animation: none; }
     .hz-rail { scroll-behavior: auto; }
+    .hz-float, .hz-pulse-ring::before, .hz-pulse-ring::after, .hz-fav[aria-pressed="true"] svg { animation: none; }
+    .hz-js [data-hz-reveal]:not(.is-in), .hz-js [data-hz-reveal].is-in { opacity: 1; translate: none; animation: none; }
+    .hz-tile, .hz-card, .hz-lift-card, .hz-zoom-img, .hz-tile__img, .hz-card__img { transition: none; }
   }
 }

@@ -21,10 +21,10 @@
 
 <section class="tcg-scope hz relative">
   {% render 'tcg-home-glow', glow: section.settings.glow %}
-  <div class="hz-wrap py-[20px]">
-    <div class="relative flex w-full flex-col justify-center rounded-[24px] tcg-gb [--bw:2px] px-6 py-16 {% if centered %}items-center md:px-[48px] md:py-[80px]{% else %}items-start md:px-[48px] md:py-[96px] xl:min-h-[506px]{% endif %}">
+  <div class="hz-wrap py-[12px] md:py-[20px]">
+    <div data-hz-reveal class="hz-zoom hz-frame relative flex w-full flex-col justify-center rounded-[24px] tcg-gb [--bw:2px] px-6 py-10 {% if centered %}items-center md:px-[48px] md:py-[80px]{% else %}items-start md:px-[48px] md:py-[96px] xl:min-h-[506px]{% endif %}">
       <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px]">
-        {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: banner_fallback, w: 1600, h: 610, width: 2000, sizes: '(min-width: 1440px) 1280px, 100vw', class: 'absolute inset-0 h-full w-full max-w-none object-cover' %}
+        {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: banner_fallback, w: 1600, h: 610, width: 2000, sizes: '(min-width: 1440px) 1280px, 100vw', class: 'hz-zoom-img absolute inset-0 h-full w-full max-w-none object-cover' %}
         {%- if section.settings.overlay > 0 -%}
           <div class="absolute inset-0" style="background: rgba(0,0,0,{{ section.settings.overlay | divided_by: 100.0 }});"></div>
         {%- endif -%}

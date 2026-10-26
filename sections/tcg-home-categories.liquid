@@ -11,7 +11,7 @@
 
 <section class="tcg-scope hz relative">
   {% render 'tcg-home-glow', glow: section.settings.glow %}
-  <div class="hz-wrap flex flex-col items-stretch gap-[56px] pb-[20px] pt-[100px]">
+  <div class="hz-wrap flex flex-col items-stretch gap-[28px] pb-[20px] pt-[36px] md:gap-[44px] md:pt-[72px] xl:gap-[56px] xl:pt-[100px]">
     <div class="relative" data-hz-rail-root>
       {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, align: 'center', heading_class: 'max-w-[535px]' %}
       {%- if section.settings.show_arrows -%}
@@ -21,14 +21,14 @@
         </div>
       {%- endif -%}
     </div>
-    <div class="hz-rail flex w-full gap-[16px] [--hz-cols:1.6] sm:[--hz-cols:2.6] lg:[--hz-cols:var(--hz-desktop)]" style="--hz-desktop: {{ cols }};" data-hz-rail tabindex="0" role="region" aria-label="{{ section.settings.heading | escape }}">
+    <div class="hz-rail -my-[14px] flex w-full gap-[16px] py-[14px] [--hz-cols:1.6] sm:[--hz-cols:2.6] lg:[--hz-cols:var(--hz-desktop)]" style="--hz-desktop: {{ cols }};" data-hz-rail tabindex="0" role="region" aria-label="{{ section.settings.heading | escape }}">
       {%- for block in section.blocks -%}
         {%- liquid
           assign tile_fallback = 'home-cat-' | append: block.settings.fallback | append: '.webp'
         -%}
-        <a href="{{ block.settings.link | default: '#' }}" class="hz-rail__item group relative flex h-[300px] flex-col items-start justify-end overflow-hidden rounded-[8px] border-[0.75px] border-solid border-white/40 p-[16px]" {{ block.shopify_attributes }}>
+        <a href="{{ block.settings.link | default: '#' }}" data-hz-reveal class="hz-rail__item hz-tile group relative flex h-[300px] flex-col items-start justify-end overflow-hidden rounded-[8px] border-[0.75px] border-solid border-white/40 p-[16px]" {{ block.shopify_attributes }}>
           <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[8px]">
-            {% render 'tcg-home-img', image: block.settings.image, fallback: tile_fallback, w: 520, h: 750, width: 700, sizes: '(min-width: 1024px) 210px, (min-width: 640px) 33vw, 50vw', class: 'absolute inset-0 h-full w-full max-w-none rounded-[8px] object-cover transition-transform duration-500 group-hover:scale-105' %}
+            {% render 'tcg-home-img', image: block.settings.image, fallback: tile_fallback, w: 520, h: 750, width: 700, sizes: '(min-width: 1024px) 210px, (min-width: 640px) 33vw, 50vw', class: 'absolute inset-0 h-full w-full max-w-none rounded-[8px] object-cover hz-tile__img' %}
             <div class="absolute inset-0 rounded-[8px]" style="background: linear-gradient(to bottom, rgba(0,0,0,.13) 35.047%, rgba(0,0,0,.84) 79.907%);"></div>
           </div>
           <div class="relative flex w-full flex-col items-start gap-[14px]">

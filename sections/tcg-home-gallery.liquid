@@ -1,7 +1,8 @@
 {% comment %}
   TCG Hitz — "INSIDE THE TCG HITZ UNIVERSE" photo gallery (client-approved design).
   Two rows of wide/narrow photos, centered and cut off at the screen edges like the design.
-  Photos are blocks (choose row 1 or 2, wide or narrow). Optional slow drifting motion.
+  Photos are blocks (choose row 1 or 2, wide or narrow). By default the rows scroll in an
+  infinite loop in opposite directions (row 1 left, row 2 right) and pause on hover/touch.
 {% endcomment %}
 
 {%- liquid
@@ -18,18 +19,29 @@
   if section.settings.motion == 'drift'
     assign drift = true
   endif
+  case section.settings.speed
+    when 'slow'
+      assign speed_desktop = '90s'
+      assign speed_mobile = '60s'
+    when 'fast'
+      assign speed_desktop = '35s'
+      assign speed_mobile = '24s'
+    else
+      assign speed_desktop = '60s'
+      assign speed_mobile = '40s'
+  endcase
 -%}
 
 <section class="tcg-scope hz relative overflow-hidden">
   {% render 'tcg-home-glow', glow: section.settings.glow %}
-  <div class="hz-wrap flex flex-col items-stretch gap-[64px] pb-[60px] pt-[100px]">
+  <div class="hz-wrap flex flex-col items-stretch gap-[28px] pb-[28px] pt-[36px] md:gap-[44px] md:pb-[44px] md:pt-[72px] xl:gap-[64px] xl:pb-[60px] xl:pt-[100px]">
     <div class="flex w-full flex-col items-start justify-between gap-8 md:flex-row md:items-end">
       {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, heading_class: 'max-w-[847px] uppercase', text_class: 'xl:whitespace-nowrap' %}
       {% render 'tcg-home-button', label: section.settings.btn_label, link: section.settings.btn_link, kind: 'outline' %}
     </div>
   </div>
 
-  <div class="flex w-full flex-col items-stretch gap-[28px] pb-[60px]">
+  <div class="flex w-full flex-col items-stretch gap-[16px] pb-[40px] md:gap-[28px] xl:pb-[60px]">
     {%- for row_index in (1..2) -%}
       {%- liquid
         assign row_key = row_index | append: ''
@@ -40,13 +52,16 @@
         endif
         if drift
           assign passes = 2
+          if row_size < 5
+            assign passes = 4
+          endif
         else
           assign passes = 1
         endif
       -%}
       {%- if row_size > 0 -%}
-        <div class="{% if drift %}hz-marquee{% else %}flex justify-center{% endif %} w-full">
-          <div class="{% if drift %}hz-marquee__track pr-[24px]{% else %}flex shrink-0 justify-center{% endif %} gap-[24px]"{% if drift %} style="--hz-speed: 70s;{% if row_index == 2 %} animation-direction: reverse;{% endif %}"{% endif %}>
+        <div class="{% if drift %}hz-marquee{% else %}flex justify-center{% endif %} w-full" data-hz-reveal>
+          <div class="{% if drift %}hz-marquee__track pr-[24px]{% else %}flex shrink-0 justify-center{% endif %} gap-[24px]"{% if drift %} style="--hz-speed: {{ speed_desktop }}; --hz-speed-m: {{ speed_mobile }};{% if row_index == 2 %} animation-direction: reverse;{% endif %}"{% endif %}>
             {%- for pass in (1..passes) -%}
               {%- for block in section.blocks -%}
                 {%- liquid
@@ -87,53 +102,278 @@
   "class": "tcg-home-section",
   "max_blocks": 16,
   "settings": [
-    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "INSIDE THE TCG HITZ UNIVERSE" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "MORE THAN A COLLECTION. IT'S AN EXPERIENCE." },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "From collectible cards and rare finds to our signature vending machines, explore the world of TCG HITZ." },
-    { "type": "text", "id": "btn_label", "label": "Button label", "default": "EXPLORE TCG HITZ" },
-    { "type": "url", "id": "btn_link", "label": "Button link" },
-    { "type": "select", "id": "motion", "label": "Motion", "options": [
-      { "value": "static", "label": "Static (like the design)" },
-      { "value": "drift", "label": "Slow drift (rows move in opposite directions)" }
-    ], "default": "static" }
+    {
+      "type": "select",
+      "id": "glow",
+      "label": "Background glow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "left-purple",
+          "label": "Purple, left"
+        },
+        {
+          "value": "left-pink",
+          "label": "Pink, left"
+        },
+        {
+          "value": "right-blue",
+          "label": "Blue, right"
+        },
+        {
+          "value": "right-gold",
+          "label": "Gold, right"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "INSIDE THE TCG HITZ UNIVERSE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "MORE THAN A COLLECTION. IT'S AN EXPERIENCE."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "From collectible cards and rare finds to our signature vending machines, explore the world of TCG HITZ."
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button label",
+      "default": "EXPLORE TCG HITZ"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "motion",
+      "label": "Photo motion",
+      "options": [
+        {
+          "value": "drift",
+          "label": "Infinite scroll (rows move left and right)"
+        },
+        {
+          "value": "static",
+          "label": "Static"
+        }
+      ],
+      "default": "drift"
+    },
+    {
+      "type": "select",
+      "id": "speed",
+      "label": "Scroll speed",
+      "options": [
+        {
+          "value": "slow",
+          "label": "Slow"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "fast",
+          "label": "Fast"
+        }
+      ],
+      "default": "normal"
+    }
   ],
   "blocks": [
     {
       "type": "photo",
       "name": "Photo",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "select", "id": "fallback", "label": "Design image (used when no image is chosen)", "options": [
-          { "value": "1", "label": "Umbreon machine display" }, { "value": "2", "label": "Collector at machine" }, { "value": "3", "label": "Card show floor" },
-          { "value": "4", "label": "Arcade machines (wide)" }, { "value": "5", "label": "Young collector at machine" }, { "value": "6", "label": "Mall pop-up" }
-        ], "default": "1" },
-        { "type": "text", "id": "alt", "label": "Image description (alt text)" },
-        { "type": "text", "id": "caption", "label": "Caption (optional)" },
-        { "type": "url", "id": "link", "label": "Link (optional)" },
-        { "type": "select", "id": "size", "label": "Width", "options": [
-          { "value": "wide", "label": "Wide" }, { "value": "narrow", "label": "Narrow" }
-        ], "default": "wide" },
-        { "type": "select", "id": "row", "label": "Row", "options": [
-          { "value": "1", "label": "Row 1" }, { "value": "2", "label": "Row 2" }
-        ], "default": "1" }
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "fallback",
+          "label": "Design image (used when no image is chosen)",
+          "options": [
+            {
+              "value": "1",
+              "label": "Umbreon machine display"
+            },
+            {
+              "value": "2",
+              "label": "Collector at machine"
+            },
+            {
+              "value": "3",
+              "label": "Card show floor"
+            },
+            {
+              "value": "4",
+              "label": "Arcade machines (wide)"
+            },
+            {
+              "value": "5",
+              "label": "Young collector at machine"
+            },
+            {
+              "value": "6",
+              "label": "Mall pop-up"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image description (alt text)"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption (optional)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Width",
+          "options": [
+            {
+              "value": "wide",
+              "label": "Wide"
+            },
+            {
+              "value": "narrow",
+              "label": "Narrow"
+            }
+          ],
+          "default": "wide"
+        },
+        {
+          "type": "select",
+          "id": "row",
+          "label": "Row",
+          "options": [
+            {
+              "value": "1",
+              "label": "Row 1"
+            },
+            {
+              "value": "2",
+              "label": "Row 2"
+            }
+          ],
+          "default": "1"
+        }
       ]
     }
   ],
-  "presets": [{
-    "name": "TCG Home — Gallery",
-    "blocks": [
-      { "type": "photo", "settings": { "fallback": "1", "size": "wide", "row": "1" } },
-      { "type": "photo", "settings": { "fallback": "2", "size": "narrow", "row": "1" } },
-      { "type": "photo", "settings": { "fallback": "3", "size": "wide", "row": "1" } },
-      { "type": "photo", "settings": { "fallback": "2", "size": "narrow", "row": "1" } },
-      { "type": "photo", "settings": { "fallback": "1", "size": "narrow", "row": "1" } },
-      { "type": "photo", "settings": { "fallback": "1", "size": "narrow", "row": "2" } },
-      { "type": "photo", "settings": { "fallback": "4", "size": "wide", "row": "2" } },
-      { "type": "photo", "settings": { "fallback": "5", "size": "narrow", "row": "2" } },
-      { "type": "photo", "settings": { "fallback": "6", "size": "wide", "row": "2" } },
-      { "type": "photo", "settings": { "fallback": "1", "size": "narrow", "row": "2" } }
-    ]
-  }]
+  "presets": [
+    {
+      "name": "TCG Home — Gallery",
+      "blocks": [
+        {
+          "type": "photo",
+          "settings": {
+            "fallback": "1",
+            "size": "wide",
+            "row": "1"
+          }
+        },
+        {
+          "type": "photo",
+          "settings": {
+            "fallback": "2",
+            "size": "narrow",
+            "row": "1"
+          }
+        },
+        {
+          "type": "photo",
+          "settings": {
+            "fallback": "3",
+            "size": "wide",
+            "row": "1"
+          }
+        },
+        {
+          "type": "photo",
+          "settings": {
+            "fallback": "2",
+            "size": "narrow",
+            "row": "1"
+          }
+        },
+        {
+          "type": "photo",
+          "settings": {
+            "fallback": "1",
+            "size": "narrow",
+            "row": "1"
+          }
+        },
+        {
+          "type": "photo",
+          "settings": {
+            "fallback": "1",
+            "size": "narrow",
+            "row": "2"
+          }
+        },
+        {
+          "type": "photo",
+          "settings": {
+            "fallback": "4",
+            "size": "wide",
+            "row": "2"
+          }
+        },
+        {
+          "type": "photo",
+          "settings": {
+            "fallback": "5",
+            "size": "narrow",
+            "row": "2"
+          }
+        },
+        {
+          "type": "photo",
+          "settings": {
+            "fallback": "6",
+            "size": "wide",
+            "row": "2"
+          }
+        },
+        {
+          "type": "photo",
+          "settings": {
+            "fallback": "1",
+            "size": "narrow",
+            "row": "2"
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

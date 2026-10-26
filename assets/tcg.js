@@ -457,3 +457,27 @@ document.querySelectorAll('[data-tabs]').forEach((wrap) => {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   document.addEventListener('shopify:section:load', run);
 })();
+
+/* Homepage fade-in on scroll: [data-hz-reveal] elements fade/slide up once as they enter
+   the viewport. Skipped (content shown at once) for reduced motion, the theme editor,
+   and browsers without IntersectionObserver. Styles: assets/tailwind-input.css (hz-reveal). */
+(function initHzReveal() {
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const editor = window.Shopify && window.Shopify.designMode;
+  if (reduce || editor || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('hz-js');
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      el.style.setProperty('--hz-delay', Math.min(i, 6) * 90 + 'ms'); // cascade items revealed together
+      el.classList.add('is-in');
+      io.unobserve(el);
+      i += 1;
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  const watch = (root) => root.querySelectorAll('[data-hz-reveal]:not(.is-in)').forEach((el) => io.observe(el));
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => watch(document)); else watch(document);
+  document.addEventListener('shopify:section:load', (e) => watch(e.target));
+})();

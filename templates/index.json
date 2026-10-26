@@ -583,8 +583,9 @@
         "text": "From collectible cards and rare finds to our signature vending machines, explore the world of TCG HITZ.",
         "btn_label": "EXPLORE TCG HITZ",
         "btn_link": "/collections/all",
-        "motion": "static",
-        "glow": "right-gold"
+        "motion": "drift",
+        "glow": "right-gold",
+        "speed": "normal"
       }
     },
     "home_community": {

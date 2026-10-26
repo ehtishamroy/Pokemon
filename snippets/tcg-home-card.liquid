@@ -144,7 +144,7 @@
   endcase
 -%}
 
-<article class="relative flex h-full flex-col gap-[17px] rounded-[20px] tcg-gb bg-hz-card px-[14px] pb-[18px] pt-[14px]" {{ attrs }}>
+<article data-hz-reveal class="hz-card relative flex h-full flex-col gap-[17px] rounded-[20px] tcg-gb bg-hz-card px-[14px] pb-[18px] pt-[14px]" {{ attrs }}>
   <div class="flex h-[220px] w-full flex-col rounded-[12px] bg-hz-elevated px-[10px] pb-[16px] pt-[10px]">
     <div class="relative z-[1] flex w-full items-center justify-between">
       {%- if card_badge != blank -%}
@@ -158,10 +158,10 @@
     </div>
     <a href="{{ card_link }}" class="relative flex min-h-0 flex-1 items-center justify-center" tabindex="-1" aria-hidden="true">
       {%- if glow_rgb != blank -%}
-        <span class="pointer-events-none absolute left-1/2 top-1/2 h-[200px] w-[220px] -translate-x-1/2 -translate-y-1/2 rounded-full" style="background:radial-gradient(closest-side, rgb({{ glow_rgb }} / .5), rgb({{ glow_rgb }} / .15) 60%, transparent);"></span>
+        <span class="hz-card__glow pointer-events-none absolute left-1/2 top-1/2 h-[200px] w-[220px] rounded-full" style="background:radial-gradient(closest-side, rgb({{ glow_rgb }} / .5), rgb({{ glow_rgb }} / .15) 60%, transparent);"></span>
       {%- endif -%}
       {%- if card_img != blank -%}
-        <img src="{{ card_img }}" alt="{{ card_title | escape }}" loading="lazy" width="400" height="400" class="relative max-h-[170px] w-auto max-w-full object-contain">
+        <img src="{{ card_img }}" alt="{{ card_title | escape }}" loading="lazy" width="400" height="400" class="hz-card__img relative max-h-[170px] w-auto max-w-full object-contain">
       {%- endif -%}
     </a>
   </div>

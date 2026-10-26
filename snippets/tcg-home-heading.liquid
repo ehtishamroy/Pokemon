@@ -10,7 +10,7 @@
     assign align_class = 'items-start text-left'
   endif
 -%}
-<div class="flex flex-col gap-[16px] {{ align_class }}">
+<div class="flex flex-col gap-[16px] {{ align_class }}" data-hz-reveal>
   <div class="flex flex-col gap-[16px] {{ align_class }}">
     {%- if eyebrow != blank -%}<div class="hz-eyebrow"><span>{{ eyebrow }}</span></div>{%- endif -%}
     {%- if heading != blank -%}<{{ heading_tag }} class="hz-h2 {{ heading_class }}">{{ heading }}</{{ heading_tag }}>{%- endif -%}

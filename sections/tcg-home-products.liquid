@@ -15,9 +15,9 @@
   endif
   assign glows = 'pink,blue,purple,gold' | split: ','
   if section.settings.padding == 'tight'
-    assign pad_class = 'pb-[100px] pt-[20px]'
+    assign pad_class = 'pb-[36px] pt-[20px] md:pb-[72px] xl:pb-[100px]'
   else
-    assign pad_class = 'py-[100px]'
+    assign pad_class = 'py-[36px] md:py-[72px] xl:py-[100px]'
   endif
   assign view_all = section.settings.btn_link | default: coll.url
   assign card_blocks = section.blocks | where: 'type', 'card'
@@ -35,7 +35,7 @@
 
 <section class="tcg-scope hz relative">
   {% render 'tcg-home-glow', glow: section.settings.glow %}
-  <div class="hz-wrap flex flex-col items-stretch gap-[56px] {{ pad_class }}">
+  <div class="hz-wrap flex flex-col items-stretch gap-[28px] md:gap-[44px] xl:gap-[56px] {{ pad_class }}">
     <div class="flex w-full flex-col items-start justify-between gap-8 md:flex-row md:items-end">
       {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, heading_class: 'uppercase xl:whitespace-nowrap', text_class: 'xl:whitespace-nowrap' %}
       {% render 'tcg-home-button', label: section.settings.btn_label, link: view_all, kind: 'outline' %}

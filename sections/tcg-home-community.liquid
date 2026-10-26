@@ -10,11 +10,11 @@
 
 <section class="tcg-scope hz relative" id="community">
   {% render 'tcg-home-glow', glow: section.settings.glow %}
-  <div class="relative mx-auto flex w-full max-w-[1440px] flex-col items-center gap-[42px] pt-[20px] xl:flex-row xl:pr-[80px]">
-    <div class="relative h-[300px] w-full shrink-0 overflow-hidden sm:h-[472px] xl:w-[651px]">
+  <div class="relative mx-auto flex w-full max-w-[1440px] flex-col items-center gap-[24px] pt-[20px] xl:flex-row xl:gap-[42px] xl:pr-[80px]">
+    <div data-hz-reveal class="relative h-[300px] w-full shrink-0 overflow-hidden sm:h-[472px] xl:w-[651px]">
       {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: 'home-community.webp', w: 1300, h: 1105, width: 1400, sizes: '(min-width: 1280px) 651px, 100vw', alt: section.settings.image_alt, class: 'absolute inset-0 h-full w-full max-w-none object-cover object-left' %}
     </div>
-    <div class="flex w-full flex-col items-start gap-[32px] px-5 pb-[32px] md:px-10 xl:w-auto xl:px-0">
+    <div data-hz-reveal class="flex w-full flex-col items-start gap-[32px] px-5 pb-[32px] md:px-10 xl:w-auto xl:px-0">
       <div class="flex flex-col items-start gap-[16px]">
         {%- if section.settings.eyebrow != blank -%}<div class="hz-eyebrow"><span>{{ section.settings.eyebrow }}</span></div>{%- endif -%}
         <h2 class="w-full max-w-[454px] font-display text-[36px] uppercase leading-[1.15] text-white md:text-[48px] md:leading-[55px]">{{ section.settings.heading }}</h2>
