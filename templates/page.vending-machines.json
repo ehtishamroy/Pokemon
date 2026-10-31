@@ -144,7 +144,8 @@
         "view_label": "View Machine",
         "source": "collection",
         "collection": "vending-machines",
-        "limit": 4,
+        "limit": 5,
+        "center_rows": true,
         "show_desc": true,
         "show_glow": true,
         "padding": "normal",
@@ -156,11 +157,13 @@
         "m1": {
           "type": "card",
           "settings": {
-            "fallback": "cat-vending",
-            "badge": "BEST SELLER",
+            "fallback": "machine-tower-charizard",
+            "badge": "TOWER",
             "tone": "pink",
-            "title": "THE MINI TCG",
-            "desc": "A compact machine that brings trading cards to smaller spaces.",
+            "title": "THE TCG TOWER — CHARIZARD EDITION",
+            "meta": "TCG HITZ · Card vending machine",
+            "desc": "Slim floor-standing touchscreen tower with a fiery Charizard wrap.",
+            "price": "$3,995",
             "glow": "auto",
             "link": "/collections/vending-machines"
           }
@@ -168,11 +171,13 @@
         "m2": {
           "type": "card",
           "settings": {
-            "fallback": "cat-vending",
-            "badge": "NEW",
+            "fallback": "machine-tower-pikachu",
+            "badge": "TOWER",
             "tone": "lightning",
-            "title": "THE TCG CLASSIC",
-            "desc": "A standard machine designed for everyday trading card vending.",
+            "title": "THE TCG TOWER — PIKACHU EDITION",
+            "meta": "TCG HITZ · Card vending machine",
+            "desc": "The same touchscreen tower in a Pikachu and lightning wrap.",
+            "price": "$3,995",
             "glow": "auto",
             "link": "/collections/vending-machines"
           }
@@ -180,11 +185,13 @@
         "m3": {
           "type": "card",
           "settings": {
-            "fallback": "cat-vending",
-            "badge": "FEATURED",
+            "fallback": "machine-showcase",
+            "badge": "TOUCHSCREEN",
             "tone": "pink",
-            "title": "THE TCG PRO",
-            "desc": "A premium machine built for high-traffic locations.",
+            "title": "THE TCG SHOWCASE",
+            "meta": "TCG HITZ · Card vending machine",
+            "desc": "Wide two-door machine with a big touchscreen storefront.",
+            "price": "$5,495",
             "glow": "auto",
             "link": "/collections/vending-machines"
           }
@@ -192,11 +199,27 @@
         "m4": {
           "type": "card",
           "settings": {
-            "fallback": "cat-vending",
-            "badge": "NEW",
+            "fallback": "machine-classic",
+            "badge": "GLASS FRONT",
             "tone": "lightning",
-            "title": "THE TCG SHOWCASE",
-            "desc": "An eye-catching machine that shows off your collectibles.",
+            "title": "THE TCG CLASSIC",
+            "meta": "TCG HITZ · Card vending machine",
+            "desc": "Full-size glass-front machine in Poké Ball red and white.",
+            "price": "$5,995",
+            "glow": "auto",
+            "link": "/collections/vending-machines"
+          }
+        },
+        "m5": {
+          "type": "card",
+          "settings": {
+            "fallback": "machine-pro",
+            "badge": "LED PREMIUM",
+            "tone": "pink",
+            "title": "THE TCG PRO",
+            "meta": "TCG HITZ · Card vending machine",
+            "desc": "Premium glass-front machine with stadium wrap and LED frame.",
+            "price": "$6,995",
             "glow": "auto",
             "link": "/collections/vending-machines"
           }
@@ -206,7 +229,8 @@
         "m1",
         "m2",
         "m3",
-        "m4"
+        "m4",
+        "m5"
       ]
     },
     "vm_compare": {
@@ -218,47 +242,69 @@
         "c1": {
           "type": "machine",
           "settings": {
-            "name": "THE MINI TCG",
-            "text": "Compact machine for smaller spaces.",
-            "type": "Compact vending unit",
+            "name": "THE TCG TOWER",
+            "text": "Touchscreen tower, two wrap editions.",
+            "type": "Touchscreen tower",
             "dimensions": "See machine page",
             "capacity": "See machine page",
-            "display": "LED display / touchscreen",
-            "payment": "Card / mobile / cash",
-            "wrap": true
+            "display": "Large touchscreen",
+            "payment": "Card, mobile and cash options",
+            "wrap": true,
+            "price": "From $3,995",
+            "art": "machine-tower-pikachu"
           }
         },
         "c2": {
           "type": "machine",
           "settings": {
-            "name": "THE TCG CLASSIC",
-            "text": "Standard machine for most locations.",
-            "type": "Standard vending machine",
+            "name": "THE TCG SHOWCASE",
+            "text": "Wide two-door touchscreen machine.",
+            "type": "Two-door touchscreen machine",
             "dimensions": "See machine page",
             "capacity": "See machine page",
-            "display": "LED display / touchscreen",
-            "payment": "Card / mobile / cash",
-            "wrap": true
+            "display": "Large touchscreen storefront",
+            "payment": "Card, mobile and cash options",
+            "wrap": true,
+            "price": "From $5,495",
+            "art": "machine-showcase"
           }
         },
         "c3": {
           "type": "machine",
           "settings": {
-            "name": "THE TCG PRO",
-            "text": "Premium machine for busy locations.",
-            "type": "Premium vending machine",
+            "name": "THE TCG CLASSIC",
+            "text": "Full-size glass-front machine.",
+            "type": "Full-size glass-front machine",
             "dimensions": "See machine page",
             "capacity": "See machine page",
-            "display": "LED display / touchscreen",
-            "payment": "Card / mobile / cash",
-            "wrap": true
+            "display": "Side touchscreen",
+            "payment": "Card, mobile and cash options",
+            "wrap": true,
+            "price": "From $5,995",
+            "art": "machine-classic"
+          }
+        },
+        "c4": {
+          "type": "machine",
+          "settings": {
+            "name": "THE TCG PRO",
+            "text": "Premium glass-front with LED frame.",
+            "type": "Premium glass-front machine",
+            "dimensions": "See machine page",
+            "capacity": "See machine page",
+            "display": "Side touchscreen, LED frame",
+            "payment": "Card, mobile and cash options",
+            "wrap": true,
+            "price": "From $6,995",
+            "art": "machine-pro"
           }
         }
       },
       "block_order": [
         "c1",
         "c2",
-        "c3"
+        "c3",
+        "c4"
       ]
     },
     "vm_addons": {

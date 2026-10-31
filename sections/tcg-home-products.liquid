@@ -45,7 +45,7 @@
     </div>
     {%- endif -%}
 
-    <div class="grid w-full grid-cols-1 gap-x-[24px] gap-y-[30px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div class="grid w-full gap-x-[24px] gap-y-[30px] {% if section.settings.center_rows %} hz-grid-center {% else %} grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 {% endif %}">
       {%- if show_collection -%}
         {%- for product in coll.products limit: section.settings.limit -%}
           {%- liquid
@@ -192,6 +192,13 @@
       "id": "anchor",
       "label": "Anchor id (optional)",
       "info": "Lets buttons jump here, e.g. machines → #machines"
+    },
+    {
+      "type": "checkbox",
+      "id": "center_rows",
+      "label": "Centre a short last row of cards",
+      "info": "Useful with 3 or 5 cards, so a single card on its own row sits in the middle.",
+      "default": false
     },
     {
       "type": "checkbox",
@@ -366,6 +373,26 @@
             {
               "value": "none",
               "label": "None"
+            },
+            {
+              "value": "machine-tower-charizard",
+              "label": "Machine — Tower, Charizard"
+            },
+            {
+              "value": "machine-tower-pikachu",
+              "label": "Machine — Tower, Pikachu"
+            },
+            {
+              "value": "machine-showcase",
+              "label": "Machine — Showcase"
+            },
+            {
+              "value": "machine-classic",
+              "label": "Machine — Classic"
+            },
+            {
+              "value": "machine-pro",
+              "label": "Machine — Pro"
             },
             {
               "value": "cat-vending",

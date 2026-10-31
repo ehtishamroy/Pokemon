@@ -26,6 +26,7 @@
                 {%- liquid
                   assign m_img = block.settings.image
                   assign m_product = block.settings.product
+                  assign m_art = 'home-' | append: block.settings.art | append: '.webp'
                   if m_img == blank and m_product != blank
                     assign m_img = m_product.featured_image
                   endif
@@ -36,7 +37,7 @@
                       {%- if m_img != blank -%}
                         {{ m_img | image_url: width: 120 | image_tag: alt: '', width: 40, height: 56, loading: 'lazy', class: 'h-full w-full object-contain' }}
                       {%- else -%}
-                        <img src="{{ 'home-cat-vending.webp' | asset_url }}" alt="" width="40" height="56" loading="lazy" class="h-full w-full object-contain">
+                        <img src="{{ m_art | asset_url }}" alt="" width="40" height="56" loading="lazy" class="h-full w-full object-contain">
                       {%- endif -%}
                     </span>
                     <span class="flex min-w-0 flex-col gap-[2px] text-left">
@@ -152,6 +153,7 @@
         { "type": "text", "id": "name", "label": "Name", "default": "THE MINI TCG" },
         { "type": "text", "id": "text", "label": "Short description", "default": "Compact machine for small spaces." },
         { "type": "image_picker", "id": "image", "label": "Picture (optional)" },
+        { "type": "select", "id": "art", "label": "Default picture", "options": [ { "value": "cat-vending", "label": "Vending machine" }, { "value": "machine-tower-charizard", "label": "Tower, Charizard" }, { "value": "machine-tower-pikachu", "label": "Tower, Pikachu" }, { "value": "machine-showcase", "label": "Showcase" }, { "value": "machine-classic", "label": "Classic" }, { "value": "machine-pro", "label": "Pro" } ], "default": "cat-vending" },
         { "type": "url", "id": "link", "label": "Link (optional)" },
         { "type": "text", "id": "type", "label": "Machine type", "default": "Compact vending unit" },
         { "type": "text", "id": "dimensions", "label": "Dimensions", "default": "See machine page" },
