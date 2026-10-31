@@ -8,7 +8,7 @@
   assign form_id = 'tcg-home-newsletter-' | append: section.id
 -%}
 
-<section class="tcg-scope hz relative" id="community">
+<section class="tcg-scope hz relative{% if section.settings.panel %} border-y border-solid border-hz-neon/60 py-[20px] md:py-[40px]{% endif %}" id="community"{% if section.settings.panel %} style="background: linear-gradient(90deg, #120d2c, #15102d);"{% endif %}>
   {% render 'tcg-home-glow', glow: section.settings.glow %}
   <div class="relative mx-auto flex w-full max-w-[1440px] flex-col items-center gap-[24px] pt-[20px] xl:flex-row xl:gap-[42px] xl:pr-[80px]">
     <div data-hz-reveal class="relative h-[300px] w-full shrink-0 overflow-hidden sm:h-[472px] xl:w-[651px]">
@@ -44,17 +44,98 @@
   "name": "TCG Home — Community",
   "class": "tcg-home-section",
   "settings": [
-    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
-    { "type": "image_picker", "id": "image", "label": "Artwork", "info": "Defaults to the design's Pikachu artwork." },
-    { "type": "image_picker", "id": "image_mobile", "label": "Artwork — mobile (optional)" },
-    { "type": "text", "id": "image_alt", "label": "Artwork description (alt text)", "default": "TCG HITZ community" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "GET STARTED" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "JOIN THE TCG HITZ COMMUNITY." },
-    { "type": "text", "id": "text", "label": "Text", "default": "Get updates on new arrivals, collectible drops, and store news." },
-    { "type": "text", "id": "placeholder", "label": "Email placeholder", "default": "Type your email address ..." },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Subscribe" },
-    { "type": "text", "id": "success_text", "label": "Success message", "default": "You're in! Welcome to the TCG HITZ community." }
+    {
+      "type": "select",
+      "id": "glow",
+      "label": "Background glow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "left-purple",
+          "label": "Purple, left"
+        },
+        {
+          "value": "left-pink",
+          "label": "Pink, left"
+        },
+        {
+          "value": "right-blue",
+          "label": "Blue, right"
+        },
+        {
+          "value": "right-gold",
+          "label": "Gold, right"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "checkbox",
+      "id": "panel",
+      "label": "Tinted panel background (purple band with borders)",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Artwork",
+      "info": "Defaults to the design's Pikachu artwork."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Artwork — mobile (optional)"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Artwork description (alt text)",
+      "default": "TCG HITZ community"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "GET STARTED"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "JOIN THE TCG HITZ COMMUNITY."
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Get updates on new arrivals, collectible drops, and store news."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder",
+      "default": "Type your email address ..."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "You're in! Welcome to the TCG HITZ community."
+    }
   ],
-  "presets": [{ "name": "TCG Home — Community" }]
+  "presets": [
+    {
+      "name": "TCG Home — Community"
+    }
+  ]
 }
 {% endschema %}

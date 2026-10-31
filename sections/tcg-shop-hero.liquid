@@ -1,0 +1,73 @@
+{% comment %}
+  TCG Hitz — Shop All collection hero (Figma "Shop All Collection" design).
+  Breadcrumb (Home / collection name), "FIND YOUR NEXT FAVORITE." heading with a gradient word,
+  intro text, on a deep-purple radial glow. Optionally uses the collection's own title / description.
+{% endcomment %}
+
+{%- liquid
+  assign show_collection_text = section.settings.use_collection
+  assign page_title = collection.title
+  if collection.handle == 'all' or page_title == blank
+    assign page_title = section.settings.breadcrumb_label
+  endif
+  if show_collection_text and collection.title != blank and collection.handle != 'all'
+    assign h1_text = collection.title
+  endif
+  assign intro = section.settings.text
+  if show_collection_text and collection.description != blank
+    assign intro = collection.description | strip_html | truncate: 260
+  endif
+-%}
+
+<section class="tcg-scope hz relative overflow-hidden">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse at center, #251278 0%, rgba(9,20,42,.6) 42%, transparent 72%);"></div>
+  {%- if section.settings.bg_image != blank -%}
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+      {% render 'tcg-home-img', image: section.settings.bg_image, mobile: section.settings.bg_image_mobile, width: 2400, loading: 'eager', class: 'absolute inset-0 h-full w-full max-w-none object-cover' %}
+      <div class="absolute inset-0" style="background: rgba(8,10,18,{{ section.settings.overlay | divided_by: 100.0 }});"></div>
+    </div>
+  {%- endif -%}
+
+  <div class="hz-wrap relative flex min-h-[380px] flex-col items-center justify-center py-[56px] text-center md:min-h-[460px] md:py-[80px] xl:min-h-[510px] xl:pb-[80px] xl:pt-[110px]" data-hz-reveal>
+    <nav aria-label="Breadcrumb" class="mb-[22px] text-[14px] md:mb-[26px] md:text-[15px]">
+      <a href="{{ routes.root_url }}" class="hz-ulink text-white hover:text-hz-lightning">{{ section.settings.home_label }}</a>
+      <span class="mx-1 text-white" aria-hidden="true">/</span>
+      <strong class="font-semibold text-hz-neon">{{ page_title }}</strong>
+    </nav>
+    <h1 class="max-w-[750px] font-display text-[40px] leading-none tracking-[-0.015em] text-white sm:text-[46px] md:text-[56px] xl:text-[72px]">
+      {%- if h1_text != blank -%}
+        {{ h1_text }}
+      {%- else -%}
+        {{ section.settings.heading_before }}
+        {%- if section.settings.heading_highlight != blank %} <span class="hz-grad-text">{{ section.settings.heading_highlight }}</span>{%- endif -%}
+        {{- section.settings.heading_after -}}
+      {%- endif -%}
+    </h1>
+    {%- if intro != blank -%}
+      <p class="mt-[20px] max-w-[724px] text-[15px] leading-[1.5] text-white md:mt-[24px] md:text-[16px]">{{ intro }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Shop — Hero",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["collection"] },
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background image (optional)" },
+    { "type": "image_picker", "id": "bg_image_mobile", "label": "Background image — mobile (optional)" },
+    { "type": "range", "id": "overlay", "label": "Dark overlay on image", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 55 },
+    { "type": "text", "id": "home_label", "label": "Breadcrumb: home label", "default": "Home" },
+    { "type": "text", "id": "breadcrumb_label", "label": "Breadcrumb: page name", "info": "Shown on the all-products page; other collections show their own name.", "default": "Shop All" },
+    { "type": "checkbox", "id": "use_collection", "label": "Use the collection's title and description", "info": "Off: show the text below on every collection that uses this template.", "default": false },
+    { "type": "text", "id": "heading_before", "label": "Heading", "default": "FIND YOUR NEXT" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading — gradient word", "default": "FAVORITE" },
+    { "type": "text", "id": "heading_after", "label": "Heading — after gradient word", "default": "." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Explore trading cards, collectibles, and more. Discover something new for your collection and find your next favorite addition." }
+  ],
+  "presets": [{ "name": "TCG Shop — Hero" }]
+}
+{% endschema %}

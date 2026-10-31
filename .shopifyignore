@@ -25,3 +25,6 @@ pikachu.png
 
 # Client-approved homepage design reference (static HTML + source images)
 tcg-hitz-complete-homepage/*
+
+# Figma "Shop All Collection" React design reference (not part of the theme)
+Shop All Collection/*

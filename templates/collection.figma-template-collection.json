@@ -1,0 +1,223 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shop_hero": {
+      "type": "tcg-shop-hero",
+      "settings": {
+        "glow": "none",
+        "overlay": 55,
+        "home_label": "Home",
+        "breadcrumb_label": "Shop All",
+        "use_collection": false,
+        "heading_before": "FIND YOUR NEXT",
+        "heading_highlight": "FAVORITE",
+        "heading_after": ".",
+        "text": "Explore trading cards, collectibles, and more. Discover something new for your collection and find your next favorite addition."
+      }
+    },
+    "shop_strip": {
+      "type": "tcg-home-strip",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "text": "POKÉMON CARDS"
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "text": "MYSTERY PACKS"
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "text": "GRADED CARDS"
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "text": "MERCHANDISE"
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "text": "VENDING MACHINES"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
+      ],
+      "settings": {
+        "tagline": "COLLECT  ✦  TRADE  ✦  RIP  ✦  REPEAT",
+        "animate": true,
+        "speed": "normal",
+        "overlap": false
+      }
+    },
+    "shop_catalog": {
+      "type": "tcg-shop-catalog",
+      "blocks": {
+        "t1": {
+          "type": "tab",
+          "settings": {
+            "label": "ALL PRODUCTS",
+            "icon": "all",
+            "link": "/collections/all"
+          }
+        },
+        "t2": {
+          "type": "tab",
+          "settings": {
+            "label": "POKÉMON CARDS",
+            "icon": "pokemon",
+            "link": "/collections/all"
+          }
+        },
+        "t3": {
+          "type": "tab",
+          "settings": {
+            "label": "MYSTERY PACKS",
+            "icon": "mystery",
+            "link": "/collections/mystery"
+          }
+        },
+        "t4": {
+          "type": "tab",
+          "settings": {
+            "label": "GRADED CARDS",
+            "icon": "graded",
+            "link": "/collections/slabs"
+          }
+        },
+        "t5": {
+          "type": "tab",
+          "settings": {
+            "label": "MERCHANDISE",
+            "icon": "merch",
+            "link": "/collections/merchandise"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
+      "settings": {
+        "glow": "left-purple",
+        "heading": "EXPLORE THE COLLECTION",
+        "text": "Find the cards and collectibles you're looking for.",
+        "show_tabs": true,
+        "products_per_page": 12,
+        "show_glow": false,
+        "filters_label": "FILTERS",
+        "sort_label": "SORT BY",
+        "filter_panel_title": "FILTER",
+        "apply_label": "APPLY FILTERS",
+        "clear_label": "Clear filters",
+        "empty_title": "No products found",
+        "empty_text": "Try adjusting your filters or search."
+      }
+    },
+    "shop_banner": {
+      "type": "tcg-home-banner",
+      "settings": {
+        "glow": "left-pink",
+        "fallback": "mystery",
+        "overlay": 0,
+        "align": "left",
+        "buttons": "red",
+        "eyebrow": "THE THRILL OF THE UNKNOWN",
+        "heading": "CHASE YOUR NEXT RARE FIND.",
+        "text": "Every collection has room for another surprise. Explore TCG HITZ mystery packs and discover your next collectible addition.",
+        "btn1_label": "SHOP MYSTERY PACKS",
+        "btn1_link": "/collections/mystery",
+        "btn2_label": "EXPLORE ALL COLLECTIBLES",
+        "btn2_link": "/collections/all"
+      }
+    },
+    "shop_why": {
+      "type": "tcg-home-why",
+      "blocks": {
+        "y1": {
+          "type": "card",
+          "settings": {
+            "icon": "world",
+            "title": "A WORLD OF COLLECTIBLES",
+            "text": "From trading cards to collectibles, find your next favorite."
+          }
+        },
+        "y2": {
+          "type": "card",
+          "settings": {
+            "icon": "discover",
+            "title": "DISCOVER SOMETHING NEW",
+            "text": "Fresh drops, mystery packs, and exciting finds every week."
+          }
+        },
+        "y3": {
+          "type": "card",
+          "settings": {
+            "icon": "beyond",
+            "title": "BEYOND THE CARDS",
+            "text": "Explore collectibles, vending machines, and more."
+          }
+        }
+      },
+      "block_order": [
+        "y1",
+        "y2",
+        "y3"
+      ],
+      "settings": {
+        "glow": "right-gold",
+        "layout": "inline",
+        "eyebrow": "",
+        "heading": "WHY SHOP TCG HITZ?",
+        "text": "We make collecting exciting, accessible, and worth the chase.",
+        "space_top": "large"
+      }
+    },
+    "shop_community": {
+      "type": "tcg-home-community",
+      "settings": {
+        "glow": "none",
+        "panel": true,
+        "image_alt": "Pokémon characters and trading cards",
+        "eyebrow": "",
+        "heading": "JOIN THE TCG HITZ COMMUNITY.",
+        "text": "Get first access to new drops, exclusive offers, and collector updates.",
+        "placeholder": "Enter your email address",
+        "button_label": "SUBSCRIBE",
+        "success_text": "You're in. Watch your inbox for the next drop."
+      }
+    }
+  },
+  "order": [
+    "shop_hero",
+    "shop_strip",
+    "shop_catalog",
+    "shop_banner",
+    "shop_why",
+    "shop_community"
+  ]
+}
