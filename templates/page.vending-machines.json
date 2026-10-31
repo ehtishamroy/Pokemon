@@ -137,10 +137,34 @@
     },
     "vm_machines": {
       "type": "tcg-home-products",
+<<<<<<< HEAD
+=======
+      "settings": {
+        "glow": "none",
+        "eyebrow": "THE LINEUP",
+        "heading": "EXPLORE OUR VENDING | MACHINES.",
+        "text": "Explore TCG HITZ vending machines to compare models and features.",
+        "center_heading": true,
+        "anchor": "machines",
+        "card_note": "Shipping included",
+        "view_label": "View Machine",
+        "source": "collection",
+        "collection": "vending-machines",
+        "limit": 5,
+        "center_rows": true,
+        "show_desc": true,
+        "show_glow": true,
+        "padding": "normal",
+        "show_samples": true,
+        "btn_label": "",
+        "btn_link": "/collections/vending-machines"
+      },
+>>>>>>> 97f30f545e33d850b574babe5e159386e148d893
       "blocks": {
         "m1": {
           "type": "card",
           "settings": {
+<<<<<<< HEAD
             "product": "",
             "fallback": "cat-vending",
             "badge": "BEST SELLER",
@@ -151,11 +175,23 @@
             "price": "",
             "link": "/collections/vending-machines",
             "glow": "auto"
+=======
+            "fallback": "machine-tower-charizard",
+            "badge": "TOWER",
+            "tone": "pink",
+            "title": "THE TCG TOWER — CHARIZARD EDITION",
+            "meta": "TCG HITZ · Card vending machine",
+            "desc": "Slim floor-standing touchscreen tower with a fiery Charizard wrap.",
+            "price": "$3,995",
+            "glow": "auto",
+            "link": "/collections/vending-machines"
+>>>>>>> 97f30f545e33d850b574babe5e159386e148d893
           }
         },
         "m2": {
           "type": "card",
           "settings": {
+<<<<<<< HEAD
             "product": "",
             "fallback": "cat-vending",
             "badge": "NEW",
@@ -166,11 +202,23 @@
             "price": "",
             "link": "/collections/vending-machines",
             "glow": "auto"
+=======
+            "fallback": "machine-tower-pikachu",
+            "badge": "TOWER",
+            "tone": "lightning",
+            "title": "THE TCG TOWER — PIKACHU EDITION",
+            "meta": "TCG HITZ · Card vending machine",
+            "desc": "The same touchscreen tower in a Pikachu and lightning wrap.",
+            "price": "$3,995",
+            "glow": "auto",
+            "link": "/collections/vending-machines"
+>>>>>>> 97f30f545e33d850b574babe5e159386e148d893
           }
         },
         "m3": {
           "type": "card",
           "settings": {
+<<<<<<< HEAD
             "product": "",
             "fallback": "cat-vending",
             "badge": "FEATURED",
@@ -181,11 +229,23 @@
             "price": "",
             "link": "/collections/vending-machines",
             "glow": "auto"
+=======
+            "fallback": "machine-showcase",
+            "badge": "TOUCHSCREEN",
+            "tone": "pink",
+            "title": "THE TCG SHOWCASE",
+            "meta": "TCG HITZ · Card vending machine",
+            "desc": "Wide two-door machine with a big touchscreen storefront.",
+            "price": "$5,495",
+            "glow": "auto",
+            "link": "/collections/vending-machines"
+>>>>>>> 97f30f545e33d850b574babe5e159386e148d893
           }
         },
         "m4": {
           "type": "card",
           "settings": {
+<<<<<<< HEAD
             "product": "",
             "fallback": "cat-vending",
             "badge": "NEW",
@@ -196,6 +256,31 @@
             "price": "",
             "link": "/collections/vending-machines",
             "glow": "auto"
+=======
+            "fallback": "machine-classic",
+            "badge": "GLASS FRONT",
+            "tone": "lightning",
+            "title": "THE TCG CLASSIC",
+            "meta": "TCG HITZ · Card vending machine",
+            "desc": "Full-size glass-front machine in Poké Ball red and white.",
+            "price": "$5,995",
+            "glow": "auto",
+            "link": "/collections/vending-machines"
+          }
+        },
+        "m5": {
+          "type": "card",
+          "settings": {
+            "fallback": "machine-pro",
+            "badge": "LED PREMIUM",
+            "tone": "pink",
+            "title": "THE TCG PRO",
+            "meta": "TCG HITZ · Card vending machine",
+            "desc": "Premium glass-front machine with stadium wrap and LED frame.",
+            "price": "$6,995",
+            "glow": "auto",
+            "link": "/collections/vending-machines"
+>>>>>>> 97f30f545e33d850b574babe5e159386e148d893
           }
         }
       },
@@ -203,6 +288,7 @@
         "m1",
         "m2",
         "m3",
+<<<<<<< HEAD
         "m4"
       ],
       "settings": {
@@ -224,6 +310,11 @@
         "padding": "normal",
         "show_samples": true
       }
+=======
+        "m4",
+        "m5"
+      ]
+>>>>>>> 97f30f545e33d850b574babe5e159386e148d893
     },
     "vm_compare": {
       "type": "tcg-vm-compare",
@@ -231,6 +322,7 @@
         "c1": {
           "type": "machine",
           "settings": {
+<<<<<<< HEAD
             "product": "",
             "name": "THE MINI TCG",
             "text": "Compact machine for smaller spaces.",
@@ -242,11 +334,24 @@
             "payment": "Card / mobile / cash",
             "wrap": true,
             "price": ""
+=======
+            "name": "THE TCG TOWER",
+            "text": "Touchscreen tower, two wrap editions.",
+            "type": "Touchscreen tower",
+            "dimensions": "See machine page",
+            "capacity": "See machine page",
+            "display": "Large touchscreen",
+            "payment": "Card, mobile and cash options",
+            "wrap": true,
+            "price": "From $3,995",
+            "art": "machine-tower-pikachu"
+>>>>>>> 97f30f545e33d850b574babe5e159386e148d893
           }
         },
         "c2": {
           "type": "machine",
           "settings": {
+<<<<<<< HEAD
             "product": "",
             "name": "THE TCG CLASSIC",
             "text": "Standard machine for most locations.",
@@ -258,11 +363,24 @@
             "payment": "Card / mobile / cash",
             "wrap": true,
             "price": ""
+=======
+            "name": "THE TCG SHOWCASE",
+            "text": "Wide two-door touchscreen machine.",
+            "type": "Two-door touchscreen machine",
+            "dimensions": "See machine page",
+            "capacity": "See machine page",
+            "display": "Large touchscreen storefront",
+            "payment": "Card, mobile and cash options",
+            "wrap": true,
+            "price": "From $5,495",
+            "art": "machine-showcase"
+>>>>>>> 97f30f545e33d850b574babe5e159386e148d893
           }
         },
         "c3": {
           "type": "machine",
           "settings": {
+<<<<<<< HEAD
             "product": "",
             "name": "THE TCG PRO",
             "text": "Premium machine for busy locations.",
@@ -274,12 +392,40 @@
             "payment": "Card / mobile / cash",
             "wrap": true,
             "price": ""
+=======
+            "name": "THE TCG CLASSIC",
+            "text": "Full-size glass-front machine.",
+            "type": "Full-size glass-front machine",
+            "dimensions": "See machine page",
+            "capacity": "See machine page",
+            "display": "Side touchscreen",
+            "payment": "Card, mobile and cash options",
+            "wrap": true,
+            "price": "From $5,995",
+            "art": "machine-classic"
+          }
+        },
+        "c4": {
+          "type": "machine",
+          "settings": {
+            "name": "THE TCG PRO",
+            "text": "Premium glass-front with LED frame.",
+            "type": "Premium glass-front machine",
+            "dimensions": "See machine page",
+            "capacity": "See machine page",
+            "display": "Side touchscreen, LED frame",
+            "payment": "Card, mobile and cash options",
+            "wrap": true,
+            "price": "From $6,995",
+            "art": "machine-pro"
+>>>>>>> 97f30f545e33d850b574babe5e159386e148d893
           }
         }
       },
       "block_order": [
         "c1",
         "c2",
+<<<<<<< HEAD
         "c3"
       ],
       "settings": {
@@ -303,6 +449,11 @@
         "row_view": "Next step",
         "view_label": "VIEW MACHINE"
       }
+=======
+        "c3",
+        "c4"
+      ]
+>>>>>>> 97f30f545e33d850b574babe5e159386e148d893
     },
     "vm_addons": {
       "type": "tcg-vm-addons",
