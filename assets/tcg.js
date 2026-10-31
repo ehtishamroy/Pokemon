@@ -481,3 +481,34 @@ document.querySelectorAll('[data-tabs]').forEach((wrap) => {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => watch(document)); else watch(document);
   document.addEventListener('shopify:section:load', (e) => watch(e.target));
 })();
+
+/* Shop page filters (sections/tcg-shop-catalog.liquid): inline panel on desktop, bottom sheet on mobile */
+(function initHzFilters() {
+  const panel = document.querySelector('[data-hz-filters]');
+  if (!panel) return;
+  const openBtn = document.querySelector('[data-hz-filters-open]');
+  const mobile = window.matchMedia('(max-width: 1023px)');
+  const isOpen = () => !panel.classList.contains('hidden');
+  const sync = () => {
+    openBtn && openBtn.setAttribute('aria-expanded', String(isOpen()));
+    document.documentElement.classList.toggle('hz-lock', isOpen() && mobile.matches);
+  };
+  const open = () => {
+    panel.classList.remove('hidden');
+    sync();
+    if (mobile.matches) panel.querySelector('button[data-hz-filters-close]')?.focus({ preventScroll: true });
+    else panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  };
+  const close = () => { panel.classList.add('hidden'); sync(); openBtn?.focus({ preventScroll: true }); };
+  openBtn?.addEventListener('click', () => (isOpen() ? close() : open()));
+  panel.addEventListener('click', (e) => { if (e.target.closest('[data-hz-filters-close]')) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) close(); });
+  // Groups: all open on desktop; on mobile only the first and any with selections stay open
+  const groups = () => [...panel.querySelectorAll('[data-hz-fgroup]')];
+  const layout = () => {
+    groups().forEach((g, i) => { g.open = !mobile.matches || i === 0 || g.hasAttribute('data-active'); });
+    sync();
+  };
+  layout();
+  (mobile.addEventListener ? mobile.addEventListener('change', layout) : mobile.addListener(layout));
+})();

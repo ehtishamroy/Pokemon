@@ -3,22 +3,20 @@
   Heading → category tabs (blocks; the tab whose link is this collection is highlighted) →
   FILTERS button + SORT BY → product grid (tcg-home-card) → numbered pagination.
   Filters come from Shopify Search & Discovery (collection.filters); sorting uses ?sort_by.
-  assets/tcg.js handles: [data-filters-toggle] (open/close panel), [data-sort] (reload with sort),
-  [data-filter-form] (checkbox change submits).
+  assets/tcg.js handles: [data-hz-filters-open/-close] (panel on desktop, bottom sheet on mobile),
+  [data-hz-fgroup] (accordion groups on mobile) and [data-sort] (reload with sort). Apply button submits.
 {% endcomment %}
 
 {%- liquid
   assign per_page = section.settings.products_per_page | default: 12
   assign sort_by = collection.sort_by | default: collection.default_sort_by
   assign tab_blocks = section.blocks | where: 'type', 'tab'
-  assign filters_open = false
+  assign active_count = 0
   for filter in collection.filters
-    if filter.active_values.size > 0
-      assign filters_open = true
-    endif
+    assign active_count = active_count | plus: filter.active_values.size
     if filter.type == 'price_range'
       if filter.min_value.value != blank or filter.max_value.value != blank
-        assign filters_open = true
+        assign active_count = active_count | plus: 1
       endif
     endif
   endfor
@@ -56,10 +54,11 @@
       </div>
     {%- endif -%}
 
-    <div class="mb-[20px] mt-[28px] flex items-center justify-between gap-[12px] md:mb-[24px] md:mt-[58px]">
-      <button type="button" data-filters-toggle class="hz-filter-btn flex items-center gap-[10px] text-[17px] font-medium uppercase text-white md:text-[18px]" aria-controls="hz-filters">
+    <div class="mb-[16px] mt-[28px] flex items-center justify-between gap-[12px] md:mb-[20px] md:mt-[58px]">
+      <button type="button" data-hz-filters-open class="hz-filter-btn flex items-center gap-[10px] text-[17px] font-medium uppercase text-white md:text-[18px]" aria-controls="hz-filters" aria-expanded="false">
         <img src="{{ 'home-icon-filter.svg' | asset_url }}" alt="" width="24" height="24" class="size-[24px]">
         <span>{{ section.settings.filters_label }}</span>
+        {%- if active_count > 0 -%}<span class="hz-count">{{ active_count }}</span>{%- endif -%}
       </button>
       {%- if collection.sort_options.size > 0 -%}
         <label class="flex min-w-0 items-center gap-[8px] text-[13px] uppercase text-hz-cool md:gap-[12px]">
@@ -73,45 +72,91 @@
       {%- endif -%}
     </div>
 
-    <div id="hz-filters" data-filters class="{% unless filters_open %}hidden{% endunless %}">
-      <div class="relative mb-[25px] rounded-[14px] tcg-gb bg-hz-card p-[22px]">
+    {%- comment -%} Active filters as removable chips {%- endcomment -%}
+    {%- if active_count > 0 -%}
+      <div class="mb-[20px] flex flex-wrap items-center gap-[8px] md:mb-[24px]">
+        {%- for filter in collection.filters -%}
+          {%- for value in filter.active_values -%}
+            <a href="{{ value.url_to_remove }}" class="hz-chip" aria-label="Remove filter {{ value.label | escape }}"><span>{{ value.label }}</span><svg width="12" height="12" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+          {%- endfor -%}
+        {%- endfor -%}
+        <a href="{{ collection.url }}{% if sort_by != blank %}?sort_by={{ sort_by }}{% endif %}" class="hz-ulink ml-[4px] text-[13px] text-hz-cool hover:text-white">{{ section.settings.clear_all_label }}</a>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%}
+      Filter panel. Desktop: an inline panel with one card per filter. Mobile/tablet: a bottom sheet
+      (backdrop, sticky Apply bar) with collapsible groups. Opened/closed by assets/tcg.js (data-hz-filters-*).
+    {%- endcomment -%}
+    <div id="hz-filters" data-hz-filters class="hidden max-lg:fixed max-lg:inset-0 max-lg:z-[70]" role="dialog" aria-label="{{ section.settings.filter_panel_title | escape }}">
+      <div data-hz-filters-close class="hz-backdrop absolute inset-0 bg-black/70 backdrop-blur-sm lg:hidden"></div>
+      <div class="hz-panel tcg-gb bg-hz-card max-lg:absolute max-lg:inset-x-0 max-lg:bottom-0 max-lg:top-[7vh] max-lg:flex max-lg:flex-col max-lg:rounded-b-none max-lg:rounded-t-[24px] lg:mb-[28px] lg:rounded-[20px]">
+        <div class="flex shrink-0 items-center justify-between gap-[12px] border-b border-solid border-white/10 px-[20px] py-[16px] lg:px-[28px] lg:py-[20px]">
+          <div class="flex items-center gap-[10px]">
+            <strong class="font-display text-[22px] uppercase leading-none text-white">{{ section.settings.filter_panel_title }}</strong>
+            {%- if active_count > 0 -%}<span class="hz-count">{{ active_count }}</span>{%- endif -%}
+          </div>
+          <div class="flex items-center gap-[14px]">
+            {%- if active_count > 0 -%}
+              <a href="{{ collection.url }}{% if sort_by != blank %}?sort_by={{ sort_by }}{% endif %}" class="hz-ulink text-[14px] text-hz-cool hover:text-white">{{ section.settings.clear_all_label }}</a>
+            {%- endif -%}
+            <button type="button" data-hz-filters-close class="hz-icon-btn" aria-label="Close filters"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+          </div>
+        </div>
+
         {%- if collection.filters.size > 0 -%}
-          <form data-filter-form method="get" action="{{ collection.url }}" class="flex flex-col gap-[22px]">
+          <form data-hz-filter-form method="get" action="{{ collection.url }}" class="flex min-h-0 flex-1 flex-col">
             <input type="hidden" name="sort_by" value="{{ sort_by }}">
-            <div class="flex flex-wrap items-start gap-x-[36px] gap-y-[22px]">
-              <strong class="font-display text-[18px] uppercase text-white">{{ section.settings.filter_panel_title }}</strong>
-              {%- for filter in collection.filters -%}
-                <fieldset class="min-w-[150px]">
-                  <legend class="mb-[10px] text-[12px] font-bold uppercase tracking-[0.12em] text-hz-neon">{{ filter.label }}</legend>
-                  <div class="flex flex-col gap-[8px] text-[14px] text-hz-cool">
-                    {%- if filter.type == 'price_range' -%}
-                      {%- assign max_val = filter.range_max | money_without_currency | replace: ',', '' -%}
-                      <div class="flex items-center gap-[8px]">
-                        <label class="sr-only" for="{{ filter.min_value.param_name }}">Min</label>
-                        <input id="{{ filter.min_value.param_name }}" name="{{ filter.min_value.param_name }}" type="number" inputmode="decimal" min="0" max="{{ max_val }}" placeholder="$ min"{% if filter.min_value.value %} value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %} class="hz-select w-[96px] rounded-[8px] bg-hz-elevated px-[10px] py-[8px] text-[14px] text-white placeholder:text-hz-cool">
-                        <span aria-hidden="true">–</span>
-                        <label class="sr-only" for="{{ filter.max_value.param_name }}">Max</label>
-                        <input id="{{ filter.max_value.param_name }}" name="{{ filter.max_value.param_name }}" type="number" inputmode="decimal" min="0" max="{{ max_val }}" placeholder="$ max"{% if filter.max_value.value %} value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %} class="hz-select w-[96px] rounded-[8px] bg-hz-elevated px-[10px] py-[8px] text-[14px] text-white placeholder:text-hz-cool">
-                      </div>
-                    {%- else -%}
-                      {%- for value in filter.values -%}
-                        <label class="flex cursor-pointer items-center gap-[10px] transition hover:text-white">
-                          <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %} class="size-[16px] accent-[#2F7BFF]">
-                          <span>{{ value.label }}</span>
-                        </label>
-                      {%- endfor -%}
-                    {%- endif -%}
-                  </div>
-                </fieldset>
-              {%- endfor -%}
+            <div class="hz-scroll min-h-0 flex-1 overflow-y-auto px-[20px] py-[18px] lg:overflow-visible lg:px-[28px] lg:py-[24px]">
+              <div class="grid grid-cols-1 items-start gap-[12px] sm:grid-cols-2 lg:grid-cols-3 lg:gap-[18px] xl:grid-cols-4">
+                {%- for filter in collection.filters -%}
+                  <details class="hz-fgroup" open data-hz-fgroup{% if filter.active_values.size > 0 %} data-active{% endif %}>
+                    <summary class="hz-fgroup__sum">
+                      <span class="hz-fgroup__title">{{ filter.label }}</span>
+                      {%- if filter.active_values.size > 0 -%}<span class="hz-count">{{ filter.active_values.size }}</span>{%- endif -%}
+                      <svg class="hz-fgroup__chev" width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 8 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </summary>
+                    <div class="hz-fgroup__body">
+                      {%- if filter.type == 'price_range' -%}
+                        {%- assign max_val = filter.range_max | money_without_currency | replace: ',', '' -%}
+                        <div class="grid grid-cols-2 gap-[10px]">
+                          <label class="hz-money">
+                            <span aria-hidden="true">$</span>
+                            <span class="sr-only">Minimum price</span>
+                            <input name="{{ filter.min_value.param_name }}" type="number" inputmode="decimal" min="0" max="{{ max_val }}" placeholder="Min"{% if filter.min_value.value %} value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}>
+                          </label>
+                          <label class="hz-money">
+                            <span aria-hidden="true">$</span>
+                            <span class="sr-only">Maximum price</span>
+                            <input name="{{ filter.max_value.param_name }}" type="number" inputmode="decimal" min="0" max="{{ max_val }}" placeholder="Max"{% if filter.max_value.value %} value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}>
+                          </label>
+                        </div>
+                        <p class="mt-[10px] text-[13px] text-hz-cool">Highest price: {{ filter.range_max | money }}</p>
+                      {%- else -%}
+                        <div class="hz-flist{% if filter.values.size > 7 %} hz-flist--scroll{% endif %}">
+                          {%- for value in filter.values -%}
+                            <label class="hz-frow{% if value.count == 0 and value.active == false %} hz-frow--off{% endif %}">
+                              <input type="checkbox" class="hz-check" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}>
+                              <span class="hz-frow__label">{{ value.label }}</span>
+                              <span class="hz-frow__count">{{ value.count }}</span>
+                            </label>
+                          {%- endfor -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </details>
+                {%- endfor -%}
+              </div>
             </div>
-            <div class="flex flex-wrap items-center gap-[12px]">
-              <button type="submit" class="hz-btn h-[40px] px-[18px] text-[12px]"><span>{{ section.settings.apply_label }}</span></button>
-              <a href="{{ collection.url }}{% if sort_by != blank %}?sort_by={{ sort_by }}{% endif %}" class="hz-ulink text-[13px] text-hz-cool hover:text-white">{{ section.settings.clear_label }}</a>
+            <div class="flex shrink-0 items-center gap-[14px] border-t border-solid border-white/10 bg-hz-card px-[20px] py-[14px] max-lg:pb-[calc(14px+env(safe-area-inset-bottom))] lg:px-[28px] lg:py-[18px]">
+              <button type="submit" class="hz-btn h-[44px] max-lg:flex-1 px-[22px] text-[13px]"><span>{{ section.settings.apply_label }}</span></button>
+              <a href="{{ collection.url }}{% if sort_by != blank %}?sort_by={{ sort_by }}{% endif %}" class="hz-ulink text-[14px] text-hz-cool hover:text-white">{{ section.settings.clear_label }}</a>
             </div>
           </form>
         {%- else -%}
-          <p class="text-[14px] text-hz-cool">Add filters in Shopify's <strong class="text-white">Search &amp; Discovery</strong> app and they will show up here.</p>
+          <div class="px-[20px] py-[28px] lg:px-[28px]">
+            <p class="text-[14px] text-hz-cool">Add filters in Shopify's <strong class="text-white">Search &amp; Discovery</strong> app and they will show up here.</p>
+          </div>
         {%- endif -%}
       </div>
     </div>
@@ -181,6 +226,7 @@
     { "type": "text", "id": "filter_panel_title", "label": "Filter panel title", "default": "FILTER" },
     { "type": "text", "id": "apply_label", "label": "Apply button", "default": "APPLY FILTERS" },
     { "type": "text", "id": "clear_label", "label": "Clear filters link / button", "default": "Clear filters" },
+    { "type": "text", "id": "clear_all_label", "label": "Clear all link", "default": "Clear all" },
     { "type": "text", "id": "empty_title", "label": "No-results title", "default": "No products found" },
     { "type": "text", "id": "empty_text", "label": "No-results text", "default": "Try adjusting your filters or search." }
   ],
