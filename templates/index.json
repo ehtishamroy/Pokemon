@@ -12,9 +12,10 @@
     "home_hero": {
       "type": "tcg-home-hero",
       "settings": {
-        "bg_video_url": "",
+        "bg_video_url": "https://cdn.shopify.com/videos/c/o/v/1672fa246e8c4f34b8cf81cbd8ca6788.mp4",
         "overlay_opacity": 64,
         "show_glows": true,
+        "show_pattern": true,
         "under_header": true,
         "eyebrow": "THE TCG HITZ EXPERIENCE",
         "heading_before": "CHASE THE",
@@ -89,7 +90,7 @@
             "title": "POKÉMON CARDS",
             "text": "Explore Pokémon cards, from individual singles to collectible finds.",
             "label": "SHOP POKÉMON",
-            "link": "/collections/all"
+            "link": "shopify://collections/frontpage"
           }
         },
         "c2": {
@@ -99,7 +100,7 @@
             "title": "MYSTERY PACKS",
             "text": "Explore mystery packs and discover your next collectible addition.",
             "label": "EXPLORE PACKS",
-            "link": "/collections/mystery"
+            "link": "shopify://collections/mystery"
           }
         },
         "c3": {
@@ -109,7 +110,7 @@
             "title": "GRADED CARDS",
             "text": "Browse graded trading cards and collectible slabs.",
             "label": "SHOP GRADED",
-            "link": "/collections/slabs"
+            "link": "shopify://collections/graded-slabs"
           }
         },
         "c4": {
@@ -119,7 +120,7 @@
             "title": "TRADING CARDS",
             "text": "Explore trading-card products and accessories available in the store.",
             "label": "EXPLORE TRADING CARDS",
-            "link": "/collections/all"
+            "link": "shopify://collections/trading-cards"
           }
         },
         "c5": {
@@ -129,7 +130,7 @@
             "title": "MERCHANDISE",
             "text": "Explore apparel, accessories, and collectibles from TCG HITZ.",
             "label": "SHOP MERCHANDISE",
-            "link": "/collections/merchandise"
+            "link": "shopify://pages/merchandise"
           }
         },
         "c6": {
@@ -139,7 +140,7 @@
             "title": "VENDING MACHINE",
             "text": "Explore trading-card vending machines available from TCG HITZ.",
             "label": "EXPLORE MACHINES",
-            "link": "/pages/vending-machines"
+            "link": "shopify://pages/vending-machines"
           }
         }
       },
@@ -152,117 +153,134 @@
         "c6"
       ],
       "settings": {
+        "glow": "left-purple",
         "eyebrow": "EXPLORE THE COLLECTION",
         "heading": "FIND YOUR NEXT FAVORITE.",
-        "glow": "left-purple",
         "cols_desktop": 5,
         "show_arrows": true
       }
     },
     "home_featured": {
       "type": "tcg-home-products",
-      "settings": {
-        "eyebrow": "FEATURED PRODUCTS",
-        "heading": "COLLECTOR'S PICKS.",
-        "text": "Discover selected trading cards and collectibles from the TCG HITZ collection.",
-        "btn_label": "VIEW ALL PRODUCTS",
-        "btn_link": "/collections/all",
-        "collection": "frontpage",
-        "limit": 8,
-        "show_desc": false,
-        "show_glow": false,
-        "padding": "normal",
-        "show_samples": true,
-        "glow": "right-blue",
-        "source": "collection"
-      },
       "blocks": {
         "card1": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "p-umbreon",
             "badge": "Near Mint",
             "tone": "pink",
             "meta": "POKÉMON · SINGLE CARD",
             "title": "Umbreon VMAX — Alternate Art",
-            "price": "$24.00"
+            "desc": "",
+            "price": "$24.00",
+            "link": "",
+            "glow": "auto"
           }
         },
         "card2": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "p-booster",
             "badge": "In Stock",
             "tone": "success",
             "meta": "POKÉMON · SEALED PRODUCT",
             "title": "Pokémon Booster Box",
-            "price": "$24.00"
+            "desc": "",
+            "price": "$24.00",
+            "link": "",
+            "glow": "auto"
           }
         },
         "card3": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "p-charizard",
             "badge": "Graded Collectible",
             "tone": "crimson",
             "meta": "POKÉMON · GRADED CARD",
             "title": "Charizard Graded Card",
-            "price": "$24.00"
+            "desc": "",
+            "price": "$24.00",
+            "link": "",
+            "glow": "auto"
           }
         },
         "card4": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "p-mystery",
             "badge": "In Stock",
             "tone": "success",
             "meta": "MYSTERY PRODUCTS",
             "title": "TCG HITZ Mystery Pack",
-            "price": "$24.00"
+            "desc": "",
+            "price": "$24.00",
+            "link": "",
+            "glow": "auto"
           }
         },
         "card5": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "p-etb",
             "badge": "In Stock",
             "tone": "success",
             "meta": "POKÉMON · SEALED PRODUCT",
             "title": "Pokémon Elite Trainer Box",
-            "price": "$24.00"
+            "desc": "",
+            "price": "$24.00",
+            "link": "",
+            "glow": "auto"
           }
         },
         "card6": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "p-promo",
             "badge": "Near Mint",
             "tone": "pink",
             "meta": "POKÉMON · PROMO CARD",
             "title": "Pokémon Promo Card",
-            "price": "$24.00"
+            "desc": "",
+            "price": "$24.00",
+            "link": "",
+            "glow": "auto"
           }
         },
         "card7": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "p-onepiece",
             "badge": "In Stock",
             "tone": "success",
             "meta": "ONE PIECE · SINGLE CARD",
             "title": "One Piece Trading Card",
-            "price": "$24.00"
+            "desc": "",
+            "price": "$24.00",
+            "link": "",
+            "glow": "auto"
           }
         },
         "card8": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "p-sleeves",
             "badge": "In Stock",
             "tone": "success",
             "meta": "CARD ACCESSORIES",
             "title": "Trading Card Protective Sleeves",
-            "price": "$24.00"
+            "desc": "",
+            "price": "$24.00",
+            "link": "",
+            "glow": "auto"
           }
         }
       },
@@ -275,11 +293,31 @@
         "card6",
         "card7",
         "card8"
-      ]
+      ],
+      "settings": {
+        "glow": "right-blue",
+        "eyebrow": "FEATURED PRODUCTS",
+        "heading": "COLLECTOR'S PICKS.",
+        "text": "Discover selected trading cards and collectibles from the TCG HITZ collection.",
+        "btn_label": "VIEW ALL PRODUCTS",
+        "btn_link": "/collections/all",
+        "source": "collection",
+        "collection": "frontpage",
+        "limit": 8,
+        "show_desc": false,
+        "anchor": "",
+        "center_heading": false,
+        "card_note": "",
+        "view_label": "View Product",
+        "show_glow": false,
+        "padding": "normal",
+        "show_samples": true
+      }
     },
     "home_mystery": {
       "type": "tcg-home-banner",
       "settings": {
+        "glow": "left-pink",
         "fallback": "mystery",
         "overlay": 0,
         "align": "left",
@@ -288,10 +326,9 @@
         "heading": "CHASE YOUR NEXT RARE FIND.",
         "text": "Every collection has room for another surprise. Explore TCG HITZ mystery packs and discover your next collectible addition.",
         "btn1_label": "SHOP MYSTERY PACKS",
-        "btn1_link": "/collections/mystery",
+        "btn1_link": "shopify://collections/mystery",
         "btn2_label": "EXPLORE ALL COLLECTIBLES",
-        "btn2_link": "/collections/all",
-        "glow": "left-pink"
+        "btn2_link": "shopify://collections"
       }
     },
     "home_vending": {
@@ -328,82 +365,79 @@
         "f3"
       ],
       "settings": {
+        "glow": "right-gold",
         "video_url": "",
         "play_label": "Play video",
         "eyebrow": "MEET THE TCG HITZ MACHINES",
         "heading": "BRING THE TCG HITZ EXPERIENCE TO YOUR LOCATION.",
         "text": "Explore trading-card vending machines designed for businesses and locations looking to offer collectible products in a distinctive way.",
         "btn1_label": "EXPLORE VENDING MACHINES",
-        "btn1_link": "/pages/vending-machines",
+        "btn1_link": "shopify://pages/vending-machines",
         "btn2_label": "VIEW AVAILABLE MODELS",
-        "btn2_link": "/pages/vending-machines#machines",
-        "glow": "right-gold"
+        "btn2_link": "/pages/vending-machines#machines"
       }
     },
     "home_merch": {
       "type": "tcg-home-products",
-      "settings": {
-        "eyebrow": "Merch & collectibles",
-        "heading": "More than just cards",
-        "text": "Explore merchandise and collectibles from the TCG HITZ universe.",
-        "btn_label": "VIEW ALL MERCHANDISE",
-        "btn_link": "/collections/merchandise",
-        "collection": "merchandise",
-        "limit": 4,
-        "show_desc": true,
-        "show_glow": true,
-        "padding": "tight",
-        "show_samples": true,
-        "glow": "left-pink",
-        "source": "collection"
-      },
       "blocks": {
         "card1": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "merch-1",
             "badge": "COLLECTIBLE FIGURE",
             "tone": "pink",
             "meta": "3D-Printed Collectible",
             "title": "Umbreon Collectible Figure",
+            "desc": "A striking dark-type character figure with bold pink accents and a premium display-ready finish.",
             "price": "$24.00",
-            "desc": "A striking dark-type character figure with bold pink accents and a premium display-ready finish."
+            "link": "",
+            "glow": "auto"
           }
         },
         "card2": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "merch-2",
             "badge": "FAN FAVORITE",
             "tone": "lightning",
             "meta": "Character Collectible",
             "title": "Electric-Type Character Figure",
+            "desc": "A vibrant character collectible featuring electric-blue details, a dynamic pose, and eye-catching shelf appeal.",
             "price": "$24.00",
-            "desc": "A vibrant character collectible featuring electric-blue details, a dynamic pose, and eye-catching shelf appeal."
+            "link": "",
+            "glow": "auto"
           }
         },
         "card3": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "merch-3",
             "badge": "COLLECTOR'S PICK",
             "tone": "neon",
             "meta": "Character Collectible",
             "title": "Ghost-Type Character Figure",
+            "desc": "A playful, expressive collectible with rich purple tones, sculpted details, and a distinctive display presence.",
             "price": "$24.00",
-            "desc": "A playful, expressive collectible with rich purple tones, sculpted details, and a distinctive display presence."
+            "link": "",
+            "glow": "auto"
           }
         },
         "card4": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "merch-4",
             "badge": "UNIQUE FIND",
             "tone": "gold",
             "meta": "Character Collectible",
             "title": "Golden Character Collectible",
+            "desc": "A charming character figure with warm gold and cream tones, designed to stand out in any collectible display.",
             "price": "$24.00",
-            "desc": "A charming character figure with warm gold and cream tones, designed to stand out in any collectible display."
+            "link": "",
+            "glow": "auto"
           }
         }
       },
@@ -412,7 +446,26 @@
         "card2",
         "card3",
         "card4"
-      ]
+      ],
+      "settings": {
+        "glow": "left-pink",
+        "eyebrow": "Merch & collectibles",
+        "heading": "More than just cards",
+        "text": "Explore merchandise and collectibles from the TCG HITZ universe.",
+        "btn_label": "VIEW ALL MERCHANDISE",
+        "btn_link": "shopify://pages/merchandise",
+        "source": "collection",
+        "collection": "merchandise",
+        "limit": 4,
+        "show_desc": true,
+        "anchor": "",
+        "center_heading": false,
+        "card_note": "",
+        "view_label": "View Product",
+        "show_glow": true,
+        "padding": "tight",
+        "show_samples": true
+      }
     },
     "home_why": {
       "type": "tcg-home-why",
@@ -448,15 +501,20 @@
         "y3"
       ],
       "settings": {
+        "glow": "right-gold",
+        "layout": "stacked",
+        "header": "center",
+        "columns": "3",
+        "space_top": "normal",
         "eyebrow": "THE TCG HITZ EXPERIENCE",
         "heading": "WHY SHOP TCG HITZ?",
-        "text": "From trading cards to collectibles and vending machines, explore more of what makes collecting exciting.",
-        "glow": "right-gold"
+        "text": "From trading cards to collectibles and vending machines, explore more of what makes collecting exciting."
       }
     },
     "home_cta": {
       "type": "tcg-home-banner",
       "settings": {
+        "glow": "left-pink",
         "fallback": "cta",
         "overlay": 0,
         "align": "center",
@@ -467,8 +525,7 @@
         "btn1_label": "EXPLORE THE STORE",
         "btn1_link": "/collections/all",
         "btn2_label": "EXPLORE VENDING MACHINES",
-        "btn2_link": "/pages/vending-machines",
-        "glow": "left-pink"
+        "btn2_link": "/pages/vending-machines"
       }
     },
     "home_gallery": {
@@ -478,90 +535,110 @@
           "type": "photo",
           "settings": {
             "fallback": "1",
+            "alt": "TCG HITZ machines and collectors",
+            "caption": "",
+            "link": "",
             "size": "wide",
-            "row": "1",
-            "alt": "TCG HITZ machines and collectors"
+            "row": "1"
           }
         },
         "g2": {
           "type": "photo",
           "settings": {
             "fallback": "2",
+            "alt": "TCG HITZ machines and collectors",
+            "caption": "",
+            "link": "",
             "size": "narrow",
-            "row": "1",
-            "alt": "TCG HITZ machines and collectors"
+            "row": "1"
           }
         },
         "g3": {
           "type": "photo",
           "settings": {
             "fallback": "3",
+            "alt": "TCG HITZ machines and collectors",
+            "caption": "",
+            "link": "",
             "size": "wide",
-            "row": "1",
-            "alt": "TCG HITZ machines and collectors"
+            "row": "1"
           }
         },
         "g4": {
           "type": "photo",
           "settings": {
             "fallback": "2",
+            "alt": "TCG HITZ machines and collectors",
+            "caption": "",
+            "link": "",
             "size": "narrow",
-            "row": "1",
-            "alt": "TCG HITZ machines and collectors"
+            "row": "1"
           }
         },
         "g5": {
           "type": "photo",
           "settings": {
             "fallback": "1",
+            "alt": "TCG HITZ machines and collectors",
+            "caption": "",
+            "link": "",
             "size": "narrow",
-            "row": "1",
-            "alt": "TCG HITZ machines and collectors"
+            "row": "1"
           }
         },
         "g6": {
           "type": "photo",
           "settings": {
             "fallback": "1",
+            "alt": "TCG HITZ machines and collectors",
+            "caption": "",
+            "link": "",
             "size": "narrow",
-            "row": "2",
-            "alt": "TCG HITZ machines and collectors"
+            "row": "2"
           }
         },
         "g7": {
           "type": "photo",
           "settings": {
             "fallback": "4",
+            "alt": "TCG HITZ machines and collectors",
+            "caption": "",
+            "link": "",
             "size": "wide",
-            "row": "2",
-            "alt": "TCG HITZ machines and collectors"
+            "row": "2"
           }
         },
         "g8": {
           "type": "photo",
           "settings": {
             "fallback": "5",
+            "alt": "TCG HITZ machines and collectors",
+            "caption": "",
+            "link": "",
             "size": "narrow",
-            "row": "2",
-            "alt": "TCG HITZ machines and collectors"
+            "row": "2"
           }
         },
         "g9": {
           "type": "photo",
           "settings": {
             "fallback": "6",
+            "alt": "TCG HITZ machines and collectors",
+            "caption": "",
+            "link": "",
             "size": "wide",
-            "row": "2",
-            "alt": "TCG HITZ machines and collectors"
+            "row": "2"
           }
         },
         "g10": {
           "type": "photo",
           "settings": {
             "fallback": "1",
+            "alt": "TCG HITZ machines and collectors",
+            "caption": "",
+            "link": "",
             "size": "narrow",
-            "row": "2",
-            "alt": "TCG HITZ machines and collectors"
+            "row": "2"
           }
         }
       },
@@ -578,27 +655,28 @@
         "g10"
       ],
       "settings": {
+        "glow": "right-gold",
         "eyebrow": "INSIDE THE TCG HITZ UNIVERSE",
         "heading": "MORE THAN A COLLECTION. IT'S AN EXPERIENCE.",
         "text": "From collectible cards and rare finds to our signature vending machines, explore the world of TCG HITZ.",
-        "btn_label": "EXPLORE TCG HITZ",
+        "btn_label": "",
         "btn_link": "/collections/all",
         "motion": "drift",
-        "glow": "right-gold",
         "speed": "normal"
       }
     },
     "home_community": {
       "type": "tcg-home-community",
       "settings": {
+        "glow": "left-pink",
+        "panel": false,
         "image_alt": "TCG HITZ community",
         "eyebrow": "get Started",
         "heading": "JOIN THE TCG HITZ COMMUNITY.",
         "text": "Get updates on new arrivals, collectible drops, and store news.",
         "placeholder": "Type your email address ...",
         "button_label": "Subscribe",
-        "success_text": "You're in! Welcome to the TCG HITZ community.",
-        "glow": "left-pink"
+        "success_text": "You're in! Welcome to the TCG HITZ community."
       }
     }
   },

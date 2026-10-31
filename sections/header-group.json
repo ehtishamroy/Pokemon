@@ -20,17 +20,90 @@
     "tcg_header": {
       "type": "tcg-header",
       "blocks": {
-        "mega_singles": { "type": "mega_item", "settings": { "title": "Singles", "subtitle": "Raw cards, real photos", "link": "/collections/all" } },
-        "mega_slabs": { "type": "mega_item", "settings": { "title": "Graded slabs", "subtitle": "PSA · CGC · BGS", "link": "/collections/slabs" } },
-        "mega_sealed": { "type": "mega_item", "settings": { "title": "Sealed", "subtitle": "Boxes, packs, ETBs", "link": "/collections/sealed" } },
-        "mega_mystery": { "type": "mega_item", "settings": { "title": "Mystery packs", "subtitle": "Chase the rare", "link": "/collections/mystery" } },
-        "nav_mystery": { "type": "nav_link", "settings": { "label": "Mystery", "link": "/collections/mystery", "gold": false } },
-        "nav_slabs": { "type": "nav_link", "settings": { "label": "Slabs", "link": "/collections/slabs", "gold": false } },
-        "nav_vending": { "type": "nav_link", "settings": { "label": "Vending Machines", "link": "/pages/vending-machines", "gold": true } },
-        "nav_merch": { "type": "nav_link", "settings": { "label": "Merchandise", "link": "/collections/merchandise", "gold": false } },
-        "nav_sell": { "type": "nav_link", "settings": { "label": "Sell to us", "link": "/pages/sell", "gold": false } }
+        "mega_singles": {
+          "type": "mega_item",
+          "settings": {
+            "title": "Singles",
+            "subtitle": "Raw cards, real photos",
+            "link": "shopify://collections/frontpage"
+          }
+        },
+        "mega_slabs": {
+          "type": "mega_item",
+          "settings": {
+            "title": "Graded slabs",
+            "subtitle": "PSA · CGC · BGS",
+            "link": "shopify://collections/graded-slabs"
+          }
+        },
+        "mega_sealed": {
+          "type": "mega_item",
+          "settings": {
+            "title": "Sealed",
+            "subtitle": "Boxes, packs, ETBs",
+            "link": "shopify://collections/sealed"
+          }
+        },
+        "mega_mystery": {
+          "type": "mega_item",
+          "settings": {
+            "title": "Mystery packs",
+            "subtitle": "Chase the rare",
+            "link": "shopify://collections/mystery"
+          }
+        },
+        "nav_mystery": {
+          "type": "nav_link",
+          "settings": {
+            "label": "Mystery",
+            "link": "/collections/mystery",
+            "gold": false
+          }
+        },
+        "nav_slabs": {
+          "type": "nav_link",
+          "settings": {
+            "label": "Slabs",
+            "link": "shopify://collections/slabs",
+            "gold": false
+          }
+        },
+        "nav_vending": {
+          "type": "nav_link",
+          "settings": {
+            "label": "Vending Machines",
+            "link": "/pages/vending-machines",
+            "gold": false
+          }
+        },
+        "nav_merch": {
+          "type": "nav_link",
+          "settings": {
+            "label": "Merchandise",
+            "link": "shopify://collections/mystery",
+            "gold": false
+          }
+        },
+        "nav_sell": {
+          "type": "nav_link",
+          "settings": {
+            "label": "Sell to us",
+            "link": "/pages/sell",
+            "gold": false
+          }
+        }
       },
-      "block_order": ["mega_singles", "mega_slabs", "mega_sealed", "mega_mystery", "nav_mystery", "nav_slabs", "nav_vending", "nav_merch", "nav_sell"],
+      "block_order": [
+        "mega_singles",
+        "mega_slabs",
+        "mega_sealed",
+        "mega_mystery",
+        "nav_mystery",
+        "nav_slabs",
+        "nav_vending",
+        "nav_merch",
+        "nav_sell"
+      ],
       "settings": {
         "mega_label": "Cards",
         "mega_link": "/collections/all",
@@ -38,5 +111,8 @@
       }
     }
   },
-  "order": ["tcg_top_bar", "tcg_header"]
+  "order": [
+    "tcg_top_bar",
+    "tcg_header"
+  ]
 }

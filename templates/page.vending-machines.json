@@ -16,17 +16,21 @@
         "breadcrumb_label": "Vending Machines",
         "heading_line1": "BRING THE TCG",
         "heading_line1b": "HITZ EXPERIENCE",
-        "heading_before": "TO ",
+        "heading_before": "TO",
         "heading_highlight": "YOUR SPACE",
         "gradient": "purple-pink",
         "heading_after": ".",
         "text": "Explore vending machines designed to bring trading cards and collectibles into real-world spaces. Find the right machine for your vision, customize your setup, and discover the possibilities of collectible vending with TCG HITZ.",
         "btn1_label": "",
+        "btn1_link": "",
         "btn2_label": "",
-        "show_art": true,
-        "art_fallback": "vending",
-        "art_fit": "photo",
+        "btn2_link": "",
         "heading_size": "compact",
+        "art_fit": "photo",
+        "show_art": true,
+        "bg_fallback": "none",
+        "art_fallback": "vending",
+        "image": "shopify://shop_images/image_2195_1.png",
         "image_alt": "TCG HITZ trading card vending machine"
       }
     },
@@ -133,72 +137,65 @@
     },
     "vm_machines": {
       "type": "tcg-home-products",
-      "settings": {
-        "glow": "none",
-        "eyebrow": "THE LINEUP",
-        "heading": "EXPLORE OUR VENDING | MACHINES.",
-        "text": "Explore TCG HITZ vending machines to compare models and features.",
-        "center_heading": true,
-        "anchor": "machines",
-        "card_note": "Shipping included",
-        "view_label": "View Machine",
-        "source": "collection",
-        "collection": "vending-machines",
-        "limit": 4,
-        "show_desc": true,
-        "show_glow": true,
-        "padding": "normal",
-        "show_samples": true,
-        "btn_label": "",
-        "btn_link": "/collections/vending-machines"
-      },
       "blocks": {
         "m1": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "cat-vending",
             "badge": "BEST SELLER",
             "tone": "pink",
+            "meta": "",
             "title": "THE MINI TCG",
             "desc": "A compact machine that brings trading cards to smaller spaces.",
-            "glow": "auto",
-            "link": "/collections/vending-machines"
+            "price": "",
+            "link": "/collections/vending-machines",
+            "glow": "auto"
           }
         },
         "m2": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "cat-vending",
             "badge": "NEW",
             "tone": "lightning",
+            "meta": "",
             "title": "THE TCG CLASSIC",
             "desc": "A standard machine designed for everyday trading card vending.",
-            "glow": "auto",
-            "link": "/collections/vending-machines"
+            "price": "",
+            "link": "/collections/vending-machines",
+            "glow": "auto"
           }
         },
         "m3": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "cat-vending",
             "badge": "FEATURED",
             "tone": "pink",
+            "meta": "",
             "title": "THE TCG PRO",
             "desc": "A premium machine built for high-traffic locations.",
-            "glow": "auto",
-            "link": "/collections/vending-machines"
+            "price": "",
+            "link": "/collections/vending-machines",
+            "glow": "auto"
           }
         },
         "m4": {
           "type": "card",
           "settings": {
+            "product": "",
             "fallback": "cat-vending",
             "badge": "NEW",
             "tone": "lightning",
+            "meta": "",
             "title": "THE TCG SHOWCASE",
             "desc": "An eye-catching machine that shows off your collectibles.",
-            "glow": "auto",
-            "link": "/collections/vending-machines"
+            "price": "",
+            "link": "/collections/vending-machines",
+            "glow": "auto"
           }
         }
       },
@@ -207,51 +204,76 @@
         "m2",
         "m3",
         "m4"
-      ]
+      ],
+      "settings": {
+        "glow": "none",
+        "eyebrow": "THE LINEUP",
+        "heading": "EXPLORE OUR VENDING | MACHINES.",
+        "text": "Explore TCG HITZ vending machines to compare models and features.",
+        "btn_label": "",
+        "btn_link": "/collections/vending-machines",
+        "source": "collection",
+        "collection": "vending-machines",
+        "limit": 4,
+        "show_desc": true,
+        "anchor": "machines",
+        "center_heading": true,
+        "card_note": "Shipping included",
+        "view_label": "View Machine",
+        "show_glow": true,
+        "padding": "normal",
+        "show_samples": true
+      }
     },
     "vm_compare": {
       "type": "tcg-vm-compare",
-      "settings": {
-        "heading": "THE RIGHT MACHINE | STARTS WITH YOUR VISION."
-      },
       "blocks": {
         "c1": {
           "type": "machine",
           "settings": {
+            "product": "",
             "name": "THE MINI TCG",
             "text": "Compact machine for smaller spaces.",
+            "link": "",
             "type": "Compact vending unit",
             "dimensions": "See machine page",
             "capacity": "See machine page",
             "display": "LED display / touchscreen",
             "payment": "Card / mobile / cash",
-            "wrap": true
+            "wrap": true,
+            "price": ""
           }
         },
         "c2": {
           "type": "machine",
           "settings": {
+            "product": "",
             "name": "THE TCG CLASSIC",
             "text": "Standard machine for most locations.",
+            "link": "",
             "type": "Standard vending machine",
             "dimensions": "See machine page",
             "capacity": "See machine page",
             "display": "LED display / touchscreen",
             "payment": "Card / mobile / cash",
-            "wrap": true
+            "wrap": true,
+            "price": ""
           }
         },
         "c3": {
           "type": "machine",
           "settings": {
+            "product": "",
             "name": "THE TCG PRO",
             "text": "Premium machine for busy locations.",
+            "link": "",
             "type": "Premium vending machine",
             "dimensions": "See machine page",
             "capacity": "See machine page",
             "display": "LED display / touchscreen",
             "payment": "Card / mobile / cash",
-            "wrap": true
+            "wrap": true,
+            "price": ""
           }
         }
       },
@@ -259,21 +281,41 @@
         "c1",
         "c2",
         "c3"
-      ]
+      ],
+      "settings": {
+        "glow": "right-pink",
+        "eyebrow": "COMPARE YOUR OPTIONS",
+        "heading": "THE RIGHT MACHINE | STARTS WITH YOUR VISION.",
+        "text": "Every location and vending setup has different needs. Compare the available machine models, explore their specifications, and find the configuration that makes sense for your plans.",
+        "anchor": "compare",
+        "spec_label": "Specification",
+        "row_type": "Machine Type",
+        "row_dimensions": "Dimensions (H × W × D)",
+        "row_capacity": "Product Capacity",
+        "row_display": "Display Features",
+        "row_payment": "Payment Options",
+        "row_wrap": "Custom Wrap",
+        "wrap_yes": "Available",
+        "wrap_no": "Not available",
+        "row_price": "Price",
+        "price_prefix": "From",
+        "price_empty": "See machine page",
+        "row_view": "Next step",
+        "view_label": "VIEW MACHINE"
+      }
     },
     "vm_addons": {
       "type": "tcg-vm-addons",
-      "settings": {
-        "heading": "CUSTOMIZE YOUR | VENDING SETUP."
-      },
       "blocks": {
         "a1": {
           "type": "addon",
           "settings": {
             "badge": "CUSTOM LOOK",
+            "product": "",
             "art": "wrap",
             "title": "CUSTOM MACHINE WRAP",
             "text": "Add a custom wrap so your machine matches your brand and stands out in any location.",
+            "price": "",
             "button_label": "CHOOSE YOUR MACHINE",
             "link": "#machines"
           }
@@ -282,9 +324,11 @@
           "type": "addon",
           "settings": {
             "badge": "PAYMENT OPTION",
+            "product": "",
             "art": "machine",
             "title": "CASH BILL ACCEPTOR",
             "text": "Let customers pay with cash bills. Added to the same order as your machine.",
+            "price": "",
             "button_label": "CHOOSE YOUR MACHINE",
             "link": "#machines"
           }
@@ -293,9 +337,11 @@
           "type": "addon",
           "settings": {
             "badge": "PAYMENT OPTION",
+            "product": "",
             "art": "machine",
             "title": "NAYAX CARD READER",
             "text": "Accept credit, debit and mobile payments with a Nayax card reader.",
+            "price": "",
             "button_label": "CHOOSE YOUR MACHINE",
             "link": "#machines"
           }
@@ -305,12 +351,49 @@
         "a1",
         "a2",
         "a3"
-      ]
+      ],
+      "disabled": true,
+      "settings": {
+        "glow": "left-blue",
+        "eyebrow": "MAKE IT YOURS",
+        "heading": "CUSTOMIZE YOUR | VENDING SETUP.",
+        "text": "Tailor your machine with available add-ons to create a setup that fits your branding and operational needs.",
+        "note": "Add-ons are chosen when you order your machine and are added to the same order.",
+        "anchor": "addons"
+      }
     },
     "vm_calc": {
       "type": "tcg-vm-calculator",
       "settings": {
-        "heading": "WHAT COULD YOUR | MACHINE EARN?"
+        "glow": "right-gold",
+        "eyebrow": "PLAN YOUR POTENTIAL",
+        "heading": "WHAT COULD YOUR | MACHINE EARN?",
+        "text": "Choose how much each machine sells per day and see an estimate of your monthly sales and profit.",
+        "anchor": "profit-calculator",
+        "sales": 150,
+        "machines": 1,
+        "margin": 50,
+        "days": 30,
+        "use_product_price": true,
+        "assumptions_title": "YOUR VENDING ASSUMPTIONS",
+        "label_sales": "Average sales per machine, per day",
+        "hint_sales": "Drag the slider or type your own number.",
+        "label_machines": "Number of machines",
+        "hint_machines": "How many machines you plan to run.",
+        "label_margin": "Average profit margin",
+        "hint_margin": "Profit kept from each sale. 50% is a typical average.",
+        "label_days": "Selling days per month",
+        "hint_days": "30 means the machine sells every day.",
+        "reset_label": "RESET",
+        "results_title": "YOUR ESTIMATED RESULTS",
+        "out_sales": "MONTHLY SALES",
+        "out_per_machine": "PROFIT PER MACHINE / MONTH",
+        "out_profit": "ESTIMATED MONTHLY PROFIT",
+        "out_yearly": "ESTIMATED YEARLY PROFIT",
+        "out_payback": "ESTIMATED PAYBACK TIME",
+        "disclaimer": "These numbers are estimates based on the figures you enter and an average profit margin. Actual results depend on your location, products, pricing and sales.",
+        "btn_label": "EXPLORE MACHINES",
+        "btn_link": ""
       }
     },
     "vm_steps": {
@@ -489,6 +572,8 @@
       "settings": {
         "glow": "right-pink",
         "layout": "stacked",
+        "header": "center",
+        "columns": "3",
         "space_top": "normal",
         "eyebrow": "THE TCG HITZ EXPERIENCE",
         "heading": "WHY SHOP TCG HITZ?",
@@ -498,6 +583,7 @@
     "vm_banner": {
       "type": "tcg-home-banner",
       "settings": {
+        "glow": "left-pink",
         "fallback": "cta",
         "overlay": 0,
         "align": "center",
@@ -506,10 +592,9 @@
         "heading": "YOUR NEXT GREAT FIND STARTS HERE.",
         "text": "Explore the TCG HITZ collection and discover something worth adding to your collection.",
         "btn1_label": "EXPLORE THE STORE",
-        "btn1_link": "/collections/all",
+        "btn1_link": "shopify://collections",
         "btn2_label": "EXPLORE MYSTERY PACKS",
-        "btn2_link": "/collections/mystery",
-        "glow": "left-pink"
+        "btn2_link": "shopify://collections/mystery"
       }
     },
     "vm_community": {

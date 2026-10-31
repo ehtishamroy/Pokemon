@@ -16,13 +16,21 @@
         "breadcrumb_label": "Mystery Packs",
         "heading_line1": "UNLOCK",
         "heading_line1b": "YOUR NEXT",
+        "heading_before": "",
         "heading_highlight": "RARE FIND",
+        "gradient": "blue-pink",
         "heading_after": ".",
         "text": "Discover mystery packs filled with trading card excitement. Explore available packs, find your next collectible adventure, and see what each product has to offer.",
         "btn1_label": "",
+        "btn1_link": "",
         "btn2_label": "",
+        "btn2_link": "",
+        "heading_size": "normal",
+        "art_fit": "cutout",
         "show_art": false,
-        "bg_fallback": "mystery"
+        "bg_fallback": "mystery",
+        "art_fallback": "sell",
+        "image_alt": "Graded Charizard card, Pokémon booster pack, Poké Ball and Pikachu figure"
       }
     },
     "mystery_strip": {
@@ -109,6 +117,8 @@
       "settings": {
         "glow": "left-purple",
         "layout": "inline",
+        "header": "center",
+        "columns": "3",
         "space_top": "large",
         "eyebrow": "",
         "heading": "THE EXCITEMENT IS IN THE UNKNOWN.",
@@ -122,24 +132,24 @@
           "type": "tab",
           "settings": {
             "label": "ALL MYSTERY PACKS",
-            "icon": "all",
-            "link": "/collections/mystery"
+            "link": "/collections/mystery",
+            "icon": "all"
           }
         },
         "t2": {
           "type": "tab",
           "settings": {
             "label": "CARD PACKS",
-            "icon": "pokemon",
-            "link": "/collections/mystery"
+            "link": "/collections/mystery",
+            "icon": "pokemon"
           }
         },
         "t3": {
           "type": "tab",
           "settings": {
             "label": "COLLECTIBLE BUNDLES",
-            "icon": "merch",
-            "link": "/collections/mystery"
+            "link": "/collections/mystery",
+            "icon": "merch"
           }
         }
       },
@@ -149,8 +159,8 @@
         "t3"
       ],
       "settings": {
-        "layout": "compact",
         "glow": "right-gold",
+        "layout": "compact",
         "eyebrow": "MYSTERY PACKS COLLECTION",
         "heading": "FIND YOUR NEXT FAVORITE.",
         "text": "Explore the mystery packs currently available at TCG HITZ and discover the details of each product before choosing your next addition.",
@@ -216,7 +226,9 @@
         "glow": "right-gold",
         "eyebrow": "HOW MYSTERY PACKS WORK",
         "heading": "YOUR NEXT DISCOVERY STARTS HERE.",
-        "text": "Explore the available packs, review the product details, and choose the mystery experience that interests you."
+        "text": "Explore the available packs, review the product details, and choose the mystery experience that interests you.",
+        "pill": "",
+        "anchor": "how"
       }
     },
     "mystery_faq": {
@@ -278,6 +290,8 @@
         "eyebrow": "FREQUENTLY ASKED QUESTIONS",
         "heading": "GOT QUESTIONS?",
         "text": "Here's what to know before choosing your next mystery pack.",
+        "art_fallback": "mystery",
+        "image": "shopify://shop_images/WhatsApp_Image_2026-09-05_at_2.59.42_AM_1.jpg",
         "image_alt": "Mystery pack surrounded by graded cards",
         "first_open": true
       }
@@ -318,6 +332,8 @@
       "settings": {
         "glow": "right-pink",
         "layout": "stacked",
+        "header": "center",
+        "columns": "3",
         "space_top": "normal",
         "eyebrow": "THE TCG HITZ EXPERIENCE",
         "heading": "WHY SHOP TCG HITZ?",

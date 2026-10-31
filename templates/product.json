@@ -15,8 +15,7 @@
         "glow": "left-blue",
         "holo": false,
         "gallery_note": "Real photos of the actual card — front and back.",
-        "sell_link": "/pages/sell",
-        "home_label": "Home"
+        "sell_link": "/pages/sell"
       }
     },
     "product_related": {
@@ -26,9 +25,12 @@
         "eyebrow": "RELATED PRODUCTS",
         "heading": "YOU MIGHT ALSO LIKE.",
         "text": "Discover more cards and collectibles to explore.",
-        "btn_label": "VIEW ALL PRODUCTS",
+        "btn_label": "",
+        "collection": "",
         "limit": 4,
-        "show_glow": false
+        "show_glow": false,
+        "card_note": "",
+        "view_label": ""
       }
     },
     "product_questions": {
@@ -77,6 +79,8 @@
       "settings": {
         "glow": "left-purple",
         "layout": "stacked",
+        "header": "center",
+        "columns": "3",
         "space_top": "normal",
         "eyebrow": "THE TCG HITZ EXPERIENCE",
         "heading": "WHY SHOP TCG HITZ?",
