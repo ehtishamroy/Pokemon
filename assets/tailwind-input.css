@@ -771,6 +771,64 @@
     .hz-icon-btn:hover { background: rgba(236,72,153,.3); transform: rotate(90deg); }
   }
 
+  /* ---------------------------------------------------------------------
+     Product page (Figma "Product Details"): gallery + colour/animation skin for the
+     existing buy box. Only colours, borders and motion are changed on the right column;
+     its markup and behaviour are untouched (selectors hang off .hz-pdp__grid).
+     --------------------------------------------------------------------- */
+  .hz-stage { position: relative; overflow: hidden; border-radius: 20px; background: #111827; aspect-ratio: 608 / 572; display: grid; place-items: center; transition: box-shadow .4s ease; }
+  .hz-stage__glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 55%, rgba(37,99,255,.28), transparent 62%), radial-gradient(ellipse at 85% 10%, rgba(236,72,153,.16), transparent 50%); }
+  .hz-stage__img { position: relative; z-index: 1; width: 100%; height: 100%; max-width: none; object-fit: contain; padding: 28px; transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .4s; filter: drop-shadow(0 18px 28px rgba(0,0,0,.5)); }
+  .hz-stage .hz-swap, .hz-stage .holo__card img.hz-swap { animation: hz-swap .45s ease; }
+  @keyframes hz-swap { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+  .hz-gallery-arrow { position: absolute; top: 50%; z-index: 3; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 999px; border: 1px solid #2563FF; background: rgba(17,24,39,.78); color: #fff; backdrop-filter: blur(4px); transform: translateY(-50%); transition: background-color .25s, transform .25s, box-shadow .25s; }
+  .hz-gallery-arrow--prev { left: 16px; } .hz-gallery-arrow--next { right: 16px; }
+  .hz-thumbs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+  .hz-thumbs--scroll { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 5); overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; scrollbar-color: #2563FF transparent; scroll-snap-type: x proximity; }
+  .hz-thumbs--scroll .hz-thumb { scroll-snap-align: start; }
+  .hz-thumb { aspect-ratio: 1; padding: 10px; border-radius: 16px; border: 1px solid rgba(255,255,255,.14); background: #111827; display: grid; place-items: center; overflow: hidden; transition: border-color .25s, box-shadow .25s, transform .25s cubic-bezier(.34,1.56,.64,1); }
+  .hz-thumb img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
+  .hz-thumb.is-active { border-color: #2563FF; box-shadow: 0 0 20px rgba(37,99,255,.45), inset 0 0 0 1px rgba(56,189,248,.35); }
+  @media (max-width: 560px) { .hz-thumbs { gap: 6px; } .hz-thumb { padding: 5px; border-radius: 10px; } .hz-gallery-arrow { width: 34px; height: 34px; } }
+  .hz-input { height: 48px; padding: 0 20px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); color: #fff; font-size: 15px; outline: none; transition: border-color .2s, box-shadow .2s; }
+  .hz-input::placeholder { color: #A7B0C0; }
+  .hz-input:focus { border-color: #38BDF8; box-shadow: 0 0 0 3px rgba(56,189,248,.22); }
+
+  /* Right column skin (colours + motion only) */
+  .hz-pdp__grid > div:last-child .text-slate { color: #A7B0C0 !important; }
+  .hz-pdp__grid > div:last-child .text-volt { color: #38BDF8 !important; }
+  .hz-pdp__grid > div:last-child .text-mint { color: #22C55E !important; }
+  .hz-pdp__grid > div:last-child .bg-mint\/15 { background-color: rgba(34,197,94,.15) !important; }
+  .hz-pdp__grid > div:last-child span[data-price] { text-shadow: 0 0 24px rgba(56,189,248,.35); }
+  .hz-pdp__grid > div:last-child [data-variant] { border: 1px solid #2563FF; background-color: #182338 !important; border-radius: 12px; transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s, border-color .25s; }
+  .hz-pdp__grid > div:last-child [data-variant][aria-checked="true"] { border-color: #38BDF8; background-color: #1b2a47 !important; box-shadow: 0 0 0 1px #38BDF8, 0 10px 30px -10px rgba(47,123,255,.6) !important; }
+  .hz-pdp__grid > div:last-child .qty { border: 1px solid #2563FF; background: rgba(255,255,255,.06) !important; }
+  .hz-pdp__grid > div:last-child .qty button { transition: color .2s, transform .2s; }
+  .hz-pdp__grid > div:last-child [data-add-main] { background-color: transparent !important; background-image: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.32) 50%, transparent 65%), linear-gradient(90deg, #EF4444, #FF6B35) !important; background-size: 250% 100%, 100% 100%; background-position: 150% 0, 0 0; background-repeat: no-repeat; text-shadow: none; transition: background-position .7s ease, transform .25s ease, box-shadow .25s, filter .25s; box-shadow: 0 10px 28px -8px rgba(239,68,68,.6); }
+  .hz-pdp__grid > div:last-child .cabinet { border-color: rgba(56,189,248,.28); background: #0d1428 !important; transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, border-color .3s; }
+  .hz-pdp__grid > div:last-child .rounded-card { border-color: rgba(37,99,255,.55); background: #182338 !important; }
+  .hz-pdp__grid > div:last-child .rule-energy { height: 1.5px; background: linear-gradient(90deg, transparent, #2563FF 20%, #EC4899 80%, transparent); }
+  .hz-pdp__grid > div:last-child details.faq > summary { transition: color .2s; }
+  .hz-pdp__grid > div:last-child > div.mt-3 a[href] { color: #EC4899; text-decoration: underline; text-underline-offset: 3px; }
+  .hz-pdp__grid > div:last-child span.rounded-full.border { border-color: #2563FF !important; background: rgba(255,255,255,.08) !important; }
+  /* Gentle cascade-in of the buy box on load */
+  .hz-pdp__grid > div:last-child > * { animation: hz-reveal .7s cubic-bezier(.2,.7,.2,1) both; }
+  .hz-pdp__grid > div:last-child > :nth-child(2) { animation-delay: .06s; } .hz-pdp__grid > div:last-child > :nth-child(3) { animation-delay: .12s; }
+  .hz-pdp__grid > div:last-child > :nth-child(4) { animation-delay: .18s; } .hz-pdp__grid > div:last-child > :nth-child(5) { animation-delay: .24s; }
+  .hz-pdp__grid > div:last-child > :nth-child(6) { animation-delay: .3s; } .hz-pdp__grid > div:last-child > :nth-child(7) { animation-delay: .36s; }
+  .hz-pdp__grid > div:last-child > :nth-child(n+8) { animation-delay: .42s; }
+  @media (hover: hover) {
+    .hz-stage:hover { box-shadow: 0 0 44px -10px rgba(37,99,255,.55), 0 0 60px -16px rgba(236,72,153,.4); }
+    .hz-stage:hover .hz-stage__img { transform: scale(1.05); }
+    .hz-gallery-arrow:hover { background: #2563FF; transform: translateY(-50%) scale(1.1); box-shadow: 0 6px 20px rgba(37,99,255,.6); }
+    .hz-thumb:not(.is-active):hover { transform: translateY(-3px); border-color: #EC4899; box-shadow: 0 8px 20px -8px rgba(236,72,153,.55); }
+    .hz-pdp__grid > div:last-child [data-variant]:hover { transform: translateY(-2px); border-color: #38BDF8; box-shadow: 0 12px 28px -12px rgba(47,123,255,.7); }
+    .hz-pdp__grid > div:last-child .qty button:hover { color: #EC4899; transform: scale(1.25); }
+    .hz-pdp__grid > div:last-child [data-add-main]:not(:disabled):hover { transform: translateY(-2px); background-position: -50% 0, 0 0; filter: brightness(1.08); box-shadow: 0 16px 32px -8px rgba(239,68,68,.75); }
+    .hz-pdp__grid > div:last-child ul > li.cabinet:hover, .hz-pdp__grid > div:last-child details.cabinet:hover { transform: translateY(-3px); border-color: #EC4899; box-shadow: 0 14px 30px -14px rgba(37,99,255,.7), 0 0 24px -8px rgba(236,72,153,.45); }
+  }
+  @media (hover: none) { .hz-thumb:active, .hz-gallery-arrow:active { transform: scale(.94); } .hz-pdp__grid > div:last-child [data-add-main]:active { transform: scale(.98); } }
+
   /* Favourite heart pop */
   .hz-fav[aria-pressed="true"] svg { animation: hz-pop .4s cubic-bezier(.34,1.56,.64,1); }
   @keyframes hz-pop { 0% { transform: scale(1); } 45% { transform: scale(1.5); } 100% { transform: scale(1); } }
@@ -800,6 +858,8 @@
     .hz-marquee__track { animation: none; }
     .hz-rail { scroll-behavior: auto; }
     .hz-panel, .hz-backdrop { animation: none; }
+    .hz-pdp__grid > div:last-child > * { animation: none; }
+    .hz-stage .hz-swap { animation: none; }
     .hz-float, .hz-pulse-ring::before, .hz-pulse-ring::after, .hz-fav[aria-pressed="true"] svg { animation: none; }
     .hz-js [data-hz-reveal]:not(.is-in), .hz-js [data-hz-reveal].is-in { opacity: 1; translate: none; animation: none; }
     .hz-tile, .hz-card, .hz-lift-card, .hz-zoom-img, .hz-tile__img, .hz-card__img, .hz-tab, .hz-tab__icon, .hz-page { transition: none; }

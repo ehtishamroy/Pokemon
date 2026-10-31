@@ -26,34 +26,49 @@
   {%- else -%}Sold out{%- endif -%}
 {%- endcapture -%}
 
-<section class="tcg-scope smoke pt-8 pb-10 lg:pt-10" style="overflow-x: clip;">
-  <div class="mx-auto max-w-site px-4 sm:px-6">
-    <nav class="text-sm text-slate" aria-label="Breadcrumb"><a href="{{ routes.root_url }}" class="hover:text-volt">{{ shop.name }}</a><span class="mx-2">/</span>{% if collection %}<a href="{{ collection.url }}" class="hover:text-volt">{{ collection.title }}</a><span class="mx-2">/</span>{% endif %}{% if card_set != blank %}<a href="{{ routes.search_url }}?q={{ card_set | url_encode }}" class="hover:text-volt">{{ card_set }}</a><span class="mx-2">/</span>{% endif %}<span class="text-paper">{{ product.title }}</span></nav>
+<section class="tcg-scope hz hz-pdp relative" style="overflow-x: clip;">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap pb-[48px] pt-[28px] md:pb-[72px] md:pt-[40px] xl:pb-[100px]">
+    <nav class="text-[14px] leading-[1.5] text-white md:text-[16px]" aria-label="Breadcrumb" data-hz-reveal>
+      <a href="{{ routes.root_url }}" class="hz-ulink hover:text-hz-lightning">{{ section.settings.home_label }}</a><span class="mx-[6px]" aria-hidden="true">/</span>
+      {%- if collection -%}<a href="{{ collection.url }}" class="hz-ulink hover:text-hz-lightning">{{ collection.title }}</a><span class="mx-[6px]" aria-hidden="true">/</span>{%- endif -%}
+      {%- if card_set != blank -%}<a href="{{ routes.search_url }}?q={{ card_set | url_encode }}" class="hz-ulink hover:text-hz-lightning">{{ card_set }}</a><span class="mx-[6px]" aria-hidden="true">/</span>{%- endif -%}
+      <strong class="font-bold text-hz-gold">{{ product.title }}</strong>
+    </nav>
 
-    <div class="mt-6 grid lg:grid-cols-12 gap-10 lg:gap-14">
+    <div class="hz-pdp__grid mt-[28px] grid gap-10 md:mt-[36px] lg:grid-cols-12 lg:gap-14">
 
       <div class="lg:col-span-6">
-        <div class="lg:sticky lg:top-24">
-          <div class="cabinet bg-ink p-6 sm:p-8">
-            <div class="flex justify-center">
-              <div class="w-[min(80vw,380px)]">
-                <div class="holo" data-tilt="14" aria-label="Card image, move your pointer to tilt">
-                  <div class="holo__card">
-                    <img data-main-img src="{{ main_img }}" alt="{{ product.title | escape }} — the actual card">
-                    <span class="holo__glare"></span><span class="holo__rainbow"></span>
+        <div class="hz-gallery lg:sticky lg:top-24" data-hz-reveal>
+          <div class="hz-stage tcg-gb [--bw:1px]" data-hz-stage tabindex="0" aria-label="Product images">
+            <span aria-hidden="true" class="hz-stage__glow"></span>
+            {%- if section.settings.holo -%}
+              <div class="relative z-[1] flex h-full w-full items-center justify-center p-[24px]">
+                <div class="w-[min(70%,380px)]">
+                  <div class="holo" data-tilt="14" aria-label="Card image, move your pointer to tilt">
+                    <div class="holo__card">
+                      <img data-main-img src="{{ main_img }}" alt="{{ product.title | escape }}" width="800" height="800" fetchpriority="high">
+                      <span class="holo__glare"></span><span class="holo__rainbow"></span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {%- if product.media.size > 1 -%}
-              <div class="thumbs mt-6 flex gap-3 overflow-x-auto pb-1 justify-center">
-                {%- for media in product.media -%}
-                  <button type="button" data-thumb="{{ media | image_url: width: 1000 }}" class="{% if forloop.first %}ring-2 ring-volt {% endif %}shrink-0 w-[66px] h-[92px] rounded-lg overflow-hidden bg-felt-2" aria-label="{{ media.alt | default: 'Photo' | escape }}"><img src="{{ media | image_url: width: 160 }}" alt="" class="w-full h-full object-cover"></button>
-                {%- endfor -%}
-              </div>
+            {%- else -%}
+              <img data-main-img src="{{ main_img }}" alt="{{ product.title | escape }}" width="1000" height="1000" fetchpriority="high" class="hz-stage__img">
             {%- endif -%}
-            <p class="mt-4 text-center text-sm text-slate">{{ section.settings.gallery_note }}</p>
+            {%- if product.media.size > 1 -%}
+              <button type="button" class="hz-gallery-arrow hz-gallery-arrow--prev" data-gallery-nav="-1" aria-label="Previous image"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button type="button" class="hz-gallery-arrow hz-gallery-arrow--next" data-gallery-nav="1" aria-label="Next image"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            {%- endif -%}
           </div>
+          {%- if product.media.size > 1 -%}
+            <div class="hz-thumbs{% if product.media.size > 5 %} hz-thumbs--scroll{% endif %}" role="list">
+              {%- for media in product.media -%}
+                <button type="button" role="listitem" data-thumb="{{ media.preview_image | image_url: width: 1000 }}" class="hz-thumb{% if forloop.first %} is-active{% endif %}" aria-label="{{ media.alt | default: 'Photo' | escape }}"><img src="{{ media.preview_image | image_url: width: 240 }}" alt="" width="120" height="120" loading="lazy"></button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.gallery_note != blank -%}<p class="mt-[16px] text-center text-[14px] text-hz-cool">{{ section.settings.gallery_note }}</p>{%- endif -%}
         </div>
       </div>
 
@@ -150,67 +165,69 @@
   </div>
 </section>
 
-{%- if section.settings.show_related -%}
-  {%- liquid
-    assign related_source = section.settings.related_collection
-    if related_source == blank
-      assign related_source = product.collections.first
-    endif
-  -%}
-  {%- if related_source != blank -%}
-    <section class="tcg-scope py-12 lg:py-16">
-      <div class="mx-auto max-w-site px-4 sm:px-6">
-        <h2 class="stitle">{{ section.settings.related_heading }}</h2>
-        <div class="rule-energy my-7 max-w-[240px] mx-auto"></div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
-          {%- assign shown = 0 -%}
-          {%- for related in related_source.products -%}
-            {%- if related.id != product.id and shown < 4 -%}
-              {% render 'tcg-cell', product: related, full: true %}
-              {%- assign shown = shown | plus: 1 -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      </div>
-    </section>
-  {%- endif -%}
-{%- endif -%}
-
-<section class="tcg-scope py-10 lg:py-14">
-  <div class="mx-auto max-w-3xl px-4 sm:px-6">
-    <div class="cabinet bg-ink p-8">
-      <h2 class="font-display text-2xl text-center">Questions about this card</h2>
-      <p class="mt-2 text-center text-paper-dim">No questions yet — ask the first one and we'll answer within a day.</p>
-      {%- form 'contact', id: 'tcg-question-form', class: 'mt-6' -%}
-        <input type="hidden" name="contact[subject]" value="Question about {{ product.title | escape }}">
-        <input type="hidden" name="contact[product]" value="{{ shop.url }}{{ product.url }}">
-        {%- if form.posted_successfully? -%}
-          <p class="text-center rounded-full bg-volt/10 border border-volt/45 text-volt px-5 py-3 font-bold">SENT — we'll reply within a day.</p>
-        {%- else -%}
-          {%- if form.errors -%}<p class="mb-3 text-sm text-chase text-center">{{ form.errors | default_errors }}</p>{%- endif -%}
-          <div class="flex flex-col sm:flex-row gap-3">
-            <label class="sr-only" for="tcg-question-email">Your email</label>
-            <input id="tcg-question-email" name="contact[email]" type="email" required placeholder="Your email" class="sm:w-56 rounded-full bg-felt-2 border border-volt/25 px-5 py-3 placeholder:text-slate focus:border-volt">
-            <label class="sr-only" for="tcg-question">Your question</label>
-            <input id="tcg-question" name="contact[body]" type="text" required placeholder="e.g. Any whitening on the back corners?" class="flex-1 rounded-full bg-felt-2 border border-volt/25 px-5 py-3 placeholder:text-slate focus:border-volt">
-            <button type="submit" class="rounded-full border border-volt/45 px-6 py-3 font-bold text-volt hover:bg-volt hover:text-white disabled:opacity-70">ASK</button>
-          </div>
-        {%- endif -%}
-      {%- endform -%}
-    </div>
-  </div>
-</section>
-
 {% schema %}
 {
   "name": "TCG – Product Page",
-  "enabled_on": { "templates": ["product"] },
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
   "settings": [
-    { "type": "text", "id": "gallery_note", "label": "Gallery note", "default": "Real photos of the actual card — front and back." },
-    { "type": "url", "id": "sell_link", "label": "Sell-to-us link" },
-    { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
-    { "type": "text", "id": "related_heading", "label": "Related heading", "default": "Other versions of this card" },
-    { "type": "collection", "id": "related_collection", "label": "Related collection (defaults to the product's first collection)" }
+    {
+      "type": "select",
+      "id": "glow",
+      "label": "Background glow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "left-blue",
+          "label": "Blue, left"
+        },
+        {
+          "value": "left-purple",
+          "label": "Purple, left"
+        },
+        {
+          "value": "left-pink",
+          "label": "Pink, left"
+        },
+        {
+          "value": "right-blue",
+          "label": "Blue, right"
+        },
+        {
+          "value": "right-pink",
+          "label": "Pink, right"
+        },
+        {
+          "value": "right-gold",
+          "label": "Gold, right"
+        }
+      ],
+      "default": "left-blue"
+    },
+    {
+      "type": "checkbox",
+      "id": "holo",
+      "label": "Holographic tilt effect on the main image",
+      "info": "Tilts with the mouse. Best for single trading cards; turn off for boxes and merch.",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "gallery_note",
+      "label": "Gallery note",
+      "default": "Real photos of the actual card — front and back."
+    },
+    {
+      "type": "url",
+      "id": "sell_link",
+      "label": "Sell-to-us link"
+    }
   ],
   "presets": []
 }

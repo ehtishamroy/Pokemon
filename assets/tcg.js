@@ -253,10 +253,39 @@ document.querySelector('[data-nav-toggle]')?.addEventListener('click', (e) => {
 
   // thumbnails swap the main (tilting) image
   document.querySelectorAll('[data-thumb]').forEach((t) => t.addEventListener('click', () => {
-    if (gallery) gallery.src = t.dataset.thumb;
-    document.querySelectorAll('[data-thumb]').forEach((x) => x.classList.remove('ring-2', 'ring-volt'));
-    t.classList.add('ring-2', 'ring-volt');
+    if (gallery) {
+      gallery.src = t.dataset.thumb;
+      gallery.classList.remove('hz-swap'); void gallery.offsetWidth; gallery.classList.add('hz-swap');
+    }
+    document.querySelectorAll('[data-thumb]').forEach((x) => x.classList.remove('is-active', 'ring-2', 'ring-volt'));
+    t.classList.add('is-active');
   }));
+
+  // Product page gallery: prev/next arrows, keyboard arrows and swipe step through the thumbnails
+  const thumbs = Array.from(document.querySelectorAll('[data-thumb]'));
+  if (thumbs.length > 1) {
+    const step = (dir) => {
+      const now = Math.max(0, thumbs.findIndex((x) => x.classList.contains('is-active')));
+      const next = thumbs[(now + dir + thumbs.length) % thumbs.length];
+      next.click();
+      next.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    };
+    document.querySelectorAll('[data-gallery-nav]').forEach((b) => b.addEventListener('click', () => step(parseInt(b.dataset.galleryNav, 10))));
+    const stage = document.querySelector('[data-hz-stage]');
+    if (stage) {
+      stage.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+      });
+      let startX = null;
+      stage.addEventListener('pointerdown', (e) => { startX = e.clientX; });
+      stage.addEventListener('pointerup', (e) => {
+        if (startX === null) return;
+        const dx = e.clientX - startX; startX = null;
+        if (Math.abs(dx) > 50 && e.pointerType !== 'mouse') step(dx < 0 ? 1 : -1);
+      });
+    }
+  }
 })();
 
 /* ---------- Collection page: filter panel toggle + server-side sort ---------- */

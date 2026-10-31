@@ -1,0 +1,64 @@
+{% comment %}
+  TCG Hitz — "YOU MIGHT ALSO LIKE." related products (Figma "Product Details" design).
+  Shows other products from the product's first collection (or a collection you pick),
+  using the same card as the homepage. "View all products" links to that collection.
+{% endcomment %}
+
+{%- liquid
+  assign source = section.settings.collection
+  if source == blank
+    assign source = product.collections.first
+  endif
+  if source == blank
+    assign source = collections['all']
+  endif
+  assign glows = 'pink,blue,purple,gold' | split: ','
+  assign shown = 0
+  assign max_cards = section.settings.limit | default: 4
+-%}
+
+{%- if source != blank and source.products_count > 1 -%}
+  <section class="tcg-scope hz relative">
+    {% render 'tcg-home-glow', glow: section.settings.glow %}
+    <div class="hz-wrap flex flex-col items-stretch gap-[28px] pb-[48px] pt-[20px] md:gap-[44px] md:pb-[72px] xl:gap-[56px] xl:pb-[100px]">
+      <div class="flex w-full flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+        {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, heading_class: 'uppercase' %}
+        {% render 'tcg-home-button', label: section.settings.btn_label, link: source.url, kind: 'outline' %}
+      </div>
+      <div class="grid w-full grid-cols-1 gap-x-[24px] gap-y-[24px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {%- for related in source.products -%}
+          {%- if related.id != product.id and shown < max_cards -%}
+            {%- liquid
+              assign glow = ''
+              if section.settings.show_glow
+                assign glow_index = shown | modulo: 4
+                assign glow = glows[glow_index]
+              endif
+              assign shown = shown | plus: 1
+            -%}
+            {% render 'tcg-home-card', product: related, glow: glow %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "TCG Product — Related",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "right-pink" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "RELATED PRODUCTS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "YOU MIGHT ALSO LIKE." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Discover more cards and collectibles to explore." },
+    { "type": "text", "id": "btn_label", "label": "Button label", "default": "VIEW ALL PRODUCTS" },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to use the product's own collection." },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 8, "step": 1, "default": 4 },
+    { "type": "checkbox", "id": "show_glow", "label": "Colour glow behind product images", "default": false }
+  ],
+  "presets": [{ "name": "TCG Product — Related" }]
+}
+{% endschema %}

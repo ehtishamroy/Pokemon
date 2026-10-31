@@ -12,12 +12,97 @@
     "tcg_product": {
       "type": "tcg_main_product",
       "settings": {
+        "glow": "left-blue",
+        "holo": false,
         "gallery_note": "Real photos of the actual card — front and back.",
         "sell_link": "/pages/sell",
-        "show_related": true,
-        "related_heading": "Other versions of this card"
+        "home_label": "Home"
+      }
+    },
+    "product_related": {
+      "type": "tcg-product-related",
+      "settings": {
+        "glow": "right-pink",
+        "eyebrow": "RELATED PRODUCTS",
+        "heading": "YOU MIGHT ALSO LIKE.",
+        "text": "Discover more cards and collectibles to explore.",
+        "btn_label": "VIEW ALL PRODUCTS",
+        "limit": 4,
+        "show_glow": false
+      }
+    },
+    "product_questions": {
+      "type": "tcg-product-questions",
+      "settings": {
+        "heading": "Questions about this card",
+        "text": "No questions yet — ask the first one and we'll answer within a day.",
+        "placeholder": "e.g. Any whitening on the back corners?",
+        "button_label": "ASK",
+        "success_text": "SENT — we'll reply within a day."
+      }
+    },
+    "product_why": {
+      "type": "tcg-home-why",
+      "blocks": {
+        "y1": {
+          "type": "card",
+          "settings": {
+            "icon": "world",
+            "title": "A WORLD OF COLLECTIBLES",
+            "text": "Explore trading cards, mystery packs, graded cards, and merchandise in one place."
+          }
+        },
+        "y2": {
+          "type": "card",
+          "settings": {
+            "icon": "discover",
+            "title": "DISCOVER SOMETHING NEW",
+            "text": "Browse collectible finds and explore products that could become your next favorite addition."
+          }
+        },
+        "y3": {
+          "type": "card",
+          "settings": {
+            "icon": "beyond",
+            "title": "BEYOND THE CARDS",
+            "text": "Explore trading-card vending machines alongside the store's collectible products."
+          }
+        }
+      },
+      "block_order": [
+        "y1",
+        "y2",
+        "y3"
+      ],
+      "settings": {
+        "glow": "left-purple",
+        "layout": "stacked",
+        "space_top": "normal",
+        "eyebrow": "THE TCG HITZ EXPERIENCE",
+        "heading": "WHY SHOP TCG HITZ?",
+        "text": "From trading cards to collectibles and vending machines, explore more of what makes collecting exciting."
+      }
+    },
+    "product_community": {
+      "type": "tcg-home-community",
+      "settings": {
+        "glow": "none",
+        "panel": false,
+        "image_alt": "Colorful Pokémon trading cards",
+        "eyebrow": "GET STARTED",
+        "heading": "JOIN THE TCG HITZ COMMUNITY.",
+        "text": "Get updates on new arrivals, collectible drops, and store news.",
+        "placeholder": "Type your email address ...",
+        "button_label": "Subscribe",
+        "success_text": "You're in! Welcome to the TCG HITZ community."
       }
     }
   },
-  "order": ["tcg_product"]
+  "order": [
+    "tcg_product",
+    "product_related",
+    "product_questions",
+    "product_why",
+    "product_community"
+  ]
 }

@@ -1,0 +1,45 @@
+{% comment %}
+  TCG Hitz — "Questions about this card" form (moved out of the product section, same behaviour:
+  Shopify contact form that emails the store with the product link).
+{% endcomment %}
+
+<section class="tcg-scope hz relative">
+  <div class="hz-wrap pb-[48px] md:pb-[72px]">
+    <div data-hz-reveal class="relative mx-auto max-w-[860px] rounded-[20px] tcg-gb bg-hz-card px-[22px] py-[32px] md:p-[40px]">
+      <h2 class="text-center font-display text-[24px] leading-[1.2] text-white md:text-[28px]">{{ section.settings.heading }}</h2>
+      <p class="mt-[10px] text-center text-[15px] leading-[1.5] text-hz-cool">{{ section.settings.text }}</p>
+      {%- form 'contact', id: 'tcg-question-form', class: 'mt-[24px]' -%}
+        <input type="hidden" name="contact[subject]" value="Question about {{ product.title | escape }}">
+        <input type="hidden" name="contact[product]" value="{{ shop.url }}{{ product.url }}">
+        {%- if form.posted_successfully? -%}
+          <p class="rounded-full border border-solid border-hz-success/50 bg-hz-success/10 px-[20px] py-[14px] text-center font-bold text-white" role="status">{{ section.settings.success_text }}</p>
+        {%- else -%}
+          {%- if form.errors -%}<p class="mb-[12px] text-center text-[14px] text-hz-crimson" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+          <div class="flex flex-col gap-[12px] md:flex-row">
+            <label class="sr-only" for="tcg-question-email">Your email</label>
+            <input id="tcg-question-email" name="contact[email]" type="email" required placeholder="Your email" class="hz-input md:w-[240px]">
+            <label class="sr-only" for="tcg-question">Your question</label>
+            <input id="tcg-question" name="contact[body]" type="text" required placeholder="{{ section.settings.placeholder | escape }}" class="hz-input flex-1">
+            <button type="submit" class="hz-btn-outline tcg-gb h-[48px] justify-center px-[26px]"><span>{{ section.settings.button_label }}</span></button>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Product — Questions",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Questions about this card" },
+    { "type": "text", "id": "text", "label": "Text", "default": "No questions yet — ask the first one and we'll answer within a day." },
+    { "type": "text", "id": "placeholder", "label": "Question placeholder", "default": "e.g. Any whitening on the back corners?" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "ASK" },
+    { "type": "text", "id": "success_text", "label": "Success message", "default": "SENT — we'll reply within a day." }
+  ],
+  "presets": [{ "name": "TCG Product — Questions" }]
+}
+{% endschema %}

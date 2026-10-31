@@ -1,6 +1,6 @@
 {%- comment -%}
   Soft colour glow at the left/right edge of a homepage section (the design's blurred
-  background ellipses). Param: glow — 'none' | 'left-purple' | 'left-pink' | 'right-blue' | 'right-gold'
+  background ellipses). Param: glow — 'none' | 'left-purple' | 'left-pink' | 'left-blue' | 'right-blue' | 'right-pink' | 'right-gold'
 {%- endcomment -%}
 {%- if glow != blank and glow != 'none' -%}
   {%- liquid
@@ -11,6 +11,12 @@
       when 'left-pink'
         assign glow_class = 'hz-glow hz-glow--pink'
         assign glow_x = '260px'
+      when 'left-blue'
+        assign glow_class = 'hz-glow hz-glow--blue'
+        assign glow_x = '260px'
+      when 'right-pink'
+        assign glow_class = 'hz-glow hz-glow--pink'
+        assign glow_x = '1560px'
       when 'right-blue'
         assign glow_class = 'hz-glow hz-glow--blue'
         assign glow_x = '1560px'
