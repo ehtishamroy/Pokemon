@@ -46,7 +46,7 @@
 {
   "name": "TCG Sell — How it works",
   "class": "tcg-home-section",
-  "enabled_on": { "templates": ["page"] },
+  "enabled_on": { "templates": ["page", "collection"] },
   "max_blocks": 6,
   "settings": [
     { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "left-purple" },
@@ -60,7 +60,7 @@
       "name": "Step",
       "settings": [
         { "type": "select", "id": "icon", "label": "Icon", "options": [
-          { "value": "photo", "label": "Photo" }, { "value": "review", "label": "Magnifier" }, { "value": "offer", "label": "Hand with coins" }, { "value": "deal", "label": "Handshake" }
+          { "value": "photo", "label": "Photo" }, { "value": "review", "label": "Magnifier" }, { "value": "offer", "label": "Hand with coins" }, { "value": "deal", "label": "Handshake" }, { "value": "explore", "label": "Search" }, { "value": "pointer", "label": "Choose" }, { "value": "cart-check", "label": "Cart" }, { "value": "gift", "label": "Gift" }
         ], "default": "photo" },
         { "type": "image_picker", "id": "icon_image", "label": "Custom icon (optional)" },
         { "type": "text", "id": "title", "label": "Title", "default": "SEND YOUR PHOTOS" },

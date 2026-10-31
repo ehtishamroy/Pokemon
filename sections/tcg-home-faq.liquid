@@ -1,0 +1,71 @@
+{% comment %}
+  TCG Hitz — "GOT QUESTIONS?" (Figma Mystery Packs design).
+  Left: eyebrow, heading, text and a framed image. Right: accordion of questions (blocks) with round
+  chevron buttons and gradient borders. Opens/closes smoothly, one open at a time, first open by default.
+{% endcomment %}
+
+{%- liquid
+  assign faqs = section.blocks | where: 'type', 'qa'
+-%}
+
+<section class="tcg-scope hz relative" id="faq">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap grid items-start gap-[28px] pb-[36px] pt-[20px] md:gap-[40px] md:pb-[72px] xl:grid-cols-2 xl:gap-[48px] xl:pb-[100px]">
+    <div class="flex flex-col gap-[28px] md:gap-[32px]">
+      <div data-hz-reveal>
+        {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, text_class: 'max-w-[520px]' %}
+      </div>
+      <div data-hz-reveal class="hz-zoom hz-frame relative aspect-[4/3] overflow-hidden rounded-[20px] tcg-gb [--bw:1.5px]">
+        {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: 'home-banner-mystery.webp', w: 1633, h: 623, width: 1400, sizes: '(min-width: 1280px) 600px, 100vw', alt: section.settings.image_alt, class: 'hz-zoom-img absolute inset-0 h-full w-full max-w-none object-cover object-[70%_center]' %}
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0" style="background: linear-gradient(to bottom, transparent 60%, rgba(8,10,18,.55));"></span>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-[14px]" data-hz-faq>
+      {%- for block in faqs -%}
+        <details name="hz-faq-{{ section.id }}" class="hz-faq tcg-gb [--bw:1px]" data-hz-reveal{% if forloop.first and section.settings.first_open %} open{% endif %} {{ block.shopify_attributes }}>
+          <summary class="hz-faq__sum">
+            <span class="hz-faq__q">{{ block.settings.question }}</span>
+            <span class="hz-faq__btn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="m5 8 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <div class="hz-faq__body"><div class="hz-faq__inner">{{ block.settings.answer }}</div></div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Home — FAQ",
+  "class": "tcg-home-section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "left-blue" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FREQUENTLY ASKED QUESTIONS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "GOT QUESTIONS?" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Here's what to know before choosing your next mystery pack." },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Image — mobile (optional)" },
+    { "type": "text", "id": "image_alt", "label": "Image description (alt text)", "default": "Mystery pack surrounded by graded cards" },
+    { "type": "checkbox", "id": "first_open", "label": "Open the first question", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "WHAT IS A TCG HITZ MYSTERY PACK?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>A mystery pack is a product whose contents are determined by its specific offering. Review the individual product description to understand what is included and how the pack works.</p>" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "TCG Home — FAQ",
+    "blocks": [
+      { "type": "qa", "settings": { "question": "WHAT IS A TCG HITZ MYSTERY PACK?" } },
+      { "type": "qa", "settings": { "question": "WHAT CAN I EXPECT INSIDE A MYSTERY PACK?", "answer": "<p>Contents vary by product. Each product page explains what kind of items may be included, such as trading cards or collectibles.</p>" } }
+    ]
+  }]
+}
+{% endschema %}

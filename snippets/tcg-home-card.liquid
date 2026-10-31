@@ -32,7 +32,9 @@
     assign card_title = product.title
     assign first_variant = product.selected_or_first_available_variant
 
-    if product.type != blank and product.vendor != blank
+    if meta_type_only and product.type != blank
+      assign card_meta = product.type
+    elsif product.type != blank and product.vendor != blank
       assign card_meta = product.vendor | append: ' · ' | append: product.type
     else
       assign card_meta = product.type | default: product.vendor
@@ -65,7 +67,9 @@
       endif
     endfor
 
-    if card_badge == blank
+    if card_badge == blank and tag_badge_only
+      assign card_badge = ''
+    elsif card_badge == blank
       assign condition = product.metafields.card.condition.value | default: product.metafields.custom.condition.value | default: product.metafields.custom.card_condition.value
       assign tags_down = product.tags | join: ',' | downcase
       if product.available == false
@@ -172,6 +176,18 @@
         <h3 class="font-display text-[22px] leading-[1.2] text-white{% if show_desc %} uppercase{% endif %}"><a href="{{ card_link }}" class="hover:text-hz-lightning">{{ card_title }}</a></h3>
         {%- if card_desc != blank -%}<p class="text-[13px] font-medium leading-[1.5] text-hz-cool">{{ card_desc }}</p>{%- endif -%}
       </div>
+      {%- if stock_line and product != blank -%}
+        {%- liquid
+          assign stock_ok = product.available
+          assign stock_label = 'In Stock'
+          if product.available == false
+            assign stock_label = 'Sold out'
+          elsif first_variant.inventory_management != blank and first_variant.inventory_quantity == 1
+            assign stock_label = 'Only 1 left'
+          endif
+        -%}
+        <p class="flex items-center gap-[8px] text-[13px] font-semibold leading-none {% if stock_ok %}text-hz-success{% else %}text-hz-crimson{% endif %}"><span aria-hidden="true" class="grid size-[16px] place-items-center rounded-full {% if stock_ok %}bg-hz-success/20{% else %}bg-hz-crimson/20{% endif %}"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="{% if stock_ok %}M3.5 8.5l3 3 6-6.5{% else %}M4 4l8 8M12 4l-8 8{% endif %}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{{ stock_label }}</p>
+      {%- endif -%}
       {%- if card_price != blank -%}<p class="whitespace-nowrap text-[18px] font-bold leading-[26px] text-hz-pink">{{ card_price }}</p>{%- endif -%}
     </div>
     <div class="mt-auto flex w-full items-center gap-[8px]">

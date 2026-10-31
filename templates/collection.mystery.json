@@ -1,0 +1,370 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "mystery_hero": {
+      "type": "tcg-sell-hero",
+      "settings": {
+        "home_label": "Home",
+        "breadcrumb_label": "Mystery Packs",
+        "heading_line1": "UNLOCK",
+        "heading_line1b": "YOUR NEXT",
+        "heading_highlight": "RARE FIND",
+        "heading_after": ".",
+        "text": "Discover mystery packs filled with trading card excitement. Explore available packs, find your next collectible adventure, and see what each product has to offer.",
+        "btn1_label": "",
+        "btn2_label": "",
+        "show_art": false,
+        "bg_fallback": "mystery"
+      }
+    },
+    "mystery_strip": {
+      "type": "tcg-home-strip",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "text": "POKÉMON CARDS"
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "text": "MYSTERY PACKS"
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "text": "GRADED CARDS"
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "text": "MERCHANDISE"
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "text": "VENDING MACHINES"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
+      ],
+      "settings": {
+        "tagline": "COLLECT  ✦  TRADE  ✦  RIP  ✦  REPEAT",
+        "animate": true,
+        "speed": "normal",
+        "overlap": true
+      }
+    },
+    "mystery_intro": {
+      "type": "tcg-home-why",
+      "blocks": {
+        "y1": {
+          "type": "card",
+          "settings": {
+            "icon": "discover",
+            "title": "EVERY PACK IS A NEW DISCOVERY",
+            "text": "Explore mystery products designed to bring an element of surprise to your collecting experience."
+          }
+        },
+        "y2": {
+          "type": "card",
+          "settings": {
+            "icon": "world",
+            "title": "MADE FOR COLLECTORS",
+            "text": "Browse available mystery packs and discover products that match your collecting interests."
+          }
+        },
+        "y3": {
+          "type": "card",
+          "settings": {
+            "icon": "beyond",
+            "title": "MORE THINGS TO EXPLORE",
+            "text": "Discover new possibilities for your collection with the mystery products available at TCG HITZ."
+          }
+        }
+      },
+      "block_order": [
+        "y1",
+        "y2",
+        "y3"
+      ],
+      "settings": {
+        "glow": "left-purple",
+        "layout": "inline",
+        "space_top": "large",
+        "eyebrow": "",
+        "heading": "THE EXCITEMENT IS IN THE UNKNOWN.",
+        "text": "Discover mystery packs and find your next collectible treasure."
+      }
+    },
+    "mystery_catalog": {
+      "type": "tcg-shop-catalog",
+      "blocks": {
+        "t1": {
+          "type": "tab",
+          "settings": {
+            "label": "ALL MYSTERY PACKS",
+            "icon": "all",
+            "link": "/collections/mystery"
+          }
+        },
+        "t2": {
+          "type": "tab",
+          "settings": {
+            "label": "CARD PACKS",
+            "icon": "pokemon",
+            "link": "/collections/mystery"
+          }
+        },
+        "t3": {
+          "type": "tab",
+          "settings": {
+            "label": "COLLECTIBLE BUNDLES",
+            "icon": "merch",
+            "link": "/collections/mystery"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "layout": "compact",
+        "glow": "right-gold",
+        "eyebrow": "MYSTERY PACKS COLLECTION",
+        "heading": "FIND YOUR NEXT FAVORITE.",
+        "text": "Explore the mystery packs currently available at TCG HITZ and discover the details of each product before choosing your next addition.",
+        "show_tabs": true,
+        "products_per_page": 8,
+        "show_glow": false,
+        "show_stock": true,
+        "badge_from_tag": true,
+        "meta_type_only": true,
+        "filters_label": "Filters",
+        "sort_label": "Sort by:",
+        "filter_panel_title": "FILTER",
+        "apply_label": "APPLY FILTERS",
+        "clear_label": "Clear filters",
+        "clear_all_label": "Clear all",
+        "empty_title": "No mystery packs found",
+        "empty_text": "Try adjusting your filters or check back soon for new drops."
+      }
+    },
+    "mystery_steps": {
+      "type": "tcg-sell-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "icon": "explore",
+            "title": "EXPLORE THE PACKS",
+            "text": "Browse available mystery packs and discover their unique themes and details."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "icon": "pointer",
+            "title": "CHOOSE YOUR PICK",
+            "text": "Find a pack that matches your interests and budget."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "icon": "cart-check",
+            "title": "CHOOSE & CHECKOUT",
+            "text": "Select your mystery pack, add it to your cart, and complete checkout."
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "icon": "gift",
+            "title": "UNBOX & DISCOVER",
+            "text": "Receive your pack and discover the collectibles waiting inside."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "glow": "right-gold",
+        "eyebrow": "HOW MYSTERY PACKS WORK",
+        "heading": "YOUR NEXT DISCOVERY STARTS HERE.",
+        "text": "Explore the available packs, review the product details, and choose the mystery experience that interests you."
+      }
+    },
+    "mystery_faq": {
+      "type": "tcg-home-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT IS A TCG HITZ MYSTERY PACK?",
+            "answer": "<p>A mystery pack is a product whose contents are determined by its specific offering. Review the individual product description to understand what is included and how the pack works.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT CAN I EXPECT INSIDE A MYSTERY PACK?",
+            "answer": "<p>Contents vary by product. Each product page explains what kind of items may be included, such as trading cards or collectibles.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "ARE SPECIFIC CARDS GUARANTEED?",
+            "answer": "<p>Unless a product description says otherwise, specific cards are not guaranteed. The surprise is part of the fun.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I CHOOSE THE CARDS I RECEIVE?",
+            "answer": "<p>Mystery packs are sealed surprises, so you can't pick their contents. If you want a specific card, browse our singles instead.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "question": "WHERE CAN I FIND SHIPPING INFORMATION?",
+            "answer": "<p>Shipping details are in our Shipping Policy and shown at checkout. Orders over $75 ship free.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT IF I HAVE A QUESTION ABOUT A PRODUCT?",
+            "answer": "<p>Contact us from the Contact page and we'll be happy to help.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "glow": "left-blue",
+        "eyebrow": "FREQUENTLY ASKED QUESTIONS",
+        "heading": "GOT QUESTIONS?",
+        "text": "Here's what to know before choosing your next mystery pack.",
+        "image_alt": "Mystery pack surrounded by graded cards",
+        "first_open": true
+      }
+    },
+    "mystery_why": {
+      "type": "tcg-home-why",
+      "blocks": {
+        "y1": {
+          "type": "card",
+          "settings": {
+            "icon": "world",
+            "title": "A WORLD OF COLLECTIBLES",
+            "text": "Explore trading cards, mystery packs, graded cards, and merchandise in one place."
+          }
+        },
+        "y2": {
+          "type": "card",
+          "settings": {
+            "icon": "discover",
+            "title": "DISCOVER SOMETHING NEW",
+            "text": "Browse collectible finds and explore products that could become your next favorite addition."
+          }
+        },
+        "y3": {
+          "type": "card",
+          "settings": {
+            "icon": "beyond",
+            "title": "BEYOND THE CARDS",
+            "text": "Explore trading-card vending machines alongside the store's collectible products."
+          }
+        }
+      },
+      "block_order": [
+        "y1",
+        "y2",
+        "y3"
+      ],
+      "settings": {
+        "glow": "right-pink",
+        "layout": "stacked",
+        "space_top": "normal",
+        "eyebrow": "THE TCG HITZ EXPERIENCE",
+        "heading": "WHY SHOP TCG HITZ?",
+        "text": "From trading cards to collectibles and vending machines, explore more of what makes collecting exciting."
+      }
+    },
+    "mystery_banner": {
+      "type": "tcg-home-banner",
+      "settings": {
+        "glow": "left-pink",
+        "fallback": "cta",
+        "overlay": 0,
+        "align": "center",
+        "buttons": "blue",
+        "eyebrow": "READY TO EXPLORE?",
+        "heading": "YOUR NEXT GREAT FIND STARTS HERE.",
+        "text": "Explore the TCG HITZ collection and discover something worth adding to your collection.",
+        "btn1_label": "EXPLORE THE STORE",
+        "btn1_link": "/collections/all",
+        "btn2_label": "EXPLORE VENDING MACHINES",
+        "btn2_link": "/pages/vending-machines"
+      }
+    },
+    "mystery_community": {
+      "type": "tcg-home-community",
+      "settings": {
+        "glow": "none",
+        "panel": false,
+        "image_alt": "Pokémon characters and trading cards",
+        "eyebrow": "GET STARTED",
+        "heading": "JOIN THE TCG HITZ COMMUNITY.",
+        "text": "Get updates on new arrivals, collectible drops, and store news.",
+        "placeholder": "Type your email address ...",
+        "button_label": "Subscribe",
+        "success_text": "You're in! Welcome to the TCG HITZ community."
+      }
+    }
+  },
+  "order": [
+    "mystery_hero",
+    "mystery_strip",
+    "mystery_intro",
+    "mystery_catalog",
+    "mystery_steps",
+    "mystery_faq",
+    "mystery_why",
+    "mystery_banner",
+    "mystery_community"
+  ]
+}
