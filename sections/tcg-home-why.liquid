@@ -12,11 +12,18 @@
 <section class="tcg-scope hz relative">
   {% render 'tcg-home-glow', glow: section.settings.glow %}
   <div class="hz-wrap flex flex-col items-center gap-[28px] pb-[36px] {% if section.settings.space_top == 'large' %}pt-[48px] md:pt-[80px] xl:pt-[110px]{% else %}pt-[20px]{% endif %} md:gap-[48px] md:pb-[72px] xl:pb-[100px]">
+    {%- if section.settings.header == 'split' -%}
+      <div class="flex w-full flex-col items-start gap-[16px] xl:flex-row xl:items-end xl:justify-between xl:gap-[48px]">
+        {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, heading_class: 'max-w-[760px]' %}
+        {%- if section.settings.text != blank -%}<p data-hz-reveal class="w-full max-w-[420px] text-[16px] leading-[1.5] text-white">{{ section.settings.text }}</p>{%- endif -%}
+      </div>
+    {%- else -%}
     <div class="flex flex-col items-center gap-[12px] text-center">
       {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, align: 'center', heading_class: 'max-w-[820px]' %}
       {%- if section.settings.text != blank -%}<p class="w-full max-w-[644px] text-center text-[16px] leading-[1.5] text-white">{{ section.settings.text }}</p>{%- endif -%}
     </div>
-    <div class="grid w-full grid-cols-1 gap-[20px] md:grid-cols-3">
+    {%- endif -%}
+    <div class="grid w-full grid-cols-1 gap-[20px] {% if section.settings.columns == '4' %}sm:grid-cols-2 xl:grid-cols-4{% else %}md:grid-cols-3{% endif %}">
       {%- for block in section.blocks -%}
         {%- liquid
           if block.settings.icon_image != blank
@@ -88,6 +95,26 @@
         }
       ],
       "default": "stacked"
+    },
+    {
+      "type": "select",
+      "id": "header",
+      "label": "Heading position",
+      "options": [
+        { "value": "center", "label": "Centred" },
+        { "value": "split", "label": "Heading left, text right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Cards per row (desktop)",
+      "options": [
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "3"
     },
     {
       "type": "select",

@@ -33,13 +33,17 @@
   endif
 -%}
 
-<section class="tcg-scope hz relative">
+<section class="tcg-scope hz relative"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor }}"{% endif %}>
   {% render 'tcg-home-glow', glow: section.settings.glow %}
   <div class="hz-wrap flex flex-col items-stretch gap-[28px] md:gap-[44px] xl:gap-[56px] {{ pad_class }}">
+    {%- if section.settings.center_heading -%}
+      {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, align: 'center', heading_class: 'uppercase max-w-[820px]', text_class: 'max-w-[640px]' %}
+    {%- else -%}
     <div class="flex w-full flex-col items-start justify-between gap-8 md:flex-row md:items-end">
       {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, heading_class: 'uppercase xl:whitespace-nowrap', text_class: 'xl:whitespace-nowrap' %}
       {% render 'tcg-home-button', label: section.settings.btn_label, link: view_all, kind: 'outline' %}
     </div>
+    {%- endif -%}
 
     <div class="grid w-full grid-cols-1 gap-x-[24px] gap-y-[30px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {%- if show_collection -%}
@@ -51,7 +55,7 @@
               assign glow = glows[glow_index]
             endif
           -%}
-          {% render 'tcg-home-card', product: product, show_desc: section.settings.show_desc, glow: glow %}
+          {% render 'tcg-home-card', product: product, show_desc: section.settings.show_desc, glow: glow, note: section.settings.card_note, view_label: section.settings.view_label, stock_line: false %}
         {%- endfor -%}
       {%- endif -%}
       {%- if show_cards -%}
@@ -77,7 +81,7 @@
               assign card_link = view_all
             endif
           -%}
-          {% render 'tcg-home-card', product: opts.product, image_override: opts.image, img: card_fallback, title: opts.title, meta: opts.meta, price: opts.price, badge: opts.badge, tone: opts.tone, desc: opts.desc, show_desc: section.settings.show_desc, link: card_link, glow: glow, attrs: block.shopify_attributes %}
+          {% render 'tcg-home-card', product: opts.product, image_override: opts.image, img: card_fallback, title: opts.title, meta: opts.meta, price: opts.price, badge: opts.badge, tone: opts.tone, desc: opts.desc, show_desc: section.settings.show_desc, link: card_link, glow: glow, note: section.settings.card_note, view_label: section.settings.view_label, attrs: block.shopify_attributes %}
         {%- endfor -%}
       {%- endif -%}
     </div>
@@ -182,6 +186,30 @@
       "id": "show_desc",
       "label": "Show short description (merch style)",
       "default": false
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor id (optional)",
+      "info": "Lets buttons jump here, e.g. machines → #machines"
+    },
+    {
+      "type": "checkbox",
+      "id": "center_heading",
+      "label": "Centre the heading (no button on the right)",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "card_note",
+      "label": "Green line on every card (optional)",
+      "info": "For example: Shipping included"
+    },
+    {
+      "type": "text",
+      "id": "view_label",
+      "label": "Card button label",
+      "default": "View Product"
     },
     {
       "type": "checkbox",
@@ -338,6 +366,10 @@
             {
               "value": "none",
               "label": "None"
+            },
+            {
+              "value": "cat-vending",
+              "label": "Vending machine"
             },
             {
               "value": "p-umbreon",

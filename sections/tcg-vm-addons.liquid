@@ -1,0 +1,103 @@
+{% comment %}
+  TCG Hitz — Vending page "CUSTOMIZE YOUR VENDING SETUP." (Figma design).
+  Three add-on cards (blocks): custom wrap, cash bill acceptor, Nayax card reader.
+  Each card can pull its picture, name and price from a product, or you can type them in.
+{% endcomment %}
+
+{%- liquid
+  assign items = section.blocks | where: 'type', 'addon'
+-%}
+
+<section class="tcg-scope hz relative" id="{{ section.settings.anchor | default: 'addons' }}">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-center gap-[28px] pb-[36px] pt-[36px] md:gap-[44px] md:pb-[72px] md:pt-[72px] xl:pb-[100px] xl:pt-[100px]">
+    {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, align: 'center', heading_class: 'max-w-[640px]', text_class: 'max-w-[640px]' %}
+
+    <div class="grid w-full grid-cols-1 gap-[20px] md:grid-cols-3 xl:gap-[24px]">
+      {%- for block in items -%}
+        {%- liquid
+          assign a_product = block.settings.product
+          assign a_title = block.settings.title | default: a_product.title
+          assign a_link = block.settings.link | default: a_product.url | default: '#machines'
+          assign a_price = block.settings.price
+          if a_price == blank and a_product != blank
+            assign a_price = '+' | append: a_product.price | money_without_trailing_zeros
+          endif
+          assign a_img = block.settings.image
+          if a_img == blank and a_product != blank
+            assign a_img = a_product.featured_image
+          endif
+          assign a_art = 'home-cat-vending.webp'
+          if block.settings.art == 'wrap'
+            assign a_art = 'machine-premium.jpg'
+          endif
+        -%}
+        <article data-hz-reveal class="hz-card relative flex h-full flex-col gap-[20px] rounded-[20px] tcg-gb bg-hz-card px-[14px] pb-[22px] pt-[14px]" {{ block.shopify_attributes }}>
+          <div class="relative flex h-[240px] w-full items-center justify-center overflow-hidden rounded-[12px] bg-hz-elevated p-[12px] md:h-[260px]">
+            {%- if block.settings.badge != blank -%}<span class="absolute left-[12px] top-[12px] z-[1] rounded-[48px] bg-hz-gold px-[10px] py-[4px] text-[11px] font-bold uppercase leading-[1.5] text-hz-void">{{ block.settings.badge }}</span>{%- endif -%}
+            {%- if a_img != blank -%}
+              {{ a_img | image_url: width: 700 | image_tag: alt: a_title, width: 400, height: 300, loading: 'lazy', class: 'hz-card__img max-h-full w-auto max-w-full object-contain' }}
+            {%- else -%}
+              <img src="{{ a_art | asset_url }}" alt="{{ a_title | escape }}" width="400" height="300" loading="lazy" class="hz-card__img max-h-full w-auto max-w-full object-contain">
+            {%- endif -%}
+          </div>
+          <div class="flex flex-1 flex-col gap-[10px] px-[10px]">
+            <h3 class="font-display text-[22px] uppercase leading-[1.2] text-white">{{ a_title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="text-[14px] font-medium leading-[1.5] text-hz-cool">{{ block.settings.text }}</p>{%- endif -%}
+            {%- if a_price != blank -%}<p class="text-[18px] font-bold leading-[26px] text-hz-pink">{{ a_price }}</p>{%- endif -%}
+            {%- if block.settings.button_label != blank -%}
+              <div class="mt-auto pt-[10px]">
+                <a href="{{ a_link }}" class="hz-btn !h-[40px] !px-[20px] !text-[13px]"><span>{{ block.settings.button_label }}</span></a>
+              </div>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.note != blank -%}<p data-hz-reveal class="max-w-[640px] text-center text-[14px] leading-[1.5] text-hz-cool">{{ section.settings.note }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Vending — Add-ons",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 6,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "left-blue" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "MAKE IT YOURS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "CUSTOMIZE YOUR VENDING SETUP." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Tailor your machine with available add-ons to create a setup that fits your branding and operational needs." },
+    { "type": "text", "id": "note", "label": "Note under the cards", "default": "Add-ons are chosen when you order your machine and are added to the same order." },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "addons" }
+  ],
+  "blocks": [
+    {
+      "type": "addon",
+      "name": "Add-on",
+      "settings": [
+        { "type": "text", "id": "badge", "label": "Badge", "default": "CUSTOM LOOK" },
+        { "type": "product", "id": "product", "label": "Add-on product (optional)", "info": "Gives the picture, name, price and link." },
+        { "type": "image_picker", "id": "image", "label": "Picture (optional)" },
+        { "type": "select", "id": "art", "label": "Default picture", "options": [ { "value": "machine", "label": "Vending machine" }, { "value": "wrap", "label": "Custom wrap artwork" } ], "default": "machine" },
+        { "type": "text", "id": "title", "label": "Name", "default": "CUSTOM MACHINE WRAP" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Add a custom wrap so your machine matches your brand." },
+        { "type": "text", "id": "price", "label": "Price text (optional)", "info": "For example: +$500. Leave empty to use the product's price, or to show no price." },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "CHOOSE YOUR MACHINE" },
+        { "type": "url", "id": "link", "label": "Button link", "info": "Empty = the product page, or the machine list on this page." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG Vending — Add-ons",
+      "blocks": [
+        { "type": "addon", "settings": { "art": "wrap" } },
+        { "type": "addon", "settings": { "badge": "PAYMENT OPTION", "title": "CASH BILL ACCEPTOR", "text": "Let customers pay with cash bills." } },
+        { "type": "addon", "settings": { "badge": "PAYMENT OPTION", "title": "NAYAX CARD READER", "text": "Accept credit and debit cards and mobile payments." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

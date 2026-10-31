@@ -12,7 +12,7 @@
 
   Badge for real products: a product tag "badge:Your text" wins; otherwise Sold Out,
   the card condition metafield (e.g. Near Mint), graded/slab tags, then "In Stock".
-  glow: optional colour behind the image — pink | blue | purple | gold.
+  note: optional green check line (e.g. 'Shipping included'). glow: optional colour behind the image — pink | blue | purple | gold.
 {%- endcomment -%}
 
 {%- liquid
@@ -187,6 +187,9 @@
           endif
         -%}
         <p class="flex items-center gap-[8px] text-[13px] font-semibold leading-none {% if stock_ok %}text-hz-success{% else %}text-hz-crimson{% endif %}"><span aria-hidden="true" class="grid size-[16px] place-items-center rounded-full {% if stock_ok %}bg-hz-success/20{% else %}bg-hz-crimson/20{% endif %}"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="{% if stock_ok %}M3.5 8.5l3 3 6-6.5{% else %}M4 4l8 8M12 4l-8 8{% endif %}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{{ stock_label }}</p>
+      {%- endif -%}
+      {%- if note != blank -%}
+        <p class="flex items-center gap-[8px] text-[13px] font-semibold leading-none text-hz-success"><span aria-hidden="true" class="grid size-[16px] place-items-center rounded-full bg-hz-success/20"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{{ note }}</p>
       {%- endif -%}
       {%- if card_price != blank -%}<p class="whitespace-nowrap text-[18px] font-bold leading-[26px] text-hz-pink">{{ card_price }}</p>{%- endif -%}
     </div>

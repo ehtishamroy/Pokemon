@@ -1,0 +1,145 @@
+{% comment %}
+  TCG Hitz — Vending page "WHAT COULD YOUR MACHINE EARN?" profit calculator (Figma layout, client's model).
+  The visitor chooses how many machines and how much each machine sells per day. Profit is the sales
+  times the average profit margin (50% by default), over the selling days in a month (30 by default).
+  The maths runs in assets/tcg.js ([data-vmcalc]). Everything shown is an estimate.
+{% endcomment %}
+
+{%- assign calc_btn_link = section.settings.btn_link | default: '#machines' -%}
+
+<section class="tcg-scope hz relative" id="{{ section.settings.anchor | default: 'profit-calculator' }}">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-stretch gap-[28px] pb-[36px] pt-[36px] md:gap-[44px] md:pb-[72px] md:pt-[72px] xl:pb-[100px] xl:pt-[100px]">
+    <div class="flex w-full flex-col items-start gap-[16px] xl:flex-row xl:items-end xl:justify-between xl:gap-[48px]">
+      {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, heading_class: 'max-w-[640px]' %}
+      {%- if section.settings.text != blank -%}<p data-hz-reveal class="w-full max-w-[420px] text-[16px] leading-[1.5] text-white">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+
+    <div class="grid w-full items-stretch gap-[20px] xl:grid-cols-2 xl:gap-[24px]" data-vmcalc data-machine-price="{{ section.settings.machine_price | default: 0 }}" data-defaults='{"machines":{{ section.settings.machines | default: 1 }},"sales":{{ section.settings.sales | default: 150 }},"margin":{{ section.settings.margin | default: 50 }},"days":{{ section.settings.days | default: 30 }}}'>
+
+      <div data-hz-reveal class="relative flex flex-col gap-[24px] rounded-[20px] tcg-gb bg-hz-card/80 p-[20px] md:p-[32px]">
+        <div class="flex items-center gap-[14px]">
+          <span class="hz-step-icon !size-[44px]">{% render 'tcg-sell-icon', name: 'machine', size: 22 %}</span>
+          <h3 class="font-display text-[18px] uppercase leading-[1.2] text-white md:text-[22px]">{{ section.settings.assumptions_title }}</h3>
+        </div>
+
+        <div class="grid grid-cols-1 gap-[20px] sm:grid-cols-2">
+          <div class="flex flex-col gap-[8px] sm:col-span-2">
+            <label for="vmc-sales-{{ section.id }}" class="text-[12px] font-bold uppercase tracking-[0.06em] text-white">{{ section.settings.label_sales }}</label>
+            <div class="flex items-center gap-[14px]">
+              <div class="hz-money"><span aria-hidden="true">$</span><input id="vmc-sales-{{ section.id }}" type="number" inputmode="decimal" min="0" max="5000" step="5" value="{{ section.settings.sales | default: 150 }}" class="hz-field" data-vmc-num="sales"></div>
+              <input type="range" min="25" max="1000" step="5" value="{{ section.settings.sales | default: 150 }}" class="hz-range" data-vmc-range="sales" aria-label="{{ section.settings.label_sales | escape }}">
+            </div>
+            <p class="text-[12px] leading-[1.4] text-hz-cool">{{ section.settings.hint_sales }}</p>
+          </div>
+
+          <div class="flex flex-col gap-[8px]">
+            <label for="vmc-machines-{{ section.id }}" class="text-[12px] font-bold uppercase tracking-[0.06em] text-white">{{ section.settings.label_machines }}</label>
+            <div class="hz-stepper">
+              <button type="button" class="hz-stepper__btn" data-vmc-step="machines" data-dir="-1" aria-label="Fewer machines">−</button>
+              <input id="vmc-machines-{{ section.id }}" type="number" inputmode="numeric" min="1" max="100" step="1" value="{{ section.settings.machines | default: 1 }}" class="hz-field text-center" data-vmc-num="machines">
+              <button type="button" class="hz-stepper__btn" data-vmc-step="machines" data-dir="1" aria-label="More machines">+</button>
+            </div>
+            <p class="text-[12px] leading-[1.4] text-hz-cool">{{ section.settings.hint_machines }}</p>
+          </div>
+
+          <div class="flex flex-col gap-[8px]">
+            <label for="vmc-margin-{{ section.id }}" class="text-[12px] font-bold uppercase tracking-[0.06em] text-white">{{ section.settings.label_margin }}</label>
+            <div class="hz-money hz-money--end"><input id="vmc-margin-{{ section.id }}" type="number" inputmode="decimal" min="1" max="100" step="1" value="{{ section.settings.margin | default: 50 }}" class="hz-field" data-vmc-num="margin"><span aria-hidden="true">%</span></div>
+            <p class="text-[12px] leading-[1.4] text-hz-cool">{{ section.settings.hint_margin }}</p>
+          </div>
+
+          <div class="flex flex-col gap-[8px] sm:col-span-2">
+            <label for="vmc-days-{{ section.id }}" class="text-[12px] font-bold uppercase tracking-[0.06em] text-white">{{ section.settings.label_days }}</label>
+            <input id="vmc-days-{{ section.id }}" type="number" inputmode="numeric" min="1" max="31" step="1" value="{{ section.settings.days | default: 30 }}" class="hz-field" data-vmc-num="days">
+            <p class="text-[12px] leading-[1.4] text-hz-cool">{{ section.settings.hint_days }}</p>
+          </div>
+        </div>
+
+        <div class="mt-auto flex justify-end pt-[4px]">
+          <button type="button" class="hz-btn-red" data-vmc-reset>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+            <span>{{ section.settings.reset_label }}</span>
+          </button>
+        </div>
+      </div>
+
+      <div data-hz-reveal class="relative flex flex-col gap-[20px] rounded-[20px] tcg-gb bg-hz-card/80 p-[20px] md:p-[32px]">
+        <div class="flex items-center gap-[14px]">
+          <span class="hz-step-icon !size-[44px]">{% render 'tcg-sell-icon', name: 'offer', size: 22 %}</span>
+          <h3 class="font-display text-[18px] uppercase leading-[1.2] text-white md:text-[22px]">{{ section.settings.results_title }}</h3>
+        </div>
+
+        <div class="grid grid-cols-1 gap-[14px] sm:grid-cols-2" aria-live="polite">
+          <div class="hz-tile-stat">
+            <span class="hz-step-icon !size-[40px]">{% render 'tcg-sell-icon', name: 'cart', size: 18 %}</span>
+            <span class="flex min-w-0 flex-col gap-[2px]"><span class="hz-tile-stat__label">{{ section.settings.out_sales }}</span><strong class="hz-tile-stat__val" data-vmc-out="monthly_sales">$0</strong></span>
+          </div>
+          <div class="hz-tile-stat">
+            <span class="hz-step-icon !size-[40px]">{% render 'tcg-sell-icon', name: 'machine', size: 18 %}</span>
+            <span class="flex min-w-0 flex-col gap-[2px]"><span class="hz-tile-stat__label">{{ section.settings.out_per_machine }}</span><strong class="hz-tile-stat__val" data-vmc-out="per_machine">$0</strong></span>
+          </div>
+          <div class="hz-tile-stat hz-tile-stat--hero tcg-gb [--bw:1.5px] sm:col-span-2">
+            <span class="hz-step-icon !size-[44px]">{% render 'tcg-sell-icon', name: 'offer', size: 20 %}</span>
+            <span class="flex min-w-0 flex-col gap-[2px]"><span class="hz-tile-stat__label hz-tile-stat__label--pink">{{ section.settings.out_profit }}</span><strong class="hz-tile-stat__val hz-tile-stat__val--lg" data-vmc-out="monthly_profit">$0</strong></span>
+          </div>
+          <div class="hz-tile-stat sm:col-span-2">
+            <span class="hz-step-icon !size-[40px]">{% render 'tcg-sell-icon', name: 'clock', size: 18 %}</span>
+            <span class="flex min-w-0 flex-col gap-[2px]"><span class="hz-tile-stat__label hz-tile-stat__label--gold">{{ section.settings.out_yearly }}</span><strong class="hz-tile-stat__val" data-vmc-out="yearly_profit">$0</strong></span>
+          </div>
+          {%- if section.settings.machine_price > 0 -%}
+            <div class="hz-tile-stat sm:col-span-2">
+              <span class="hz-step-icon !size-[40px]">{% render 'tcg-sell-icon', name: 'check', size: 18 %}</span>
+              <span class="flex min-w-0 flex-col gap-[2px]"><span class="hz-tile-stat__label">{{ section.settings.out_payback }}</span><strong class="hz-tile-stat__val" data-vmc-out="payback">—</strong></span>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.disclaimer != blank -%}<p class="text-[12px] leading-[1.5] text-hz-cool">{{ section.settings.disclaimer }}</p>{%- endif -%}
+        <div class="mt-auto">{% render 'tcg-home-button', label: section.settings.btn_label, link: calc_btn_link, kind: 'solid' %}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Vending — Calculator",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "right-gold" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "PLAN YOUR POTENTIAL" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "WHAT COULD YOUR MACHINE EARN?" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Choose how much each machine sells per day and see an estimate of your monthly sales and profit." },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "profit-calculator" },
+    { "type": "header", "content": "Starting numbers" },
+    { "type": "number", "id": "sales", "label": "Average sales per machine, per day ($)", "default": 150 },
+    { "type": "number", "id": "machines", "label": "Number of machines", "default": 1 },
+    { "type": "number", "id": "margin", "label": "Average profit margin (%)", "default": 50 },
+    { "type": "number", "id": "days", "label": "Selling days per month", "default": 30 },
+    { "type": "number", "id": "machine_price", "label": "Machine price for the payback estimate ($, optional)", "info": "Leave at 0 to hide the payback line." },
+    { "type": "header", "content": "Wording" },
+    { "type": "text", "id": "assumptions_title", "label": "Left card title", "default": "YOUR VENDING ASSUMPTIONS" },
+    { "type": "text", "id": "label_sales", "label": "Sales field label", "default": "Average sales per machine, per day" },
+    { "type": "text", "id": "hint_sales", "label": "Sales field hint", "default": "Drag the slider or type your own number." },
+    { "type": "text", "id": "label_machines", "label": "Machines field label", "default": "Number of machines" },
+    { "type": "text", "id": "hint_machines", "label": "Machines field hint", "default": "How many machines you plan to run." },
+    { "type": "text", "id": "label_margin", "label": "Margin field label", "default": "Average profit margin" },
+    { "type": "text", "id": "hint_margin", "label": "Margin field hint", "default": "Profit kept from each sale. 50% is a typical average." },
+    { "type": "text", "id": "label_days", "label": "Days field label", "default": "Selling days per month" },
+    { "type": "text", "id": "hint_days", "label": "Days field hint", "default": "30 means the machine sells every day." },
+    { "type": "text", "id": "reset_label", "label": "Reset button", "default": "RESET" },
+    { "type": "text", "id": "results_title", "label": "Right card title", "default": "YOUR ESTIMATED RESULTS" },
+    { "type": "text", "id": "out_sales", "label": "Result: monthly sales", "default": "MONTHLY SALES" },
+    { "type": "text", "id": "out_per_machine", "label": "Result: profit per machine", "default": "PROFIT PER MACHINE / MONTH" },
+    { "type": "text", "id": "out_profit", "label": "Result: monthly profit", "default": "ESTIMATED MONTHLY PROFIT" },
+    { "type": "text", "id": "out_yearly", "label": "Result: yearly profit", "default": "ESTIMATED YEARLY PROFIT" },
+    { "type": "text", "id": "out_payback", "label": "Result: payback", "default": "ESTIMATED PAYBACK TIME" },
+    { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "These numbers are estimates based on the figures you enter and an average profit margin. Actual results depend on your location, products, pricing and sales." },
+    { "type": "text", "id": "btn_label", "label": "Button", "default": "EXPLORE MACHINES" },
+    { "type": "url", "id": "btn_link", "label": "Button link", "info": "Empty = the machine list on this page." }
+  ],
+  "presets": [{ "name": "TCG Vending — Calculator" }]
+}
+{% endschema %}

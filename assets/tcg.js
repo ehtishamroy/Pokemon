@@ -612,3 +612,56 @@ document.querySelectorAll('[data-tabs]').forEach((wrap) => {
   window.addEventListener('resize', onScroll);
   pick();
 })();
+
+/* ---------- Vending page profit calculator ([data-vmcalc]) ----------
+   monthly sales = machines × sales per machine per day × selling days
+   monthly profit = monthly sales × profit margin (50% by default)  */
+function tcgVmCalc(v) {
+  const machines = Math.max(0, Number(v.machines) || 0);
+  const sales = Math.max(0, Number(v.sales) || 0);
+  const margin = Math.min(100, Math.max(0, Number(v.margin) || 0)) / 100;
+  const days = Math.max(0, Number(v.days) || 0);
+  const monthlySales = machines * sales * days;
+  const monthlyProfit = monthlySales * margin;
+  const perMachine = machines > 0 ? monthlyProfit / machines : 0;
+  const outlay = machines * (Number(v.machinePrice) || 0);
+  const payback = outlay > 0 && monthlyProfit > 0 ? outlay / monthlyProfit : null;
+  return { monthlySales, monthlyProfit, perMachine, yearlyProfit: monthlyProfit * 12, payback };
+}
+window.tcgVmCalc = tcgVmCalc;
+
+document.querySelectorAll('[data-vmcalc]').forEach((root) => {
+  const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  let defaults = { machines: 1, sales: 150, margin: 50, days: 30 };
+  try { defaults = Object.assign(defaults, JSON.parse(root.dataset.defaults || '{}')); } catch (e) { /* keep defaults */ }
+  const machinePrice = Number(root.dataset.machinePrice) || 0;
+  const num = (k) => root.querySelector(`[data-vmc-num="${k}"]`);
+  const range = (k) => root.querySelector(`[data-vmc-range="${k}"]`);
+  const out = (k, text) => { const el = root.querySelector(`[data-vmc-out="${k}"]`); if (el) el.textContent = text; };
+  const read = (k) => Number(num(k)?.value || 0);
+
+  const update = () => {
+    const r = tcgVmCalc({ machines: read('machines'), sales: read('sales'), margin: read('margin'), days: read('days'), machinePrice });
+    out('monthly_sales', money.format(r.monthlySales));
+    out('monthly_profit', money.format(r.monthlyProfit));
+    out('per_machine', money.format(r.perMachine));
+    out('yearly_profit', money.format(r.yearlyProfit));
+    if (r.payback != null) out('payback', r.payback < 1 ? 'Under 1 month' : `${r.payback.toFixed(1)} months`);
+    else out('payback', '—');
+  };
+
+  ['machines', 'sales', 'margin', 'days'].forEach((k) => {
+    num(k)?.addEventListener('input', () => { const rg = range(k); if (rg) rg.value = num(k).value; update(); });
+    range(k)?.addEventListener('input', () => { num(k).value = range(k).value; update(); });
+  });
+  root.querySelectorAll('[data-vmc-step]').forEach((b) => b.addEventListener('click', () => {
+    const k = b.dataset.vmcStep; const el = num(k); if (!el) return;
+    const next = Math.min(Number(el.max) || 100, Math.max(Number(el.min) || 0, read(k) + Number(b.dataset.dir)));
+    el.value = next; update();
+  }));
+  root.querySelector('[data-vmc-reset]')?.addEventListener('click', () => {
+    Object.keys(defaults).forEach((k) => { if (num(k)) num(k).value = defaults[k]; if (range(k)) range(k).value = defaults[k]; });
+    update();
+  });
+  update();
+});

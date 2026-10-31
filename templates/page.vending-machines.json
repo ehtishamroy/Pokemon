@@ -9,86 +9,536 @@
  */
 {
   "sections": {
-    "vending_hero": {
-      "type": "tcg-vending-hero",
+    "vm_hero": {
+      "type": "tcg-sell-hero",
       "settings": {
-        "eyebrow": "Built to order · Free shipping",
-        "heading": "Trading card vending machines",
-        "heading_highlight": "that sell themselves",
-        "text": "The same eye-catching machines you see at our shows — built for your shop, arcade or event. Pick your machine, add a custom wrap and payment options, and we deliver it to your door.",
-        "cta_label": "Shop machines",
-        "cta2_label": "Calculate your profit",
-        "point_1": "Built in 3–4 weeks",
-        "point_2": "Free shipping",
-        "point_3": "Custom wraps available"
+        "home_label": "Home",
+        "breadcrumb_label": "Vending Machines",
+        "heading_line1": "BRING THE TCG",
+        "heading_line1b": "HITZ EXPERIENCE",
+        "heading_before": "TO ",
+        "heading_highlight": "YOUR SPACE",
+        "gradient": "purple-pink",
+        "heading_after": ".",
+        "text": "Explore vending machines designed to bring trading cards and collectibles into real-world spaces. Find the right machine for your vision, customize your setup, and discover the possibilities of collectible vending with TCG HITZ.",
+        "btn1_label": "",
+        "btn2_label": "",
+        "show_art": true,
+        "art_fallback": "vending",
+        "art_fit": "photo",
+        "heading_size": "compact",
+        "image_alt": "TCG HITZ trading card vending machine"
       }
     },
-    "vending_trust": {
-      "type": "tcg-vending-trust-bar",
+    "vm_strip": {
+      "type": "tcg-home-strip",
       "blocks": {
-        "t1": { "type": "item", "settings": { "icon": "build", "title": "Built to order", "text": "Ready in 3–4 weeks" } },
-        "t2": { "type": "item", "settings": { "icon": "truck", "title": "Free shipping", "text": "Delivered in 3–4 weeks" } },
-        "t3": { "type": "item", "settings": { "icon": "card", "title": "Card & cash ready", "text": "Add a Nayax reader or bill acceptor" } },
-        "t4": { "type": "item", "settings": { "icon": "brush", "title": "Custom wraps", "text": "Make it unmistakably yours" } }
+        "w1": {
+          "type": "item",
+          "settings": {
+            "text": "POKÉMON CARDS"
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "text": "MYSTERY PACKS"
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "text": "GRADED CARDS"
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "text": "MERCHANDISE"
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "text": "VENDING MACHINES"
+          }
+        }
       },
-      "block_order": ["t1", "t2", "t3", "t4"],
-      "settings": {}
-    },
-    "vending_grid": {
-      "type": "tcg-vending-grid",
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
+      ],
       "settings": {
-        "heading": "Choose your machine",
-        "text": "Every machine is built to order and ships free. Open a machine to see its specs, add-ons and profit estimate.",
+        "tagline": "COLLECT  ✦  TRADE  ✦  RIP  ✦  REPEAT",
+        "animate": true,
+        "speed": "normal",
+        "overlap": true
+      }
+    },
+    "vm_intro": {
+      "type": "tcg-home-why",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "icon": "machine",
+            "title": "BUILT AROUND COLLECTIBLES",
+            "text": "Bring trading cards and collectible products to life with a vending experience designed for real-world spaces."
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "icon": "customize",
+            "title": "OPTIONS THAT FIT YOUR VISION",
+            "text": "Explore available machine models and customize your setup with compatible add-ons."
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "icon": "discover",
+            "title": "MAKE IT YOUR OWN",
+            "text": "Add a custom wrap and payment options so your machine matches your brand and your location."
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "icon": "payment",
+            "title": "PLAN WITH CONFIDENCE",
+            "text": "Review pricing, explore optional configurations and use the profit calculator to estimate potential income."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "glow": "left-purple",
+        "layout": "stacked",
+        "header": "split",
+        "columns": "4",
+        "space_top": "large",
+        "eyebrow": "THE TCG HITZ ADVANTAGE",
+        "heading": "MORE THAN A MACHINE. | A NEW WAY TO COLLECT.",
+        "text": "Explore a vending experience built around trading cards, collectibles, and the excitement of discovery. Choose a machine, tailor your setup with available options, and plan your next steps with TCG HITZ."
+      }
+    },
+    "vm_machines": {
+      "type": "tcg-home-products",
+      "settings": {
+        "glow": "none",
+        "eyebrow": "THE LINEUP",
+        "heading": "EXPLORE OUR VENDING | MACHINES.",
+        "text": "Explore TCG HITZ vending machines to compare models and features.",
+        "center_heading": true,
+        "anchor": "machines",
+        "card_note": "Shipping included",
+        "view_label": "View Machine",
+        "source": "collection",
         "collection": "vending-machines",
-        "limit": 6,
-        "anchor": "machines"
-      }
-    },
-    "vending_addons": {
-      "type": "tcg-vending-addons",
-      "settings": {
-        "heading": "Make it yours",
-        "text": "Add these when you order your machine.",
-        "note": "Tick add-ons on any machine's page — they're added to the same order."
-      }
-    },
-    "vending_calc": {
-      "type": "tcg-profit-calculator",
-      "settings": {
-        "section_heading": "What could a machine earn you?",
-        "heading": "Profit calculator",
-        "text": "Move the sliders to estimate your monthly profit.",
-        "machines": 1,
-        "cost": 4,
-        "price": 9,
-        "vends": 15,
-        "cta_label": "Shop machines",
-        "anchor": "profit-calculator"
-      }
-    },
-    "vending_steps": {
-      "type": "tcg-vending-steps",
-      "blocks": {
-        "s1": { "type": "step", "settings": { "title": "Order your machine", "text": "Pick your machine and any add-ons, then check out securely online." } },
-        "s2": { "type": "step", "settings": { "title": "We build it", "text": "Your machine is built to order in 3–4 weeks, with your wrap and payment options." } },
-        "s3": { "type": "step", "settings": { "title": "Free delivery", "text": "It ships to you in 3–4 weeks — shipping is included." } },
-        "s4": { "type": "step", "settings": { "title": "Start earning", "text": "Load it with packs, plug it in and start selling." } }
+        "limit": 4,
+        "show_desc": true,
+        "show_glow": true,
+        "padding": "normal",
+        "show_samples": true,
+        "btn_label": "",
+        "btn_link": "/collections/vending-machines"
       },
-      "block_order": ["s1", "s2", "s3", "s4"],
-      "settings": { "heading": "From purchase to profit" }
-    },
-    "vending_faq": {
-      "type": "tcg-faq",
       "blocks": {
-        "q1": { "type": "qa", "settings": { "question": "How long does it take to get a machine?", "answer": "Every machine is built to order in 3–4 weeks, then ships in 3–4 weeks — about 6–8 weeks in total." } },
-        "q2": { "type": "qa", "settings": { "question": "Is shipping included?", "answer": "Yes — shipping is included in the price of every machine." } },
-        "q3": { "type": "qa", "settings": { "question": "How do I pay?", "answer": "You pay the full price securely online at checkout, and we start building your machine." } },
-        "q4": { "type": "qa", "settings": { "question": "Can I add a custom wrap, bill acceptor or card reader?", "answer": "Yes. On any machine's page, tick the add-ons you want — custom wrap, cash bill acceptor or Nayax credit card reader — and they're added to the same order." } },
-        "q5": { "type": "qa", "settings": { "question": "Which games can it sell?", "answer": "Pokémon, Magic and One Piece packs and mystery products." } }
+        "m1": {
+          "type": "card",
+          "settings": {
+            "fallback": "cat-vending",
+            "badge": "BEST SELLER",
+            "tone": "pink",
+            "title": "THE MINI TCG",
+            "desc": "A compact machine that brings trading cards to smaller spaces.",
+            "glow": "auto",
+            "link": "/collections/vending-machines"
+          }
+        },
+        "m2": {
+          "type": "card",
+          "settings": {
+            "fallback": "cat-vending",
+            "badge": "NEW",
+            "tone": "lightning",
+            "title": "THE TCG CLASSIC",
+            "desc": "A standard machine designed for everyday trading card vending.",
+            "glow": "auto",
+            "link": "/collections/vending-machines"
+          }
+        },
+        "m3": {
+          "type": "card",
+          "settings": {
+            "fallback": "cat-vending",
+            "badge": "FEATURED",
+            "tone": "pink",
+            "title": "THE TCG PRO",
+            "desc": "A premium machine built for high-traffic locations.",
+            "glow": "auto",
+            "link": "/collections/vending-machines"
+          }
+        },
+        "m4": {
+          "type": "card",
+          "settings": {
+            "fallback": "cat-vending",
+            "badge": "NEW",
+            "tone": "lightning",
+            "title": "THE TCG SHOWCASE",
+            "desc": "An eye-catching machine that shows off your collectibles.",
+            "glow": "auto",
+            "link": "/collections/vending-machines"
+          }
+        }
       },
-      "block_order": ["q1", "q2", "q3", "q4", "q5"],
-      "settings": { "heading": "Vending machine FAQ", "subheading": "Everything about buying a machine." }
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4"
+      ]
+    },
+    "vm_compare": {
+      "type": "tcg-vm-compare",
+      "settings": {
+        "heading": "THE RIGHT MACHINE | STARTS WITH YOUR VISION."
+      },
+      "blocks": {
+        "c1": {
+          "type": "machine",
+          "settings": {
+            "name": "THE MINI TCG",
+            "text": "Compact machine for smaller spaces.",
+            "type": "Compact vending unit",
+            "dimensions": "See machine page",
+            "capacity": "See machine page",
+            "display": "LED display / touchscreen",
+            "payment": "Card / mobile / cash",
+            "wrap": true
+          }
+        },
+        "c2": {
+          "type": "machine",
+          "settings": {
+            "name": "THE TCG CLASSIC",
+            "text": "Standard machine for most locations.",
+            "type": "Standard vending machine",
+            "dimensions": "See machine page",
+            "capacity": "See machine page",
+            "display": "LED display / touchscreen",
+            "payment": "Card / mobile / cash",
+            "wrap": true
+          }
+        },
+        "c3": {
+          "type": "machine",
+          "settings": {
+            "name": "THE TCG PRO",
+            "text": "Premium machine for busy locations.",
+            "type": "Premium vending machine",
+            "dimensions": "See machine page",
+            "capacity": "See machine page",
+            "display": "LED display / touchscreen",
+            "payment": "Card / mobile / cash",
+            "wrap": true
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ]
+    },
+    "vm_addons": {
+      "type": "tcg-vm-addons",
+      "settings": {
+        "heading": "CUSTOMIZE YOUR | VENDING SETUP."
+      },
+      "blocks": {
+        "a1": {
+          "type": "addon",
+          "settings": {
+            "badge": "CUSTOM LOOK",
+            "art": "wrap",
+            "title": "CUSTOM MACHINE WRAP",
+            "text": "Add a custom wrap so your machine matches your brand and stands out in any location.",
+            "button_label": "CHOOSE YOUR MACHINE",
+            "link": "#machines"
+          }
+        },
+        "a2": {
+          "type": "addon",
+          "settings": {
+            "badge": "PAYMENT OPTION",
+            "art": "machine",
+            "title": "CASH BILL ACCEPTOR",
+            "text": "Let customers pay with cash bills. Added to the same order as your machine.",
+            "button_label": "CHOOSE YOUR MACHINE",
+            "link": "#machines"
+          }
+        },
+        "a3": {
+          "type": "addon",
+          "settings": {
+            "badge": "PAYMENT OPTION",
+            "art": "machine",
+            "title": "NAYAX CARD READER",
+            "text": "Accept credit, debit and mobile payments with a Nayax card reader.",
+            "button_label": "CHOOSE YOUR MACHINE",
+            "link": "#machines"
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3"
+      ]
+    },
+    "vm_calc": {
+      "type": "tcg-vm-calculator",
+      "settings": {
+        "heading": "WHAT COULD YOUR | MACHINE EARN?"
+      }
+    },
+    "vm_steps": {
+      "type": "tcg-sell-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "icon": "machine",
+            "title": "CHOOSE YOUR MACHINE",
+            "text": "Compare available machine models and select one that fits your plans."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "icon": "palette",
+            "title": "CUSTOMIZE YOUR SETUP",
+            "text": "Choose a custom wrap and supported payment options for your machine."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "icon": "cart",
+            "title": "ORDER ONLINE",
+            "text": "Review your order details and complete your purchase online."
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "icon": "wrench",
+            "title": "PRODUCTION & PREPARATION",
+            "text": "Your machine is built to order in about 2 weeks, then tested and inspected for 2–4 days."
+          }
+        },
+        "s5": {
+          "type": "step",
+          "settings": {
+            "icon": "truck",
+            "title": "SHIPPING & DELIVERY",
+            "text": "Your machine travels by ocean freight for 3–4 weeks, then is delivered to your location by LTL freight."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "settings": {
+        "glow": "right-pink",
+        "eyebrow": "FROM ORDER TO ARRIVAL",
+        "heading": "YOUR MACHINE. YOUR SETUP. | YOUR NEXT MOVE.",
+        "text": "From selecting your machine to preparing your setup, here's an overview of the purchasing journey.",
+        "pill": "ESTIMATED TOTAL LEAD TIME: 5–6 WEEKS",
+        "anchor": "how-it-works"
+      }
+    },
+    "vm_faq": {
+      "type": "tcg-home-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT VENDING MACHINES DOES TCG HITZ OFFER?",
+            "answer": "<p>TCG HITZ offers a selection of vending machines for trading cards and collectibles. Explore the available models to compare features, pricing and supported options.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT CAN I SELL IN MY VENDING MACHINE?",
+            "answer": "<p>Machines are designed for trading cards, mystery packs and other collectibles. What you stock is up to you, and you can browse products in our store.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "IS SHIPPING INCLUDED IN THE PRICE?",
+            "answer": "<p>Yes. Shipping is included in the price of every machine.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I CUSTOMIZE MY VENDING MACHINE?",
+            "answer": "<p>Yes. A custom wrap is available as an add-on when you order your machine.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "question": "ARE CARD READERS AND CASH ACCEPTED?",
+            "answer": "<p>Yes. A Nayax card reader and a cash bill acceptor are available as add-ons and are added to the same order.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW LONG DOES IT TAKE TO RECEIVE MY MACHINE?",
+            "answer": "<p>Each machine is built to order in about 2 weeks and tested for 2–4 days, then ships by ocean freight in 3–4 weeks and arrives by LTL freight. The estimated total lead time is 5–6 weeks.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I CALCULATE POTENTIAL PROFIT?",
+            "answer": "<p>Yes. Use the profit calculator on this page to estimate monthly sales and profit from your own numbers. It's an estimate, not a guarantee.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "question": "WILL EVERY MACHINE HAVE THE SAME FEATURES?",
+            "answer": "<p>No. Features, size and capacity vary by model. Compare machines in the table on this page, or open a machine's page for full details.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "glow": "left-blue",
+        "eyebrow": "VENDING MACHINE FAQS",
+        "heading": "GOT QUESTIONS?",
+        "text": "Find answers to common questions about machine options, customization, purchasing, and delivery.",
+        "art_fallback": "vending",
+        "image_alt": "TCG HITZ vending machines on display at an event",
+        "first_open": true
+      }
+    },
+    "vm_why": {
+      "type": "tcg-home-why",
+      "blocks": {
+        "y1": {
+          "type": "card",
+          "settings": {
+            "icon": "world",
+            "title": "A WORLD OF COLLECTIBLES",
+            "text": "Explore trading cards, mystery packs, graded cards, and merchandise in one place."
+          }
+        },
+        "y2": {
+          "type": "card",
+          "settings": {
+            "icon": "discover",
+            "title": "DISCOVER SOMETHING NEW",
+            "text": "Browse collectible finds and explore products that could become your next favorite addition."
+          }
+        },
+        "y3": {
+          "type": "card",
+          "settings": {
+            "icon": "beyond",
+            "title": "BEYOND THE CARDS",
+            "text": "Explore trading-card vending machines alongside the store's collectible products."
+          }
+        }
+      },
+      "block_order": [
+        "y1",
+        "y2",
+        "y3"
+      ],
+      "settings": {
+        "glow": "right-pink",
+        "layout": "stacked",
+        "space_top": "normal",
+        "eyebrow": "THE TCG HITZ EXPERIENCE",
+        "heading": "WHY SHOP TCG HITZ?",
+        "text": "From trading cards to collectibles and vending machines, explore more of what makes collecting exciting."
+      }
+    },
+    "vm_banner": {
+      "type": "tcg-home-banner",
+      "settings": {
+        "fallback": "cta",
+        "overlay": 0,
+        "align": "center",
+        "buttons": "blue",
+        "eyebrow": "READY TO EXPLORE?",
+        "heading": "YOUR NEXT GREAT FIND STARTS HERE.",
+        "text": "Explore the TCG HITZ collection and discover something worth adding to your collection.",
+        "btn1_label": "EXPLORE THE STORE",
+        "btn1_link": "/collections/all",
+        "btn2_label": "EXPLORE MYSTERY PACKS",
+        "btn2_link": "/collections/mystery",
+        "glow": "left-pink"
+      }
+    },
+    "vm_community": {
+      "type": "tcg-home-community",
+      "settings": {
+        "glow": "none",
+        "panel": false,
+        "image_alt": "Pokémon characters and trading cards",
+        "eyebrow": "GET STARTED",
+        "heading": "JOIN THE TCG HITZ COMMUNITY.",
+        "text": "Get updates on new arrivals, collectible drops, and store news.",
+        "placeholder": "Type your email address ...",
+        "button_label": "Subscribe",
+        "success_text": "You're in! Welcome to the TCG HITZ community."
+      }
     }
   },
-  "order": ["vending_hero", "vending_trust", "vending_grid", "vending_addons", "vending_calc", "vending_steps", "vending_faq"]
+  "order": [
+    "vm_hero",
+    "vm_strip",
+    "vm_intro",
+    "vm_machines",
+    "vm_compare",
+    "vm_addons",
+    "vm_calc",
+    "vm_steps",
+    "vm_faq",
+    "vm_why",
+    "vm_banner",
+    "vm_community"
+  ]
 }

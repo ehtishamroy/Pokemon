@@ -16,6 +16,21 @@
   endif
 -%}
 
+{%- liquid
+  assign art_fallback = 'home-sell-hero.webp'
+  assign art_class = 'mx-auto h-auto w-full max-w-[640px] scale-[1.12] object-contain md:scale-[1.2] xl:scale-[1.38]'
+  assign h1_class = 'max-w-[620px] text-[44px] sm:text-[56px] xl:text-[72px]'
+  if section.settings.art_fallback == 'vending'
+    assign art_fallback = 'home-cat-vending.webp'
+  endif
+  if section.settings.art_fit == 'photo'
+    assign art_class = 'hz-art-fade mx-auto h-auto max-h-[420px] w-auto max-w-full object-contain md:max-h-[520px] xl:max-h-[600px]'
+  endif
+  if section.settings.heading_size == 'compact'
+    assign h1_class = 'max-w-[760px] text-[38px] sm:text-[48px] xl:text-[60px]'
+  endif
+-%}
+
 <section class="tcg-scope hz relative overflow-hidden">
   {%- if section.settings.bg_image != blank or bg_fallback != blank -%}
     <div aria-hidden="true" class="pointer-events-none absolute inset-0">
@@ -38,25 +53,28 @@
         <strong class="font-semibold text-hz-neon">{{ section.settings.breadcrumb_label }}</strong>
       </nav>
       <div class="flex flex-col gap-[24px]">
-        <h1 class="max-w-[620px] font-display text-[44px] leading-[1.03] text-white sm:text-[56px] xl:text-[72px]">
+        <h1 class="font-display leading-[1.03] text-white {{ h1_class }}">
           {{- section.settings.heading_line1 -}}
           {%- if section.settings.heading_line1b != blank -%}<br>{{ section.settings.heading_line1b }}{%- endif -%}
           <br>
-          {%- if section.settings.heading_highlight != blank -%}<span class="hz-sell-grad">{{ section.settings.heading_highlight }}</span>{%- endif -%}
+          {%- if section.settings.heading_before != blank -%}{{ section.settings.heading_before }}{%- endif -%}
+          {%- if section.settings.heading_highlight != blank -%}<span class="hz-sell-grad{% if section.settings.gradient == 'purple-pink' %} hz-sell-grad--pp{% endif %}">{{ section.settings.heading_highlight }}</span>{%- endif -%}
           {{- section.settings.heading_after -}}
         </h1>
         <p class="max-w-[520px] text-[16px] leading-[1.55] text-white">{{ section.settings.text }}</p>
       </div>
+      {%- if section.settings.btn1_label != blank or section.settings.btn2_label != blank -%}
       <div class="flex flex-wrap items-center gap-[18px]">
-        {% render 'tcg-home-button', label: section.settings.btn1_label, link: btn1_url, kind: 'solid' %}
-        {% render 'tcg-home-button', label: section.settings.btn2_label, link: btn2_url, kind: 'outline' %}
+        {%- if section.settings.btn1_label != blank -%}{% render 'tcg-home-button', label: section.settings.btn1_label, link: btn1_url, kind: 'solid' %}{%- endif -%}
+        {%- if section.settings.btn2_label != blank -%}{% render 'tcg-home-button', label: section.settings.btn2_label, link: btn2_url, kind: 'outline' %}{%- endif -%}
       </div>
+      {%- endif -%}
     </div>
 
     {%- if section.settings.show_art -%}
     <div class="relative mx-auto w-full max-w-[600px] xl:max-w-none" data-hz-reveal>
       <div class="hz-float">
-        {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: 'home-sell-hero.webp', w: 810, h: 600, width: 1400, sizes: '(min-width: 1280px) 640px, 90vw', loading: 'eager', alt: section.settings.image_alt, class: 'mx-auto h-auto w-full max-w-[640px] scale-[1.12] object-contain md:scale-[1.2] xl:scale-[1.38]' %}
+        {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: art_fallback, w: 810, h: 600, width: 1400, sizes: '(min-width: 1280px) 640px, 90vw', loading: 'eager', alt: section.settings.image_alt, class: art_class %}
       </div>
     </div>
     {%- endif -%}
@@ -73,17 +91,22 @@
     { "type": "text", "id": "breadcrumb_label", "label": "Breadcrumb: page name", "default": "Sell To Us" },
     { "type": "text", "id": "heading_line1", "label": "Heading — line 1", "default": "READY TO SELL" },
     { "type": "text", "id": "heading_line1b", "label": "Heading — extra white line (optional)" },
+    { "type": "text", "id": "heading_before", "label": "Heading — white words before line 2 (optional)", "info": "For example: TO" },
     { "type": "text", "id": "heading_highlight", "label": "Heading — line 2 (gradient)", "default": "YOUR CARDS" },
+    { "type": "select", "id": "gradient", "label": "Line 2 colours", "options": [ { "value": "blue-pink", "label": "Blue → purple → pink" }, { "value": "purple-pink", "label": "Purple → pink" } ], "default": "blue-pink" },
     { "type": "text", "id": "heading_after", "label": "Heading — after line 2", "default": "?" },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Have singles, graded cards, sealed products, or a whole collection to sell? Tell us what you've got. We'll review the details and let you know if we can make you an offer." },
     { "type": "text", "id": "btn1_label", "label": "Button 1 label", "default": "GET AN OFFER" },
     { "type": "url", "id": "btn1_link", "label": "Button 1 link", "info": "Empty = jump to the offer form on this page." },
     { "type": "text", "id": "btn2_label", "label": "Button 2 label", "default": "WHAT WE BUY" },
     { "type": "url", "id": "btn2_link", "label": "Button 2 link", "info": "Empty = jump to the What We Buy section." },
+    { "type": "select", "id": "heading_size", "label": "Heading size", "options": [ { "value": "normal", "label": "Large" }, { "value": "compact", "label": "Slightly smaller (long headings)" } ], "default": "normal" },
+    { "type": "select", "id": "art_fit", "label": "Picture style", "options": [ { "value": "cutout", "label": "Cut-out (transparent background)" }, { "value": "photo", "label": "Photo with a dark background (edges fade out)" } ], "default": "cutout" },
     { "type": "checkbox", "id": "show_art", "label": "Show the picture on the right", "default": true },
     { "type": "image_picker", "id": "bg_image", "label": "Full-width background image (optional)" },
     { "type": "image_picker", "id": "bg_image_mobile", "label": "Background image — mobile (optional)" },
     { "type": "select", "id": "bg_fallback", "label": "Default background", "options": [ { "value": "none", "label": "None" }, { "value": "mystery", "label": "Mystery pack artwork" } ], "default": "none" },
+    { "type": "select", "id": "art_fallback", "label": "Default picture", "options": [ { "value": "sell", "label": "Cards and Pikachu (Sell page)" }, { "value": "vending", "label": "Vending machine" } ], "default": "sell" },
     { "type": "image_picker", "id": "image", "label": "Hero image", "info": "A transparent PNG/WebP or a photo on a dark background works best." },
     { "type": "image_picker", "id": "image_mobile", "label": "Hero image — mobile (optional)" },
     { "type": "text", "id": "image_alt", "label": "Image description (alt text)", "default": "Graded Charizard card, Pokémon booster pack, Poké Ball and Pikachu figure" }

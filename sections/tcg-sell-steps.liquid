@@ -8,10 +8,11 @@
   assign steps = section.blocks | where: 'type', 'step'
 -%}
 
-<section class="tcg-scope hz relative" id="how">
+<section class="tcg-scope hz relative" id="{{ section.settings.anchor | default: 'how' }}">
   {% render 'tcg-home-glow', glow: section.settings.glow %}
   <div class="hz-wrap flex flex-col items-center gap-[36px] pb-[36px] pt-[48px] md:gap-[56px] md:pb-[72px] md:pt-[72px] xl:gap-[72px] xl:pb-[100px] xl:pt-[100px]">
     {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, align: 'center' %}
+    {%- if section.settings.pill != blank -%}<span data-hz-reveal class="hz-pill -mt-[12px] md:-mt-[28px]">{{ section.settings.pill }}</span>{%- endif -%}
 
     <ol class="flex w-full flex-wrap items-start justify-center gap-x-[24px] gap-y-[40px] xl:flex-nowrap xl:justify-between xl:gap-0">
       {%- for block in steps -%}
@@ -52,7 +53,9 @@
     { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "left-purple" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A SIMPLE WAY TO START" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "HOW IT WORKS." },
-    { "type": "text", "id": "text", "label": "Text", "default": "Got cards to sell? Here's how to get started." }
+    { "type": "text", "id": "text", "label": "Text", "default": "Got cards to sell? Here's how to get started." },
+    { "type": "text", "id": "pill", "label": "Small badge under the heading (optional)", "info": "For example: ESTIMATED TOTAL LEAD TIME: 5–6 WEEKS" },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "how" }
   ],
   "blocks": [
     {
@@ -60,7 +63,7 @@
       "name": "Step",
       "settings": [
         { "type": "select", "id": "icon", "label": "Icon", "options": [
-          { "value": "photo", "label": "Photo" }, { "value": "review", "label": "Magnifier" }, { "value": "offer", "label": "Hand with coins" }, { "value": "deal", "label": "Handshake" }, { "value": "explore", "label": "Search" }, { "value": "pointer", "label": "Choose" }, { "value": "cart-check", "label": "Cart" }, { "value": "gift", "label": "Gift" }
+          { "value": "photo", "label": "Photo" }, { "value": "machine", "label": "Vending machine" }, { "value": "palette", "label": "Palette" }, { "value": "cart", "label": "Cart" }, { "value": "wrench", "label": "Wrench" }, { "value": "truck", "label": "Truck" }, { "value": "ship", "label": "Ship" }, { "value": "clock", "label": "Clock" }, { "value": "review", "label": "Magnifier" }, { "value": "offer", "label": "Hand with coins" }, { "value": "deal", "label": "Handshake" }, { "value": "explore", "label": "Search" }, { "value": "pointer", "label": "Choose" }, { "value": "cart-check", "label": "Cart" }, { "value": "gift", "label": "Gift" }
         ], "default": "photo" },
         { "type": "image_picker", "id": "icon_image", "label": "Custom icon (optional)" },
         { "type": "text", "id": "title", "label": "Title", "default": "SEND YOUR PHOTOS" },

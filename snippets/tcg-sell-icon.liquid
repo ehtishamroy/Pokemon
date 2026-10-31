@@ -1,5 +1,5 @@
 {%- comment -%}
-  Line icons for the Sell page. Param: name — photo | review | offer | deal | check | ban | info | upload | close | explore | pointer | cart-check | gift ; size (px, default 24)
+  Line icons for the Sell page. Param: name — photo | review | offer | deal | check | ban | info | upload | close | explore | pointer | cart-check | gift | machine | palette | cart | wrench | truck | ship | clock ; size (px, default 24)
 {%- endcomment -%}
 {%- assign icon_px = size | default: 24 -%}
 <svg width="{{ icon_px }}" height="{{ icon_px }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
@@ -17,5 +17,12 @@
     {%- when 'cart-check' -%}<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/><path d="m11 9 2 2 4-4"/>
     {%- when 'gift' -%}<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
     {%- when 'close' -%}<path d="M18 6 6 18M6 6l12 12"/>
+      {%- when 'machine' -%}<rect x="4" y="2" width="16" height="20" rx="2"/><rect x="7" y="5" width="7" height="9" rx="1"/><path d="M17 6v1M17 10v1M8 18h8"/>
+    {%- when 'palette' -%}<path d="M12 22a10 10 0 1 1 10-10c0 3-2 4-4 4h-2a2 2 0 0 0-1.5 3.3c.7.8.2 2.7-2.5 2.7z"/><circle cx="7.5" cy="11" r="1"/><circle cx="12" cy="7" r="1"/><circle cx="16.5" cy="10" r="1"/>
+    {%- when 'cart' -%}<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+    {%- when 'wrench' -%}<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94z"/>
+    {%- when 'truck' -%}<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62L18.3 8.4a1 1 0 0 0-.78-.4H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>
+    {%- when 'ship' -%}<path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.4 17.4 21 12l-9-3-9 3 1.6 5.4"/><path d="M12 9V2l4 2"/>
+    {%- when 'clock' -%}<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
   {%- endcase -%}
 </svg>

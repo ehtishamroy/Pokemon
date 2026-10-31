@@ -1,0 +1,177 @@
+{% comment %}
+  TCG Hitz — Vending page "THE RIGHT MACHINE STARTS WITH YOUR VISION." comparison table (Figma design).
+  Each machine is a block (up to 4): pick a product for the link and price, then fill in the spec rows.
+  On phones the table scrolls sideways and the first column stays in view.
+{% endcomment %}
+
+{%- liquid
+  assign machines = section.blocks | where: 'type', 'machine'
+-%}
+
+<section class="tcg-scope hz relative" id="{{ section.settings.anchor | default: 'compare' }}">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-stretch gap-[28px] pb-[36px] pt-[36px] md:gap-[44px] md:pb-[72px] md:pt-[72px] xl:pb-[100px] xl:pt-[100px]">
+    <div class="flex w-full flex-col items-start gap-[16px] xl:flex-row xl:items-end xl:justify-between xl:gap-[48px]">
+      {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, heading_class: 'max-w-[900px]' %}
+      {%- if section.settings.text != blank -%}<p data-hz-reveal class="w-full max-w-[420px] text-[16px] leading-[1.5] text-white">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+
+    <div data-hz-reveal class="hz-cmp-wrap tcg-gb rounded-[20px] [--bw:1px]">
+      <div class="hz-cmp-scroll">
+        <table class="hz-cmp">
+          <thead>
+            <tr>
+              <th scope="col" class="hz-cmp__spec">{{ section.settings.spec_label }}</th>
+              {%- for block in machines -%}
+                {%- liquid
+                  assign m_img = block.settings.image
+                  assign m_product = block.settings.product
+                  if m_img == blank and m_product != blank
+                    assign m_img = m_product.featured_image
+                  endif
+                -%}
+                <th scope="col" class="hz-cmp__head" {{ block.shopify_attributes }}>
+                  <span class="hz-cmp__headin">
+                    <span class="hz-cmp__thumb">
+                      {%- if m_img != blank -%}
+                        {{ m_img | image_url: width: 120 | image_tag: alt: '', width: 40, height: 56, loading: 'lazy', class: 'h-full w-full object-contain' }}
+                      {%- else -%}
+                        <img src="{{ 'home-cat-vending.webp' | asset_url }}" alt="" width="40" height="56" loading="lazy" class="h-full w-full object-contain">
+                      {%- endif -%}
+                    </span>
+                    <span class="flex min-w-0 flex-col gap-[2px] text-left">
+                      <span class="font-display text-[15px] uppercase leading-[1.2] text-white md:text-[17px]">{{ block.settings.name | default: m_product.title }}</span>
+                      {%- if block.settings.text != blank -%}<span class="hidden text-[12px] font-medium normal-case leading-[1.35] text-white/85 md:block">{{ block.settings.text }}</span>{%- endif -%}
+                    </span>
+                  </span>
+                </th>
+              {%- endfor -%}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="hz-cmp__spec">{{ section.settings.row_type }}</th>
+              {%- for block in machines -%}<td>{{ block.settings.type }}</td>{%- endfor -%}
+            </tr>
+            <tr>
+              <th scope="row" class="hz-cmp__spec">{{ section.settings.row_dimensions }}</th>
+              {%- for block in machines -%}<td>{{ block.settings.dimensions }}</td>{%- endfor -%}
+            </tr>
+            <tr>
+              <th scope="row" class="hz-cmp__spec">{{ section.settings.row_capacity }}</th>
+              {%- for block in machines -%}<td>{{ block.settings.capacity }}</td>{%- endfor -%}
+            </tr>
+            <tr>
+              <th scope="row" class="hz-cmp__spec">{{ section.settings.row_display }}</th>
+              {%- for block in machines -%}<td>{{ block.settings.display }}</td>{%- endfor -%}
+            </tr>
+            <tr>
+              <th scope="row" class="hz-cmp__spec">{{ section.settings.row_payment }}</th>
+              {%- for block in machines -%}<td>{{ block.settings.payment }}</td>{%- endfor -%}
+            </tr>
+            <tr>
+              <th scope="row" class="hz-cmp__spec">{{ section.settings.row_wrap }}</th>
+              {%- for block in machines -%}
+                <td>
+                  {%- if block.settings.wrap -%}
+                    <span class="inline-flex items-center gap-[8px] font-semibold text-hz-success"><span aria-hidden="true" class="grid size-[16px] place-items-center rounded-full bg-hz-success/20"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{{ section.settings.wrap_yes }}</span>
+                  {%- else -%}
+                    <span class="text-white/60">{{ section.settings.wrap_no }}</span>
+                  {%- endif -%}
+                </td>
+              {%- endfor -%}
+            </tr>
+            <tr>
+              <th scope="row" class="hz-cmp__spec">{{ section.settings.row_price }}</th>
+              {%- for block in machines -%}
+                {%- liquid
+                  assign m_price = block.settings.price
+                  if m_price == blank and block.settings.product != blank
+                    assign m_price = block.settings.product.price | money_without_trailing_zeros
+                    if block.settings.product.price_varies
+                      assign m_price = section.settings.price_prefix | append: ' ' | append: m_price
+                    endif
+                  endif
+                -%}
+                <td class="font-bold text-hz-pink">{{ m_price | default: section.settings.price_empty }}</td>
+              {%- endfor -%}
+            </tr>
+            <tr>
+              <th scope="row" class="hz-cmp__spec">{{ section.settings.row_view }}</th>
+              {%- for block in machines -%}
+                {%- liquid
+                  assign m_link = block.settings.link
+                  if m_link == blank and block.settings.product != blank
+                    assign m_link = block.settings.product.url
+                  endif
+                -%}
+                <td><a href="{{ m_link | default: '#' }}" class="hz-btn-outline tcg-gb !h-[36px] !px-[16px] !text-[12px]"><span>{{ section.settings.view_label }}</span>{% render 'tcg-home-arrow', px: 12 %}</a></td>
+              {%- endfor -%}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Vending — Compare",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 4,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "right-pink" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "COMPARE YOUR OPTIONS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "THE RIGHT MACHINE STARTS WITH YOUR VISION." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every location and vending setup has different needs. Compare the available machine models, explore their specifications, and find the configuration that makes sense for your plans." },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "compare" },
+    { "type": "header", "content": "Row labels" },
+    { "type": "text", "id": "spec_label", "label": "Top-left cell", "default": "Specification" },
+    { "type": "text", "id": "row_type", "label": "Row 1", "default": "Machine Type" },
+    { "type": "text", "id": "row_dimensions", "label": "Row 2", "default": "Dimensions (H × W × D)" },
+    { "type": "text", "id": "row_capacity", "label": "Row 3", "default": "Product Capacity" },
+    { "type": "text", "id": "row_display", "label": "Row 4", "default": "Display Features" },
+    { "type": "text", "id": "row_payment", "label": "Row 5", "default": "Payment Options" },
+    { "type": "text", "id": "row_wrap", "label": "Row 6", "default": "Custom Wrap" },
+    { "type": "text", "id": "wrap_yes", "label": "Custom wrap: yes text", "default": "Available" },
+    { "type": "text", "id": "wrap_no", "label": "Custom wrap: no text", "default": "Not available" },
+    { "type": "text", "id": "row_price", "label": "Row 7", "default": "Price" },
+    { "type": "text", "id": "price_prefix", "label": "Price prefix when a product has several prices", "default": "From" },
+    { "type": "text", "id": "price_empty", "label": "Price text when no price is available", "default": "See machine page" },
+    { "type": "text", "id": "row_view", "label": "Row 8", "default": "Next step" },
+    { "type": "text", "id": "view_label", "label": "Button label", "default": "VIEW MACHINE" }
+  ],
+  "blocks": [
+    {
+      "type": "machine",
+      "name": "Machine",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Machine product", "info": "Gives the link, the price and the picture (unless you fill them in below)." },
+        { "type": "text", "id": "name", "label": "Name", "default": "THE MINI TCG" },
+        { "type": "text", "id": "text", "label": "Short description", "default": "Compact machine for small spaces." },
+        { "type": "image_picker", "id": "image", "label": "Picture (optional)" },
+        { "type": "url", "id": "link", "label": "Link (optional)" },
+        { "type": "text", "id": "type", "label": "Machine type", "default": "Compact vending unit" },
+        { "type": "text", "id": "dimensions", "label": "Dimensions", "default": "See machine page" },
+        { "type": "text", "id": "capacity", "label": "Product capacity", "default": "See machine page" },
+        { "type": "text", "id": "display", "label": "Display features", "default": "LED display / touchscreen" },
+        { "type": "text", "id": "payment", "label": "Payment options", "default": "Card / mobile / cash" },
+        { "type": "checkbox", "id": "wrap", "label": "Custom wrap available", "default": true },
+        { "type": "text", "id": "price", "label": "Price text (optional)", "info": "Leave empty to show the product's price." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG Vending — Compare",
+      "blocks": [
+        { "type": "machine" },
+        { "type": "machine", "settings": { "name": "THE TCG CLASSIC", "text": "Standard machine for most locations.", "type": "Standard vending machine" } },
+        { "type": "machine", "settings": { "name": "THE TCG PRO", "text": "Premium machine for high-traffic spots.", "type": "Premium vending machine" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
