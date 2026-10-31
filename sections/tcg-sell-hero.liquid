@@ -57,7 +57,7 @@
           {{- section.settings.heading_line1 -}}
           {%- if section.settings.heading_line1b != blank -%}<br>{{ section.settings.heading_line1b }}{%- endif -%}
           <br>
-          {%- if section.settings.heading_before != blank -%}{{ section.settings.heading_before }}{%- endif -%}
+          {%- if section.settings.heading_before != blank -%}{{ section.settings.heading_before | strip | append: ' ' }}{%- endif -%}
           {%- if section.settings.heading_highlight != blank -%}<span class="hz-sell-grad{% if section.settings.gradient == 'purple-pink' %} hz-sell-grad--pp{% endif %}">{{ section.settings.heading_highlight }}</span>{%- endif -%}
           {{- section.settings.heading_after -}}
         </h1>
