@@ -1,0 +1,554 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "faq_hero": {
+      "type": "tcg-shop-hero",
+      "settings": {
+        "glow": "none",
+        "overlay": 55,
+        "home_label": "Home",
+        "breadcrumb_label": "FAQs",
+        "use_collection": false,
+        "heading_before": "GOT QUESTIONS?",
+        "heading_highlight": "",
+        "heading_after": "",
+        "heading_line2": "WE'VE GOT ANSWERS",
+        "heading_line2_after": ".",
+        "text": "Find answers to common questions about our collectibles, mystery packs, orders, shipping, and more."
+      }
+    },
+    "faq_strip": {
+      "type": "tcg-home-strip",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "text": "POKÉMON CARDS"
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "text": "MYSTERY PACKS"
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "text": "GRADED CARDS"
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "text": "MERCHANDISE"
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "text": "VENDING MACHINES"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
+      ],
+      "settings": {
+        "tagline": "COLLECT  ✦  TRADE  ✦  RIP  ✦  REPEAT",
+        "animate": true,
+        "speed": "normal",
+        "overlap": false
+      }
+    },
+    "faq_body": {
+      "type": "tcg-faq-page",
+      "blocks": {
+        "c1": {
+          "type": "category",
+          "settings": {
+            "title": "TRADING CARDS",
+            "text": "Everything you need to know about exploring our trading card collection."
+          }
+        },
+        "c1q1": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT TYPES OF TRADING CARDS CAN I FIND AT TCG HITZ?",
+            "answer": "<p>Explore the available trading cards in our store, including products listed across our different collections. Product availability and details are displayed on each product page.</p>"
+          }
+        },
+        "c1q2": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW CAN I FIND A SPECIFIC TRADING CARD?",
+            "answer": "<p>Use the search bar at the top of the page, or browse the Trading Cards collections and filter by set, rarity or price.</p>"
+          }
+        },
+        "c1q3": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW DO I CHECK A CARD'S CONDITION?",
+            "answer": "<p>Each product page lists the card's condition and shows real photos of the exact card. Our condition guide explains what each grade means.</p>"
+          }
+        },
+        "c1q4": {
+          "type": "qa",
+          "settings": {
+            "question": "ARE ALL LISTED CARDS AVAILABLE FOR PURCHASE?",
+            "answer": "<p>Cards shown as in stock are available to order. If a card sells out, the product page will show it as sold out.</p>"
+          }
+        },
+        "c1q5": {
+          "type": "qa",
+          "settings": {
+            "question": "WILL I RECEIVE THE EXACT CARD SHOWN IN THE PRODUCT PHOTOS?",
+            "answer": "<p>Yes. Single cards are photographed individually, so the card you see is the card you receive.</p>"
+          }
+        },
+        "c2": {
+          "type": "category",
+          "settings": {
+            "title": "MYSTERY PACKS",
+            "text": "Get answers about how our mystery packs work and what to expect."
+          }
+        },
+        "c2q1": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT ARE TCG HITZ MYSTERY PACKS?",
+            "answer": "<p>Mystery packs are products whose contents are determined by the specific offering. Product details are available on each mystery pack listing page.</p>"
+          }
+        },
+        "c2q2": {
+          "type": "qa",
+          "settings": {
+            "question": "DO ALL MYSTERY PACKS CONTAIN THE SAME ITEMS?",
+            "answer": "<p>No. Contents vary by pack. Each listing describes what kind of items may be included.</p>"
+          }
+        },
+        "c2q3": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I SEE WHAT'S INSIDE A MYSTERY PACK BEFORE PURCHASING?",
+            "answer": "<p>Mystery packs are sealed surprises, so the exact contents aren't revealed. The product description explains what the pack offers.</p>"
+          }
+        },
+        "c2q4": {
+          "type": "qa",
+          "settings": {
+            "question": "ARE RARE CARDS GUARANTEED IN MYSTERY PACKS?",
+            "answer": "<p>Unless a listing says otherwise, specific cards or rarities are not guaranteed.</p>"
+          }
+        },
+        "c2q5": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW DO I CHOOSE THE RIGHT MYSTERY PACK?",
+            "answer": "<p>Browse the Mystery Packs collection, compare the product descriptions and pick the pack that matches your interests and budget.</p>"
+          }
+        },
+        "c3": {
+          "type": "category",
+          "settings": {
+            "title": "GRADED CARDS",
+            "text": "Find more about our graded cards and how to read their details."
+          }
+        },
+        "c3q1": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT IS A GRADED TRADING CARD?",
+            "answer": "<p>A graded card has been professionally evaluated and assigned a grade by a grading service. The specific grading company, grade and other details are shown on the product page.</p>"
+          }
+        },
+        "c3q2": {
+          "type": "qa",
+          "settings": {
+            "question": "WHERE CAN I FIND THE CARD'S GRADE?",
+            "answer": "<p>The grade and grading company are listed in the product title and description, and are visible on the label in the product photos.</p>"
+          }
+        },
+        "c3q3": {
+          "type": "qa",
+          "settings": {
+            "question": "WILL I RECEIVE THE EXACT GRADED CARD SHOWN IN THE LISTING?",
+            "answer": "<p>Yes. Graded cards are photographed individually, so you receive the exact slab shown.</p>"
+          }
+        },
+        "c3q4": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW CAN I CHECK THE GRADING DETAILS?",
+            "answer": "<p>Use the certification number on the slab's label to look the card up on the grading company's website.</p>"
+          }
+        },
+        "c4": {
+          "type": "category",
+          "settings": {
+            "title": "MERCHANDISE",
+            "text": "Learn more about the merchandise available in the TCG HITZ store."
+          }
+        },
+        "c4q1": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT MERCHANDISE DOES TCG HITZ SELL?",
+            "answer": "<p>Our Merchandise collection includes 3D-printed collectibles, figures and other items for fans. Each product page shows the details.</p>"
+          }
+        },
+        "c4q2": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW DO I CHOOSE THE RIGHT SIZE?",
+            "answer": "<p>If a product comes in different sizes, the options and measurements are listed on its product page.</p>"
+          }
+        },
+        "c4q3": {
+          "type": "qa",
+          "settings": {
+            "question": "WILL MERCHANDISE PRODUCTS ALWAYS BE IN STOCK?",
+            "answer": "<p>Availability changes. Items that are sold out are marked on the product page, and new items are added regularly.</p>"
+          }
+        },
+        "c4q4": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I RETURN MERCHANDISE?",
+            "answer": "<p>Please review our return policy, or contact us and we'll help with your request.</p>"
+          }
+        },
+        "c5": {
+          "type": "category",
+          "settings": {
+            "title": "VENDING MACHINES",
+            "text": "Interested in bringing collectible products to your space? Find out more about machine options and purchasing."
+          }
+        },
+        "c5q1": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I PURCHASE A TCG HITZ VENDING MACHINE ONLINE?",
+            "answer": "<p>Yes. TCG HITZ vending machines are available through our online store. Check the machines currently listed on the Vending Machines page and choose the one that fits your location.</p>"
+          }
+        },
+        "c5q2": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I CUSTOMIZE MY VENDING MACHINE?",
+            "answer": "<p>Yes. A custom wrap is available as an add-on when you order your machine.</p>"
+          }
+        },
+        "c5q3": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I ADD A CASH BILL ACCEPTOR OR NAYAX CARD READER?",
+            "answer": "<p>Yes. A cash bill acceptor and a Nayax credit card reader are available as add-ons on each machine's page and are added to the same order.</p>"
+          }
+        },
+        "c5q4": {
+          "type": "qa",
+          "settings": {
+            "question": "IS SHIPPING INCLUDED IN THE VENDING MACHINE PRICE?",
+            "answer": "<p>Yes. Shipping is included in the price of every vending machine.</p>"
+          }
+        },
+        "c5q5": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW LONG DOES IT TAKE TO RECEIVE A VENDING MACHINE?",
+            "answer": "<p>Each machine is built to order in about 3–4 weeks, then shipped in about 3–4 weeks, so expect roughly 6–8 weeks in total.</p>"
+          }
+        },
+        "c5q6": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN THE PROFIT CALCULATOR TELL ME HOW MUCH I WILL EARN?",
+            "answer": "<p>The calculator gives an estimate based on the numbers you enter. Your real results will depend on your location, pricing and sales.</p>"
+          }
+        },
+        "c6": {
+          "type": "category",
+          "settings": {
+            "title": "ORDERS & PAYMENTS",
+            "text": "Quick answers about placing an order and paying securely."
+          }
+        },
+        "c6q1": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW DO I PLACE AN ORDER?",
+            "answer": "<p>Browse the store, select the products you want, add them to your cart and follow the checkout steps to complete your order.</p>"
+          }
+        },
+        "c6q2": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I CHANGE MY ORDER AFTER PLACING IT?",
+            "answer": "<p>Contact us as soon as possible. If your order hasn't shipped yet, we'll do our best to update it.</p>"
+          }
+        },
+        "c6q3": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT PAYMENT METHODS ARE ACCEPTED?",
+            "answer": "<p>The payment methods available are shown at checkout.</p>"
+          }
+        },
+        "c6q4": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW CAN I CHECK MY ORDER STATUS?",
+            "answer": "<p>Use the tracking link in your shipping confirmation email, or contact us with your order number.</p>"
+          }
+        },
+        "c6q5": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT SHOULD I DO IF MY PAYMENT FAILS?",
+            "answer": "<p>Check your payment details and try again. If it still doesn't work, try another payment method or contact your bank.</p>"
+          }
+        },
+        "c6q6": {
+          "type": "qa",
+          "settings": {
+            "question": "I HAVEN'T RECEIVED AN ORDER CONFIRMATION. WHAT SHOULD I DO?",
+            "answer": "<p>Check your spam or junk folder first. If it isn't there, contact us with the email you used at checkout.</p>"
+          }
+        },
+        "c7": {
+          "type": "category",
+          "settings": {
+            "title": "SHIPPING & DELIVERY",
+            "text": "Find details about shipping options, delivery times and tracking."
+          }
+        },
+        "c7q1": {
+          "type": "qa",
+          "settings": {
+            "question": "WHERE DOES TCG HITZ SHIP?",
+            "answer": "<p>Available shipping destinations are shown at checkout. See our Shipping Policy for current details.</p>"
+          }
+        },
+        "c7q2": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW LONG DOES SHIPPING TAKE?",
+            "answer": "<p>Most in-stock orders ship within one business day. Delivery time depends on your location and the shipping option you choose.</p>"
+          }
+        },
+        "c7q3": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW CAN I TRACK MY ORDER?",
+            "answer": "<p>Once your order ships, you'll receive an email with a tracking link.</p>"
+          }
+        },
+        "c7q4": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT IF MY ORDER ARRIVES DAMAGED?",
+            "answer": "<p>Contact us right away with photos of the package and the item, and we'll make it right.</p>"
+          }
+        },
+        "c7q5": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I CHANGE MY SHIPPING ADDRESS AFTER PLACING AN ORDER?",
+            "answer": "<p>Contact us as soon as possible. If your order hasn't shipped yet, we can update the address.</p>"
+          }
+        },
+        "c8": {
+          "type": "category",
+          "settings": {
+            "title": "RETURNS & REFUNDS",
+            "text": "Learn about our return policy and how to request a refund."
+          }
+        },
+        "c8q1": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT IS THE TCG HITZ RETURN POLICY?",
+            "answer": "<p>Return eligibility can vary by product. Please review our Returns & Refunds policy, or contact us for help.</p>"
+          }
+        },
+        "c8q2": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I RETURN A TRADING CARD?",
+            "answer": "<p>If a card isn't as described, contact us and we'll help. See our return policy for details.</p>"
+          }
+        },
+        "c8q3": {
+          "type": "qa",
+          "settings": {
+            "question": "ARE MYSTERY PACKS ELIGIBLE FOR RETURNS?",
+            "answer": "<p>Because mystery pack contents are a surprise, they're generally not eligible for return unless the product arrives damaged or incorrect.</p>"
+          }
+        },
+        "c8q4": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW DO I REQUEST A REFUND?",
+            "answer": "<p>Contact us with your order number and the reason for your request, and we'll guide you through the next steps.</p>"
+          }
+        },
+        "c8q5": {
+          "type": "qa",
+          "settings": {
+            "question": "WHAT IF I RECEIVE THE WRONG ITEM?",
+            "answer": "<p>Contact us right away with your order number and a photo, and we'll arrange the correct item.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c1q1",
+        "c1q2",
+        "c1q3",
+        "c1q4",
+        "c1q5",
+        "c2",
+        "c2q1",
+        "c2q2",
+        "c2q3",
+        "c2q4",
+        "c2q5",
+        "c3",
+        "c3q1",
+        "c3q2",
+        "c3q3",
+        "c3q4",
+        "c4",
+        "c4q1",
+        "c4q2",
+        "c4q3",
+        "c4q4",
+        "c5",
+        "c5q1",
+        "c5q2",
+        "c5q3",
+        "c5q4",
+        "c5q5",
+        "c5q6",
+        "c6",
+        "c6q1",
+        "c6q2",
+        "c6q3",
+        "c6q4",
+        "c6q5",
+        "c6q6",
+        "c7",
+        "c7q1",
+        "c7q2",
+        "c7q3",
+        "c7q4",
+        "c7q5",
+        "c8",
+        "c8q1",
+        "c8q2",
+        "c8q3",
+        "c8q4",
+        "c8q5"
+      ],
+      "settings": {
+        "glow": "right-blue",
+        "toc_title": "TABLE OF CONTENTS",
+        "first_open": true
+      }
+    },
+    "faq_banner": {
+      "type": "tcg-home-banner",
+      "settings": {
+        "glow": "left-pink",
+        "fallback": "cta",
+        "overlay": 0,
+        "align": "center",
+        "buttons": "blue",
+        "eyebrow": "NEED MORE HELP?",
+        "heading": "STILL HAVE QUESTIONS?",
+        "text": "Can't find what you're looking for? Reach out to our team and we'll be happy to help with products, orders, or your TCG HITZ shopping experience.",
+        "btn1_label": "CONTACT US",
+        "btn1_link": "/pages/contact",
+        "btn2_label": "CONTINUE SHOPPING",
+        "btn2_link": "/collections/all"
+      }
+    },
+    "faq_why": {
+      "type": "tcg-home-why",
+      "blocks": {
+        "y1": {
+          "type": "card",
+          "settings": {
+            "icon": "world",
+            "title": "A WORLD OF COLLECTIBLES",
+            "text": "Explore trading cards, mystery packs, graded cards, and merchandise in one place."
+          }
+        },
+        "y2": {
+          "type": "card",
+          "settings": {
+            "icon": "discover",
+            "title": "DISCOVER SOMETHING NEW",
+            "text": "Browse collectible finds and explore products that could become your next favorite addition."
+          }
+        },
+        "y3": {
+          "type": "card",
+          "settings": {
+            "icon": "beyond",
+            "title": "BEYOND THE CARDS",
+            "text": "Explore trading-card vending machines alongside the store's collectible products."
+          }
+        }
+      },
+      "block_order": [
+        "y1",
+        "y2",
+        "y3"
+      ],
+      "settings": {
+        "glow": "right-pink",
+        "layout": "stacked",
+        "space_top": "normal",
+        "eyebrow": "THE TCG HITZ EXPERIENCE",
+        "heading": "WHY SHOP TCG HITZ?",
+        "text": "From trading cards to collectibles and vending machines, explore more of what makes collecting exciting."
+      }
+    },
+    "faq_community": {
+      "type": "tcg-home-community",
+      "settings": {
+        "glow": "none",
+        "panel": false,
+        "image_alt": "Pokémon characters and trading cards",
+        "eyebrow": "GET STARTED",
+        "heading": "JOIN THE TCG HITZ COMMUNITY.",
+        "text": "Get updates on new arrivals, collectible drops, and store news.",
+        "placeholder": "Type your email address ...",
+        "button_label": "Subscribe",
+        "success_text": "You're in! Welcome to the TCG HITZ community."
+      }
+    }
+  },
+  "order": [
+    "faq_hero",
+    "faq_strip",
+    "faq_body",
+    "faq_banner",
+    "faq_why",
+    "faq_community"
+  ]
+}

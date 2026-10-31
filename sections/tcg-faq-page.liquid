@@ -1,0 +1,98 @@
+{% comment %}
+  TCG Hitz — FAQ page body (Figma "FAQs" design).
+  Left: sticky "TABLE OF CONTENTS" built from the category blocks. Right: each category (heading + text)
+  followed by its questions. Blocks are read top to bottom: a "Category" block starts a new group and every
+  "Question" block below it belongs to that group. Up to 50 blocks per section.
+{% endcomment %}
+
+<section class="tcg-scope hz relative" id="faq-page">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap grid grid-cols-[minmax(0,1fr)] items-start gap-[24px] pb-[48px] pt-[36px] md:gap-[40px] md:pb-[72px] md:pt-[56px] xl:grid-cols-[300px_minmax(0,1fr)] xl:gap-[56px] xl:pb-[100px] xl:pt-[72px]">
+
+    <nav aria-label="{{ section.settings.toc_title | escape }}" class="hz-toc min-w-0 tcg-gb [--bw:1px]" data-faq-toc data-hz-reveal>
+      <p class="hz-toc__title">{{ section.settings.toc_title }}</p>
+      <ul class="hz-toc__list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'category' -%}
+            <li><a href="#faq-{{ block.id }}" class="hz-toc__link{% if forloop.first %} is-active{% endif %}" data-faq-link>{{ block.settings.title }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="flex min-w-0 flex-col gap-[40px] md:gap-[56px]">
+      {%- for cat in section.blocks -%}
+        {%- if cat.type == 'category' -%}
+          {%- assign cat_pos = forloop.index -%}
+          {%- assign inside = false -%}
+          {%- assign qa_no = 0 -%}
+          <div class="hz-faq-group" id="faq-{{ cat.id }}" data-faq-group {{ cat.shopify_attributes }}>
+            <div data-hz-reveal>
+              <h2 class="hz-h2 uppercase">{{ cat.settings.title }}</h2>
+              {%- if cat.settings.text != blank -%}<p class="mt-[10px] text-[15px] leading-[1.5] text-hz-cool md:text-[16px]">{{ cat.settings.text }}</p>{%- endif -%}
+            </div>
+            <div class="mt-[22px] flex flex-col gap-[14px] md:mt-[28px]">
+              {%- for block in section.blocks -%}
+                {%- if forloop.index == cat_pos -%}
+                  {%- assign inside = true -%}
+                {%- elsif block.type == 'category' -%}
+                  {%- assign inside = false -%}
+                {%- elsif inside and block.type == 'qa' -%}
+                  {%- assign qa_no = qa_no | plus: 1 -%}
+                  <details name="hz-faq-{{ cat.id }}" class="hz-faq tcg-gb [--bw:1px]" data-hz-reveal{% if qa_no == 1 and section.settings.first_open %} open{% endif %} {{ block.shopify_attributes }}>
+                    <summary class="hz-faq__sum">
+                      <span class="hz-faq__q">{{ block.settings.question }}</span>
+                      <span class="hz-faq__btn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="m5 8 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    </summary>
+                    <div class="hz-faq__body"><div class="hz-faq__inner">{{ block.settings.answer }}</div></div>
+                  </details>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG FAQ — Page",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 50,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "right-blue" },
+    { "type": "text", "id": "toc_title", "label": "Table of contents title", "default": "TABLE OF CONTENTS" },
+    { "type": "checkbox", "id": "first_open", "label": "Open the first question of every category", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "TRADING CARDS" },
+        { "type": "text", "id": "text", "label": "Short text", "default": "Everything you need to know about exploring our trading card collection." }
+      ]
+    },
+    {
+      "type": "qa",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "WHAT TYPES OF TRADING CARDS CAN I FIND AT TCG HITZ?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Explore the available trading cards in our store, including products listed across our different collections. Product availability and details are displayed on each product page.</p>" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "TCG FAQ — Page",
+    "blocks": [
+      { "type": "category", "settings": { "title": "TRADING CARDS" } },
+      { "type": "qa", "settings": {} },
+      { "type": "category", "settings": { "title": "MYSTERY PACKS", "text": "Answers about our mystery packs and what to expect." } },
+      { "type": "qa", "settings": { "question": "WHAT ARE TCG HITZ MYSTERY PACKS?", "answer": "<p>Mystery packs are products whose contents are determined by the specific offering. Product details are available on each mystery pack listing page.</p>" } }
+    ]
+  }]
+}
+{% endschema %}

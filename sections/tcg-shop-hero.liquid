@@ -42,6 +42,7 @@
         {{ section.settings.heading_before }}
         {%- if section.settings.heading_highlight != blank %} <span class="hz-grad-text">{{ section.settings.heading_highlight }}</span>{%- endif -%}
         {{- section.settings.heading_after -}}
+        {%- if section.settings.heading_line2 != blank -%}<br><span class="hz-sell-grad">{{ section.settings.heading_line2 }}</span>{{ section.settings.heading_line2_after }}{%- endif -%}
       {%- endif -%}
     </h1>
     {%- if intro != blank -%}
@@ -54,7 +55,7 @@
 {
   "name": "TCG Shop — Hero",
   "class": "tcg-home-section",
-  "enabled_on": { "templates": ["collection"] },
+  "enabled_on": { "templates": ["collection", "page"] },
   "settings": [
     { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
     { "type": "image_picker", "id": "bg_image", "label": "Background image (optional)" },
@@ -66,6 +67,8 @@
     { "type": "text", "id": "heading_before", "label": "Heading", "default": "FIND YOUR NEXT" },
     { "type": "text", "id": "heading_highlight", "label": "Heading — gradient word", "default": "FAVORITE" },
     { "type": "text", "id": "heading_after", "label": "Heading — after gradient word", "default": "." },
+    { "type": "text", "id": "heading_line2", "label": "Second heading line (blue → pink gradient, optional)" },
+    { "type": "text", "id": "heading_line2_after", "label": "After the second line (e.g. a full stop)" },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Explore trading cards, collectibles, and more. Discover something new for your collection and find your next favorite addition." }
   ],
   "presets": [{ "name": "TCG Shop — Hero" }]

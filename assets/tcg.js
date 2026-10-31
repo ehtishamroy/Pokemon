@@ -577,3 +577,38 @@ document.querySelectorAll('[data-tabs]').forEach((wrap) => {
   ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('is-over'); }));
   drop.addEventListener('drop', (e) => { if (e.dataTransfer) add(e.dataTransfer.files); });
 })();
+
+/* FAQ page: table of contents highlights the group in view and scrolls smoothly to a clicked one */
+(function initFaqToc() {
+  const toc = document.querySelector('[data-faq-toc]');
+  if (!toc) return;
+  const links = Array.from(toc.querySelectorAll('[data-faq-link]'));
+  const groups = Array.from(document.querySelectorAll('[data-faq-group]'));
+  if (!links.length || links.length !== groups.length) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const setActive = (i) => {
+    links.forEach((l, k) => { l.classList.toggle('is-active', k === i); if (k === i) l.removeAttribute('aria-current'); });
+    links[i].setAttribute('aria-current', 'true');
+    // keep the active pill visible in the horizontal (mobile) list
+    const list = links[i].closest('.hz-toc__list');
+    if (list && list.scrollWidth > list.clientWidth) list.scrollTo({ left: links[i].offsetLeft - 16, behavior: reduce ? 'auto' : 'smooth' });
+  };
+  links.forEach((l, i) => l.addEventListener('click', (e) => {
+    e.preventDefault();
+    groups[i].scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    setActive(i);
+    if (history.replaceState) history.replaceState(null, '', '#' + groups[i].id);
+  }));
+  const pick = () => {
+    const line = window.innerHeight * 0.3;
+    let cur = 0;
+    groups.forEach((g, i) => { if (g.getBoundingClientRect().top <= line) cur = i; });
+    setActive(cur);
+  };
+  let ticking = false;
+  const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { ticking = false; pick(); }); };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.querySelector('.page-wrapper')?.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  pick();
+})();
