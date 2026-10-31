@@ -7,6 +7,13 @@
 
 {%- assign calc_btn_link = section.settings.btn_link | default: '#machines' -%}
 
+{%- liquid
+  assign calc_machine_price = section.settings.machine_price | default: 0
+  if section.settings.use_product_price and product != blank
+    assign calc_machine_price = product.selected_or_first_available_variant.price | divided_by: 100.0
+  endif
+-%}
+
 <section class="tcg-scope hz relative" id="{{ section.settings.anchor | default: 'profit-calculator' }}">
   {% render 'tcg-home-glow', glow: section.settings.glow %}
   <div class="hz-wrap flex flex-col items-stretch gap-[28px] pb-[36px] pt-[36px] md:gap-[44px] md:pb-[72px] md:pt-[72px] xl:pb-[100px] xl:pt-[100px]">
@@ -15,7 +22,7 @@
       {%- if section.settings.text != blank -%}<p data-hz-reveal class="w-full max-w-[420px] text-[16px] leading-[1.5] text-white">{{ section.settings.text }}</p>{%- endif -%}
     </div>
 
-    <div class="grid w-full items-stretch gap-[20px] xl:grid-cols-2 xl:gap-[24px]" data-vmcalc data-machine-price="{{ section.settings.machine_price | default: 0 }}" data-defaults='{"machines":{{ section.settings.machines | default: 1 }},"sales":{{ section.settings.sales | default: 150 }},"margin":{{ section.settings.margin | default: 50 }},"days":{{ section.settings.days | default: 30 }}}'>
+    <div class="grid w-full items-stretch gap-[20px] xl:grid-cols-2 xl:gap-[24px]" data-vmcalc data-machine-price="{{ calc_machine_price }}" data-defaults='{"machines":{{ section.settings.machines | default: 1 }},"sales":{{ section.settings.sales | default: 150 }},"margin":{{ section.settings.margin | default: 50 }},"days":{{ section.settings.days | default: 30 }}}'>
 
       <div data-hz-reveal class="relative flex flex-col gap-[24px] rounded-[20px] tcg-gb bg-hz-card/80 p-[20px] md:p-[32px]">
         <div class="flex items-center gap-[14px]">
@@ -87,7 +94,7 @@
             <span class="hz-step-icon !size-[40px]">{% render 'tcg-sell-icon', name: 'clock', size: 18 %}</span>
             <span class="flex min-w-0 flex-col gap-[2px]"><span class="hz-tile-stat__label hz-tile-stat__label--gold">{{ section.settings.out_yearly }}</span><strong class="hz-tile-stat__val" data-vmc-out="yearly_profit">$0</strong></span>
           </div>
-          {%- if section.settings.machine_price > 0 -%}
+          {%- if calc_machine_price > 0 -%}
             <div class="hz-tile-stat sm:col-span-2">
               <span class="hz-step-icon !size-[40px]">{% render 'tcg-sell-icon', name: 'check', size: 18 %}</span>
               <span class="flex min-w-0 flex-col gap-[2px]"><span class="hz-tile-stat__label">{{ section.settings.out_payback }}</span><strong class="hz-tile-stat__val" data-vmc-out="payback">—</strong></span>
@@ -106,7 +113,7 @@
 {
   "name": "TCG Vending — Calculator",
   "class": "tcg-home-section",
-  "enabled_on": { "templates": ["page"] },
+  "enabled_on": { "templates": ["page", "product"] },
   "settings": [
     { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "right-gold" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "PLAN YOUR POTENTIAL" },
@@ -119,6 +126,7 @@
     { "type": "number", "id": "margin", "label": "Average profit margin (%)", "default": 50 },
     { "type": "number", "id": "days", "label": "Selling days per month", "default": 30 },
     { "type": "number", "id": "machine_price", "label": "Machine price for the payback estimate ($, optional)", "info": "Leave at 0 to hide the payback line." },
+    { "type": "checkbox", "id": "use_product_price", "label": "On a machine page, use that machine's price for the payback estimate", "default": true },
     { "type": "header", "content": "Wording" },
     { "type": "text", "id": "assumptions_title", "label": "Left card title", "default": "YOUR VENDING ASSUMPTIONS" },
     { "type": "text", "id": "label_sales", "label": "Sales field label", "default": "Average sales per machine, per day" },

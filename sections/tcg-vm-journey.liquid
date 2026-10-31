@@ -1,0 +1,73 @@
+{% comment %}
+  TCG Hitz — "Built to order, delivered to your door" shipping & build process (vending machine pages).
+  Client's process: order placed → custom factory build → quality testing → ocean freight → doorstep delivery,
+  about 5–6 weeks in total. Steps are blocks. Desktop: a line with a dot above each card. Phones: a vertical timeline.
+{% endcomment %}
+
+{%- liquid
+  assign steps = section.blocks | where: 'type', 'step'
+-%}
+
+<section class="tcg-scope hz relative" id="{{ section.settings.anchor | default: 'build-journey' }}">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-center gap-[28px] pb-[36px] pt-[36px] md:gap-[44px] md:pb-[72px] md:pt-[72px] xl:pb-[100px] xl:pt-[100px]">
+    {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, align: 'center', heading_class: 'max-w-[820px]', text_class: 'max-w-[700px]' %}
+    {%- if section.settings.pill != blank -%}<span data-hz-reveal class="hz-pill -mt-[8px] md:-mt-[24px]">{{ section.settings.pill }}</span>{%- endif -%}
+
+    <ol class="hz-journey w-full" style="--steps: {{ steps.size }}">
+      {%- for block in steps -%}
+        <li class="hz-journey__step" data-hz-reveal {{ block.shopify_attributes }}>
+          <span class="hz-journey__dot" aria-hidden="true"></span>
+          <div class="hz-journey__card hz-lift-card tcg-gb [--bw:1px]">
+            <span class="hz-journey__no">{{ forloop.index | prepend: '0' }}</span>
+            <h3 class="font-display text-[18px] leading-[1.2] text-white md:text-[19px]">{{ block.settings.title }}</h3>
+            {%- if block.settings.when != blank -%}<span class="text-[11px] font-bold uppercase tracking-[0.12em] text-hz-neon">{{ block.settings.when }}</span>{%- endif -%}
+            {%- if block.settings.text != blank -%}<p class="text-[14px] leading-[1.55] text-white/90">{{ block.settings.text }}</p>{%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+
+    {%- if section.settings.note != blank -%}<p data-hz-reveal class="max-w-[640px] text-center text-[14px] leading-[1.5] text-hz-cool">{{ section.settings.note }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Vending — Journey",
+  "class": "tcg-home-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "right-pink" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "BESPOKE BUILD JOURNEY" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "BUILT TO ORDER, DELIVERED TO YOUR DOOR" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every machine is made to order and carefully prepared before it reaches your location. This ensures you receive a brand-new, fully tested vending solution tailored to your needs." },
+    { "type": "text", "id": "pill", "label": "Lead-time badge", "default": "ESTIMATED TOTAL LEAD TIME: 5–6 WEEKS" },
+    { "type": "text", "id": "note", "label": "Note under the steps", "default": "Shipping is included in the price of every machine." },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "build-journey" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Order Placed" },
+        { "type": "text", "id": "when", "label": "Small label (timing)", "default": "DAY 0" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Your machine configuration and custom wrap are confirmed and sent to production." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG Vending — Journey",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Order Placed", "when": "DAY 0", "text": "Your machine configuration and custom wrap are confirmed and sent to production." } },
+        { "type": "step", "settings": { "title": "Custom Factory Build", "when": "ABOUT 2 WEEKS", "text": "Your machine is assembled, programmed and prepared specifically for your order." } },
+        { "type": "step", "settings": { "title": "Quality Testing & Inspection", "when": "2–4 DAYS", "text": "Each unit goes through full testing to make sure it performs reliably and safely." } },
+        { "type": "step", "settings": { "title": "Ocean Freight Shipping", "when": "3–4 WEEKS", "text": "Your machine is securely packaged and shipped with insured freight services." } },
+        { "type": "step", "settings": { "title": "Doorstep Delivery", "when": "FINAL MILE", "text": "Final delivery to your location is completed by professional LTL freight services." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

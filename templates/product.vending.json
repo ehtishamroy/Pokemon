@@ -9,54 +9,230 @@
  */
 {
   "sections": {
-    "tcg_vending_product": {
+    "vm_product": {
       "type": "tcg_vending_product",
+      "settings": {}
+    },
+    "vm_journey": {
+      "type": "tcg-vm-journey",
       "blocks": {
-        "faq_lead": {
-          "type": "faq",
+        "s1": {
+          "type": "step",
           "settings": {
-            "question": "How long until I get my machine?",
-            "answer": "<p>Every machine is built to order in about 2 weeks and tested for 2–4 days, then ships by ocean freight in 3–4 weeks and arrives by LTL freight. The estimated total lead time is 5–6 weeks.</p>"
+            "title": "Order Placed",
+            "when": "DAY 0",
+            "text": "Your machine configuration and custom wrap are confirmed and sent to production."
           }
         },
-        "faq_shipping": {
-          "type": "faq",
+        "s2": {
+          "type": "step",
           "settings": {
-            "question": "Is shipping included?",
-            "answer": "<p>Yes — shipping is included in the price of the machine.</p>"
+            "title": "Custom Factory Build",
+            "when": "ABOUT 2 WEEKS",
+            "text": "Your machine is assembled, programmed and prepared specifically for your order."
           }
         },
-        "faq_payment": {
-          "type": "faq",
+        "s3": {
+          "type": "step",
           "settings": {
-            "question": "How do I pay?",
-            "answer": "<p>You pay the full price securely online at checkout, and we start building your machine.</p>"
+            "title": "Quality Testing & Inspection",
+            "when": "2–4 DAYS",
+            "text": "Each unit goes through full testing to make sure it performs reliably and safely."
           }
         },
-        "faq_addons": {
-          "type": "faq",
+        "s4": {
+          "type": "step",
           "settings": {
-            "question": "Can I add a custom wrap or extra payment options?",
-            "answer": "<p>Yes. Tick the add-ons you want (custom wrap, cash bill acceptor, Nayax credit card reader) before you add the machine to your cart — they're added to the same order.</p>"
+            "title": "Ocean Freight Shipping",
+            "when": "3–4 WEEKS",
+            "text": "Your machine is securely packaged and shipped with insured freight services."
+          }
+        },
+        "s5": {
+          "type": "step",
+          "settings": {
+            "title": "Doorstep Delivery",
+            "when": "FINAL MILE",
+            "text": "Final delivery to your location is completed by professional LTL freight services."
           }
         }
       },
       "block_order": [
-        "faq_lead",
-        "faq_shipping",
-        "faq_payment",
-        "faq_addons"
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "settings": {}
+    },
+    "vm_specs": {
+      "type": "tcg-vm-specs",
+      "settings": {}
+    },
+    "vm_calc": {
+      "type": "tcg-vm-calculator",
+      "settings": {
+        "heading": "WHAT COULD THIS | MACHINE EARN?",
+        "text": "Choose how much this machine sells per day and see an estimate of your monthly sales and profit.",
+        "use_product_price": true
+      }
+    },
+    "vm_faq": {
+      "type": "tcg-home-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW LONG UNTIL I GET MY MACHINE?",
+            "answer": "<p>Every machine is built to order in about 2 weeks and tested for 2–4 days, then ships by ocean freight in 3–4 weeks and arrives by LTL freight. The estimated total lead time is 5–6 weeks.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "IS SHIPPING INCLUDED IN THE PRICE?",
+            "answer": "<p>Yes. Shipping is included in the price of every machine.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "HOW DO I PAY?",
+            "answer": "<p>You pay the full price securely online at checkout, and we then start building your machine.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I ADD A CUSTOM WRAP OR EXTRA PAYMENT OPTIONS?",
+            "answer": "<p>Yes. Tick the add-ons you want (custom wrap, cash bill acceptor, Nayax card reader) before you add the machine to your cart. They are added to the same order.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "question": "WILL I RECEIVE THE EXACT MACHINE SHOWN?",
+            "answer": "<p>Each machine is built to order to match the model and options you choose. The photos show the actual machine design.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "question": "CAN I ESTIMATE WHAT THE MACHINE COULD EARN?",
+            "answer": "<p>Yes. Use the profit calculator on this page to estimate monthly sales and profit from your own numbers. It's an estimate, not a guarantee.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
       ],
       "settings": {
-        "breadcrumb_label": "Vending machines",
-        "show_calc": true,
-        "show_steps": true,
-        "show_related": true,
-        "related_heading": "More machines"
+        "glow": "left-blue",
+        "eyebrow": "MACHINE FAQS",
+        "heading": "GOT QUESTIONS?",
+        "text": "Answers to common questions about ordering, shipping and setting up your machine.",
+        "art_fallback": "vending",
+        "image_alt": "TCG HITZ vending machines on display at an event",
+        "first_open": true
+      }
+    },
+    "vm_related": {
+      "type": "tcg-product-related",
+      "settings": {
+        "glow": "right-pink",
+        "eyebrow": "MORE MACHINES",
+        "heading": "EXPLORE MORE VENDING MACHINES.",
+        "text": "Compare other TCG HITZ machines and find the right fit for your space.",
+        "btn_label": "VIEW ALL MACHINES",
+        "limit": 4,
+        "show_glow": true,
+        "card_note": "Shipping included",
+        "view_label": "View Machine",
+        "collection": "vending-machines"
+      }
+    },
+    "vm_questions": {
+      "type": "tcg-product-questions",
+      "settings": {
+        "heading": "Questions about this machine",
+        "text": "Ask us anything about this machine, add-ons or delivery and we'll reply within a day.",
+        "placeholder": "e.g. Can I get a custom wrap with my own artwork?",
+        "button_label": "ASK",
+        "success_text": "SENT — we'll reply within a day."
+      }
+    },
+    "vm_why": {
+      "type": "tcg-home-why",
+      "blocks": {
+        "y1": {
+          "type": "card",
+          "settings": {
+            "icon": "world",
+            "title": "A WORLD OF COLLECTIBLES",
+            "text": "Explore trading cards, mystery packs, graded cards, and merchandise in one place."
+          }
+        },
+        "y2": {
+          "type": "card",
+          "settings": {
+            "icon": "discover",
+            "title": "DISCOVER SOMETHING NEW",
+            "text": "Browse collectible finds and explore products that could become your next favorite addition."
+          }
+        },
+        "y3": {
+          "type": "card",
+          "settings": {
+            "icon": "beyond",
+            "title": "BEYOND THE CARDS",
+            "text": "Explore trading-card vending machines alongside the store's collectible products."
+          }
+        }
+      },
+      "block_order": [
+        "y1",
+        "y2",
+        "y3"
+      ],
+      "settings": {
+        "glow": "left-purple",
+        "layout": "stacked",
+        "space_top": "normal",
+        "eyebrow": "THE TCG HITZ EXPERIENCE",
+        "heading": "WHY SHOP TCG HITZ?",
+        "text": "From trading cards to collectibles and vending machines, explore more of what makes collecting exciting."
+      }
+    },
+    "vm_community": {
+      "type": "tcg-home-community",
+      "settings": {
+        "glow": "none",
+        "panel": false,
+        "image_alt": "Colorful Pokémon trading cards",
+        "eyebrow": "GET STARTED",
+        "heading": "JOIN THE TCG HITZ COMMUNITY.",
+        "text": "Get updates on new arrivals, collectible drops, and store news.",
+        "placeholder": "Type your email address ...",
+        "button_label": "Subscribe",
+        "success_text": "You're in! Welcome to the TCG HITZ community."
       }
     }
   },
   "order": [
-    "tcg_vending_product"
+    "vm_product",
+    "vm_journey",
+    "vm_specs",
+    "vm_calc",
+    "vm_faq",
+    "vm_related",
+    "vm_questions",
+    "vm_why",
+    "vm_community"
   ]
 }

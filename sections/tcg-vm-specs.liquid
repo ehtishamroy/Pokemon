@@ -1,0 +1,74 @@
+{% comment %}
+  TCG Hitz — "About this machine": product description + spec tabs (vending machine pages).
+  Specs come from the product's custom.* metafields; every empty field and every empty tab is hidden, so nothing
+  is shown until the specs are filled in.
+    Physical:           dimensions, weight, cabinet, finish
+    Vending & tech:     display_size, slots, capacity, payment, network, software
+    Power & placement:  power, environment, warranty
+{% endcomment %}
+
+{%- liquid
+  assign mf = product.metafields.custom
+-%}
+
+{%- capture panel_physical -%}
+  {%- assign pairs = 'Dimensions::dimensions,Weight::weight,Cabinet::cabinet,Color / finish::finish' | split: ',' -%}
+  {%- for pair in pairs -%}{%- assign p = pair | split: '::' -%}{%- assign val = mf[p[1]].value | default: mf[p[1]] -%}{%- if val != blank -%}{%- if val.size and val.first -%}{%- assign val = val | join: ', ' -%}{%- endif -%}<div class="hz-spec"><dt>{{ p[0] }}</dt><dd>{{ val }}</dd></div>{%- endif -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture panel_tech -%}
+  {%- assign pairs = 'Screen::display_size,Number of slots::slots,Capacity::capacity,Payment options::payment,Connectivity::network,Software & app::software' | split: ',' -%}
+  {%- for pair in pairs -%}{%- assign p = pair | split: '::' -%}{%- assign val = mf[p[1]].value | default: mf[p[1]] -%}{%- if val != blank -%}{%- if val.size and val.first -%}{%- assign val = val | join: ', ' -%}{%- endif -%}<div class="hz-spec"><dt>{{ p[0] }}</dt><dd>{{ val }}</dd></div>{%- endif -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture panel_power -%}
+  {%- assign pairs = 'Power::power,Placement::environment,Warranty::warranty' | split: ',' -%}
+  {%- for pair in pairs -%}{%- assign p = pair | split: '::' -%}{%- assign val = mf[p[1]].value | default: mf[p[1]] -%}{%- if val != blank -%}{%- if val.size and val.first -%}{%- assign val = val | join: ', ' -%}{%- endif -%}<div class="hz-spec"><dt>{{ p[0] }}</dt><dd>{{ val }}</dd></div>{%- endif -%}{%- endfor -%}
+{%- endcapture -%}
+{%- assign ph_s = panel_physical | strip -%}
+{%- assign te_s = panel_tech | strip -%}
+{%- assign pw_s = panel_power | strip -%}
+{%- assign has_specs = false -%}
+{%- if ph_s != blank or te_s != blank or pw_s != blank -%}{%- assign has_specs = true -%}{%- endif -%}
+{%- assign has_desc = false -%}
+{%- if product.description != blank -%}{%- assign has_desc = true -%}{%- endif -%}
+
+{%- if has_desc or has_specs -%}
+  <section class="tcg-scope hz relative">
+    {% render 'tcg-home-glow', glow: section.settings.glow %}
+    <div class="hz-wrap flex flex-col items-stretch gap-[28px] pb-[36px] pt-[20px] md:gap-[40px] md:pb-[72px] xl:pb-[100px]">
+      {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, heading_class: 'uppercase' %}
+      <div class="grid items-start gap-[20px] xl:gap-[24px] {% if has_desc and has_specs %} xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] {% endif %}">
+        {%- if has_desc -%}
+          <div data-hz-reveal class="relative rounded-[20px] tcg-gb bg-hz-card/80 p-[22px] md:p-[32px]">
+            <div class="hz-prose">{{ product.description }}</div>
+          </div>
+        {%- endif -%}
+        {%- if has_specs -%}
+          <div data-hz-reveal class="relative rounded-[20px] tcg-gb bg-hz-card/80 p-[22px] md:p-[32px]" data-tabs>
+            <div class="flex flex-wrap gap-[8px]" role="tablist">
+              {%- if ph_s != blank -%}<button type="button" class="hz-tabbtn" role="tab" data-tab="physical" aria-selected="false">Physical</button>{%- endif -%}
+              {%- if te_s != blank -%}<button type="button" class="hz-tabbtn" role="tab" data-tab="tech" aria-selected="false">Vending &amp; tech</button>{%- endif -%}
+              {%- if pw_s != blank -%}<button type="button" class="hz-tabbtn" role="tab" data-tab="power" aria-selected="false">Power &amp; placement</button>{%- endif -%}
+            </div>
+            {%- if ph_s != blank -%}<div role="tabpanel" data-panel="physical"><dl class="hz-specs">{{ panel_physical }}</dl></div>{%- endif -%}
+            {%- if te_s != blank -%}<div role="tabpanel" data-panel="tech" hidden><dl class="hz-specs">{{ panel_tech }}</dl></div>{%- endif -%}
+            {%- if pw_s != blank -%}<div role="tabpanel" data-panel="power" hidden><dl class="hz-specs">{{ panel_power }}</dl></div>{%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "TCG Vending — Details",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "left-purple" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "ABOUT THIS MACHINE" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "MACHINE DETAILS", "info": "Specs come from the product's custom metafields: dimensions, weight, cabinet, finish, display_size, slots, capacity, payment, network, software, power, environment, warranty. Empty ones are hidden." }
+  ],
+  "presets": []
+}
+{% endschema %}

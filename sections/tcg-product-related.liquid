@@ -36,7 +36,7 @@
               endif
               assign shown = shown | plus: 1
             -%}
-            {% render 'tcg-home-card', product: related, glow: glow %}
+            {% render 'tcg-home-card', product: related, glow: glow, note: section.settings.card_note, view_label: section.settings.view_label %}
           {%- endif -%}
         {%- endfor -%}
       </div>
@@ -57,7 +57,9 @@
     { "type": "text", "id": "btn_label", "label": "Button label", "default": "VIEW ALL PRODUCTS" },
     { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to use the product's own collection." },
     { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 8, "step": 1, "default": 4 },
-    { "type": "checkbox", "id": "show_glow", "label": "Colour glow behind product images", "default": false }
+    { "type": "checkbox", "id": "show_glow", "label": "Colour glow behind product images", "default": false },
+    { "type": "text", "id": "card_note", "label": "Green line on every card (optional)", "info": "For example: Shipping included" },
+    { "type": "text", "id": "view_label", "label": "Card button label", "default": "View Product" }
   ],
   "presets": [{ "name": "TCG Product — Related" }]
 }

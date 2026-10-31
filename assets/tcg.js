@@ -212,13 +212,15 @@ document.querySelector('[data-nav-toggle]')?.addEventListener('click', (e) => {
   const gallery = document.querySelector('[data-main-img]');
 
   const select = (el, updateUrl) => {
-    opts.forEach((o) => { o.classList.remove('ring-2', 'ring-volt', 'bg-felt-3'); o.setAttribute('aria-checked', 'false'); });
-    el.classList.add('ring-2', 'ring-volt', 'bg-felt-3'); el.setAttribute('aria-checked', 'true');
+    opts.forEach((o) => { o.classList.remove('ring-2', 'ring-volt', 'bg-felt-3', 'is-selected'); o.setAttribute('aria-checked', 'false'); });
+    if (el.hasAttribute('data-hz-opt')) el.classList.add('is-selected'); else el.classList.add('ring-2', 'ring-volt', 'bg-felt-3');
+    el.setAttribute('aria-checked', 'true');
     const d = el.dataset;
     if (price) price.textContent = d.price;
     if (stock) {
       stock.textContent = d.stock;
-      stock.className = d.available === 'true'
+      if (stock.hasAttribute('data-hz-stock')) stock.className = d.available === 'true' ? 'hz-stock hz-stock--ok' : 'hz-stock hz-stock--out';
+      else stock.className = d.available === 'true'
         ? 'rounded-full bg-mint/15 text-mint px-3 py-1 text-sm font-bold'
         : 'rounded-full bg-chase/15 text-chase px-3 py-1 text-sm font-bold';
     }
