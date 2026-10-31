@@ -1036,4 +1036,10 @@
   .hz-spec dd { margin: 4px 0 0; color: #fff; font-size: 15px; font-weight: 600; line-height: 1.4; }
   @media (max-width: 520px) { .hz-specs { grid-template-columns: minmax(0, 1fr); } }
   @media (prefers-reduced-motion: reduce) { .hz-opt, .hz-addon, .hz-journey__dot, .hz-tabbtn { transition: none; } .hz-opt:hover, .hz-addon:hover, .hz-tabbtn:hover { transform: none; } }
+  /* ---- Contact page ---- */
+  .hz-contact-row { display: flex; align-items: center; gap: 14px; transition: transform .25s cubic-bezier(.2,.7,.2,1); }
+  a.hz-contact-row:hover { transform: translateX(4px); }
+  .hz-contact-ic { position: relative; display: grid; width: 44px; height: 44px; flex: none; place-items: center; border-radius: 50%; background: rgba(255,255,255,.06); border: 1px solid rgba(139,92,246,.55); color: #fff; box-shadow: 0 0 20px -6px rgba(236,72,153,.45); transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s; }
+  .hz-contact-row:hover .hz-contact-ic { transform: scale(1.1) rotate(-6deg); box-shadow: 0 10px 26px -6px rgba(236,72,153,.7); }
+  .hz-contact-lbl { color: #A78BFA; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 }

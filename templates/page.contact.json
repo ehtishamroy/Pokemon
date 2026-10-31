@@ -6,140 +6,201 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-    "main": {
-      "type": "main-page",
-      "blocks": {
-        "title": {
-          "type": "text",
-          "name": "t:names.title",
-          "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "center",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "content": {
-          "type": "text",
-          "name": "t:names.content",
-          "settings": {
-            "text": "{{ closest.page.content }}",
-            "width": "100%",
-            "max_width": "narrow",
-            "alignment": "center",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "title",
-        "content"
-      ],
+    "ct_hero": {
+      "type": "tcg-shop-hero",
       "settings": {
-        "content_direction": "column",
-        "gap": 32,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 40,
-        "padding-block-end": 0
+        "glow": "right-blue",
+        "overlay": 55,
+        "home_label": "Home",
+        "breadcrumb_label": "Contact Us",
+        "use_collection": false,
+        "heading_before": "LET'S TALK,",
+        "heading_highlight": "",
+        "heading_after": "",
+        "heading_line2": "COLLECTOR",
+        "heading_line2_after": ".",
+        "gradient": "purple-pink",
+        "text": "Have a question about a product, an order, or the TCG HITZ experience? Send us a message, and our team will help point you in the right direction."
       }
     },
-    "form": {
-      "type": "section",
+    "ct_strip": {
+      "type": "tcg-home-strip",
       "blocks": {
-        "contact_form_UwiCkQ": {
-          "type": "contact-form",
+        "w1": {
+          "type": "item",
           "settings": {
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "custom",
-            "custom_width_mobile": 100,
-            "input_style": "default",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "submit-button": {
-              "type": "contact-form-submit-button",
-              "static": true,
-              "settings": {
-                "label": "Submit",
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
+            "text": "POKÉMON CARDS"
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "text": "MYSTERY PACKS"
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "text": "GRADED CARDS"
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "text": "MERCHANDISE"
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "text": "VENDING MACHINES"
+          }
         }
       },
       "block_order": [
-        "contact_form_UwiCkQ"
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
       ],
-      "name": "t:names.contact_form",
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 32,
-        "padding-block-end": 84
+        "tagline": "COLLECT  ✦  TRADE  ✦  RIP  ✦  REPEAT",
+        "animate": true,
+        "speed": "normal",
+        "overlap": false
+      }
+    },
+    "ct_help": {
+      "type": "tcg-contact-links",
+      "settings": {
+        "layout": "row",
+        "glow": "none"
+      },
+      "blocks": {
+        "c1": {
+          "type": "link",
+          "settings": {
+            "icon": "chat",
+            "title": "PRODUCT QUESTIONS",
+            "text": "Need more information about a trading card, mystery pack, graded collectible, or merchandise item? Send us your question.",
+            "btn_label": "EXPLORE THE STORE",
+            "btn_link": "/collections/all"
+          }
+        },
+        "c2": {
+          "type": "link",
+          "settings": {
+            "icon": "package",
+            "title": "ORDER SUPPORT",
+            "text": "Have a question about an existing purchase, order status, or delivery? Include your order number when contacting us.",
+            "btn_label": "VIEW FAQS",
+            "btn_link": "/pages/faq"
+          }
+        },
+        "c3": {
+          "type": "link",
+          "settings": {
+            "icon": "store",
+            "title": "VENDING MACHINE INQUIRIES",
+            "text": "Interested in our vending machines or have questions about available models and customization options? Get in touch with our team.",
+            "btn_label": "EXPLORE VENDING MACHINES",
+            "btn_link": "/pages/vending-machines"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ]
+    },
+    "ct_form": {
+      "type": "tcg-contact-form",
+      "settings": {}
+    },
+    "ct_answers": {
+      "type": "tcg-contact-links",
+      "settings": {
+        "layout": "grid",
+        "glow": "right-pink",
+        "eyebrow": "LOOKING FOR SOMETHING SPECIFIC?",
+        "heading": "FIND YOUR | ANSWER FASTER.",
+        "text": "Explore our help resources for quick answers about shopping, orders, and collectibles."
+      },
+      "blocks": {
+        "c1": {
+          "type": "link",
+          "settings": {
+            "icon": "card",
+            "title": "ORDERS & PAYMENTS",
+            "text": "Questions about checkout, payments, or existing orders?",
+            "btn_label": "ORDER HELP",
+            "btn_link": "/pages/faq"
+          }
+        },
+        "c2": {
+          "type": "link",
+          "settings": {
+            "icon": "truck",
+            "title": "SHIPPING & DELIVERY",
+            "text": "Looking for delivery information or help tracking your purchase?",
+            "btn_label": "SHIPPING FAQS",
+            "btn_link": "/pages/faq"
+          }
+        },
+        "c3": {
+          "type": "link",
+          "settings": {
+            "icon": "refresh",
+            "title": "RETURNS & REFUNDS",
+            "text": "Find out where to review our return policy and how to get help.",
+            "btn_label": "RETURN POLICY",
+            "btn_link": "/policies/refund-policy"
+          }
+        },
+        "c4": {
+          "type": "link",
+          "settings": {
+            "icon": "chat",
+            "title": "PRODUCT QUESTIONS",
+            "text": "Learn more about trading cards, mystery packs, graded cards, and merchandise.",
+            "btn_label": "EXPLORE PRODUCT",
+            "btn_link": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    },
+    "ct_community": {
+      "type": "tcg-home-community",
+      "settings": {
+        "glow": "none",
+        "panel": false,
+        "image_alt": "Pokémon characters and trading cards",
+        "eyebrow": "GET STARTED",
+        "heading": "JOIN THE TCG HITZ COMMUNITY.",
+        "text": "Get updates on new arrivals, collectible drops, and store news.",
+        "placeholder": "Type your email address ...",
+        "button_label": "Subscribe",
+        "success_text": "You're in! Welcome to the TCG HITZ community."
       }
     }
   },
   "order": [
-    "main",
-    "form"
+    "ct_hero",
+    "ct_strip",
+    "ct_help",
+    "ct_form",
+    "ct_answers",
+    "ct_community"
   ]
 }

@@ -1,0 +1,92 @@
+{% comment %}
+  TCG Hitz — Contact page help cards (Figma "Contact Us" design). Used twice:
+    layout "Row"  — 3 borderless cards with an icon beside the text and a small button (top of the page)
+    layout "Grid" — "FIND YOUR ANSWER FASTER." heading and 4 bordered cards (icon on top, text, small button)
+  Cards are blocks (icon, title, text, button label and link).
+{% endcomment %}
+
+{%- liquid
+  assign links = section.blocks | where: 'type', 'link'
+  assign is_grid = false
+  if section.settings.layout == 'grid'
+    assign is_grid = true
+  endif
+-%}
+
+<section class="tcg-scope hz relative">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  {%- if is_grid -%}
+    <div class="hz-wrap flex flex-col items-center gap-[28px] pb-[36px] pt-[36px] md:gap-[44px] md:pb-[72px] md:pt-[56px] xl:pb-[100px] xl:pt-[72px]">
+      {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, align: 'center', heading_class: 'max-w-[820px]', text_class: 'max-w-[640px]' %}
+      <div class="grid w-full grid-cols-1 gap-[20px] sm:grid-cols-2 xl:grid-cols-4 xl:gap-[24px]">
+        {%- for block in links -%}
+          <div data-hz-reveal class="hz-lift-card relative flex flex-col items-start gap-[14px] rounded-[16px] tcg-gb bg-white/[0.03] p-[24px]" {{ block.shopify_attributes }}>
+            <span class="hz-step-icon !size-[52px]">{% render 'tcg-sell-icon', name: block.settings.icon, size: 24 %}</span>
+            <h3 class="font-display text-[19px] uppercase leading-[1.2] text-white">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="text-[14px] leading-[1.5] text-white/90">{{ block.settings.text }}</p>{%- endif -%}
+            {%- if block.settings.btn_label != blank -%}
+              <a href="{{ block.settings.btn_link | default: '#' }}" class="hz-btn-outline tcg-gb mt-auto !h-[34px] !px-[16px] !text-[11px]"><span>{{ block.settings.btn_label }}</span>{% render 'tcg-home-arrow', px: 11 %}</a>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- else -%}
+    <div class="hz-wrap pb-[28px] pt-[36px] md:pb-[48px] md:pt-[56px] xl:pt-[72px]">
+      <div class="grid w-full grid-cols-1 gap-[20px] md:grid-cols-3 xl:gap-[32px]">
+        {%- for block in links -%}
+          <div data-hz-reveal class="hz-lift-card relative flex items-start gap-[16px] rounded-[16px] p-[14px]" {{ block.shopify_attributes }}>
+            <span class="hz-step-icon !size-[56px] shrink-0">{% render 'tcg-sell-icon', name: block.settings.icon, size: 24 %}</span>
+            <div class="flex min-w-0 flex-col items-start gap-[10px]">
+              <h3 class="font-display text-[19px] uppercase leading-[1.2] text-white">{{ block.settings.title }}</h3>
+              {%- if block.settings.text != blank -%}<p class="text-[14px] leading-[1.5] text-white/90">{{ block.settings.text }}</p>{%- endif -%}
+              {%- if block.settings.btn_label != blank -%}
+                <a href="{{ block.settings.btn_link | default: '#' }}" class="hz-btn-outline tcg-gb !h-[34px] !px-[16px] !text-[11px]"><span>{{ block.settings.btn_label }}</span>{% render 'tcg-home-arrow', px: 11 %}</a>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "TCG Contact — Help cards",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 6,
+  "settings": [
+    { "type": "select", "id": "layout", "label": "Layout", "options": [ { "value": "row", "label": "Row (icon beside text, no border)" }, { "value": "grid", "label": "Grid (heading + bordered cards)" } ], "default": "row" },
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "none" },
+    { "type": "header", "content": "Heading (grid layout only)" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "LOOKING FOR SOMETHING SPECIFIC?" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "FIND YOUR | ANSWER FASTER.", "info": "A ' | ' starts a new line." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Explore our help resources for quick answers about shopping, orders, and collectibles." }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Card",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [ { "value": "chat", "label": "Chat" }, { "value": "package", "label": "Package" }, { "value": "store", "label": "Store" }, { "value": "card", "label": "Payment card" }, { "value": "truck", "label": "Truck" }, { "value": "refresh", "label": "Returns" }, { "value": "machine", "label": "Vending machine" }, { "value": "cart", "label": "Cart" }, { "value": "gift", "label": "Gift" }, { "value": "info", "label": "Info" }, { "value": "phone", "label": "Phone" }, { "value": "mail", "label": "Email" }, { "value": "pin", "label": "Location" } ], "default": "chat" },
+        { "type": "text", "id": "title", "label": "Title", "default": "PRODUCT QUESTIONS" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Need more information about a trading card, mystery pack, graded collectible, or merchandise item? Send us your question." },
+        { "type": "text", "id": "btn_label", "label": "Button label", "default": "EXPLORE THE STORE" },
+        { "type": "url", "id": "btn_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG Contact — Help cards",
+      "blocks": [
+        { "type": "link", "settings": { "icon": "chat", "title": "PRODUCT QUESTIONS", "btn_link": "/collections/all" } },
+        { "type": "link", "settings": { "icon": "package", "title": "ORDER SUPPORT", "text": "Have a question about an existing purchase, order status, or delivery? Include your order number when contacting us.", "btn_label": "VIEW FAQS", "btn_link": "/pages/faq" } },
+        { "type": "link", "settings": { "icon": "store", "title": "VENDING MACHINE INQUIRIES", "text": "Interested in our vending machines or have questions about available models and customization options? Get in touch with our team.", "btn_label": "EXPLORE VENDING MACHINES", "btn_link": "/pages/vending-machines" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -42,7 +42,7 @@
         {{ section.settings.heading_before }}
         {%- if section.settings.heading_highlight != blank %} <span class="hz-grad-text">{{ section.settings.heading_highlight }}</span>{%- endif -%}
         {{- section.settings.heading_after -}}
-        {%- if section.settings.heading_line2 != blank -%}<br><span class="hz-sell-grad">{{ section.settings.heading_line2 }}</span>{{ section.settings.heading_line2_after }}{%- endif -%}
+        {%- if section.settings.heading_line2 != blank -%}<br><span class="hz-sell-grad{% if section.settings.gradient == 'purple-pink' %} hz-sell-grad--pp{% endif %}">{{ section.settings.heading_line2 }}</span>{{ section.settings.heading_line2_after }}{%- endif -%}
       {%- endif -%}
     </h1>
     {%- if intro != blank -%}
@@ -68,6 +68,7 @@
     { "type": "text", "id": "heading_highlight", "label": "Heading — gradient word", "default": "FAVORITE" },
     { "type": "text", "id": "heading_after", "label": "Heading — after gradient word", "default": "." },
     { "type": "text", "id": "heading_line2", "label": "Second heading line (blue → pink gradient, optional)" },
+    { "type": "select", "id": "gradient", "label": "Second line colours", "options": [ { "value": "blue-pink", "label": "Blue → purple → pink" }, { "value": "purple-pink", "label": "Purple → pink" } ], "default": "blue-pink" },
     { "type": "text", "id": "heading_line2_after", "label": "After the second line (e.g. a full stop)" },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Explore trading cards, collectibles, and more. Discover something new for your collection and find your next favorite addition." }
   ],
