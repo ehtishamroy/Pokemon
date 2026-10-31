@@ -1,0 +1,125 @@
+{% comment %}
+  TCG Hitz — Sell page "GET AN OFFER" (Figma "Sell To Us" design).
+  Left: heading, text and a photo. Right: the offer request form (Shopify's contact form, so
+  requests arrive by email / under Customers → Contact). Dropdown choices are editable lists.
+
+  Photos: Shopify's contact form cannot carry file attachments, so the "Upload Photos" box lets the
+  visitor pick photos, lists them, and sends their file names with the request; the confirmation
+  message tells them to reply to our email with the photos. For real uploads, add a form app
+  (e.g. Shopify Forms) — see the section's "Photos" settings.
+{% endcomment %}
+
+{%- liquid
+  assign selling_options = section.settings.selling_options | strip | newline_to_br | split: '<br />'
+  assign game_options = section.settings.game_options | strip | newline_to_br | split: '<br />'
+  assign pay_options = section.settings.payment_options | strip | newline_to_br | split: '<br />'
+-%}
+
+<section class="tcg-scope hz relative" id="offer">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap grid items-stretch gap-[28px] pb-[48px] pt-[20px] md:gap-[40px] md:pb-[72px] xl:grid-cols-2 xl:gap-[48px] xl:pb-[100px]">
+
+    <div class="flex flex-col gap-[28px] md:gap-[32px]">
+      <div data-hz-reveal>
+        {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, text_class: 'max-w-[520px]' %}
+      </div>
+      <div data-hz-reveal class="hz-zoom hz-frame relative min-h-[320px] flex-1 overflow-hidden rounded-[20px] tcg-gb [--bw:1.5px] md:min-h-[460px]">
+        {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: 'store-display.jpg', w: 900, h: 1100, width: 1200, sizes: '(min-width: 1280px) 600px, 100vw', alt: section.settings.image_alt, class: 'hz-zoom-img absolute inset-0 h-full w-full max-w-none object-cover' %}
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0" style="background: linear-gradient(to bottom, transparent 70%, rgba(8,10,18,.5));"></span>
+      </div>
+    </div>
+
+    <div data-hz-reveal class="relative rounded-[20px] tcg-gb [--bw:1.5px] bg-hz-card/90 p-[22px] md:p-[36px]">
+      {%- form 'contact', id: 'tcg-sell-form', class: 'flex flex-col gap-[20px]' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="flex flex-col items-center gap-[14px] py-[40px] text-center" role="status">
+            <span class="hz-bigicon hz-bigicon--blue">{% render 'tcg-sell-icon', name: 'check', size: 34 %}</span>
+            <h3 class="font-display text-[26px] uppercase leading-[1.15] text-white">{{ section.settings.success_title }}</h3>
+            <p class="max-w-[420px] text-[16px] leading-[1.5] text-white/90">{{ section.settings.success_text }}</p>
+          </div>
+        {%- else -%}
+          <input type="hidden" name="contact[Request]" value="Sell to us — offer request">
+          {%- if form.errors -%}<p class="rounded-[10px] border border-solid border-hz-crimson/60 bg-hz-crimson/10 px-[14px] py-[10px] text-[14px] text-white" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+
+          <div class="grid gap-[20px] sm:grid-cols-2">
+            <div class="hz-fld"><label for="sell-name">Full name <b>*</b></label><input class="hz-field" id="sell-name" name="contact[Name]" type="text" required autocomplete="name" placeholder="Enter your full name ..."></div>
+            <div class="hz-fld"><label for="sell-email">Email address <b>*</b></label><input class="hz-field" id="sell-email" name="contact[email]" type="email" required autocomplete="email" placeholder="Enter your email address ..." value="{{ form.email | escape }}"></div>
+          </div>
+
+          <div class="grid gap-[20px] sm:grid-cols-2">
+            <div class="hz-fld"><label for="sell-type">What are you selling? <b>*</b></label>
+              <select class="hz-field hz-field--select" id="sell-type" name="contact[Selling]" required>
+                {%- for opt in selling_options -%}{%- assign o = opt | strip -%}{%- if o != blank -%}<option value="{{ o | escape }}">{{ o }}</option>{%- endif -%}{%- endfor -%}
+              </select></div>
+            <div class="hz-fld"><label for="sell-game">Which card game? <b>*</b></label>
+              <select class="hz-field hz-field--select" id="sell-game" name="contact[Card game]" required>
+                {%- for opt in game_options -%}{%- assign o = opt | strip -%}{%- if o != blank -%}<option value="{{ o | escape }}">{{ o }}</option>{%- endif -%}{%- endfor -%}
+              </select></div>
+          </div>
+
+          <div class="hz-fld"><label for="sell-body">Tell us about your collection</label>
+            <textarea class="hz-field" id="sell-body" name="contact[body]" rows="4" placeholder="{{ section.settings.details_placeholder | escape }}">{{ form.body }}</textarea></div>
+
+          <div class="hz-fld"><label for="sell-value">Estimated collection value <span class="normal-case tracking-normal text-hz-cool">(Optional)</span></label>
+            <input class="hz-field" id="sell-value" name="contact[Estimated value]" type="text" inputmode="decimal" placeholder="Enter your estimated value ..."></div>
+
+          <div class="hz-fld" data-hz-upload>
+            <label for="sell-photos">Upload collection photos</label>
+            <label for="sell-photos" class="hz-drop" data-hz-drop>
+              <span class="text-hz-pink">{% render 'tcg-sell-icon', name: 'upload', size: 30 %}</span>
+              <span class="text-[16px] font-semibold text-white">{{ section.settings.upload_title }}</span>
+              <span class="max-w-[360px] text-[13px] leading-[1.45] text-hz-cool">{{ section.settings.upload_hint }}</span>
+            </label>
+            <input id="sell-photos" class="sr-only" type="file" accept="image/*" multiple data-hz-files>
+            <ul class="mt-[10px] flex flex-wrap gap-[8px]" data-hz-filelist aria-live="polite"></ul>
+            <p class="mt-[8px] hidden text-[13px] leading-[1.45] text-hz-cool" data-hz-filenote>{{ section.settings.upload_note }}</p>
+            <input type="hidden" name="contact[Photos selected]" value="" data-hz-filenames>
+          </div>
+
+          <div class="hz-fld"><label for="sell-pay">Preferred payment method <b>*</b></label>
+            <select class="hz-field hz-field--select" id="sell-pay" name="contact[Preferred payment]" required>
+              {%- for opt in pay_options -%}{%- assign o = opt | strip -%}{%- if o != blank -%}<option value="{{ o | escape }}">{{ o }}</option>{%- endif -%}{%- endfor -%}
+            </select></div>
+
+          <div class="flex flex-col items-start gap-[16px] pt-[4px]">
+            <button type="submit" class="hz-btn"><span>{{ section.settings.submit_label }}</span>{% render 'tcg-home-arrow' %}</button>
+            <p class="text-[13px] leading-[1.5] text-hz-cool">{{ section.settings.disclaimer }}</p>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Sell — Get an offer",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "right-blue" },
+    { "type": "header", "content": "Left side" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "LET'S TALK ABOUT YOUR COLLECTION" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "GET AN OFFER" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Tell us what you're looking to sell. Share a few details and clear photos so we can better understand your collection." },
+    { "type": "image_picker", "id": "image", "label": "Photo" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Photo — mobile (optional)" },
+    { "type": "text", "id": "image_alt", "label": "Photo description (alt text)", "default": "TCG HITZ collectibles, graded cards and figures" },
+    { "type": "header", "content": "Form choices (one per line)" },
+    { "type": "textarea", "id": "selling_options", "label": "What are you selling?", "default": "Individual Cards\nGraded Cards\nSealed Products\nBulk Collection\nCollectible Card Games\nOther" },
+    { "type": "textarea", "id": "game_options", "label": "Which card game?", "default": "Pokémon\nMagic: The Gathering\nOne Piece\nYu-Gi-Oh!\nOther" },
+    { "type": "textarea", "id": "payment_options", "label": "Preferred payment method", "default": "Store Credit\nCash\nWhichever is better" },
+    { "type": "text", "id": "details_placeholder", "label": "Collection details placeholder", "default": "Include card names, set information, approximate quantity, condition, or any other helpful details" },
+    { "type": "header", "content": "Photos" },
+    { "type": "text", "id": "upload_title", "label": "Upload box title", "default": "Upload Photos" },
+    { "type": "text", "id": "upload_hint", "label": "Upload box text", "default": "Add photos of your cards, sealed products, or collection to help us understand what you're selling." },
+    { "type": "text", "id": "upload_note", "label": "Note shown after photos are chosen", "info": "Shopify's contact form can't attach files, so tell people how to send them.", "default": "We'll email you right after you submit — just reply to that email with these photos attached." },
+    { "type": "header", "content": "Button and messages" },
+    { "type": "text", "id": "submit_label", "label": "Button", "default": "SEND MY OFFER REQUEST" },
+    { "type": "textarea", "id": "disclaimer", "label": "Small print", "default": "Submitting a request doesn't guarantee an offer or commit you to a sale. We'll review the information provided and follow up if your collection is a fit." },
+    { "type": "text", "id": "success_title", "label": "Success title", "default": "Request sent!" },
+    { "type": "textarea", "id": "success_text", "label": "Success message", "default": "Thanks — we'll review your details and be in touch within one business day. If you have photos, reply to our confirmation email with them attached." }
+  ],
+  "presets": [{ "name": "TCG Sell — Get an offer" }]
+}
+{% endschema %}

@@ -541,3 +541,39 @@ document.querySelectorAll('[data-tabs]').forEach((wrap) => {
   layout();
   (mobile.addEventListener ? mobile.addEventListener('change', layout) : mobile.addListener(layout));
 })();
+
+/* Sell page: "Upload Photos" box. Shows the chosen photos; Shopify's contact form can't carry
+   attachments, so the file names are sent with the request and the visitor is asked to reply by email. */
+(function initSellUpload() {
+  const root = document.querySelector('[data-hz-upload]');
+  if (!root) return;
+  const input = root.querySelector('[data-hz-files]');
+  const drop = root.querySelector('[data-hz-drop]');
+  const list = root.querySelector('[data-hz-filelist]');
+  const note = root.querySelector('[data-hz-filenote]');
+  const names = root.querySelector('[data-hz-filenames]');
+  let files = [];
+  const render = () => {
+    list.innerHTML = '';
+    files.forEach((f, i) => {
+      const li = document.createElement('li'); li.className = 'hz-filechip';
+      const span = document.createElement('span'); span.textContent = f.name;
+      const btn = document.createElement('button'); btn.type = 'button'; btn.setAttribute('aria-label', 'Remove ' + f.name); btn.textContent = '×';
+      btn.addEventListener('click', () => { files.splice(i, 1); render(); });
+      li.append(span, btn); list.appendChild(li);
+    });
+    if (names) names.value = files.length ? files.map((f) => f.name).join(', ') + ' (photos to follow by email)' : '';
+    if (note) note.classList.toggle('hidden', files.length === 0);
+  };
+  const add = (picked) => {
+    Array.from(picked).filter((f) => f.type.startsWith('image/')).forEach((f) => {
+      if (!files.some((x) => x.name === f.name && x.size === f.size)) files.push(f);
+    });
+    files = files.slice(0, 20);
+    render();
+  };
+  input.addEventListener('change', () => { add(input.files); input.value = ''; });
+  ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('is-over'); }));
+  ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('is-over'); }));
+  drop.addEventListener('drop', (e) => { if (e.dataTransfer) add(e.dataTransfer.files); });
+})();

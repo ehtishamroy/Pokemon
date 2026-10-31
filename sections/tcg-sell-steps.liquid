@@ -1,0 +1,81 @@
+{% comment %}
+  TCG Hitz — Sell page "HOW IT WORKS." (Figma "Sell To Us" design).
+  Four numbered steps in a row with a round icon, "STEP 01" label, title and text, joined by
+  pink arrows on desktop; they stack on phones. Steps are blocks (up to 4 look best).
+{% endcomment %}
+
+{%- liquid
+  assign steps = section.blocks | where: 'type', 'step'
+-%}
+
+<section class="tcg-scope hz relative" id="how">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-center gap-[36px] pb-[36px] pt-[48px] md:gap-[56px] md:pb-[72px] md:pt-[72px] xl:gap-[72px] xl:pb-[100px] xl:pt-[100px]">
+    {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, align: 'center' %}
+
+    <ol class="flex w-full flex-wrap items-start justify-center gap-x-[24px] gap-y-[40px] xl:flex-nowrap xl:justify-between xl:gap-0">
+      {%- for block in steps -%}
+        {%- liquid
+          assign step_no = forloop.index
+          assign step_label = 'STEP 0' | append: step_no
+          if step_no > 9
+            assign step_label = 'STEP ' | append: step_no
+          endif
+        -%}
+        <li class="relative flex w-full flex-col items-center gap-[14px] text-center sm:w-[calc(50%-12px)] xl:w-[230px] xl:shrink-0" data-hz-reveal {{ block.shopify_attributes }}>
+          <span class="hz-step-icon tcg-gb [--bw:1px]">
+            {%- if block.settings.icon_image != blank -%}
+              {{ block.settings.icon_image | image_url: width: 80 | image_tag: alt: '', class: 'size-[26px] object-contain', loading: 'lazy' }}
+            {%- else -%}
+              {% render 'tcg-sell-icon', name: block.settings.icon, size: 26 %}
+            {%- endif -%}
+          </span>
+          <span class="text-[12px] font-semibold tracking-[0.14em] text-hz-neon">{{ step_label }}</span>
+          <h3 class="font-display text-[20px] uppercase leading-[1.2] text-white md:text-[22px]">{{ block.settings.title }}</h3>
+          <p class="max-w-[300px] text-[15px] leading-[1.5] text-white/90">{{ block.settings.text }}</p>
+        </li>
+        {%- unless forloop.last -%}
+          <li aria-hidden="true" class="hz-step-arrow hidden xl:block"><svg width="100%" height="12" viewBox="0 0 160 12" preserveAspectRatio="none" fill="none"><path d="M0 6h152" stroke="url(#hz-arrow-{{ section.id }}-{{ forloop.index }})" stroke-width="1.6"/><path d="m147 1 6 5-6 5" stroke="#EC4899" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="hz-arrow-{{ section.id }}-{{ forloop.index }}" x1="0" x2="160" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#EC4899" stop-opacity=".25"/><stop offset="1" stop-color="#EC4899"/></linearGradient></defs></svg></li>
+        {%- endunless -%}
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Sell — How it works",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 6,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "left-purple" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A SIMPLE WAY TO START" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "HOW IT WORKS." },
+    { "type": "text", "id": "text", "label": "Text", "default": "Got cards to sell? Here's how to get started." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "photo", "label": "Photo" }, { "value": "review", "label": "Magnifier" }, { "value": "offer", "label": "Hand with coins" }, { "value": "deal", "label": "Handshake" }
+        ], "default": "photo" },
+        { "type": "image_picker", "id": "icon_image", "label": "Custom icon (optional)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "SEND YOUR PHOTOS" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Complete the form and share clear photos of your cards, sealed products, or collection." }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "TCG Sell — How it works",
+    "blocks": [
+      { "type": "step", "settings": { "icon": "photo", "title": "SEND YOUR PHOTOS", "text": "Complete the form and share clear photos of your cards, sealed products, or collection." } },
+      { "type": "step", "settings": { "icon": "review", "title": "WE REVIEW IT", "text": "We'll review the information you provide and assess whether your collection is a fit for what we're buying." } },
+      { "type": "step", "settings": { "icon": "offer", "title": "RECEIVE AN OFFER", "text": "If we're interested, we'll share an offer for you to review. You can decide whether you'd like to proceed." } },
+      { "type": "step", "settings": { "icon": "deal", "title": "FINALIZE THE SALE", "text": "If you accept the offer, we'll coordinate the next steps, including the payment and handoff arrangements." } }
+    ]
+  }]
+}
+{% endschema %}

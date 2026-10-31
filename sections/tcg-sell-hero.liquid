@@ -1,0 +1,71 @@
+{% comment %}
+  TCG Hitz — Sell page hero (Figma "Sell To Us" design).
+  Breadcrumb, "READY TO SELL / YOUR CARDS?" heading (gradient words), text, two buttons and a
+  product photo on the right with soft colour glows. Pair it with the "TCG Home — Strip" section.
+{% endcomment %}
+
+{%- liquid
+  assign btn1_url = section.settings.btn1_link | default: '#offer'
+  assign btn2_url = section.settings.btn2_link | default: '#what'
+-%}
+
+<section class="tcg-scope hz relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-0 h-full w-[1440px] -translate-x-1/2">
+    <span class="hz-glow hz-glow--gold" style="left: 1010px; top: 190px; width: 760px; height: 560px; opacity: .7;"></span>
+    <span class="hz-glow hz-glow--blue" style="left: 1240px; top: 470px; width: 800px; height: 700px;"></span>
+    <span class="hz-glow hz-glow--purple" style="left: 80px; top: 120px; width: 700px; height: 640px; opacity: .6;"></span>
+  </div>
+
+  <div class="hz-wrap relative grid items-center gap-[36px] pb-[84px] pt-[40px] md:pt-[56px] xl:min-h-[640px] xl:grid-cols-2 xl:gap-[48px] xl:pb-[110px] xl:pt-[72px]">
+    <div class="flex flex-col items-start gap-[28px]" data-hz-reveal>
+      <nav aria-label="Breadcrumb" class="text-[14px] md:text-[15px]">
+        <a href="{{ routes.root_url }}" class="hz-ulink text-white hover:text-hz-lightning">{{ section.settings.home_label }}</a>
+        <span class="mx-1 text-white" aria-hidden="true">/</span>
+        <strong class="font-semibold text-hz-neon">{{ section.settings.breadcrumb_label }}</strong>
+      </nav>
+      <div class="flex flex-col gap-[24px]">
+        <h1 class="max-w-[620px] font-display text-[44px] leading-[1.03] text-white sm:text-[56px] xl:text-[72px]">
+          {{- section.settings.heading_line1 -}}
+          <br>
+          {%- if section.settings.heading_highlight != blank -%}<span class="hz-sell-grad">{{ section.settings.heading_highlight }}</span>{%- endif -%}
+          {{- section.settings.heading_after -}}
+        </h1>
+        <p class="max-w-[520px] text-[16px] leading-[1.55] text-white">{{ section.settings.text }}</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-[18px]">
+        {% render 'tcg-home-button', label: section.settings.btn1_label, link: btn1_url, kind: 'solid' %}
+        {% render 'tcg-home-button', label: section.settings.btn2_label, link: btn2_url, kind: 'outline' %}
+      </div>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-[600px] xl:max-w-none" data-hz-reveal>
+      <div class="hz-float">
+        {% render 'tcg-home-img', image: section.settings.image, mobile: section.settings.image_mobile, fallback: 'home-sell-hero.webp', w: 810, h: 600, width: 1400, sizes: '(min-width: 1280px) 640px, 90vw', loading: 'eager', alt: section.settings.image_alt, class: 'mx-auto h-auto w-full max-w-[640px] scale-[1.12] object-contain md:scale-[1.2] xl:scale-[1.38]' %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Sell — Hero",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "home_label", "label": "Breadcrumb: home label", "default": "Home" },
+    { "type": "text", "id": "breadcrumb_label", "label": "Breadcrumb: page name", "default": "Sell To Us" },
+    { "type": "text", "id": "heading_line1", "label": "Heading — line 1", "default": "READY TO SELL" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading — line 2 (gradient)", "default": "YOUR CARDS" },
+    { "type": "text", "id": "heading_after", "label": "Heading — after line 2", "default": "?" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Have singles, graded cards, sealed products, or a whole collection to sell? Tell us what you've got. We'll review the details and let you know if we can make you an offer." },
+    { "type": "text", "id": "btn1_label", "label": "Button 1 label", "default": "GET AN OFFER" },
+    { "type": "url", "id": "btn1_link", "label": "Button 1 link", "info": "Empty = jump to the offer form on this page." },
+    { "type": "text", "id": "btn2_label", "label": "Button 2 label", "default": "WHAT WE BUY" },
+    { "type": "url", "id": "btn2_link", "label": "Button 2 link", "info": "Empty = jump to the What We Buy section." },
+    { "type": "image_picker", "id": "image", "label": "Hero image", "info": "A transparent PNG/WebP or a photo on a dark background works best." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Hero image — mobile (optional)" },
+    { "type": "text", "id": "image_alt", "label": "Image description (alt text)", "default": "Graded Charizard card, Pokémon booster pack, Poké Ball and Pikachu figure" }
+  ],
+  "presets": [{ "name": "TCG Sell — Hero" }]
+}
+{% endschema %}

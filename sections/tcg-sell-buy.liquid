@@ -1,0 +1,114 @@
+{% comment %}
+  TCG Hitz — Sell page "WHAT WE BUY" (Figma "Sell To Us" design).
+  Two gradient-bordered cards: "We're interested" (blue check bullets) and "Generally not a fit"
+  (red cross bullets) plus a purple "Not sure?" note. List items are blocks (type: yes / no).
+{% endcomment %}
+
+{%- liquid
+  assign yes_items = section.blocks | where: 'type', 'yes'
+  assign no_items = section.blocks | where: 'type', 'no'
+-%}
+
+<section class="tcg-scope hz relative" id="what">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-stretch gap-[28px] pb-[36px] pt-[20px] md:gap-[48px] md:pb-[72px] xl:pb-[100px]">
+    {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, align: 'center', text_class: 'max-w-[560px]' %}
+
+    <div class="grid grid-cols-1 gap-[20px] lg:grid-cols-2 lg:gap-[24px]">
+      <div data-hz-reveal class="hz-lift-card relative flex flex-col rounded-[20px] tcg-gb bg-hz-card/80 p-[24px] md:p-[36px]">
+        <span class="hz-bigicon hz-bigicon--blue">{% render 'tcg-sell-icon', name: 'check', size: 34 %}</span>
+        <h3 class="mt-[36px] font-display text-[24px] uppercase leading-[1.15] text-white md:mt-[56px] md:text-[28px]">{{ section.settings.yes_heading }}</h3>
+        <ul class="mt-[22px] flex flex-col gap-[16px]">
+          {%- for block in yes_items -%}
+            <li class="flex items-start gap-[14px]" {{ block.shopify_attributes }}>
+              <span class="mt-[2px] text-hz-lightning">{% render 'tcg-sell-icon', name: 'check', size: 22 %}</span>
+              <span class="flex flex-col gap-[2px]">
+                <strong class="font-display text-[15px] uppercase leading-[1.3] text-white md:text-[16px]">{{ block.settings.title }}</strong>
+                {%- if block.settings.text != blank -%}<span class="text-[14px] leading-[1.45] text-hz-cool">{{ block.settings.text }}</span>{%- endif -%}
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div data-hz-reveal class="hz-lift-card relative flex flex-col rounded-[20px] tcg-gb bg-hz-card/80 p-[24px] md:p-[36px]">
+        <span class="hz-bigicon hz-bigicon--red">{% render 'tcg-sell-icon', name: 'ban', size: 34 %}</span>
+        <h3 class="mt-[36px] font-display text-[24px] uppercase leading-[1.15] text-white md:mt-[56px] md:text-[28px]">{{ section.settings.no_heading }}</h3>
+        <ul class="mt-[22px] flex flex-col gap-[16px]">
+          {%- for block in no_items -%}
+            <li class="flex items-start gap-[14px]" {{ block.shopify_attributes }}>
+              <span class="mt-[3px] grid size-[20px] shrink-0 place-items-center rounded-full bg-hz-crimson text-white">{% render 'tcg-sell-icon', name: 'close', size: 12 %}</span>
+              <span class="flex flex-col gap-[2px]">
+                <strong class="font-display text-[15px] uppercase leading-[1.3] text-white md:text-[16px]">{{ block.settings.title }}</strong>
+                {%- if block.settings.text != blank -%}<span class="text-[14px] leading-[1.45] text-hz-cool">{{ block.settings.text }}</span>{%- endif -%}
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+        {%- if section.settings.note_title != blank -%}
+          <div class="relative mt-auto rounded-[14px] tcg-gb bg-hz-elevated/60 p-[18px] md:p-[20px]" style="margin-top: 28px;">
+            <div class="flex items-start gap-[14px]">
+              <span class="mt-[2px] grid size-[28px] shrink-0 place-items-center rounded-full bg-hz-neon text-white">{% render 'tcg-sell-icon', name: 'info', size: 16 %}</span>
+              <div class="flex flex-col gap-[4px]">
+                <strong class="font-display text-[15px] uppercase leading-[1.3] text-white md:text-[16px]">{{ section.settings.note_title }}</strong>
+                <p class="text-[14px] leading-[1.5] text-hz-cool">{{ section.settings.note_text }}</p>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Sell — What we buy",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 20,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "left-pink" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "WHAT'S IN YOUR COLLECTION?" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "WHAT WE BUY" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every collection is different. Here's a general guide to the types of products you can submit for consideration." },
+    { "type": "header", "content": "Left card" },
+    { "type": "text", "id": "yes_heading", "label": "Heading", "default": "WE'RE INTERESTED" },
+    { "type": "header", "content": "Right card" },
+    { "type": "text", "id": "no_heading", "label": "Heading", "default": "GENERALLY NOT A FIT" },
+    { "type": "text", "id": "note_title", "label": "Note title", "default": "NOT SURE IF YOUR COLLECTION QUALIFIES?" },
+    { "type": "textarea", "id": "note_text", "label": "Note text", "default": "Send us the details anyway. We'll review the information and let you know if it's something we're interested in." }
+  ],
+  "blocks": [
+    {
+      "type": "yes",
+      "name": "We're interested item",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "TRADING CARD SINGLES" },
+        { "type": "text", "id": "text", "label": "Description", "default": "Individual cards in a range of conditions." }
+      ]
+    },
+    {
+      "type": "no",
+      "name": "Not a fit item",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "PROXIES & REPRINTS SOLD AS ORIGINALS" },
+        { "type": "text", "id": "text", "label": "Description", "default": "We aren't looking for items misrepresented as authentic originals." }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "TCG Sell — What we buy",
+    "blocks": [
+      { "type": "yes", "settings": { "title": "TRADING CARD SINGLES", "text": "Individual cards in a range of conditions." } },
+      { "type": "yes", "settings": { "title": "GRADED CARDS", "text": "Professionally graded cards from recognized grading companies." } },
+      { "type": "yes", "settings": { "title": "SEALED PRODUCTS", "text": "Sealed booster boxes, packs, and other trading card products." } },
+      { "type": "yes", "settings": { "title": "BULK COLLECTIONS", "text": "Larger quantities of cards and mixed collections." } },
+      { "type": "yes", "settings": { "title": "COLLECTIBLE CARD GAMES", "text": "Pokémon, Magic: The Gathering, One Piece, and other card games we're interested in purchasing." } },
+      { "type": "no", "settings": { "title": "PROXIES & REPRINTS SOLD AS ORIGINALS", "text": "We aren't looking for items misrepresented as authentic originals." } },
+      { "type": "no", "settings": { "title": "WATER-DAMAGED OR MOLDY CARDS", "text": "Products with significant water damage or mold may not be suitable." } },
+      { "type": "no", "settings": { "title": "OPENED PRODUCTS MISREPRESENTED AS SEALED", "text": "Please describe the condition of your products accurately." } }
+    ]
+  }]
+}
+{% endschema %}

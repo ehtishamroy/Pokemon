@@ -9,21 +9,260 @@
  */
 {
   "sections": {
-    "tcg_sell": {
-      "type": "sell-page",
-      "blocks": {
-        "s1": { "type": "step", "settings": { "title": "Send photos", "body": "Fill the form below with clear photos of what you have." } },
-        "s2": { "type": "step", "settings": { "title": "We value it", "body": "We check live market prices and send you an offer, usually within a day." } },
-        "s3": { "type": "step", "settings": { "title": "You accept", "body": "Take cash, or extra value as store credit. No pressure either way." } },
-        "s4": { "type": "step", "settings": { "title": "Get paid", "body": "Meet us at a show, or ship it in and we pay on arrival." } }
-      },
-      "block_order": ["s1", "s2", "s3", "s4"],
+    "sell_hero": {
+      "type": "tcg-sell-hero",
       "settings": {
-        "yes_list": "Singles — modern and vintage, any condition\nGraded slabs — PSA, CGC, BGS, TAG\nSealed — boxes, ETBs, packs, tins\nBulk lots and whole collections\nMagic and One Piece, too",
-        "no_list": "Proxies, fakes or reprints sold as real\nWater-damaged or mouldy bulk\nOpened product missing its contents",
-        "no_footnote": "Not sure? Send it anyway and we'll tell you honestly."
+        "home_label": "Home",
+        "breadcrumb_label": "Sell To Us",
+        "heading_line1": "READY TO SELL",
+        "heading_highlight": "YOUR CARDS",
+        "heading_after": "?",
+        "text": "Have singles, graded cards, sealed products, or a whole collection to sell? Tell us what you've got. We'll review the details and let you know if we can make you an offer.",
+        "btn1_label": "GET AN OFFER",
+        "btn1_link": "#offer",
+        "btn2_label": "WHAT WE BUY",
+        "btn2_link": "#what",
+        "image_alt": "Graded Charizard card, Pokémon booster pack, Poké Ball and Pikachu figure"
+      }
+    },
+    "sell_strip": {
+      "type": "tcg-home-strip",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "text": "POKÉMON CARDS"
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "text": "MYSTERY PACKS"
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "text": "GRADED CARDS"
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "text": "MERCHANDISE"
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "text": "VENDING MACHINES"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
+      ],
+      "settings": {
+        "tagline": "COLLECT  ✦  TRADE  ✦  RIP  ✦  REPEAT",
+        "animate": true,
+        "speed": "normal",
+        "overlap": true
+      }
+    },
+    "sell_steps": {
+      "type": "tcg-sell-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "icon": "photo",
+            "title": "SEND YOUR PHOTOS",
+            "text": "Complete the form and share clear photos of your cards, sealed products, or collection."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "icon": "review",
+            "title": "WE REVIEW IT",
+            "text": "We'll review the information you provide and assess whether your collection is a fit for what we're buying."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "icon": "offer",
+            "title": "RECEIVE AN OFFER",
+            "text": "If we're interested, we'll share an offer for you to review. You can decide whether you'd like to proceed."
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "icon": "deal",
+            "title": "FINALIZE THE SALE",
+            "text": "If you accept the offer, we'll coordinate the next steps, including the payment and handoff arrangements."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "glow": "left-purple",
+        "eyebrow": "A SIMPLE WAY TO START",
+        "heading": "HOW IT WORKS.",
+        "text": "Got cards to sell? Here's how to get started."
+      }
+    },
+    "sell_buy": {
+      "type": "tcg-sell-buy",
+      "blocks": {
+        "y1": {
+          "type": "yes",
+          "settings": {
+            "title": "TRADING CARD SINGLES",
+            "text": "Individual cards in a range of conditions."
+          }
+        },
+        "y2": {
+          "type": "yes",
+          "settings": {
+            "title": "GRADED CARDS",
+            "text": "Professionally graded cards from recognized grading companies."
+          }
+        },
+        "y3": {
+          "type": "yes",
+          "settings": {
+            "title": "SEALED PRODUCTS",
+            "text": "Sealed booster boxes, packs, and other trading card products."
+          }
+        },
+        "y4": {
+          "type": "yes",
+          "settings": {
+            "title": "BULK COLLECTIONS",
+            "text": "Larger quantities of cards and mixed collections."
+          }
+        },
+        "y5": {
+          "type": "yes",
+          "settings": {
+            "title": "COLLECTIBLE CARD GAMES",
+            "text": "Pokémon, Magic: The Gathering, One Piece, and other card games we're interested in purchasing."
+          }
+        },
+        "n1": {
+          "type": "no",
+          "settings": {
+            "title": "PROXIES & REPRINTS SOLD AS ORIGINALS",
+            "text": "We aren't looking for items misrepresented as authentic originals."
+          }
+        },
+        "n2": {
+          "type": "no",
+          "settings": {
+            "title": "WATER-DAMAGED OR MOLDY CARDS",
+            "text": "Products with significant water damage or mold may not be suitable."
+          }
+        },
+        "n3": {
+          "type": "no",
+          "settings": {
+            "title": "OPENED PRODUCTS MISREPRESENTED AS SEALED",
+            "text": "Please describe the condition of your products accurately."
+          }
+        }
+      },
+      "block_order": [
+        "y1",
+        "y2",
+        "y3",
+        "y4",
+        "y5",
+        "n1",
+        "n2",
+        "n3"
+      ],
+      "settings": {
+        "glow": "left-pink",
+        "eyebrow": "WHAT'S IN YOUR COLLECTION?",
+        "heading": "WHAT WE BUY",
+        "text": "Every collection is different. Here's a general guide to the types of products you can submit for consideration.",
+        "yes_heading": "WE'RE INTERESTED",
+        "no_heading": "GENERALLY NOT A FIT",
+        "note_title": "NOT SURE IF YOUR COLLECTION QUALIFIES?",
+        "note_text": "Send us the details anyway. We'll review the information and let you know if it's something we're interested in."
+      }
+    },
+    "sell_form": {
+      "type": "tcg-sell-form",
+      "settings": {
+        "glow": "right-blue",
+        "eyebrow": "LET'S TALK ABOUT YOUR COLLECTION",
+        "heading": "GET AN OFFER",
+        "text": "Tell us what you're looking to sell. Share a few details and clear photos so we can better understand your collection.",
+        "image_alt": "TCG HITZ collectibles, graded cards and figures",
+        "selling_options": "Individual Cards\nGraded Cards\nSealed Products\nBulk Collection\nCollectible Card Games\nOther",
+        "game_options": "Pokémon\nMagic: The Gathering\nOne Piece\nYu-Gi-Oh!\nOther",
+        "payment_options": "Store Credit\nCash\nWhichever is better",
+        "details_placeholder": "Include card names, set information, approximate quantity, condition, or any other helpful details",
+        "upload_title": "Upload Photos",
+        "upload_hint": "Add photos of your cards, sealed products, or collection to help us understand what you're selling.",
+        "upload_note": "We'll email you right after you submit — just reply to that email with these photos attached.",
+        "submit_label": "SEND MY OFFER REQUEST",
+        "disclaimer": "Submitting a request doesn't guarantee an offer or commit you to a sale. We'll review the information provided and follow up if your collection is a fit.",
+        "success_title": "Request sent!",
+        "success_text": "Thanks — we'll review your details and be in touch within one business day. If you have photos, reply to our confirmation email with them attached."
+      }
+    },
+    "sell_banner": {
+      "type": "tcg-home-banner",
+      "settings": {
+        "glow": "left-pink",
+        "fallback": "cta",
+        "overlay": 0,
+        "align": "center",
+        "buttons": "blue",
+        "eyebrow": "MEET US IN PERSON",
+        "heading": "PREFER TO SELL FACE TO FACE?",
+        "text": "Have a collection you'd rather bring in person? Check out our upcoming card show appearances and find out where you can connect with TCG HITZ.",
+        "btn1_label": "FIND OUR NEXT SHOW",
+        "btn1_link": "/pages/contact",
+        "btn2_label": "EXPLORE VENDING MACHINES",
+        "btn2_link": "/pages/vending-machines"
+      }
+    },
+    "sell_community": {
+      "type": "tcg-home-community",
+      "settings": {
+        "glow": "none",
+        "panel": false,
+        "image_alt": "Pokémon characters and trading cards",
+        "eyebrow": "GET STARTED",
+        "heading": "JOIN THE TCG HITZ COMMUNITY.",
+        "text": "Get updates on new arrivals, collectible drops, and store news.",
+        "placeholder": "Type your email address ...",
+        "button_label": "Subscribe",
+        "success_text": "You're in! Welcome to the TCG HITZ community."
       }
     }
   },
-  "order": ["tcg_sell"]
+  "order": [
+    "sell_hero",
+    "sell_strip",
+    "sell_steps",
+    "sell_buy",
+    "sell_form",
+    "sell_banner",
+    "sell_community"
+  ]
 }
