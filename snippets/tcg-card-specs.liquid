@@ -146,13 +146,20 @@
 
 {%- endcapture -%}
 
+{%- comment -%}
+  Order: the SortSwift description list (designed card details) → metafield specs → plain description.
+  Metafields are never removed; they're only shown when the description isn't in SortSwift's list format.
+{%- endcomment -%}
+{%- capture desc_specs -%}{% render 'tcg-desc-specs', product: product %}{%- endcapture -%}
+{%- assign desc_specs_s = desc_specs | strip -%}
 {%- assign specs_body_s = specs_body | strip -%}
-{%- if specs_body_s != blank -%}
+{%- if desc_specs_s != blank -%}
+  {{ desc_specs }}
+{%- elsif specs_body_s != blank -%}
   {{ specs_body }}
 {%- elsif product.description != blank -%}
-  <section class="mt-8">
-    <h3 class="font-display text-lg">Details</h3>
-    <div class="rule-energy my-4"></div>
-    <div class="text-[15px] text-paper-dim leading-relaxed space-y-3">{{ product.description }}</div>
+  <section class="hz-cardspecs mt-[30px]" data-hz-reveal>
+    <h3 class="font-display text-[20px] uppercase leading-[1.2] text-white">Details</h3>
+    <div class="hz-cs-block tcg-gb [--bw:1px] mt-[14px]"><div class="hz-prose">{{ product.description }}</div></div>
   </section>
 {%- endif -%}

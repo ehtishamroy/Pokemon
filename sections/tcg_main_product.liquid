@@ -10,6 +10,36 @@
   assign card_number   = product.metafields.custom.card_number.value | default: product.metafields.custom.card_number | default: product.metafields.card.number.value | default: product.metafields.custom.number.value | default: product.metafields.card.number | default: product.metafields.custom.number
   assign card_rarity   = product.metafields.custom.rarity.value | default: product.metafields.custom.rarity | default: product.metafields.card.rarity.value | default: product.metafields.card.rarity
 
+  assign desc_html = product.description
+  if card_number == blank and desc_html contains 'Card Number:</strong>'
+    assign card_number = desc_html | split: 'Card Number:</strong>' | last | split: '</li>' | first | strip_html | strip
+  elsif card_number == blank and desc_html contains '#:</strong>'
+    assign card_number = desc_html | split: '#:</strong>' | last | split: '</li>' | first | strip_html | strip
+  endif
+  if card_rarity == blank and desc_html contains 'Rarity:</strong>'
+    assign card_rarity = desc_html | split: 'Rarity:</strong>' | last | split: '</li>' | first | strip_html | strip
+  endif
+  case card_rarity
+    when 'C'
+      assign card_rarity = 'Common'
+    when 'U'
+      assign card_rarity = 'Uncommon'
+    when 'R'
+      assign card_rarity = 'Rare'
+    when 'M'
+      assign card_rarity = 'Mythic Rare'
+    when 'S'
+      assign card_rarity = 'Special'
+    when 'P'
+      assign card_rarity = 'Promo'
+  endcase
+  if card_set == blank
+    assign ptype_down = product.type | downcase
+    if ptype_down contains 'singles' or ptype_down contains 'sealed'
+      assign card_set = product.vendor
+    endif
+  endif
+
   if product.featured_image
     assign main_img = product.featured_image | image_url: width: 1000
   else
@@ -226,8 +256,7 @@
     {
       "type": "text",
       "id": "gallery_note",
-      "label": "Gallery note",
-      "default": "Real photos of the actual card — front and back."
+      "label": "Gallery note (optional)"
     },
     {
       "type": "url",

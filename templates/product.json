@@ -14,7 +14,7 @@
       "settings": {
         "glow": "left-blue",
         "holo": false,
-        "gallery_note": "Real photos of the actual card — front and back.",
+        "gallery_note": "",
         "sell_link": "/pages/sell"
       }
     },

@@ -1,0 +1,144 @@
+{%- comment -%}
+  TCG Hitz — card details from the product description (SortSwift format).
+
+  SortSwift writes the card data into the description as a list:
+    <ul><li><strong>Card Number:</strong> <p>086/088</p></li> … </ul>
+  This snippet reads that list and lays it out as stat tiles (short values) and text blocks
+  (card text, attacks, rules text, flavour, sealed product description).
+  Outputs nothing when the description is not in that format — the caller then falls back.
+
+  Usage: {% render 'tcg-desc-specs', product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign desc = product.description
+  assign has_list = false
+  if desc contains '<li>' and desc contains '</strong>'
+    assign has_list = true
+  endif
+-%}
+
+{%- if has_list -%}
+  {%- assign tiles = '' -%}
+  {%- assign blocks = '' -%}
+  {%- assign chunks = desc | split: '<li>' -%}
+
+  {%- for chunk in chunks -%}
+    {%- unless chunk contains '</strong>' -%}{%- continue -%}{%- endunless -%}
+    {%- liquid
+      assign head = chunk | split: '</strong>' | first | append: '</strong>'
+      assign label = head | strip_html | strip | remove_last: ':' | strip
+      assign value = chunk | remove_first: head | split: '</li>' | first | strip
+      assign plain = value | replace: '<br>', ' ' | replace: '</p>', ' ' | strip_html | strip
+      if plain == blank
+        continue
+      endif
+
+      case label
+        when '#'
+          assign label = 'Card Number'
+        when 'P'
+          assign label = 'Power'
+        when 'T'
+          assign label = 'Toughness'
+        when 'Rules Text Contains'
+          assign label = 'Card Text'
+        when 'Creature Type or Sub Type'
+          assign label = 'Type'
+      endcase
+
+      assign label_down = label | downcase
+      if label_down == 'rarity'
+        case plain
+          when 'C'
+            assign plain = 'Common'
+          when 'U'
+            assign plain = 'Uncommon'
+          when 'R'
+            assign plain = 'Rare'
+          when 'M'
+            assign plain = 'Mythic Rare'
+          when 'S'
+            assign plain = 'Special'
+          when 'P'
+            assign plain = 'Promo'
+        endcase
+      endif
+
+      assign is_long = false
+      if label_down contains 'attack' or label_down contains 'text' or label_down contains 'ability' or label_down contains 'flavor' or label_down contains 'description' or plain.size > 40
+        assign is_long = true
+      endif
+    -%}
+
+    {%- if is_long -%}
+      {%- capture blocks -%}
+        {{- blocks -}}
+        <div class="hz-cs-block tcg-gb [--bw:1px]" data-cs-block>
+          <p class="hz-cs-label">{{ label }}</p>
+          {%- if label_down contains 'attack' -%}
+            {%- liquid
+              assign first_p = value | split: '</p>' | first | remove: '<p>'
+              assign first_line = first_p | split: '<br>' | first | strip_html | strip
+              assign cost = ''
+              assign atk_name = first_line
+              if first_line contains '[' and first_line contains ']'
+                assign first_char = first_line | slice: 0
+                if first_char == '['
+                  assign cost = first_line | split: ']' | first | remove_first: '['
+                  assign atk_name = first_line | split: ']' | last | strip
+                endif
+              endif
+              assign dmg = ''
+              if atk_name contains '('
+                assign dmg = atk_name | split: '(' | last | remove: ')' | strip
+                assign atk_name = atk_name | split: '(' | first | strip
+              endif
+              assign rest = plain | remove_first: first_line | strip
+            -%}
+            <div class="hz-cs-attack">
+              {%- if cost != blank -%}<span class="hz-cs-cost" title="Energy cost">{{ cost }}</span>{%- endif -%}
+              <span class="hz-cs-atkname">{{ atk_name }}</span>
+              {%- if dmg != blank -%}<span class="hz-cs-dmg">{{ dmg }}</span>{%- endif -%}
+            </div>
+            {%- if rest != blank -%}<p class="hz-cs-text">{{ rest }}</p>{%- endif -%}
+          {%- elsif label_down contains 'flavor' -%}
+            <div class="hz-cs-text hz-cs-text--flavor">{{ value }}</div>
+          {%- else -%}
+            <div class="hz-cs-text hz-prose">{{ value }}</div>
+          {%- endif -%}
+        </div>
+      {%- endcapture -%}
+    {%- else -%}
+      {%- capture tiles -%}
+        {{- tiles -}}
+        <div class="hz-cs-tile{% if label_down == 'rarity' %} hz-cs-tile--rarity{% elsif label_down == 'hp' %} hz-cs-tile--hp{% endif %}" data-cs-tile><dt>{{ label }}</dt><dd>{{ plain }}</dd></div>
+      {%- endcapture -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- liquid
+    assign ptype_down = product.type | downcase
+    assign show_set = false
+    if ptype_down contains 'singles' or ptype_down contains 'sealed'
+      if product.vendor != blank
+        assign show_set = true
+      endif
+    endif
+    assign artist = product.metafields.custom.artist.value | default: product.metafields.custom.artist
+    assign tiles_s = tiles | strip
+    assign blocks_s = blocks | strip
+  -%}
+
+  {%- if tiles_s != blank or blocks_s != blank -%}
+    <section class="hz-cardspecs mt-[30px]" data-hz-reveal data-desc-specs>
+      <h3 class="font-display text-[20px] uppercase leading-[1.2] text-white">{% if ptype_down contains 'sealed' %}Product details{% else %}Card details{% endif %}</h3>
+      <dl class="hz-cs-grid mt-[14px]">
+        {%- if show_set -%}<div class="hz-cs-tile hz-cs-tile--wide" data-cs-tile><dt>Set</dt><dd>{{ product.vendor }}</dd></div>{%- endif -%}
+        {{ tiles }}
+        {%- if artist != blank -%}<div class="hz-cs-tile" data-cs-tile><dt>Artist</dt><dd>{{ artist }}</dd></div>{%- endif -%}
+      </dl>
+      {%- if blocks_s != blank -%}<div class="mt-[12px] flex flex-col gap-[10px]">{{ blocks }}</div>{%- endif -%}
+    </section>
+  {%- endif -%}
+{%- endif -%}
