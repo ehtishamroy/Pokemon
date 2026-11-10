@@ -1076,4 +1076,59 @@
   .hz-cs-atkname { color: #fff; font-size: 16px; font-weight: 800; }
   .hz-cs-dmg { margin-left: auto; font-family: 'Titan One', system-ui, sans-serif; font-size: 20px; color: #F472B6; }
   @media (prefers-reduced-motion: reduce) { .hz-cs-tile { transition: none; } .hz-cs-tile:hover { transform: none; } }
+  /* ---- Vending machine locations (map + list + teaser) ---- */
+  .hz-loc__mapwrap { position: relative; overflow: hidden; border-radius: 20px; background: #0d1424; }
+  .hz-loc__map { height: 380px; width: 100%; background: #0d1424; }
+  @media (min-width: 768px) { .hz-loc__map { height: 480px; } }
+  @media (min-width: 1280px) { .hz-loc__map { height: 560px; } }
+  .hz-loc__map.leaflet-container { background: #0d1424 !important; font-family: Manrope, system-ui, sans-serif; }
+  .hz-loc--nomap .hz-loc__map { display: none; }
+  .hz-loc__nomap { padding: 28px 22px; text-align: center; color: #A7B0C0; font-size: 15px; }
+  .hz-loc__list { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 1280px) { .hz-loc__list { max-height: 560px; overflow-y: auto; padding-right: 4px; scrollbar-width: thin; scrollbar-color: rgba(236,72,153,.5) transparent; } }
+  .hz-loc__card { position: relative; display: flex; gap: 14px; padding: 16px; border-radius: 16px; background: rgba(17,24,39,.78); transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, background-color .3s; }
+  .hz-loc__card:hover { transform: translateY(-3px); background: rgba(24,35,56,.9); box-shadow: 0 16px 34px -18px rgba(37,99,255,.7); }
+  .hz-loc__card.is-active { background: rgba(236,72,153,.1); box-shadow: 0 0 0 1px rgba(236,72,153,.6), 0 16px 34px -16px rgba(236,72,153,.6); }
+  .hz-loc__photo { width: 84px; height: 84px; flex: none; overflow: hidden; border-radius: 12px; background: #182338; }
+  .hz-loc__badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; line-height: 1.3; }
+  .hz-loc__badge--live { background: rgba(34,197,94,.16); color: #4ADE80; }
+  .hz-loc__badge--soon { background: rgba(250,204,21,.16); color: #FACC15; }
+  .hz-loc__live-dot { width: 7px; height: 7px; flex: none; border-radius: 50%; background: #22C55E; box-shadow: 0 0 0 0 rgba(34,197,94,.7); animation: hz-live-dot 1.8s ease-out infinite; }
+  @keyframes hz-live-dot { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,.7); } 70% { box-shadow: 0 0 0 7px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+  /* pins (map + teaser illustration) */
+  .hz-pin { position: relative; display: block; width: 28px; height: 28px; background: transparent; border: 0; }
+  .hz-pin__dot { position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #EC4899; border: 3px solid #fff; box-shadow: 0 0 14px rgba(236,72,153,.95); }
+  .hz-pin__pulse { position: absolute; left: 50%; top: 50%; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; background: rgba(236,72,153,.45); animation: hz-pin-pulse 2s ease-out infinite; animation-delay: var(--d, 0s); }
+  .hz-pin--soon .hz-pin__dot { background: #FACC15; box-shadow: 0 0 14px rgba(250,204,21,.9); }
+  .hz-pin--soon .hz-pin__pulse { background: rgba(250,204,21,.4); }
+  @keyframes hz-pin-pulse { 0% { transform: scale(.5); opacity: 1; } 100% { transform: scale(2.2); opacity: 0; } }
+  /* Leaflet in the TCG HITZ look */
+  .hz-loc__map .leaflet-control-zoom a { background: #111827; color: #fff; border-color: rgba(255,255,255,.15); }
+  .hz-loc__map .leaflet-control-zoom a:hover { background: #2563FF; }
+  .hz-loc__map .leaflet-bar { border: 1px solid rgba(255,255,255,.15); box-shadow: 0 8px 20px rgba(0,0,0,.4); }
+  .hz-loc__map .leaflet-control-attribution { background: rgba(8,10,18,.75); color: #A7B0C0; font-size: 10px; }
+  .hz-loc__map .leaflet-control-attribution a { color: #38BDF8; }
+  .hz-popup .leaflet-popup-content-wrapper { border-radius: 14px; background: #111827; color: #fff; border: 1px solid rgba(236,72,153,.55); box-shadow: 0 16px 34px -12px rgba(0,0,0,.7); }
+  .hz-popup .leaflet-popup-tip { background: #111827; border: 1px solid rgba(236,72,153,.55); }
+  .hz-popup .leaflet-popup-content { margin: 14px 16px; font-family: Manrope, system-ui, sans-serif; }
+  .hz-popup a.leaflet-popup-close-button { color: #A7B0C0; }
+  .hz-pop { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .hz-pop__name { font-family: 'Titan One', system-ui, sans-serif; font-weight: 400; font-size: 16px; text-transform: uppercase; line-height: 1.2; }
+  .hz-pop__addr { font-size: 13px; line-height: 1.4; color: rgba(255,255,255,.9); }
+  .hz-pop__hours { font-size: 12px; color: #A7B0C0; }
+  .hz-pop__link { margin-top: 2px; font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #38BDF8 !important; }
+  /* teaser card on the vending page */
+  .hz-loccta { position: relative; background: linear-gradient(135deg, rgba(17,24,39,.92), rgba(24,35,56,.85)); }
+  .hz-loccta__map { position: relative; display: block; overflow: hidden; height: 240px; border-radius: 18px; border: 1px solid rgba(255,255,255,.1); background-color: #0b1220; background-image: linear-gradient(rgba(56,189,248,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,.07) 1px, transparent 1px), radial-gradient(ellipse at 60% 50%, rgba(37,99,255,.28), transparent 65%); background-size: 28px 28px, 28px 28px, 100% 100%; transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s; }
+  @media (min-width: 768px) { .hz-loccta__map { height: 300px; } }
+  .hz-loccta__map:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -18px rgba(236,72,153,.6); }
+  .hz-loccta__roads { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hz-loccta__roads path { fill: none; stroke: rgba(139,92,246,.55); stroke-width: 3; stroke-linecap: round; }
+  .hz-loccta__roads .hz-loccta__road--minor { stroke: rgba(56,189,248,.25); stroke-width: 1.5; }
+  .hz-loccta__pin { position: absolute; transform: translate(-50%, -50%); }
+  .hz-loccta__chip { position: absolute; left: 50%; top: 52%; transform: translate(12px, -46px); display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(8,10,18,.85); border: 1px solid rgba(34,197,94,.5); color: #4ADE80; font-size: 11px; font-weight: 800; letter-spacing: .08em; white-space: nowrap; }
+  /* header LIVE badge */
+  .hz-navbadge { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: 999px; background: rgba(34,197,94,.16); color: #4ADE80; font-size: 10px; font-weight: 800; letter-spacing: .08em; line-height: 1.5; }
+  .hz-navbadge__dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; animation: hz-live-dot 1.8s ease-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .hz-loc__live-dot, .hz-navbadge__dot, .hz-pin__pulse { animation: none; } .hz-loc__card, .hz-loccta__map { transition: none; } .hz-loc__card:hover, .hz-loccta__map:hover { transform: none; } }
 }

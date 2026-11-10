@@ -1,0 +1,58 @@
+{% comment %}
+  TCG Hitz — "Find a machine near you" teaser (vending page). Sends visitors to the locations page.
+  The map on the right is a decorative illustration (CSS/SVG), not real data.
+{% endcomment %}
+
+{%- assign cta_link = section.settings.btn_link | default: '/pages/vending-machine-locations' -%}
+
+<section class="tcg-scope hz relative">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap pb-[36px] pt-[20px] md:pb-[72px] xl:pb-[100px]">
+    <div data-hz-reveal class="hz-loccta tcg-gb [--bw:1.5px] grid grid-cols-[minmax(0,1fr)] items-center gap-[28px] rounded-[24px] p-[22px] md:p-[40px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-[48px]">
+      <div class="flex flex-col items-start gap-[18px]">
+        {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, text_class: 'max-w-[480px]' %}
+        {%- if section.settings.live_line != blank -%}
+          <p class="hz-loc__badge hz-loc__badge--live !normal-case !tracking-normal !text-[13px]"><span class="hz-loc__live-dot" aria-hidden="true"></span>{{ section.settings.live_line }}</p>
+        {%- endif -%}
+        {%- if section.settings.btn_label != blank -%}
+          <a href="{{ cta_link }}" class="hz-btn"><span>{{ section.settings.btn_label }}</span>{% render 'tcg-home-arrow' %}</a>
+        {%- endif -%}
+      </div>
+
+      <a href="{{ cta_link }}" class="hz-loccta__map" aria-label="{{ section.settings.btn_label | default: 'View locations' | escape }}">
+        <svg class="hz-loccta__roads" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <path d="M-10 190 C 80 160, 140 210, 230 170 S 360 120, 420 140" />
+          <path d="M60 -10 C 90 80, 70 150, 120 270" />
+          <path d="M250 -10 C 230 70, 290 120, 260 270" />
+          <path d="M-10 80 C 100 95, 220 40, 420 70" class="hz-loccta__road--minor" />
+          <path d="M150 -10 L 175 270" class="hz-loccta__road--minor" />
+          <path d="M320 -10 C 330 90, 380 160, 360 270" class="hz-loccta__road--minor" />
+        </svg>
+        <span class="hz-pin hz-loccta__pin" style="left: 56%; top: 52%;" aria-hidden="true"><span class="hz-pin__pulse"></span><span class="hz-pin__dot"></span></span>
+        <span class="hz-pin hz-loccta__pin" style="left: 24%; top: 34%; --d: .8s;" aria-hidden="true"><span class="hz-pin__pulse"></span><span class="hz-pin__dot"></span></span>
+        <span class="hz-pin hz-pin--soon hz-loccta__pin" style="left: 78%; top: 26%; --d: 1.6s;" aria-hidden="true"><span class="hz-pin__pulse"></span><span class="hz-pin__dot"></span></span>
+        <span class="hz-pin hz-pin--soon hz-loccta__pin" style="left: 36%; top: 74%; --d: 2.2s;" aria-hidden="true"><span class="hz-pin__pulse"></span><span class="hz-pin__dot"></span></span>
+        {%- if section.settings.chip != blank -%}<span class="hz-loccta__chip" aria-hidden="true"><span class="hz-loc__live-dot"></span>{{ section.settings.chip }}</span>{%- endif -%}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Locations — Teaser",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page", "index", "product"] },
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "right-blue" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "LIVE LOCATIONS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "FIND A MACHINE | NEAR YOU.", "info": "A ' | ' starts a new line." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "See where our vending machines are installed, check opening hours and get directions in one tap." },
+    { "type": "text", "id": "live_line", "label": "Small live line (optional)", "default": "Now live in Coeur d'Alene, Idaho" },
+    { "type": "text", "id": "chip", "label": "Label on the map (optional)", "default": "LIVE NOW" },
+    { "type": "text", "id": "btn_label", "label": "Button", "default": "VIEW LIVE LOCATIONS" },
+    { "type": "url", "id": "btn_link", "label": "Button link", "info": "Empty = /pages/vending-machine-locations" }
+  ],
+  "presets": [{ "name": "TCG Locations — Teaser" }]
+}
+{% endschema %}

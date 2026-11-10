@@ -37,7 +37,7 @@
           </div>
         {%- endif -%}
         {%- for block in nav_blocks -%}
-          <a href="{{ block.settings.link }}" class="px-3 py-2 rounded-md hover:bg-felt-3{% if block.settings.gold %} text-volt{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+          <a href="{{ block.settings.link }}" class="px-3 py-2 rounded-md hover:bg-felt-3{% if block.settings.gold %} text-volt{% endif %}{% if block.settings.badge != blank %} inline-flex items-center gap-[8px]{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label }}{%- if block.settings.badge != blank -%}<span class="hz-navbadge"><span class="hz-navbadge__dot" aria-hidden="true"></span>{{ block.settings.badge }}</span>{%- endif -%}</a>
         {%- endfor -%}
       </nav>
       <div class="flex items-center gap-1.5 ml-auto">
@@ -319,7 +319,8 @@
       "settings": [
         { "type": "text", "id": "label", "label": "Label", "default": "Mystery" },
         { "type": "url", "id": "link", "label": "Link" },
-        { "type": "checkbox", "id": "gold", "label": "Highlight in electric blue", "default": false }
+        { "type": "checkbox", "id": "gold", "label": "Highlight in electric blue", "default": false },
+        { "type": "text", "id": "badge", "label": "Small badge (optional)", "info": "e.g. LIVE — shows a small pulsing pill next to the link." }
       ]
     }
   ],

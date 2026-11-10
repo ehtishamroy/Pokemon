@@ -1,0 +1,138 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "loc_hero": {
+      "type": "tcg-shop-hero",
+      "settings": {
+        "glow": "right-blue",
+        "overlay": 55,
+        "home_label": "Home",
+        "breadcrumb_label": "Vending Locations",
+        "use_collection": false,
+        "heading_before": "FIND A MACHINE",
+        "heading_highlight": "",
+        "heading_after": "",
+        "heading_line2": "NEAR YOU",
+        "heading_line2_after": ".",
+        "gradient": "purple-pink",
+        "text": "Find TCG HITZ vending machines near you. Pick a location to see it on the map, check the hours and get directions."
+      }
+    },
+    "loc_strip": {
+      "type": "tcg-home-strip",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "text": "POKÉMON CARDS"
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "text": "MYSTERY PACKS"
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "text": "GRADED CARDS"
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "text": "MERCHANDISE"
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "text": "VENDING MACHINES"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
+      ],
+      "settings": {
+        "tagline": "COLLECT  ✦  TRADE  ✦  RIP  ✦  REPEAT",
+        "animate": true,
+        "speed": "normal",
+        "overlap": false
+      }
+    },
+    "loc_map": {
+      "type": "tcg-locations",
+      "blocks": {
+        "l1": {
+          "type": "location",
+          "settings": {
+            "name": "Skate Plaza",
+            "address": "5685 N Pioneer Dr",
+            "city": "Coeur d'Alene, ID 83815",
+            "latitude": "47.7165",
+            "longitude": "-116.7866",
+            "status": "live",
+            "hours": "",
+            "note": ""
+          }
+        }
+      },
+      "block_order": [
+        "l1"
+      ],
+      "settings": {}
+    },
+    "loc_banner": {
+      "type": "tcg-home-banner",
+      "settings": {
+        "glow": "left-pink",
+        "fallback": "cta",
+        "overlay": 0,
+        "align": "center",
+        "buttons": "blue",
+        "eyebrow": "FOR BUSINESSES",
+        "heading": "WANT A TCG HITZ MACHINE | AT YOUR LOCATION?",
+        "text": "Bring trading cards and collectibles to your shop, arcade or venue. Explore our vending machines and find the right fit.",
+        "btn1_label": "EXPLORE VENDING MACHINES",
+        "btn1_link": "/pages/vending-machines",
+        "btn2_label": "CONTACT US",
+        "btn2_link": "/pages/contact"
+      }
+    },
+    "loc_community": {
+      "type": "tcg-home-community",
+      "settings": {
+        "glow": "none",
+        "panel": false,
+        "image_alt": "Pokémon characters and trading cards",
+        "eyebrow": "GET STARTED",
+        "heading": "JOIN THE TCG HITZ COMMUNITY.",
+        "text": "Get updates on new arrivals, collectible drops, and store news.",
+        "placeholder": "Type your email address ...",
+        "button_label": "Subscribe",
+        "success_text": "You're in! Welcome to the TCG HITZ community."
+      }
+    }
+  },
+  "order": [
+    "loc_hero",
+    "loc_strip",
+    "loc_map",
+    "loc_banner",
+    "loc_community"
+  ]
+}

@@ -648,6 +648,10 @@
         "button_label": "Subscribe",
         "success_text": "You're in! Welcome to the TCG HITZ community."
       }
+    },
+    "vm_locations": {
+      "type": "tcg-vm-locations-cta",
+      "settings": {}
     }
   },
   "order": [
@@ -655,6 +659,7 @@
     "vm_strip",
     "vm_intro",
     "vm_machines",
+    "vm_locations",
     "vm_compare",
     "vm_addons",
     "vm_calc",

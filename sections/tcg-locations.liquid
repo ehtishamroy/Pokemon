@@ -1,0 +1,153 @@
+{% comment %}
+  TCG Hitz — Vending machine locations: map + list.
+
+  Each location is a block (theme editor → "Add location"): name, address, city, latitude/longitude,
+  status (Live / Coming soon), hours, note and an optional photo. Pins are drawn from the coordinates;
+  a location without coordinates still shows in the list. Map: Leaflet (assets/tcg-leaflet.js, BSD-2),
+  map tiles from CARTO (dark) or OpenStreetMap with attribution. Logic in assets/tcg-locations.js.
+{% endcomment %}
+
+{%- liquid
+  assign locs = section.blocks | where: 'type', 'location'
+  if section.settings.tiles == 'osm'
+    assign tile_url = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+    assign tile_attr = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+  else
+    assign tile_url = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    assign tile_attr = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'
+  endif
+-%}
+
+{{ 'tcg-leaflet.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'tcg-leaflet.js' | asset_url }}" defer></script>
+<script src="{{ 'tcg-locations.js' | asset_url }}" defer></script>
+
+<section class="tcg-scope hz relative" id="{{ section.settings.anchor | default: 'locations' }}" data-hz-locations>
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-stretch gap-[28px] pb-[36px] pt-[36px] md:gap-[40px] md:pb-[72px] md:pt-[56px] xl:pb-[100px] xl:pt-[72px]">
+    {%- if section.settings.heading != blank or section.settings.text != blank -%}
+      <div class="flex w-full flex-col items-start gap-[16px] xl:flex-row xl:items-end xl:justify-between xl:gap-[48px]">
+        {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, heading_class: 'max-w-[760px]' %}
+        {%- if section.settings.text != blank -%}<p data-hz-reveal class="w-full max-w-[460px] text-[16px] leading-[1.5] text-white">{{ section.settings.text }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if locs.size == 0 -%}
+      <div data-hz-reveal class="hz-cs-block tcg-gb [--bw:1px] text-center">
+        <p class="text-[16px] text-white/90">{{ section.settings.empty_text }}</p>
+      </div>
+    {%- else -%}
+      <div class="hz-loc grid grid-cols-[minmax(0,1fr)] items-start gap-[20px] xl:grid-cols-[minmax(0,1fr)_420px] xl:gap-[24px]">
+        <div data-hz-reveal class="hz-loc__mapwrap tcg-gb [--bw:1.5px]">
+          <div class="hz-loc__map" data-loc-map data-tiles="{{ tile_url }}" data-attribution="{{ tile_attr | escape }}" data-live-label="{{ section.settings.live_label | escape }}" data-soon-label="{{ section.settings.soon_label | escape }}" data-directions-label="{{ section.settings.directions_label | escape }}" role="region" aria-label="{{ section.settings.map_label | escape }}"></div>
+          <p class="hz-loc__nomap" data-loc-nomap hidden>{{ section.settings.nomap_text }}</p>
+        </div>
+
+        <ul class="hz-loc__list" role="list" data-loc-list>
+          {%- for block in locs -%}
+            {%- liquid
+              assign lat = block.settings.latitude | strip
+              assign lng = block.settings.longitude | strip
+              assign full_address = block.settings.address | strip
+              if block.settings.city != blank
+                if full_address != blank
+                  assign full_address = full_address | append: ', '
+                endif
+                assign full_address = full_address | append: block.settings.city
+              endif
+              assign dest = full_address
+              if dest == blank
+                assign dest = block.settings.name
+              endif
+              assign directions = block.settings.directions_link
+              if directions == blank
+                assign encoded_dest = dest | url_encode
+                assign directions = 'https://www.google.com/maps/dir/?api=1&destination=' | append: encoded_dest
+              endif
+              assign has_pin = false
+              if lat != blank and lng != blank
+                assign has_pin = true
+              endif
+            -%}
+            <li class="hz-loc__card tcg-gb [--bw:1px]" data-hz-reveal data-loc data-index="{{ forloop.index0 }}" data-name="{{ block.settings.name | escape }}" data-address="{{ full_address | escape }}" data-hours="{{ block.settings.hours | escape }}" data-status="{{ block.settings.status }}"{% if has_pin %} data-lat="{{ lat | escape }}" data-lng="{{ lng | escape }}"{% endif %} {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                <div class="hz-loc__photo">{{ block.settings.image | image_url: width: 240 | image_tag: alt: block.settings.name, width: 96, height: 96, loading: 'lazy', class: 'h-full w-full object-cover' }}</div>
+              {%- endif -%}
+              <div class="flex min-w-0 flex-1 flex-col gap-[8px]">
+                <div class="flex flex-wrap items-center gap-[8px]">
+                  {%- if block.settings.status == 'soon' -%}
+                    <span class="hz-loc__badge hz-loc__badge--soon">{{ section.settings.soon_label }}</span>
+                  {%- else -%}
+                    <span class="hz-loc__badge hz-loc__badge--live"><span class="hz-loc__live-dot" aria-hidden="true"></span>{{ section.settings.live_label }}</span>
+                  {%- endif -%}
+                </div>
+                <h3 class="font-display text-[18px] uppercase leading-[1.2] text-white">{{ block.settings.name }}</h3>
+                {%- if full_address != blank -%}
+                  <p class="flex items-start gap-[8px] text-[14px] leading-[1.45] text-white/90"><span class="mt-[2px] shrink-0 text-hz-pink">{% render 'tcg-sell-icon', name: 'pin', size: 16 %}</span><span>{{ full_address }}</span></p>
+                {%- endif -%}
+                {%- if block.settings.hours != blank -%}
+                  <p class="flex items-start gap-[8px] text-[14px] leading-[1.45] text-hz-cool"><span class="mt-[2px] shrink-0 text-hz-lightning">{% render 'tcg-sell-icon', name: 'clock', size: 16 %}</span><span>{{ block.settings.hours }}</span></p>
+                {%- endif -%}
+                {%- if block.settings.note != blank -%}<p class="text-[13px] leading-[1.5] text-hz-cool">{{ block.settings.note }}</p>{%- endif -%}
+                <div class="mt-[4px] flex flex-wrap items-center gap-[10px]">
+                  {%- if has_pin -%}
+                    <button type="button" class="hz-btn-outline tcg-gb !h-[34px] !px-[14px] !text-[11px]" data-loc-focus><span>{{ section.settings.show_label }}</span></button>
+                  {%- endif -%}
+                  <a href="{{ directions }}" target="_blank" rel="noopener" class="hz-btn !h-[34px] !px-[14px] !text-[11px]" data-loc-directions><span>{{ section.settings.directions_label }}</span>{% render 'tcg-home-arrow', px: 11 %}</a>
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Locations — Map",
+  "class": "tcg-home-section",
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 50,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "left-blue" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "LIVE LOCATIONS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "WHERE TO FIND | OUR MACHINES.", "info": "A ' | ' starts a new line." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Visit a TCG HITZ vending machine near you. Tap a location to see it on the map or get directions." },
+    { "type": "select", "id": "tiles", "label": "Map style", "options": [ { "value": "dark", "label": "Dark (matches the site)" }, { "value": "osm", "label": "Standard (OpenStreetMap)" } ], "default": "dark" },
+    { "type": "text", "id": "live_label", "label": "Live badge", "default": "LIVE" },
+    { "type": "text", "id": "soon_label", "label": "Coming soon badge", "default": "COMING SOON" },
+    { "type": "text", "id": "show_label", "label": "Show on map button", "default": "SHOW ON MAP" },
+    { "type": "text", "id": "directions_label", "label": "Directions button", "default": "GET DIRECTIONS" },
+    { "type": "text", "id": "map_label", "label": "Map description (for screen readers)", "default": "Map of TCG HITZ vending machine locations" },
+    { "type": "text", "id": "nomap_text", "label": "Text if the map can't load", "default": "The map couldn't load. All locations are listed here." },
+    { "type": "text", "id": "empty_text", "label": "Text when there are no locations", "default": "New locations are coming soon. Check back shortly!" },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "locations" }
+  ],
+  "blocks": [
+    {
+      "type": "location",
+      "name": "Location",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Location name", "default": "Skate Plaza" },
+        { "type": "text", "id": "address", "label": "Street address", "default": "5685 N Pioneer Dr" },
+        { "type": "text", "id": "city", "label": "City, state, ZIP", "default": "Coeur d'Alene, ID 83815" },
+        { "type": "text", "id": "latitude", "label": "Latitude", "info": "In Google Maps, right-click the place and click the numbers at the top to copy them. The first number is the latitude (e.g. 47.7166)." },
+        { "type": "text", "id": "longitude", "label": "Longitude", "info": "The second number (e.g. -116.7891). Leave both empty to show the location in the list only." },
+        { "type": "select", "id": "status", "label": "Status", "options": [ { "value": "live", "label": "Live (machine installed)" }, { "value": "soon", "label": "Coming soon" } ], "default": "live" },
+        { "type": "text", "id": "hours", "label": "Opening hours (optional)", "info": "e.g. Tue–Sun 12pm–9pm" },
+        { "type": "textarea", "id": "note", "label": "Note (optional)", "info": "e.g. Inside the main entrance, next to the arcade." },
+        { "type": "image_picker", "id": "image", "label": "Photo (optional)" },
+        { "type": "url", "id": "directions_link", "label": "Directions link (optional)", "info": "Leave empty to open Google Maps directions to the address automatically." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG Locations — Map",
+      "blocks": [ { "type": "location" } ]
+    }
+  ]
+}
+{% endschema %}

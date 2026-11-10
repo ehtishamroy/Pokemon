@@ -91,6 +91,15 @@
             "link": "/pages/sell",
             "gold": false
           }
+        },
+        "nav_locations": {
+          "type": "nav_link",
+          "settings": {
+            "label": "Live Locations",
+            "link": "/pages/vending-machine-locations",
+            "gold": false,
+            "badge": "LIVE"
+          }
         }
       },
       "block_order": [
@@ -102,6 +111,7 @@
         "nav_mystery",
         "nav_slabs",
         "nav_vending",
+        "nav_locations",
         "nav_sell"
       ],
       "settings": {
