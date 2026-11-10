@@ -20,12 +20,20 @@
     "tcg_header": {
       "type": "tcg-header",
       "blocks": {
+        "mega_mystery": {
+          "type": "mega_item",
+          "settings": {
+            "title": "Pokémon Cards",
+            "subtitle": "Chase the rare",
+            "link": "shopify://collections/pokemon-cards"
+          }
+        },
         "mega_singles": {
           "type": "mega_item",
           "settings": {
             "title": "Singles",
             "subtitle": "Raw cards, real photos",
-            "link": "shopify://collections/frontpage"
+            "link": "shopify://collections/trading-cards-all-singles"
           }
         },
         "mega_slabs": {
@@ -44,19 +52,19 @@
             "link": "shopify://collections/sealed"
           }
         },
-        "mega_mystery": {
+        "mega_item_6JFMn6": {
           "type": "mega_item",
           "settings": {
-            "title": "Mystery packs",
-            "subtitle": "Chase the rare",
-            "link": "shopify://collections/mystery"
+            "title": "Magic Cards",
+            "subtitle": "Magic , Rare",
+            "link": "shopify://collections/magic-cards"
           }
         },
         "nav_mystery": {
           "type": "nav_link",
           "settings": {
             "label": "Mystery",
-            "link": "/collections/mystery",
+            "link": "shopify://collections/mystery",
             "gold": false
           }
         },
@@ -64,7 +72,7 @@
           "type": "nav_link",
           "settings": {
             "label": "Slabs",
-            "link": "shopify://collections/slabs",
+            "link": "shopify://collections/graded-slabs",
             "gold": false
           }
         },
@@ -73,14 +81,6 @@
           "settings": {
             "label": "Vending Machines",
             "link": "/pages/vending-machines",
-            "gold": false
-          }
-        },
-        "nav_merch": {
-          "type": "nav_link",
-          "settings": {
-            "label": "Merchandise",
-            "link": "shopify://collections/mystery",
             "gold": false
           }
         },
@@ -94,14 +94,14 @@
         }
       },
       "block_order": [
+        "mega_mystery",
         "mega_singles",
         "mega_slabs",
         "mega_sealed",
-        "mega_mystery",
+        "mega_item_6JFMn6",
         "nav_mystery",
         "nav_slabs",
         "nav_vending",
-        "nav_merch",
         "nav_sell"
       ],
       "settings": {

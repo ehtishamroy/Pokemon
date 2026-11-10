@@ -12,12 +12,49 @@
     "tcg_collection": {
       "type": "tcg_main_collection",
       "blocks": {
-        "w1": { "type": "wcat", "settings": { "heading": "Mystery Packs", "subheading": "Chase the rare", "link": "/collections/mystery" } },
-        "w2": { "type": "wcat", "settings": { "heading": "Graded Slabs", "subheading": "PSA · CGC · BGS", "link": "/collections/slabs" } },
-        "w3": { "type": "wcat", "settings": { "heading": "Merchandise", "subheading": "3D prints & collectibles", "link": "/collections/merchandise" } },
-        "w4": { "type": "wcat", "settings": { "heading": "Vending Machines", "subheading": "For your shop or event", "link": "/pages/vending-machines" } }
+        "w1": {
+          "type": "wcat",
+          "disabled": true,
+          "settings": {
+            "heading": "Mystery Packs",
+            "subheading": "Chase the rare",
+            "link": "/collections/mystery"
+          }
+        },
+        "w2": {
+          "type": "wcat",
+          "disabled": true,
+          "settings": {
+            "heading": "Graded Slabs",
+            "subheading": "PSA · CGC · BGS",
+            "link": "/collections/slabs"
+          }
+        },
+        "w3": {
+          "type": "wcat",
+          "disabled": true,
+          "settings": {
+            "heading": "Merchandise",
+            "subheading": "3D prints & collectibles",
+            "link": "/collections/merchandise"
+          }
+        },
+        "w4": {
+          "type": "wcat",
+          "disabled": true,
+          "settings": {
+            "heading": "Vending Machines",
+            "subheading": "For your shop or event",
+            "link": "/pages/vending-machines"
+          }
+        }
       },
-      "block_order": ["w1", "w2", "w3", "w4"],
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4"
+      ],
       "settings": {
         "products_per_page": 24,
         "count_prefix": "Every card photographed.",
@@ -26,5 +63,7 @@
       }
     }
   },
-  "order": ["tcg_collection"]
+  "order": [
+    "tcg_collection"
+  ]
 }

@@ -18,7 +18,7 @@
           "type": "column",
           "settings": {
             "heading": "SHOP",
-            "links": "Trading Cards|/collections/all\nMystery Packs|/collections/mystery\nGraded Cards|/collections/slabs\nMerchandise|/collections/merchandise"
+            "links": "Trading Cards|/collections/all\nMystery Packs|/collections/mystery\nGraded Cards|/collections/graded-slabs\nMerchandise|/pages/merchandise"
           }
         },
         "machines": {
@@ -32,7 +32,7 @@
           "type": "column",
           "settings": {
             "heading": "HELP",
-            "links": "Sell to Us|/pages/sell\nContact Us|/pages/contact\nShipping Policy|/policies/shipping-policy\nReturns & Refunds|/policies/refund-policy\nFAQs|/pages/vending-machines#faq"
+            "links": "Sell to Us|/pages/sell\nContact Us|/pages/contact\nFAQs|/pages/vending-machines#faq"
           }
         }
       },
@@ -55,7 +55,7 @@
         "email": "admin@tcghitz.com",
         "address": "Skate Plaza in Coeur d’Alene, Idaho",
         "copyright": "TCG HITZ. All rights reserved.",
-        "legal_links": "Terms|/policies/terms-of-service\nPrivacy|/policies/privacy-policy\nCookies Policy|/policies/privacy-policy",
+        "legal_links": "Privacy|/policies/privacy-policy\nCookies Policy|/policies/privacy-policy",
         "legal": "Pokémon, Magic and One Piece are trademarks of their respective owners. TCG HITZ is an independent reseller."
       }
     }

@@ -49,7 +49,7 @@
         </button>
 
         <!-- Animated Pikachu Cart Button with Famous Pokemon Thunderbolt -->
-        <button type="button" data-cart-open class="tcg-pikachu-cart-btn relative p-1.5 rounded-full hover:bg-felt-3 transition-colors flex items-center justify-center group" aria-label="Open cart" title="Pikachu Cart">
+        <button type="button" data-cart-open class="tcg-pikachu-cart-btn relative p-1.5 rounded-full hover:bg-felt-3 transition-colors flex items-center justify-center group" aria-label="Open cart" title="Cart">
           <!-- Pikachu Electric Thunderbolt Sparks -->
           <div class="tcg-pika-thunder-wrap" aria-hidden="true">
             <svg class="tcg-pika-bolt tcg-pika-bolt-1" viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l11-14h-8l3-6z"/></svg>
@@ -58,14 +58,18 @@
             <div class="tcg-pika-electric-aura"></div>
           </div>
 
-          <img
-            src="{{ 'pikachu.png' | asset_url }}"
-            alt="Pikachu Cart"
-            class="tcg-pikachu-cart-img select-none pointer-events-none"
-            width="34"
-            height="34"
-            loading="eager"
-          >
+          <picture>
+            <source srcset="https://cdn.shopify.com/s/files/1/0749/0853/2824/files/pikachu.avif?v=1794234725" type="image/avif">
+            <img
+              src="{{ 'pikachu.png' | asset_url }}"
+              alt="Cart"
+              class="tcg-pikachu-cart-img select-none pointer-events-none"
+              width="34"
+              height="34"
+              loading="eager"
+              decoding="async"
+            >
+          </picture>
           <span data-cart-count class="{% if cart.item_count == 0 %}hidden {% endif %}absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-fire text-white text-[11px] font-extrabold grid place-items-center shadow-md ring-2 ring-ink">
             {{ cart.item_count }}
           </span>
@@ -130,6 +134,10 @@
       line-height: 1;
       width: 44px;
       height: 44px;
+    }
+
+    .tcg-pikachu-cart-btn picture {
+      display: contents;
     }
 
     .tcg-pikachu-cart-img {

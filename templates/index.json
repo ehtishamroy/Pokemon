@@ -12,10 +12,12 @@
     "home_hero": {
       "type": "tcg-home-hero",
       "settings": {
-        "bg_video_url": "https://cdn.shopify.com/videos/c/o/v/1672fa246e8c4f34b8cf81cbd8ca6788.mp4",
-        "overlay_opacity": 64,
+        "bg_image": "shopify://shop_images/Futuristic_vault_with_display_sh__ec2a0e17_2K.jpg",
+        "bg_image_mobile": "shopify://shop_images/Futuristic_vault_with_display_sh__21a1e5ae.jpg",
+        "bg_video_url": "",
+        "overlay_opacity": 52,
         "show_glows": true,
-        "show_pattern": true,
+        "show_pattern": false,
         "under_header": true,
         "eyebrow": "THE TCG HITZ EXPERIENCE",
         "heading_before": "CHASE THE",
@@ -90,7 +92,7 @@
             "title": "POKÉMON CARDS",
             "text": "Explore Pokémon cards, from individual singles to collectible finds.",
             "label": "SHOP POKÉMON",
-            "link": "shopify://collections/frontpage"
+            "link": "shopify://collections/pokemon-cards"
           }
         },
         "c2": {
@@ -120,7 +122,7 @@
             "title": "TRADING CARDS",
             "text": "Explore trading-card products and accessories available in the store.",
             "label": "EXPLORE TRADING CARDS",
-            "link": "shopify://collections/trading-cards"
+            "link": "shopify://collections/trading-cards-all-singles"
           }
         },
         "c5": {
@@ -306,6 +308,7 @@
         "limit": 8,
         "show_desc": false,
         "anchor": "",
+        "center_rows": false,
         "center_heading": false,
         "card_note": "",
         "view_label": "View Product",
@@ -379,74 +382,6 @@
     },
     "home_merch": {
       "type": "tcg-home-products",
-      "blocks": {
-        "card1": {
-          "type": "card",
-          "settings": {
-            "product": "",
-            "fallback": "merch-1",
-            "badge": "COLLECTIBLE FIGURE",
-            "tone": "pink",
-            "meta": "3D-Printed Collectible",
-            "title": "Umbreon Collectible Figure",
-            "desc": "A striking dark-type character figure with bold pink accents and a premium display-ready finish.",
-            "price": "$24.00",
-            "link": "",
-            "glow": "auto"
-          }
-        },
-        "card2": {
-          "type": "card",
-          "settings": {
-            "product": "",
-            "fallback": "merch-2",
-            "badge": "FAN FAVORITE",
-            "tone": "lightning",
-            "meta": "Character Collectible",
-            "title": "Electric-Type Character Figure",
-            "desc": "A vibrant character collectible featuring electric-blue details, a dynamic pose, and eye-catching shelf appeal.",
-            "price": "$24.00",
-            "link": "",
-            "glow": "auto"
-          }
-        },
-        "card3": {
-          "type": "card",
-          "settings": {
-            "product": "",
-            "fallback": "merch-3",
-            "badge": "COLLECTOR'S PICK",
-            "tone": "neon",
-            "meta": "Character Collectible",
-            "title": "Ghost-Type Character Figure",
-            "desc": "A playful, expressive collectible with rich purple tones, sculpted details, and a distinctive display presence.",
-            "price": "$24.00",
-            "link": "",
-            "glow": "auto"
-          }
-        },
-        "card4": {
-          "type": "card",
-          "settings": {
-            "product": "",
-            "fallback": "merch-4",
-            "badge": "UNIQUE FIND",
-            "tone": "gold",
-            "meta": "Character Collectible",
-            "title": "Golden Character Collectible",
-            "desc": "A charming character figure with warm gold and cream tones, designed to stand out in any collectible display.",
-            "price": "$24.00",
-            "link": "",
-            "glow": "auto"
-          }
-        }
-      },
-      "block_order": [
-        "card1",
-        "card2",
-        "card3",
-        "card4"
-      ],
       "settings": {
         "glow": "left-pink",
         "eyebrow": "Merch & collectibles",
@@ -459,6 +394,7 @@
         "limit": 4,
         "show_desc": true,
         "anchor": "",
+        "center_rows": false,
         "center_heading": false,
         "card_note": "",
         "view_label": "View Product",

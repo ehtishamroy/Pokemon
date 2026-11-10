@@ -15,13 +15,22 @@
         "home_label": "Home",
         "breadcrumb_label": "Sell To Us",
         "heading_line1": "READY TO SELL",
+        "heading_line1b": "",
+        "heading_before": "",
         "heading_highlight": "YOUR CARDS",
+        "gradient": "blue-pink",
         "heading_after": "?",
         "text": "Have singles, graded cards, sealed products, or a whole collection to sell? Tell us what you've got. We'll review the details and let you know if we can make you an offer.",
         "btn1_label": "GET AN OFFER",
         "btn1_link": "#offer",
         "btn2_label": "WHAT WE BUY",
         "btn2_link": "#what",
+        "heading_size": "normal",
+        "art_fit": "cutout",
+        "show_art": true,
+        "bg_fallback": "none",
+        "art_fallback": "sell",
+        "image": "shopify://shop_images/image_2399_1.png",
         "image_alt": "Graded Charizard card, Pokémon booster pack, Poké Ball and Pikachu figure"
       }
     },
@@ -119,7 +128,9 @@
         "glow": "left-purple",
         "eyebrow": "A SIMPLE WAY TO START",
         "heading": "HOW IT WORKS.",
-        "text": "Got cards to sell? Here's how to get started."
+        "text": "Got cards to sell? Here's how to get started.",
+        "pill": "",
+        "anchor": "how"
       }
     },
     "sell_buy": {
