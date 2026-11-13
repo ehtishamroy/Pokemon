@@ -21,8 +21,8 @@
         "heading_highlight": "",
         "heading_after": "",
         "heading_line2": "NEAR YOU",
-        "heading_line2_after": ".",
         "gradient": "purple-pink",
+        "heading_line2_after": ".",
         "text": "Find TCG HITZ vending machines near you. Pick a location to see it on the map, check the hours and get directions."
       }
     },
@@ -77,24 +77,165 @@
     "loc_map": {
       "type": "tcg-locations",
       "blocks": {
+        "location_wcA9LG": {
+          "type": "location",
+          "settings": {
+            "name": "Chevron NW BVLD",
+            "address": "1801 Northwest Blvd,",
+            "city": "Coeur d'Alene, ID 83815",
+            "latitude": "47.69220337103493,",
+            "longitude": "-116.80191883128803",
+            "status": "soon",
+            "hours": "",
+            "note": "",
+            "directions_link": ""
+          }
+        },
+        "location_Gq7tPW": {
+          "type": "location",
+          "settings": {
+            "name": "Lancaster Market",
+            "address": "266 W Lancaster Rd,",
+            "city": "Hayden ID 83835",
+            "latitude": "47.78753735267294,",
+            "longitude": "-116.78937763094665",
+            "status": "soon",
+            "hours": "",
+            "note": "",
+            "directions_link": ""
+          }
+        },
+        "location_WK7AJd": {
+          "type": "location",
+          "settings": {
+            "name": "Chevron Local Market",
+            "address": "3310 N Atlas Rd,",
+            "city": "Coeur d'Alene, ID 83814",
+            "latitude": "47.70142368260084,",
+            "longitude": "-116.8275882466279",
+            "status": "soon",
+            "hours": "",
+            "note": "",
+            "directions_link": ""
+          }
+        },
+        "location_yKx6yB": {
+          "type": "location",
+          "settings": {
+            "name": "Groove Berries",
+            "address": "2010 N Main St",
+            "city": "Coeur d'Alene, ID 83814",
+            "latitude": "47.695057497903605,",
+            "longitude": "-116.80657735827646",
+            "status": "live",
+            "hours": "",
+            "note": "",
+            "image": "shopify://shop_images/90101835-2ACA-49D3-B588-22C5A4F6435D_1_105_c.jpg",
+            "directions_link": ""
+          }
+        },
+        "location_QpnixX": {
+          "type": "location",
+          "settings": {
+            "name": "Conoco PineHurst",
+            "address": "509 N Division St",
+            "city": "Pine Hurst ID, 83850",
+            "latitude": "47.54233343009716,",
+            "longitude": "-116.229742392658",
+            "status": "live",
+            "hours": "",
+            "note": "",
+            "image": "shopify://shop_images/CF7F0519-574D-4813-8350-83C8E83FE8F4_1_105_c.jpg",
+            "directions_link": ""
+          }
+        },
+        "location_NUYRde": {
+          "type": "location",
+          "settings": {
+            "name": "Cheveron Local Market  HWY 41 Post Falls",
+            "address": "4092 Bogie Dr",
+            "city": "Coeur d'Alene, ID 83815",
+            "latitude": "47.738052140346596,",
+            "longitude": "-116.89510791594483",
+            "status": "live",
+            "hours": "",
+            "note": "",
+            "image": "shopify://shop_images/26DFF3E7-81FE-47CC-95EE-395736D8E95B_1_105_c.jpg",
+            "directions_link": ""
+          }
+        },
+        "location_gjC8AW": {
+          "type": "location",
+          "settings": {
+            "name": "Pizza Factory",
+            "address": "503 W Apple Way Ave",
+            "city": "Coeur d'Alene, ID 83815",
+            "latitude": "47.702335859100806,",
+            "longitude": "-116.79283508895769",
+            "status": "live",
+            "hours": "",
+            "note": "",
+            "image": "shopify://shop_images/C17E8F8C-C2DD-4A24-89AD-39E713219EAB_1_105_c.jpg",
+            "directions_link": ""
+          }
+        },
+        "location_C4eYAr": {
+          "type": "location",
+          "settings": {
+            "name": "Sunset Bowling",
+            "address": "202 w sunset ave",
+            "city": "Coeur D'Alene  ID 83815",
+            "latitude": "47.71297423696053,",
+            "longitude": "-116.78799061779253",
+            "status": "live",
+            "hours": "",
+            "note": "15 Different Packs and Mystery Card Packs",
+            "image": "shopify://shop_images/6BEAEFB3-6873-4586-B620-5245A13A4A7C_4_5005_c.jpg",
+            "directions_link": ""
+          }
+        },
         "l1": {
           "type": "location",
           "settings": {
             "name": "Skate Plaza",
             "address": "5685 N Pioneer Dr",
             "city": "Coeur d'Alene, ID 83815",
-            "latitude": "47.7165",
-            "longitude": "-116.7866",
+            "latitude": "47.72416868263316,",
+            "longitude": "-116.79320228341716",
             "status": "live",
             "hours": "",
-            "note": ""
+            "note": "",
+            "image": "shopify://shop_images/326FA43D-3522-4F13-B387-275D66019ADE_1_105_c.jpg",
+            "directions_link": ""
           }
         }
       },
       "block_order": [
+        "location_wcA9LG",
+        "location_Gq7tPW",
+        "location_WK7AJd",
+        "location_yKx6yB",
+        "location_QpnixX",
+        "location_NUYRde",
+        "location_gjC8AW",
+        "location_C4eYAr",
         "l1"
       ],
-      "settings": {}
+      "settings": {
+        "glow": "left-blue",
+        "eyebrow": "LIVE LOCATIONS",
+        "heading": "WHERE TO FIND | OUR MACHINES.",
+        "text": "Visit a TCG HITZ vending machine near you. Tap a location to see it on the map or get directions.",
+        "tiles": "osm",
+        "live_label": "LIVE",
+        "soon_label": "COMING SOON",
+        "show_label": "SHOW ON MAP",
+        "directions_label": "GET DIRECTIONS",
+        "map_label": "Map of TCG HITZ vending machine locations",
+        "nomap_text": "The map couldn't load. All locations are listed here.",
+        "empty_text": "New locations are coming soon. Check back shortly!",
+        "anchor": "locations"
+      }
     },
     "loc_banner": {
       "type": "tcg-home-banner",
