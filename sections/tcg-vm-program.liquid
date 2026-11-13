@@ -1,0 +1,99 @@
+{% comment %}
+  TCG Hitz — "Operator program": what machine buyers get besides the machine.
+  Steps are blocks (icon, title, text, badge). Tick "Coming soon" on a step to show it in gold
+  with a dashed border, so it's clear it isn't offered yet (e.g. buying packs from us once allocations arrive).
+  Phones: 1 column. Tablets: 2. Desktop: up to 4 in a row.
+{% endcomment %}
+
+{%- liquid
+  assign steps = section.blocks | where: 'type', 'step'
+  assign cols = steps.size
+  if cols > 4
+    assign cols = 4
+  endif
+  if cols < 1
+    assign cols = 1
+  endif
+-%}
+
+<section class="tcg-scope hz relative" id="{{ section.settings.anchor | default: 'operator-program' }}">
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-center gap-[28px] pb-[36px] pt-[36px] md:gap-[44px] md:pb-[72px] md:pt-[72px] xl:pb-[100px] xl:pt-[100px]">
+    {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, align: 'center', heading_class: 'max-w-[860px]', text_class: 'max-w-[700px]' %}
+
+    {%- if steps.size > 0 -%}
+      <ol class="hz-prog w-full" role="list" style="--cols: {{ cols }}">
+        {%- for block in steps -%}
+          {%- liquid
+            assign soon = block.settings.soon
+            assign badge = block.settings.badge
+            if soon and badge == blank
+              assign badge = section.settings.soon_label
+            endif
+          -%}
+          <li class="hz-prog__step tcg-gb [--bw:1px] hz-lift-card{% if soon %} hz-prog__step--soon{% endif %}" data-hz-reveal data-prog-step{% if soon %} data-soon{% endif %} {{ block.shopify_attributes }}>
+            <div class="flex w-full items-center justify-between gap-[12px]">
+              <span class="hz-prog__icon hz-icon">{% render 'tcg-sell-icon', name: block.settings.icon, size: 26 %}</span>
+              <span class="hz-prog__no" aria-hidden="true">{{ forloop.index | prepend: '0' }}</span>
+            </div>
+            {%- if badge != blank -%}<span class="hz-prog__badge{% if soon %} hz-prog__badge--soon{% endif %}">{{ badge }}</span>{%- endif -%}
+            <h3 class="font-display text-[19px] uppercase leading-[1.2] text-white md:text-[20px]">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="text-[14px] leading-[1.55] text-white/90">{{ block.settings.text }}</p>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    {%- endif -%}
+
+    {%- if section.settings.note != blank or section.settings.button_label != blank -%}
+      <div data-hz-reveal class="flex max-w-[720px] flex-col items-center gap-[16px] text-center">
+        {%- if section.settings.note != blank -%}<p class="text-[14px] leading-[1.5] text-hz-cool">{{ section.settings.note }}</p>{%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link | default: '/pages/contact' }}" class="hz-btn" data-prog-cta><span>{{ section.settings.button_label }}</span>{% render 'tcg-home-arrow', px: 12 %}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TCG Vending — Program",
+  "class": "tcg-home-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "left-purple" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE TCG HITZ OPERATOR PROGRAM" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "MORE THAN A MACHINE. | WE SET YOU UP TO SELL.", "info": "A ' | ' starts a new line." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "When you buy a machine from us, you're not on your own. Here's how we help you get started and keep it stocked." },
+    { "type": "text", "id": "soon_label", "label": "Coming soon badge", "default": "COMING SOON" },
+    { "type": "text", "id": "note", "label": "Note under the steps", "default": "Questions about the program? We're happy to walk you through it." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "TALK TO US ABOUT THE PROGRAM" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Empty = the contact page." },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "operator-program" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [ { "value": "machine", "label": "Vending machine" }, { "value": "palette", "label": "Wrap / design" }, { "value": "gift", "label": "Mystery pack" }, { "value": "package", "label": "Box / stock" }, { "value": "explore", "label": "Search / sourcing" }, { "value": "truck", "label": "Delivery" }, { "value": "chat", "label": "Support" }, { "value": "refresh", "label": "Restock" }, { "value": "store", "label": "Store" }, { "value": "card", "label": "Card" } ], "default": "machine" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Your machine, our wrap" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Your machine arrives wrapped in TCG HITZ branding, ready to plug in and start selling." },
+        { "type": "text", "id": "badge", "label": "Badge (optional)", "info": "e.g. INCLUDED. Coming-soon steps show the coming soon badge if this is empty." },
+        { "type": "checkbox", "id": "soon", "label": "Coming soon", "default": false, "info": "Shows the step in gold with a dashed border." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TCG Vending — Program",
+      "blocks": [
+        { "type": "step", "settings": { "icon": "machine", "title": "Your machine, our wrap", "badge": "INCLUDED", "text": "Your machine arrives wrapped in TCG HITZ branding, ready to plug in and start selling." } },
+        { "type": "step", "settings": { "icon": "gift", "title": "Mystery card packs", "text": "We supply TCG HITZ mystery card packs so your machine is stocked from day one." } },
+        { "type": "step", "settings": { "icon": "explore", "title": "Learn to source", "badge": "TRAINING", "text": "We show you how to source packs and exactly what to buy, so you can keep your machine full and profitable." } },
+        { "type": "step", "settings": { "icon": "package", "title": "Restock straight from us", "soon": true, "text": "Once our allocations come in, you'll be able to buy packs directly from TCG HITZ." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1131,4 +1131,19 @@
   .hz-navbadge { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: 999px; background: rgba(34,197,94,.16); color: #4ADE80; font-size: 10px; font-weight: 800; letter-spacing: .08em; line-height: 1.5; }
   .hz-navbadge__dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; animation: hz-live-dot 1.8s ease-out infinite; }
   @media (prefers-reduced-motion: reduce) { .hz-loc__live-dot, .hz-navbadge__dot, .hz-pin__pulse { animation: none; } .hz-loc__card, .hz-loccta__map { transition: none; } .hz-loc__card:hover, .hz-loccta__map:hover { transform: none; } }
+
+  /* vending: operator program cards (sections/tcg-vm-program.liquid) */
+  .hz-prog { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 768px) { .hz-prog { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; } }
+  @media (min-width: 1200px) { .hz-prog { grid-template-columns: repeat(var(--cols, 4), minmax(0,1fr)); gap: 24px; } }
+  .hz-prog__step { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; height: 100%; padding: 22px 22px 26px; border-radius: 20px; background: rgba(17,24,39,.78); }
+  .hz-prog__icon { display: inline-grid; width: 52px; height: 52px; place-items: center; border-radius: 14px; color: #fff; background: linear-gradient(135deg, #2563FF, #8B5CF6 55%, #EC4899); box-shadow: 0 10px 24px -12px rgba(139,92,246,.9); transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+  .hz-prog__no { font-family: "Titan One", sans-serif; font-size: 30px; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.28); }
+  .hz-prog__badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; background: rgba(139,92,246,.18); border: 1px solid rgba(139,92,246,.45); color: #C4B5FD; font-size: 11px; font-weight: 800; letter-spacing: .1em; line-height: 1.4; text-transform: uppercase; }
+  .hz-prog__step--soon { background: rgba(250,204,21,.04); }
+  .hz-prog__step--soon.tcg-gb { --g: linear-gradient(75deg, #FACC15 0%, #FF6B35 100%); }
+  .hz-prog__step--soon.tcg-gb::before { opacity: .75; }
+  .hz-prog__step--soon::after { content: ""; position: absolute; inset: 6px; border: 1px dashed rgba(250,204,21,.35); border-radius: 15px; pointer-events: none; }
+  .hz-prog__step--soon .hz-prog__icon { color: #1a1300; background: linear-gradient(135deg, #FACC15, #FF6B35); box-shadow: 0 10px 24px -12px rgba(250,204,21,.9); }
+  .hz-prog__badge--soon { background: #FACC15; border-color: #FACC15; color: #080A12; }
 }

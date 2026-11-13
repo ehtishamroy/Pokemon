@@ -652,6 +652,68 @@
     "vm_locations": {
       "type": "tcg-vm-locations-cta",
       "settings": {}
+    },
+    "vm_program": {
+      "type": "tcg-vm-program",
+      "blocks": {
+        "prog_wrap": {
+          "type": "step",
+          "settings": {
+            "icon": "machine",
+            "title": "Your machine, our wrap",
+            "badge": "INCLUDED",
+            "soon": false,
+            "text": "Your machine arrives wrapped in TCG HITZ branding, ready to plug in and start selling."
+          }
+        },
+        "prog_packs": {
+          "type": "step",
+          "settings": {
+            "icon": "gift",
+            "title": "Mystery card packs",
+            "badge": "",
+            "soon": false,
+            "text": "We supply TCG HITZ mystery card packs so your machine is stocked from day one."
+          }
+        },
+        "prog_source": {
+          "type": "step",
+          "settings": {
+            "icon": "explore",
+            "title": "Learn to source",
+            "badge": "TRAINING",
+            "soon": false,
+            "text": "We show you how to source packs and exactly what to buy, so you can keep your machine full and profitable."
+          }
+        },
+        "prog_restock": {
+          "type": "step",
+          "settings": {
+            "icon": "package",
+            "title": "Restock straight from us",
+            "badge": "",
+            "soon": true,
+            "text": "Once our allocations come in, you'll be able to buy packs directly from TCG HITZ."
+          }
+        }
+      },
+      "block_order": [
+        "prog_wrap",
+        "prog_packs",
+        "prog_source",
+        "prog_restock"
+      ],
+      "settings": {
+        "glow": "left-purple",
+        "eyebrow": "THE TCG HITZ OPERATOR PROGRAM",
+        "heading": "MORE THAN A MACHINE. | WE SET YOU UP TO SELL.",
+        "text": "When you buy a machine from us, you're not on your own. Here's how we help you get started and keep it stocked.",
+        "soon_label": "COMING SOON",
+        "note": "Questions about the program? We're happy to walk you through it.",
+        "button_label": "TALK TO US ABOUT THE PROGRAM",
+        "button_link": "",
+        "anchor": "operator-program"
+      }
     }
   },
   "order": [
@@ -659,6 +721,7 @@
     "vm_strip",
     "vm_intro",
     "vm_machines",
+    "vm_program",
     "vm_locations",
     "vm_compare",
     "vm_addons",
