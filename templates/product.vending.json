@@ -11,7 +11,30 @@
   "sections": {
     "vm_product": {
       "type": "tcg_vending_product",
-      "settings": {}
+      "settings": {
+        "glow": "left-blue",
+        "home_label": "Home",
+        "breadcrumb_label": "Vending Machines",
+        "breadcrumb_link": "",
+        "gallery_note": "Photos of the actual machine.",
+        "lead_build": "Built to order in about 2 weeks",
+        "lead_ship": "Ocean freight in 3–4 weeks",
+        "lead_shipping": "Shipping included",
+        "lead_total": "5–6 weeks in total",
+        "addons": [],
+        "addons_heading": "Customize your machine",
+        "addons_text": "Optional extras. Tick any you want and they're added to the same order.",
+        "journey_link_label": "See the build and shipping process",
+        "journey_anchor": "build-journey",
+        "calc_link_label": "Estimate what it could earn",
+        "calc_anchor": "profit-calculator",
+        "badge_1_title": "Shipping included",
+        "badge_1_text": "Delivered to your door",
+        "badge_2_title": "Built to order",
+        "badge_2_text": "Ready in 5–6 weeks",
+        "badge_3_title": "Secure checkout",
+        "badge_3_text": "Pay in full online"
+      }
     },
     "vm_journey": {
       "type": "tcg-vm-journey",
@@ -64,18 +87,56 @@
         "s4",
         "s5"
       ],
-      "settings": {}
+      "settings": {
+        "glow": "right-pink",
+        "eyebrow": "BESPOKE BUILD JOURNEY",
+        "heading": "BUILT TO ORDER, DELIVERED TO YOUR DOOR",
+        "text": "Every machine is made to order and carefully prepared before it reaches your location. This ensures you receive a brand-new, fully tested vending solution tailored to your needs.",
+        "pill": "ESTIMATED TOTAL LEAD TIME: 5–6 WEEKS",
+        "note": "Shipping is included in the price of every machine.",
+        "anchor": "build-journey"
+      }
     },
     "vm_specs": {
       "type": "tcg-vm-specs",
-      "settings": {}
+      "settings": {
+        "glow": "left-purple",
+        "eyebrow": "ABOUT THIS MACHINE",
+        "heading": "MACHINE DETAILS"
+      }
     },
     "vm_calc": {
       "type": "tcg-vm-calculator",
       "settings": {
+        "glow": "right-gold",
+        "eyebrow": "PLAN YOUR POTENTIAL",
         "heading": "WHAT COULD THIS | MACHINE EARN?",
         "text": "Choose how much this machine sells per day and see an estimate of your monthly sales and profit.",
-        "use_product_price": true
+        "anchor": "profit-calculator",
+        "sales": 150,
+        "machines": 1,
+        "margin": 50,
+        "days": 30,
+        "use_product_price": true,
+        "assumptions_title": "YOUR VENDING ASSUMPTIONS",
+        "label_sales": "Average sales per machine, per day",
+        "hint_sales": "Drag the slider or type your own number.",
+        "label_machines": "Number of machines",
+        "hint_machines": "How many machines you plan to run.",
+        "label_margin": "Average profit margin",
+        "hint_margin": "Profit kept from each sale. 50% is a typical average.",
+        "label_days": "Selling days per month",
+        "hint_days": "30 means the machine sells every day.",
+        "reset_label": "RESET",
+        "results_title": "YOUR ESTIMATED RESULTS",
+        "out_sales": "MONTHLY SALES",
+        "out_per_machine": "PROFIT PER MACHINE / MONTH",
+        "out_profit": "ESTIMATED MONTHLY PROFIT",
+        "out_yearly": "ESTIMATED YEARLY PROFIT",
+        "out_payback": "ESTIMATED PAYBACK TIME",
+        "disclaimer": "These numbers are estimates based on the figures you enter and an average profit margin. Actual results depend on your location, products, pricing and sales.",
+        "btn_label": "EXPLORE MACHINES",
+        "btn_link": ""
       }
     },
     "vm_faq": {
@@ -150,11 +211,11 @@
         "heading": "EXPLORE MORE VENDING MACHINES.",
         "text": "Compare other TCG HITZ machines and find the right fit for your space.",
         "btn_label": "VIEW ALL MACHINES",
+        "collection": "vending-machines",
         "limit": 4,
         "show_glow": true,
         "card_note": "Shipping included",
-        "view_label": "View Machine",
-        "collection": "vending-machines"
+        "view_label": "View Machine"
       }
     },
     "vm_questions": {
@@ -203,6 +264,8 @@
       "settings": {
         "glow": "left-purple",
         "layout": "stacked",
+        "header": "center",
+        "columns": "3",
         "space_top": "normal",
         "eyebrow": "THE TCG HITZ EXPERIENCE",
         "heading": "WHY SHOP TCG HITZ?",
@@ -222,74 +285,11 @@
         "button_label": "Subscribe",
         "success_text": "You're in! Welcome to the TCG HITZ community."
       }
-    },
-    "vm_program": {
-      "type": "tcg-vm-program",
-      "blocks": {
-        "prog_wrap": {
-          "type": "step",
-          "settings": {
-            "icon": "machine",
-            "title": "Your machine, our wrap",
-            "badge": "INCLUDED",
-            "soon": false,
-            "text": "Your machine arrives wrapped in TCG HITZ branding, ready to plug in and start selling."
-          }
-        },
-        "prog_packs": {
-          "type": "step",
-          "settings": {
-            "icon": "gift",
-            "title": "Mystery card packs",
-            "badge": "",
-            "soon": false,
-            "text": "We supply TCG HITZ mystery card packs so your machine is stocked from day one."
-          }
-        },
-        "prog_source": {
-          "type": "step",
-          "settings": {
-            "icon": "explore",
-            "title": "Learn to source",
-            "badge": "TRAINING",
-            "soon": false,
-            "text": "We show you how to source packs and exactly what to buy, so you can keep your machine full and profitable."
-          }
-        },
-        "prog_restock": {
-          "type": "step",
-          "settings": {
-            "icon": "package",
-            "title": "Restock straight from us",
-            "badge": "",
-            "soon": true,
-            "text": "Once our allocations come in, you'll be able to buy packs directly from TCG HITZ."
-          }
-        }
-      },
-      "block_order": [
-        "prog_wrap",
-        "prog_packs",
-        "prog_source",
-        "prog_restock"
-      ],
-      "settings": {
-        "glow": "left-purple",
-        "eyebrow": "THE TCG HITZ OPERATOR PROGRAM",
-        "heading": "MORE THAN A MACHINE. | WE SET YOU UP TO SELL.",
-        "text": "When you buy a machine from us, you're not on your own. Here's how we help you get started and keep it stocked.",
-        "soon_label": "COMING SOON",
-        "note": "Questions about the program? We're happy to walk you through it.",
-        "button_label": "TALK TO US ABOUT THE PROGRAM",
-        "button_link": "",
-        "anchor": "operator-program"
-      }
     }
   },
   "order": [
     "vm_product",
     "vm_journey",
-    "vm_program",
     "vm_specs",
     "vm_calc",
     "vm_faq",

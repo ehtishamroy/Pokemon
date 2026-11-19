@@ -65,7 +65,8 @@
           "settings": {
             "label": "Mystery",
             "link": "shopify://collections/mystery",
-            "gold": false
+            "gold": false,
+            "badge": ""
           }
         },
         "nav_slabs": {
@@ -73,7 +74,8 @@
           "settings": {
             "label": "Slabs",
             "link": "shopify://collections/graded-slabs",
-            "gold": false
+            "gold": false,
+            "badge": ""
           }
         },
         "nav_vending": {
@@ -81,15 +83,8 @@
           "settings": {
             "label": "Vending Machines",
             "link": "/pages/vending-machines",
-            "gold": false
-          }
-        },
-        "nav_sell": {
-          "type": "nav_link",
-          "settings": {
-            "label": "Sell to us",
-            "link": "/pages/sell",
-            "gold": false
+            "gold": false,
+            "badge": ""
           }
         },
         "nav_locations": {
@@ -99,6 +94,15 @@
             "link": "/pages/vending-machine-locations",
             "gold": false,
             "badge": "LIVE"
+          }
+        },
+        "nav_sell": {
+          "type": "nav_link",
+          "settings": {
+            "label": "Sell to us",
+            "link": "/pages/sell",
+            "gold": false,
+            "badge": ""
           }
         }
       },

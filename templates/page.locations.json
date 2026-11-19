@@ -77,6 +77,77 @@
     "loc_map": {
       "type": "tcg-locations",
       "blocks": {
+        "location_g7XF6t": {
+          "type": "location",
+          "settings": {
+            "name": "Cheveron Seltice",
+            "address": "4020 E Seltice Way,",
+            "city": "Post Falls, ID 83854",
+            "latitude": "47.70878554043345,",
+            "longitude": "-116.89352193119413",
+            "status": "soon",
+            "hours": "",
+            "note": "",
+            "directions_link": ""
+          }
+        },
+        "location_grqURq": {
+          "type": "location",
+          "settings": {
+            "name": "Suncrest Market",
+            "address": "5998 WA-291 st 4,",
+            "city": "Nine Mile Falls, WA 99026",
+            "latitude": "47.81607779882538,",
+            "longitude": "-117.57946007301298",
+            "status": "soon",
+            "hours": "",
+            "note": "",
+            "directions_link": ""
+          }
+        },
+        "location_nPL7HN": {
+          "type": "location",
+          "settings": {
+            "name": "Frontier Grocery",
+            "address": "2707 W Seltice Way,  Falls, ID 83854",
+            "city": "Post",
+            "latitude": "47.71692178016993,",
+            "longitude": "-116.98443296188886",
+            "status": "soon",
+            "hours": "-116.98443296188886",
+            "note": "",
+            "directions_link": ""
+          }
+        },
+        "location_fYMFcc": {
+          "type": "location",
+          "settings": {
+            "name": "Dalton Market 76",
+            "address": "5632 N 15th St, Dalton Gardens, ID 83815",
+            "city": "Dalton Gardens ID 83815",
+            "latitude": "47.72290743823993,",
+            "longitude": "-116.76452607352155",
+            "status": "soon",
+            "hours": "",
+            "note": "",
+            "directions_link": ""
+          }
+        },
+        "location_dPtdUG": {
+          "type": "location",
+          "settings": {
+            "name": "Ross Point Market",
+            "address": "310 S RossPoint Rd",
+            "city": "Post Falls Id, 83854",
+            "latitude": "47.70855460209406,",
+            "longitude": "-116.89487737537405",
+            "status": "live",
+            "hours": "",
+            "note": "",
+            "image": "shopify://shop_images/IMG_5784.jpg",
+            "directions_link": ""
+          }
+        },
         "location_wcA9LG": {
           "type": "location",
           "settings": {
@@ -211,6 +282,11 @@
         }
       },
       "block_order": [
+        "location_g7XF6t",
+        "location_grqURq",
+        "location_nPL7HN",
+        "location_fYMFcc",
+        "location_dPtdUG",
         "location_wcA9LG",
         "location_Gq7tPW",
         "location_WK7AJd",
