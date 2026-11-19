@@ -13,6 +13,7 @@
   Badge for real products: a product tag "badge:Your text" wins; otherwise Sold Out,
   the card condition metafield (e.g. Near Mint), graded/slab tags, then "In Stock".
   note: optional green check line (e.g. 'Shipping included'). glow: optional colour behind the image — pink | blue | purple | gold.
+  size: 'lg' for a big card with a tall picture (used when a grid shows 2 cards per row, e.g. vending machines).
 {%- endcomment -%}
 
 {%- liquid
@@ -26,6 +27,12 @@
   assign card_desc = desc
   assign add_id = ''
   assign card_multi = false
+  assign is_lg = false
+  assign img_w = 500
+  if size == 'lg'
+    assign is_lg = true
+    assign img_w = 1000
+  endif
 
   if product != blank
     assign card_link = product.url
@@ -46,9 +53,9 @@
     endif
 
     if product.featured_image
-      assign card_img = product.featured_image | image_url: width: 500
+      assign card_img = product.featured_image | image_url: width: img_w
     elsif settings.tcg_product_fallback_image != blank
-      assign card_img = settings.tcg_product_fallback_image | image_url: width: 500
+      assign card_img = settings.tcg_product_fallback_image | image_url: width: img_w
     else
       assign card_img = 'card-back.svg' | asset_url
     endif
@@ -116,7 +123,11 @@
     endif
   endif
   if image_override != blank
-    assign card_img = image_override | image_url: width: 600
+    if is_lg
+      assign card_img = image_override | image_url: width: 1000
+    else
+      assign card_img = image_override | image_url: width: 600
+    endif
   endif
 
   case card_tone
@@ -149,7 +160,7 @@
 -%}
 
 <article data-hz-reveal class="hz-card relative flex h-full flex-col gap-[17px] rounded-[20px] tcg-gb bg-hz-card px-[14px] pb-[18px] pt-[14px]" {{ attrs }}>
-  <div class="flex h-[220px] w-full flex-col rounded-[12px] bg-hz-elevated px-[10px] pb-[16px] pt-[10px]">
+  <div class="flex {% if is_lg %} h-[320px] md:h-[440px] {% else %} h-[220px] {% endif %} w-full flex-col rounded-[12px] bg-hz-elevated px-[10px] pb-[16px] pt-[10px]">
     <div class="relative z-[1] flex w-full items-center justify-between">
       {%- if card_badge != blank -%}
         <span class="flex items-center justify-center whitespace-nowrap rounded-[48px] px-[10px] py-[4px] text-[11px] font-medium leading-[1.5] {{ tone_class }}">{{ card_badge }}</span>
@@ -162,10 +173,10 @@
     </div>
     <a href="{{ card_link }}" class="relative flex min-h-0 flex-1 items-center justify-center" tabindex="-1" aria-hidden="true">
       {%- if glow_rgb != blank -%}
-        <span class="hz-card__glow pointer-events-none absolute left-1/2 top-1/2 h-[200px] w-[220px] rounded-full" style="background:radial-gradient(closest-side, rgb({{ glow_rgb }} / .5), rgb({{ glow_rgb }} / .15) 60%, transparent);"></span>
+        <span class="hz-card__glow pointer-events-none absolute left-1/2 top-1/2 {% if is_lg %} h-[340px] w-[380px] {% else %} h-[200px] w-[220px] {% endif %} rounded-full" style="background:radial-gradient(closest-side, rgb({{ glow_rgb }} / .5), rgb({{ glow_rgb }} / .15) 60%, transparent);"></span>
       {%- endif -%}
       {%- if card_img != blank -%}
-        <img src="{{ card_img }}" alt="{{ card_title | escape }}" loading="lazy" width="400" height="400" class="hz-card__img relative max-h-[170px] w-auto max-w-full object-contain">
+        <img src="{{ card_img }}" alt="{{ card_title | escape }}" loading="lazy" width="400" height="400" class="hz-card__img relative {% if is_lg %} max-h-[280px] md:max-h-[400px] {% else %} max-h-[170px] {% endif %} w-auto max-w-full object-contain">
       {%- endif -%}
     </a>
   </div>
@@ -173,7 +184,7 @@
     <div class="flex w-full flex-col items-start gap-[10px]">
       <div class="flex w-full flex-col items-start gap-[6px]">
         {%- if card_meta != blank -%}<p class="text-[11px] font-medium uppercase leading-[1.5] text-hz-cool">{{ card_meta }}</p>{%- endif -%}
-        <h3 class="font-display text-[22px] leading-[1.2] text-white{% if show_desc %} uppercase{% endif %}"><a href="{{ card_link }}" class="hover:text-hz-lightning">{{ card_title }}</a></h3>
+        <h3 class="font-display {% if is_lg %} text-[22px] md:text-[26px] {% else %} text-[22px] {% endif %} leading-[1.2] text-white{% if show_desc %} uppercase{% endif %}"><a href="{{ card_link }}" class="hover:text-hz-lightning">{{ card_title }}</a></h3>
         {%- if card_desc != blank -%}<p class="text-[13px] font-medium leading-[1.5] text-hz-cool">{{ card_desc }}</p>{%- endif -%}
       </div>
       {%- if stock_line and product != blank -%}

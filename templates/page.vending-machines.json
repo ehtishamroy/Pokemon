@@ -239,7 +239,8 @@
         "view_label": "View Machine",
         "show_glow": true,
         "padding": "normal",
-        "show_samples": true
+        "show_samples": true,
+        "per_row": "2"
       }
     },
     "vm_compare": {

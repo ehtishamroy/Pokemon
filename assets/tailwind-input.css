@@ -1146,4 +1146,23 @@
   .hz-prog__step--soon::after { content: ""; position: absolute; inset: 6px; border: 1px dashed rgba(250,204,21,.35); border-radius: 15px; pointer-events: none; }
   .hz-prog__step--soon .hz-prog__icon { color: #1a1300; background: linear-gradient(135deg, #FACC15, #FF6B35); box-shadow: 0 10px 24px -12px rgba(250,204,21,.9); }
   .hz-prog__badge--soon { background: #FACC15; border-color: #FACC15; color: #080A12; }
+
+  /* product grids with fewer, bigger cards (sections/tcg-home-products.liquid → "Cards per row") */
+  .hz-grid-2, .hz-grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
+  .hz-grid-2 { max-width: 1120px; margin-left: auto; margin-right: auto; }
+  @media (min-width: 768px) {
+    .hz-grid-2 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; column-gap: 32px !important; }
+    .hz-grid-2 > * { grid-column: span 2; }
+    .hz-grid-2 > :last-child:nth-child(odd) { grid-column: 2 / span 2; }
+    .hz-grid-3 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+    .hz-grid-3 > * { grid-column: span 2; }
+    .hz-grid-3 > :last-child:nth-child(odd) { grid-column: 2 / span 2; }
+  }
+  @media (min-width: 1024px) {
+    .hz-grid-3 { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+    .hz-grid-3 > *, .hz-grid-3 > :last-child:nth-child(odd) { grid-column: span 2; }
+    .hz-grid-3 > :last-child:nth-child(3n+1) { grid-column: 3 / span 2; }
+    .hz-grid-3 > :nth-last-child(2):nth-child(3n+1) { grid-column: 2 / span 2; }
+    .hz-grid-3 > :last-child:nth-child(3n+2) { grid-column: 4 / span 2; }
+  }
 }

@@ -21,6 +21,11 @@
   endif
   assign view_all = section.settings.btn_link | default: coll.url
   assign card_blocks = section.blocks | where: 'type', 'card'
+  assign per_row = section.settings.per_row | default: '4'
+  assign card_size = ''
+  if per_row == '2'
+    assign card_size = 'lg'
+  endif
 
   assign show_collection = false
   assign show_cards = false
@@ -45,7 +50,7 @@
     </div>
     {%- endif -%}
 
-    <div class="grid w-full gap-x-[24px] gap-y-[30px] {% if section.settings.center_rows %} hz-grid-center {% else %} grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 {% endif %}">
+    <div class="grid w-full gap-x-[24px] gap-y-[30px] {% if per_row == '2' %} hz-grid-2 {% elsif per_row == '3' %} hz-grid-3 {% elsif section.settings.center_rows %} hz-grid-center {% else %} grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 {% endif %}">
       {%- if show_collection -%}
         {%- for product in coll.products limit: section.settings.limit -%}
           {%- liquid
@@ -55,7 +60,7 @@
               assign glow = glows[glow_index]
             endif
           -%}
-          {% render 'tcg-home-card', product: product, show_desc: section.settings.show_desc, glow: glow, note: section.settings.card_note, view_label: section.settings.view_label, stock_line: false %}
+          {% render 'tcg-home-card', product: product, show_desc: section.settings.show_desc, glow: glow, note: section.settings.card_note, view_label: section.settings.view_label, stock_line: false, size: card_size %}
         {%- endfor -%}
       {%- endif -%}
       {%- if show_cards -%}
@@ -81,7 +86,7 @@
               assign card_link = view_all
             endif
           -%}
-          {% render 'tcg-home-card', product: opts.product, image_override: opts.image, img: card_fallback, title: opts.title, meta: opts.meta, price: opts.price, badge: opts.badge, tone: opts.tone, desc: opts.desc, show_desc: section.settings.show_desc, link: card_link, glow: glow, note: section.settings.card_note, view_label: section.settings.view_label, attrs: block.shopify_attributes %}
+          {% render 'tcg-home-card', product: opts.product, image_override: opts.image, img: card_fallback, title: opts.title, meta: opts.meta, price: opts.price, badge: opts.badge, tone: opts.tone, desc: opts.desc, show_desc: section.settings.show_desc, link: card_link, glow: glow, note: section.settings.card_note, view_label: section.settings.view_label, attrs: block.shopify_attributes, size: card_size %}
         {%- endfor -%}
       {%- endif -%}
     </div>
@@ -192,6 +197,18 @@
       "id": "anchor",
       "label": "Anchor id (optional)",
       "info": "Lets buttons jump here, e.g. machines → #machines"
+    },
+    {
+      "type": "select",
+      "id": "per_row",
+      "label": "Cards per row on desktop",
+      "options": [
+        { "value": "4", "label": "4 (standard)" },
+        { "value": "3", "label": "3 (bigger)" },
+        { "value": "2", "label": "2 (big cards, large pictures)" }
+      ],
+      "default": "4",
+      "info": "With 3 or 2 per row, a single card on the last row is always centred."
     },
     {
       "type": "checkbox",
