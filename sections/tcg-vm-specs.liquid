@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — "About this machine": product description + spec tabs (vending machine pages).
   Specs come from the product's custom.* metafields; every empty field and every empty tab is hidden, so nothing
@@ -67,7 +68,8 @@
   "settings": [
     { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "left-purple" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "ABOUT THIS MACHINE" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "MACHINE DETAILS", "info": "Specs come from the product's custom metafields: dimensions, weight, cabinet, finish, display_size, slots, capacity, payment, network, software, power, environment, warranty. Empty ones are hidden." }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "MACHINE DETAILS", "info": "Specs come from the product's custom metafields: dimensions, weight, cabinet, finish, display_size, slots, capacity, payment, network, software, power, environment, warranty. Empty ones are hidden." },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": []
 }

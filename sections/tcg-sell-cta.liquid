@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Sell to us CTA (Interactive Animated Experience)
   High-energy collector banner with glowing ambient mesh, holographic accents,
@@ -472,7 +473,8 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Sell or trade your cards" },
     { "type": "textarea", "id": "body", "label": "Body", "default": "Bring it to a show or send photos. We buy singles, slabs and sealed — fair offers, paid fast." },
     { "type": "text", "id": "cta_label", "label": "Button", "default": "Get an offer" },
-    { "type": "url", "id": "cta_link", "label": "Button link" }
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Sell CTA" }]
 }

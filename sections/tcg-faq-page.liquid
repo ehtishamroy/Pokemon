@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — FAQ page body (Figma "FAQs" design).
   Left: sticky "TABLE OF CONTENTS" built from the category blocks. Right: each category (heading + text)
@@ -65,7 +66,8 @@
   "settings": [
     { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "right-blue" },
     { "type": "text", "id": "toc_title", "label": "Table of contents title", "default": "TABLE OF CONTENTS" },
-    { "type": "checkbox", "id": "first_open", "label": "Open the first question of every category", "default": true }
+    { "type": "checkbox", "id": "first_open", "label": "Open the first question of every category", "default": true },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

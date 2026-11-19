@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — "GOT QUESTIONS?" (Figma Mystery Packs design).
   Left: eyebrow, heading, text and a framed image. Right: accordion of questions (blocks) with round
@@ -56,7 +57,8 @@
     { "type": "image_picker", "id": "image", "label": "Image" },
     { "type": "image_picker", "id": "image_mobile", "label": "Image — mobile (optional)" },
     { "type": "text", "id": "image_alt", "label": "Image description (alt text)", "default": "Mystery pack surrounded by graded cards" },
-    { "type": "checkbox", "id": "first_open", "label": "Open the first question", "default": true }
+    { "type": "checkbox", "id": "first_open", "label": "Open the first question", "default": true },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

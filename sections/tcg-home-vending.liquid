@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Homepage vending machines feature (client-approved design).
   Framed machine photo with a play button (opens the video in a pop-up when one is set),
@@ -89,7 +90,8 @@
     { "type": "text", "id": "btn1_label", "label": "Button 1 label", "default": "EXPLORE VENDING MACHINES" },
     { "type": "url", "id": "btn1_link", "label": "Button 1 link" },
     { "type": "text", "id": "btn2_label", "label": "Button 2 label", "default": "VIEW AVAILABLE MODELS" },
-    { "type": "url", "id": "btn2_link", "label": "Button 2 link" }
+    { "type": "url", "id": "btn2_link", "label": "Button 2 link" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

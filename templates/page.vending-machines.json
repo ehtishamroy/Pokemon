@@ -653,6 +653,18 @@
     "vm_locations": {
       "type": "tcg-vm-locations-cta",
       "settings": {}
+    },
+    "vm_media": {
+      "type": "tcg-vm-media",
+      "settings": {
+        "glow": "right-blue",
+        "eyebrow": "SEE IT IN ACTION",
+        "heading": "PHOTOS & | VIDEOS.",
+        "text": "Real TCG HITZ machines out in the wild. Tap any photo or video to see it full screen.",
+        "layout": "featured",
+        "anchor": "media",
+        "hide_parallax": false
+      }
     }
   },
   "order": [
@@ -660,6 +672,7 @@
     "vm_strip",
     "vm_intro",
     "vm_machines",
+    "vm_media",
     "vm_locations",
     "vm_compare",
     "vm_addons",

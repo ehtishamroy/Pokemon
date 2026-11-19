@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Cart page (1:1 with tcg-hitz-store/cart.html), rendered from the real
   Shopify cart. Quantity / Remove / Empty cart go through assets/tcg.js
@@ -102,7 +103,8 @@
     { "type": "text", "id": "secondary_label", "label": "Empty-state secondary button", "default": "Mystery packs" },
     { "type": "url", "id": "secondary_link", "label": "Empty-state secondary link" },
     { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You might also chase" },
-    { "type": "collection", "id": "related_collection", "label": "Related collection" }
+    { "type": "collection", "id": "related_collection", "label": "Related collection" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": []
 }

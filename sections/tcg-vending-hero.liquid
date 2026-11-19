@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Vending machines for sale: page hero (Optic-style: headline + machine shot).
   Defaults to assets/machine-premium.jpg until a photo or video is chosen.
@@ -59,7 +60,8 @@
     { "type": "text", "id": "point_2", "label": "Point 2", "default": "Free shipping" },
     { "type": "text", "id": "point_3", "label": "Point 3", "default": "Custom wraps available" },
     { "type": "image_picker", "id": "image", "label": "Machine image (defaults to machine-premium.jpg)" },
-    { "type": "video", "id": "video", "label": "Or video (overrides image)" }
+    { "type": "video", "id": "video", "label": "Or video (overrides image)" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Vending Hero" }]
 }

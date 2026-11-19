@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Contact page help cards (Figma "Contact Us" design). Used twice:
     layout "Row"  — 3 borderless cards with an icon beside the text and a small button (top of the page)
@@ -63,7 +64,8 @@
     { "type": "header", "content": "Heading (grid layout only)" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "LOOKING FOR SOMETHING SPECIFIC?" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "FIND YOUR | ANSWER FASTER.", "info": "A ' | ' starts a new line." },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Explore our help resources for quick answers about shopping, orders, and collectibles." }
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Explore our help resources for quick answers about shopping, orders, and collectibles." },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

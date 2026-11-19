@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Sell page "WHAT WE BUY" (Figma "Sell To Us" design).
   Two gradient-bordered cards: "We're interested" (blue check bullets) and "Generally not a fit"
@@ -77,7 +78,8 @@
     { "type": "header", "content": "Right card" },
     { "type": "text", "id": "no_heading", "label": "Heading", "default": "GENERALLY NOT A FIT" },
     { "type": "text", "id": "note_title", "label": "Note title", "default": "NOT SURE IF YOUR COLLECTION QUALIFIES?" },
-    { "type": "textarea", "id": "note_text", "label": "Note text", "default": "Send us the details anyway. We'll review the information and let you know if it's something we're interested in." }
+    { "type": "textarea", "id": "note_text", "label": "Note text", "default": "Send us the details anyway. We'll review the information and let you know if it's something we're interested in." },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

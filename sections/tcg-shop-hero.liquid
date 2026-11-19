@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Shop All collection hero (Figma "Shop All Collection" design).
   Breadcrumb (Home / collection name), "FIND YOUR NEXT FAVORITE." heading with a gradient word,
@@ -70,7 +71,8 @@
     { "type": "text", "id": "heading_line2", "label": "Second heading line (blue → pink gradient, optional)" },
     { "type": "select", "id": "gradient", "label": "Second line colours", "options": [ { "value": "blue-pink", "label": "Blue → purple → pink" }, { "value": "purple-pink", "label": "Purple → pink" } ], "default": "blue-pink" },
     { "type": "text", "id": "heading_line2_after", "label": "After the second line (e.g. a full stop)" },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Explore trading cards, collectibles, and more. Discover something new for your collection and find your next favorite addition." }
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Explore trading cards, collectibles, and more. Discover something new for your collection and find your next favorite addition." },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Shop — Hero" }]
 }

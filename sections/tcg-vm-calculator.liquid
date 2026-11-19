@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Vending page "WHAT COULD YOUR MACHINE EARN?" profit calculator (Figma layout, client's model).
   The visitor chooses how many machines and how much each machine sells per day. Profit is the sales
@@ -146,7 +147,8 @@
     { "type": "text", "id": "out_payback", "label": "Result: payback", "default": "ESTIMATED PAYBACK TIME" },
     { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "These numbers are estimates based on the figures you enter and an average profit margin. Actual results depend on your location, products, pricing and sales." },
     { "type": "text", "id": "btn_label", "label": "Button", "default": "EXPLORE MACHINES" },
-    { "type": "url", "id": "btn_link", "label": "Button link", "info": "Empty = the machine list on this page." }
+    { "type": "url", "id": "btn_link", "label": "Button link", "info": "Empty = the machine list on this page." },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Vending — Calculator" }]
 }

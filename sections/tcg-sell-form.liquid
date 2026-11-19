@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Sell page "GET AN OFFER" (Figma "Sell To Us" design).
   Left: heading, text and a photo. Right: the offer request form (Shopify's contact form, so
@@ -118,7 +119,8 @@
     { "type": "text", "id": "submit_label", "label": "Button", "default": "SEND MY OFFER REQUEST" },
     { "type": "textarea", "id": "disclaimer", "label": "Small print", "default": "Submitting a request doesn't guarantee an offer or commit you to a sale. We'll review the information provided and follow up if your collection is a fit." },
     { "type": "text", "id": "success_title", "label": "Success title", "default": "Request sent!" },
-    { "type": "textarea", "id": "success_text", "label": "Success message", "default": "Thanks — we'll review your details and be in touch within one business day. If you have photos, reply to our confirmation email with them attached." }
+    { "type": "textarea", "id": "success_text", "label": "Success message", "default": "Thanks — we'll review your details and be in touch within one business day. If you have photos, reply to our confirmation email with them attached." },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Sell — Get an offer" }]
 }

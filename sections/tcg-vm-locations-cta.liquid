@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — "Find a machine near you" teaser (vending page). Sends visitors to the locations page.
   The map on the right is a decorative illustration (CSS/SVG), not real data.
@@ -51,7 +52,8 @@
     { "type": "text", "id": "live_line", "label": "Small live line (optional)", "default": "Now live in Coeur d'Alene, Idaho" },
     { "type": "text", "id": "chip", "label": "Label on the map (optional)", "default": "LIVE NOW" },
     { "type": "text", "id": "btn_label", "label": "Button", "default": "VIEW LIVE LOCATIONS" },
-    { "type": "url", "id": "btn_link", "label": "Button link", "info": "Empty = /pages/vending-machine-locations" }
+    { "type": "url", "id": "btn_link", "label": "Button link", "info": "Empty = /pages/vending-machine-locations" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Locations — Teaser" }]
 }

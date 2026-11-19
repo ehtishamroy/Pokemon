@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Homepage gradient strip (client-approved design).
   A tab with the tagline ("COLLECT ✦ TRADE ✦ RIP ✦ REPEAT") above a blue→pink band of
@@ -62,7 +63,8 @@
     { "type": "select", "id": "speed", "label": "Ticker speed", "options": [
       { "value": "slow", "label": "Slow" }, { "value": "normal", "label": "Normal" }, { "value": "fast", "label": "Fast" }
     ], "default": "normal" },
-    { "type": "checkbox", "id": "overlap", "label": "Overlap the section above (like the design)", "default": true }
+    { "type": "checkbox", "id": "overlap", "label": "Overlap the section above (like the design)", "default": true },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     { "type": "item", "name": "Word", "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "POKÉMON CARDS" } ] }

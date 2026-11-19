@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — generic page template, styled like the rest of the design.
   Used by templates/page.json so every new page a merchant creates inherits the
@@ -46,7 +47,8 @@
         { "value": "wide", "label": "Wide" }
       ],
       "default": "normal"
-    }
+    },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": []
 }

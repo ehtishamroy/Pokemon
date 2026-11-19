@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Homepage image banner (client-approved design).
   Used twice: "THE THRILL OF THE UNKNOWN" mystery-packs banner (left, red buttons) and
@@ -69,7 +70,8 @@
     { "type": "text", "id": "btn1_label", "label": "Button 1 label", "default": "SHOP MYSTERY PACKS" },
     { "type": "url", "id": "btn1_link", "label": "Button 1 link" },
     { "type": "text", "id": "btn2_label", "label": "Button 2 label", "default": "EXPLORE ALL COLLECTIBLES" },
-    { "type": "url", "id": "btn2_link", "label": "Button 2 link" }
+    { "type": "url", "id": "btn2_link", "label": "Button 2 link" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Home — Banner" }]
 }

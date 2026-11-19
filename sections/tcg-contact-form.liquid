@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Contact page "HOW CAN WE HELP?" + message form (Figma "Contact Us" design).
   Left: heading, text, contact info (phone, email, address) and social buttons.
@@ -131,7 +132,8 @@
     { "type": "text", "id": "privacy_label", "label": "Privacy link text", "default": "Privacy Policy" },
     { "type": "url", "id": "privacy_link", "label": "Privacy link", "info": "Empty = /policies/privacy-policy" },
     { "type": "text", "id": "success_title", "label": "Thank-you title", "default": "MESSAGE SENT!" },
-    { "type": "textarea", "id": "success_text", "label": "Thank-you text", "default": "Thanks for reaching out. Our team will review your message and get back to you soon." }
+    { "type": "textarea", "id": "success_text", "label": "Thank-you text", "default": "Thanks for reaching out. Our team will review your message and get back to you soon." },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Contact — Form" }]
 }

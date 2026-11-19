@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — "WHY SHOP TCG HITZ?" feature cards (client-approved design). Cards are blocks.
 {% endcomment %}
@@ -165,7 +166,8 @@
       "id": "text",
       "label": "Text",
       "default": "From trading cards to collectibles and vending machines, explore more of what makes collecting exciting."
-    }
+    },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Homepage product grid (client-approved design).
   Used twice on the homepage: "Featured products / COLLECTOR'S PICKS." and
@@ -267,7 +268,8 @@
       "label": "Show the cards below while the collection is empty",
       "default": true,
       "info": "The design's example cards aren't real products. Replace them with real products (pick a product in each card) or turn this off before launch."
-    }
+    },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [
     {

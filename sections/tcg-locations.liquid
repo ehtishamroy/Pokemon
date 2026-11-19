@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Vending machine locations: map + list.
 
@@ -123,7 +124,8 @@
     { "type": "text", "id": "map_label", "label": "Map description (for screen readers)", "default": "Map of TCG HITZ vending machine locations" },
     { "type": "text", "id": "nomap_text", "label": "Text if the map can't load", "default": "The map couldn't load. All locations are listed here." },
     { "type": "text", "id": "empty_text", "label": "Text when there are no locations", "default": "New locations are coming soon. Check back shortly!" },
-    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "locations" }
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "locations" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Just Landed grid (1:1 with index.html "JUST LANDED")
 {% endcomment %}
@@ -60,7 +61,8 @@
     { "type": "header", "content": "Ambient Glow Effect" },
     { "type": "checkbox", "id": "enable_ambient_glow", "label": "Enable ambient energy glow backdrop", "default": true },
     { "type": "text", "id": "view_all_label", "label": "Button", "default": "LOAD MORE ARRIVALS" },
-    { "type": "url", "id": "view_all_link", "label": "Button link" }
+    { "type": "url", "id": "view_all_link", "label": "Button link" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Just Landed" }]
 }

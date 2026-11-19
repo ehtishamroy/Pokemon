@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — "Built to order, delivered to your door" shipping & build process (vending machine pages).
   Client's process: order placed → custom factory build → quality testing → ocean freight → doorstep delivery,
@@ -44,7 +45,8 @@
     { "type": "textarea", "id": "text", "label": "Text", "default": "Every machine is made to order and carefully prepared before it reaches your location. This ensures you receive a brand-new, fully tested vending solution tailored to your needs." },
     { "type": "text", "id": "pill", "label": "Lead-time badge", "default": "ESTIMATED TOTAL LEAD TIME: 5–6 WEEKS" },
     { "type": "text", "id": "note", "label": "Note under the steps", "default": "Shipping is included in the price of every machine." },
-    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "build-journey" }
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "build-journey" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

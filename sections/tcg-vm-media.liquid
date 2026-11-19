@@ -1,0 +1,153 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
+{% comment %}
+  TCG Hitz — "Photos & videos" gallery for the vending pages (works on any page or product template).
+  Blocks: Photo (image + caption) and Video (uploaded video, or a YouTube / Vimeo link, + optional cover + caption).
+  Tiles open in a full-screen viewer with previous / next; videos only load when opened.
+  Desktop: 3 columns, the first tile big (or all tiles equal). Phones: the first tile full width, then 2 columns.
+  The section shows nothing to visitors until at least one photo or video is added.
+  Logic in assets/tcg-media.js.
+{% endcomment %}
+
+{%- liquid
+  assign items = 0
+  for block in section.blocks
+    if block.type == 'photo' and block.settings.image != blank
+      assign items = items | plus: 1
+    elsif block.type == 'video'
+      if block.settings.video != blank or block.settings.video_url != blank
+        assign items = items | plus: 1
+      endif
+    endif
+  endfor
+-%}
+
+{%- if items > 0 or request.design_mode -%}
+<script src="{{ 'tcg-media.js' | asset_url }}" defer></script>
+<section class="tcg-scope hz relative" id="{{ section.settings.anchor | default: 'media' }}" data-hz-media>
+  {% render 'tcg-home-glow', glow: section.settings.glow %}
+  <div class="hz-wrap flex flex-col items-center gap-[28px] pb-[36px] pt-[36px] md:gap-[44px] md:pb-[72px] md:pt-[72px] xl:pb-[100px] xl:pt-[100px]">
+    {% render 'tcg-home-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, align: 'center', heading_class: 'max-w-[820px]', text_class: 'max-w-[680px]' %}
+
+    {%- if items == 0 -%}
+      <div class="hz-cs-block tcg-gb [--bw:1px] w-full max-w-[720px] text-center">
+        <p class="text-[15px] leading-[1.5] text-white/90">Add photos and videos with <strong>Add block → Photo / Video</strong>. This message is only shown in the theme editor; visitors don't see this section until something is added.</p>
+      </div>
+    {%- else -%}
+      <ul class="hz-media{% if section.settings.layout == 'featured' %} hz-media--featured{% endif %}" role="list">
+        {%- assign n = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign kind = ''
+            assign cover = blank
+            assign cover_url = ''
+            assign caption = block.settings.caption
+            if block.type == 'photo' and block.settings.image != blank
+              assign kind = 'photo'
+              assign cover = block.settings.image
+            elsif block.type == 'video'
+              if block.settings.video != blank
+                assign kind = 'upload'
+              elsif block.settings.video_url != blank
+                assign kind = 'link'
+              endif
+              if block.settings.cover != blank
+                assign cover = block.settings.cover
+              elsif kind == 'upload'
+                assign cover = block.settings.video.preview_image
+              elsif block.settings.video_url.type == 'youtube'
+                assign cover_url = 'https://i.ytimg.com/vi/' | append: block.settings.video_url.id | append: '/hqdefault.jpg'
+              endif
+            endif
+            if caption == blank and cover != blank
+              assign caption = cover.alt
+            endif
+          -%}
+          {%- if kind != '' -%}
+            {%- assign n = n | plus: 1 -%}
+            <li class="hz-media__item" data-hz-reveal {{ block.shopify_attributes }}>
+              <button type="button" class="hz-media__tile tcg-gb [--bw:1px]" data-media-open="{{ n | minus: 1 }}" aria-label="{% if kind == 'photo' %}Open photo{% else %}Play video{% endif %}{% if caption != blank %}: {{ caption | escape }}{% endif %}">
+                {%- if kind == 'upload' and block.settings.preview_loop -%}
+                  {{ block.settings.video | video_tag: image_size: '900x', autoplay: true, loop: true, muted: true, playsinline: true, controls: false, class: 'hz-media__img' }}
+                {%- elsif cover != blank -%}
+                  {{ cover | image_url: width: 1000 | image_tag: widths: '400, 700, 1000', sizes: '(min-width: 1024px) 40vw, (min-width: 750px) 50vw, 100vw', loading: 'lazy', alt: '', class: 'hz-media__img' }}
+                {%- elsif cover_url != '' -%}
+                  <img src="{{ cover_url }}" alt="" loading="lazy" width="480" height="360" class="hz-media__img">
+                {%- else -%}
+                  <span class="hz-media__noimg" aria-hidden="true">{% render 'tcg-sell-icon', name: 'photo', size: 36 %}</span>
+                {%- endif -%}
+                <span class="hz-media__shade" aria-hidden="true"></span>
+                {%- if kind != 'photo' -%}<span class="hz-media__play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>{%- endif -%}
+                {%- if caption != blank -%}<span class="hz-media__caption">{{ caption }}</span>{%- endif -%}
+              </button>
+              <template data-media-full>
+                {%- if kind == 'photo' -%}
+                  {{ block.settings.image | image_url: width: 2000 | image_tag: widths: '800, 1200, 1600, 2000', sizes: '92vw', alt: caption, class: 'hz-lightbox__img' }}
+                {%- elsif kind == 'upload' -%}
+                  {{ block.settings.video | video_tag: image_size: '1600x', autoplay: true, controls: true, playsinline: true, class: 'hz-lightbox__video' }}
+                {%- elsif block.settings.video_url.type == 'youtube' -%}
+                  <iframe class="hz-lightbox__iframe" src="https://www.youtube-nocookie.com/embed/{{ block.settings.video_url.id }}?autoplay=1&rel=0&playsinline=1" title="{{ caption | default: 'Video' | escape }}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+                {%- else -%}
+                  <iframe class="hz-lightbox__iframe" src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay=1" title="{{ caption | default: 'Video' | escape }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                {%- endif -%}
+              </template>
+              <template data-media-caption>{{ caption }}</template>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+
+  <dialog class="hz-lightbox" data-media-dialog aria-label="{{ section.settings.heading | remove: ' | ' | escape }}">
+    <div class="hz-lightbox__bar">
+      <span class="hz-lightbox__count" data-media-count></span>
+      <button type="button" class="hz-icon-btn" data-media-close aria-label="Close"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="hz-lightbox__stage" data-media-stage></div>
+    <p class="hz-lightbox__caption" data-media-caption-out></p>
+    <button type="button" class="hz-gallery-arrow hz-gallery-arrow--prev hz-lightbox__nav" data-media-step="-1" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="hz-gallery-arrow hz-gallery-arrow--next hz-lightbox__nav" data-media-step="1" aria-label="Next"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </dialog>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "TCG Vending — Media",
+  "class": "tcg-home-section",
+  "max_blocks": 40,
+  "settings": [
+    { "type": "select", "id": "glow", "label": "Background glow", "options": [ { "value": "none", "label": "None" }, { "value": "left-purple", "label": "Purple, left" }, { "value": "left-pink", "label": "Pink, left" }, { "value": "left-blue", "label": "Blue, left" }, { "value": "right-blue", "label": "Blue, right" }, { "value": "right-pink", "label": "Pink, right" }, { "value": "right-gold", "label": "Gold, right" } ], "default": "right-blue" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "SEE IT IN ACTION" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "PHOTOS & | VIDEOS.", "info": "A ' | ' starts a new line." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Real TCG HITZ machines out in the wild. Tap any photo or video to see it full screen." },
+    { "type": "select", "id": "layout", "label": "Layout", "options": [ { "value": "featured", "label": "First tile big" }, { "value": "grid", "label": "All tiles the same size" } ], "default": "featured" },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "media" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "caption", "label": "Caption (optional)" }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Upload a video", "info": "MP4 or MOV uploaded to Shopify. Or use a YouTube / Vimeo link below instead." },
+        { "type": "video_url", "id": "video_url", "label": "…or a YouTube / Vimeo link", "accept": ["youtube", "vimeo"] },
+        { "type": "image_picker", "id": "cover", "label": "Cover picture (optional)", "info": "Shown on the tile. Uploaded and YouTube videos use their own thumbnail when empty; Vimeo videos need a cover." },
+        { "type": "checkbox", "id": "preview_loop", "label": "Play silently on the tile", "info": "Uploaded videos only. The tile shows the video muted on a loop.", "default": false },
+        { "type": "text", "id": "caption", "label": "Caption (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "TCG Vending — Media" }
+  ]
+}
+{% endschema %}

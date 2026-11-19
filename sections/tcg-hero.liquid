@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Cinematic hero (1:1 with the hero <section> in tcg-hitz-store/index.html)
 {% endcomment %}
@@ -587,7 +588,8 @@
     { "type": "image_picker", "id": "featured_image", "label": "Or a custom image (overrides)" },
     { "type": "text", "id": "caption_label", "label": "Caption", "default": "See this week's chase →" },
     { "type": "url", "id": "caption_link", "label": "Caption link" },
-    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search a card, set or number…" }
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search a card, set or number…" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Homepage hero (client-approved design, tcg-hitz-complete-homepage).
   Background image (or MP4 loop), dark overlay + light-ray pattern, eyebrow, "CHASE THE RARE."
@@ -123,7 +124,8 @@
     { "type": "image_picker", "id": "art_image_mobile", "label": "Main artwork — mobile (optional)" },
     { "type": "text", "id": "art_alt", "label": "Artwork description (alt text)", "default": "TCG HITZ vending machine" },
     { "type": "checkbox", "id": "show_logo", "label": "Show logo over artwork", "default": true },
-    { "type": "image_picker", "id": "logo_image", "label": "Logo over artwork" }
+    { "type": "image_picker", "id": "logo_image", "label": "Logo over artwork" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Home — Hero" }]
 }

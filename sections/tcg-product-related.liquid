@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — "YOU MIGHT ALSO LIKE." related products (Figma "Product Details" design).
   Shows other products from the product's first collection (or a collection you pick),
@@ -59,7 +60,8 @@
     { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 8, "step": 1, "default": 4 },
     { "type": "checkbox", "id": "show_glow", "label": "Colour glow behind product images", "default": false },
     { "type": "text", "id": "card_note", "label": "Green line on every card (optional)", "info": "For example: Shipping included" },
-    { "type": "text", "id": "view_label", "label": "Card button label", "default": "View Product" }
+    { "type": "text", "id": "view_label", "label": "Card button label", "default": "View Product" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Product — Related" }]
 }

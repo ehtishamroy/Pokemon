@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Bestsellers carousel (1:1 with index.html "BESTSELLERS CAROUSEL")
 {% endcomment %}
@@ -212,7 +213,8 @@
     { "type": "checkbox", "id": "show_view_all", "label": "Show 'Shop all' link", "default": true },
     { "type": "text", "id": "view_all_label", "label": "Button label", "default": "Shop all" },
     { "type": "url", "id": "view_all_link", "label": "Custom link (optional)" },
-    { "type": "checkbox", "id": "show_divider", "label": "Show energy divider", "default": false }
+    { "type": "checkbox", "id": "show_divider", "label": "Show energy divider", "default": false },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Bestsellers" }]
 }

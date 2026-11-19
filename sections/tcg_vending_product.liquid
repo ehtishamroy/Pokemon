@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Vending machine page: gallery + buy box (templates/product.vending.json), TCG HITZ design.
 
@@ -23,6 +24,18 @@
     assign main_img = product.featured_image | image_url: width: 1200
   else
     assign main_img = 'home-cat-vending.webp' | asset_url
+  endif
+
+  comment
+    Videos: Shopify-hosted videos and YouTube/Vimeo links added to the product's media play in the big picture
+    frame. When the first media item is a video (and the variant has no own picture) it is shown first.
+  endcomment
+  assign first_media = product.media.first
+  assign start_video = false
+  if current_variant.featured_image == blank
+    if first_media.media_type == 'video' or first_media.media_type == 'external_video'
+      assign start_video = true
+    endif
   endif
 
   assign addons = product.metafields.custom.addons.value
@@ -53,7 +66,16 @@
         <div class="hz-gallery lg:sticky lg:top-24" data-hz-reveal>
           <div class="hz-stage tcg-gb [--bw:1px]" data-hz-stage tabindex="0" aria-label="Product images">
             <span aria-hidden="true" class="hz-stage__glow"></span>
-            <img data-main-img src="{{ main_img }}" alt="{{ product.title | escape }}" width="1000" height="1000" fetchpriority="high" class="hz-stage__img">
+            <img data-main-img src="{{ main_img }}" alt="{{ product.title | escape }}" width="1000" height="1000" fetchpriority="high" class="hz-stage__img"{% if start_video %} hidden{% endif %}>
+            <div class="hz-stage__media" data-stage-media{% unless start_video %} hidden{% endunless %}>
+              {%- if start_video -%}
+                {%- if first_media.media_type == 'video' -%}
+                  {{ first_media | video_tag: image_size: '1200x', controls: true, playsinline: true, preload: 'metadata', class: 'hz-stage__video' }}
+                {%- else -%}
+                  {{ first_media | external_video_url: rel: 0, playsinline: 1 | external_video_tag: class: 'hz-stage__iframe', loading: 'lazy' }}
+                {%- endif -%}
+              {%- endif -%}
+            </div>
             {%- if product.media.size > 1 -%}
               <button type="button" class="hz-gallery-arrow hz-gallery-arrow--prev" data-gallery-nav="-1" aria-label="Previous image"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <button type="button" class="hz-gallery-arrow hz-gallery-arrow--next" data-gallery-nav="1" aria-label="Next image"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -62,7 +84,22 @@
           {%- if product.media.size > 1 -%}
             <div class="hz-thumbs{% if product.media.size > 5 %} hz-thumbs--scroll{% endif %}" role="list">
               {%- for media in product.media -%}
-                <button type="button" role="listitem" data-thumb="{{ media.preview_image | image_url: width: 1000 }}" class="hz-thumb{% if forloop.first %} is-active{% endif %}" aria-label="{{ media.alt | default: 'Photo' | escape }}"><img src="{{ media.preview_image | image_url: width: 160 }}" alt="" width="80" height="80" loading="lazy"></button>
+                {%- liquid
+                  assign is_video = false
+                  if media.media_type == 'video' or media.media_type == 'external_video'
+                    assign is_video = true
+                  endif
+                -%}
+                <button type="button" role="listitem" data-thumb="{{ media.preview_image | image_url: width: 1000 }}"{% if is_video %} data-media-type="video" data-media-id="{{ media.id }}"{% endif %} class="hz-thumb{% if is_video %} hz-thumb--video{% endif %}{% if forloop.first %} is-active{% endif %}" aria-label="{% if is_video %}Play video{% if media.alt != blank %}: {{ media.alt | escape }}{% endif %}{% else %}{{ media.alt | default: 'Photo' | escape }}{% endif %}"><img src="{{ media.preview_image | image_url: width: 160 }}" alt="" width="80" height="80" loading="lazy">{% if is_video %}<span class="hz-thumb__play" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>{% endif %}</button>
+                {%- if is_video -%}
+                  <template data-media-tpl="{{ media.id }}">
+                    {%- if media.media_type == 'video' -%}
+                      {{ media | video_tag: image_size: '1200x', controls: true, playsinline: true, preload: 'metadata', class: 'hz-stage__video' }}
+                    {%- else -%}
+                      {{ media | external_video_url: autoplay: 1, rel: 0, playsinline: 1 | external_video_tag: class: 'hz-stage__iframe' }}
+                    {%- endif -%}
+                  </template>
+                {%- endif -%}
               {%- endfor -%}
             </div>
           {%- endif -%}
@@ -195,7 +232,8 @@
     { "type": "text", "id": "badge_2_title", "label": "Card 2 title", "default": "Built to order" },
     { "type": "text", "id": "badge_2_text", "label": "Card 2 text", "default": "Ready in 5–6 weeks" },
     { "type": "text", "id": "badge_3_title", "label": "Card 3 title", "default": "Secure checkout" },
-    { "type": "text", "id": "badge_3_text", "label": "Card 3 text", "default": "Pay in full online" }
+    { "type": "text", "id": "badge_3_text", "label": "Card 3 text", "default": "Pay in full online" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": []
 }

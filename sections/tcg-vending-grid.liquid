@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Vending machines for sale: grid of machines from a collection.
   Each card links to the machine's own page (product template "vending").
@@ -60,7 +61,8 @@
     { "type": "textarea", "id": "text", "label": "Text", "default": "Every machine is built to order and ships free. Open a machine to see its specs, add-ons and profit estimate." },
     { "type": "collection", "id": "collection", "label": "Machines collection" },
     { "type": "range", "id": "limit", "label": "Machines to show", "min": 3, "max": 12, "step": 1, "default": 6 },
-    { "type": "text", "id": "anchor", "label": "Anchor id (for 'Shop machines' button)", "default": "machines" }
+    { "type": "text", "id": "anchor", "label": "Anchor id (for 'Shop machines' button)", "default": "machines" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Vending Grid" }]
 }

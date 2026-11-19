@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Shop All catalog (Figma "Shop All Collection" design).
   Heading → category tabs (blocks; the tab whose link is this collection is highlighted) →
@@ -251,7 +252,8 @@
     { "type": "text", "id": "clear_label", "label": "Clear filters link / button", "default": "Clear filters" },
     { "type": "text", "id": "clear_all_label", "label": "Clear all link", "default": "Clear all" },
     { "type": "text", "id": "empty_title", "label": "No-results title", "default": "No products found" },
-    { "type": "text", "id": "empty_text", "label": "No-results text", "default": "Try adjusting your filters or search." }
+    { "type": "text", "id": "empty_text", "label": "No-results text", "default": "Try adjusting your filters or search." },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

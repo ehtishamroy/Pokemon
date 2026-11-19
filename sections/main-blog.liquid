@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 
 
 <script
@@ -279,7 +280,8 @@
       "step": 1,
       "unit": "px",
       "default": 0
-    }
+    },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ]
 }
 {% endschema %}

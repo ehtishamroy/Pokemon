@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — "INSIDE THE TCG HITZ UNIVERSE" photo gallery (client-approved design).
   Two rows of wide/narrow photos, centered and cut off at the screen edges like the design.
@@ -194,7 +195,8 @@
         }
       ],
       "default": "normal"
-    }
+    },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {

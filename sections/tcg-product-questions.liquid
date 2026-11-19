@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — "Questions about this card" form (moved out of the product section, same behaviour:
   Shopify contact form that emails the store with the product link).
@@ -38,7 +39,8 @@
     { "type": "text", "id": "text", "label": "Text", "default": "No questions yet — ask the first one and we'll answer within a day." },
     { "type": "text", "id": "placeholder", "label": "Question placeholder", "default": "e.g. Any whitening on the back corners?" },
     { "type": "text", "id": "button_label", "label": "Button", "default": "ASK" },
-    { "type": "text", "id": "success_text", "label": "Success message", "default": "SENT — we'll reply within a day." }
+    { "type": "text", "id": "success_text", "label": "Success message", "default": "SENT — we'll reply within a day." },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Product — Questions" }]
 }

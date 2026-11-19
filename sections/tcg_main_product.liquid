@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Product page (1:1 with tcg-hitz-store/product.html)
   Variant rows / qty / ADD TO CART use the reference markup; assets/tcg.js posts
@@ -262,7 +263,8 @@
       "type": "url",
       "id": "sell_link",
       "label": "Sell-to-us link"
-    }
+    },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": []
 }

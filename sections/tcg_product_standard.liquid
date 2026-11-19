@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Standard product page (for non-card physical goods: vending
   machines / ATMs, 3D prints, merchandise). Same neon theme as the card
@@ -225,7 +226,8 @@
     { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You might also like" },
     { "type": "collection", "id": "related_collection", "label": "Related collection (defaults to the product's first collection)" },
     { "type": "header", "content": "Questions" },
-    { "type": "text", "id": "questions_heading", "label": "Questions heading", "default": "Questions about this product" }
+    { "type": "text", "id": "questions_heading", "label": "Questions heading", "default": "Questions about this product" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": []
 }

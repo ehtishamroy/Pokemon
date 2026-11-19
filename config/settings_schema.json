@@ -2158,6 +2158,71 @@
       },
       {
         "type": "header",
+        "content": "Parallax background image"
+      },
+      {
+        "type": "paragraph",
+        "content": "A photo behind every section that moves slowly as visitors scroll. A dark overlay keeps text readable. To show the normal animated background in one section instead, open that section and tick \"Hide parallax background\"."
+      },
+      {
+        "type": "checkbox",
+        "id": "tcg_px_enable",
+        "label": "Show parallax background",
+        "default": true,
+        "info": "Only shows once an image is chosen below."
+      },
+      {
+        "type": "image_picker",
+        "id": "tcg_px_image",
+        "label": "Background image",
+        "info": "A wide, dark image works best (at least 2400 px wide). Set the focal point in the image picker to choose which part stays in view."
+      },
+      {
+        "type": "image_picker",
+        "id": "tcg_px_image_mobile",
+        "label": "Background image on phones (optional)",
+        "info": "A tall image for phones. Uses the image above when empty."
+      },
+      {
+        "type": "select",
+        "id": "tcg_px_motion",
+        "label": "Parallax movement",
+        "options": [
+          { "value": "fixed", "label": "None (image stays still, page scrolls over it)" },
+          { "value": "subtle", "label": "Subtle" },
+          { "value": "medium", "label": "Medium" },
+          { "value": "strong", "label": "Strong" }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "range",
+        "id": "tcg_px_overlay",
+        "label": "Dark overlay (text readability)",
+        "min": 0,
+        "max": 95,
+        "step": 5,
+        "unit": "%",
+        "default": 70
+      },
+      {
+        "type": "color",
+        "id": "tcg_px_overlay_color",
+        "label": "Overlay colour",
+        "default": "#080A12"
+      },
+      {
+        "type": "range",
+        "id": "tcg_px_blur",
+        "label": "Blur the image",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "header",
         "content": "Product images"
       },
       {

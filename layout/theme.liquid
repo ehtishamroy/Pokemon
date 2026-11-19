@@ -40,9 +40,36 @@
         background: transparent !important;
       }
     </style>
+  {%- liquid
+    assign px_on = false
+    if settings.tcg_px_enable and settings.tcg_px_image != blank
+      assign px_on = true
+      assign px_alpha = settings.tcg_px_overlay | divided_by: 100.0
+      assign px_alpha_edge = px_alpha | plus: 0.12
+      if px_alpha_edge > 1
+        assign px_alpha_edge = 1
+      endif
+      assign px_mobile = settings.tcg_px_image_mobile | default: settings.tcg_px_image
+    endif
+  -%}
+  {%- if px_on -%}
+    {% comment %} Parallax background image (Theme settings → TCG Hitz — background & images). Drawn per section by assets/tcg-parallax.js. {% endcomment %}
+    <style>
+      :root {
+        --tcg-px-img: url('{{ settings.tcg_px_image | image_url: width: 2400 }}');
+        --tcg-px-img-m: url('{{ px_mobile | image_url: width: 1200 }}');
+        --tcg-px-pos: {{ settings.tcg_px_image.presentation.focal_point | default: 'center' }};
+        --tcg-px-pos-m: {{ px_mobile.presentation.focal_point | default: 'center' }};
+        --tcg-px-ov: {{ settings.tcg_px_overlay_color | color_modify: 'alpha', px_alpha }};
+        --tcg-px-ov-edge: {{ settings.tcg_px_overlay_color | color_modify: 'alpha', px_alpha_edge }};
+        --tcg-px-blur: {{ settings.tcg_px_blur | default: 0 }}px;
+      }
+    </style>
+    <script src="{{ 'tcg-parallax.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
   </head>
   
-  <body class="machine font-sans antialiased page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+  <body class="machine font-sans antialiased page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}"{% if px_on %} data-tcg-px="{{ settings.tcg_px_motion | default: 'medium' }}"{% endif %}>
     {%- if settings.tcg_live_bg -%}
       {% comment %} Decorative "Collector's Universe" background (CSS nebula + grid, canvas FX in assets/tcg-live-bg.js) {% endcomment %}
       <div

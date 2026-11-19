@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Social / UGC rail (1:1 with index.html "SOCIAL / UGC")
 {% endcomment %}
@@ -82,7 +83,8 @@
   "name": "TCG Social",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Join the #HitzFamily" },
-    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Pulls, restocks and show days — follow along." }
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Pulls, restocks and show days — follow along." },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     { "type": "image", "name": "Photo", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" } ] }

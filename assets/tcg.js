@@ -210,6 +210,26 @@ document.querySelector('[data-nav-toggle]')?.addEventListener('click', (e) => {
   const addBtn = document.querySelector('[data-add-main]');
   const input = document.querySelector('[data-variant-input]');
   const gallery = document.querySelector('[data-main-img]');
+  const stageMedia = document.querySelector('[data-stage-media]');
+
+  // Gallery: show a picture in the main frame (stops any playing video), or play a product video there.
+  const showImage = (src) => {
+    if (stageMedia && !stageMedia.hidden) { stageMedia.innerHTML = ''; stageMedia.hidden = true; }
+    if (!gallery) return;
+    gallery.hidden = false;
+    if (src && gallery.getAttribute('src') !== src) gallery.src = src;
+    gallery.classList.remove('hz-swap'); void gallery.offsetWidth; gallery.classList.add('hz-swap');
+  };
+  const showVideo = (thumb) => {
+    const tpl = document.querySelector('template[data-media-tpl="' + thumb.dataset.mediaId + '"]');
+    if (!tpl || !stageMedia) { showImage(thumb.dataset.thumb); return; }
+    stageMedia.innerHTML = '';
+    stageMedia.appendChild(tpl.content.cloneNode(true));
+    stageMedia.hidden = false;
+    if (gallery) gallery.hidden = true;
+    const video = stageMedia.querySelector('video');
+    if (video) { const p = video.play(); if (p && p.catch) p.catch(() => {}); }
+  };
 
   const select = (el, updateUrl) => {
     opts.forEach((o) => { o.classList.remove('ring-2', 'ring-volt', 'bg-felt-3', 'is-selected'); o.setAttribute('aria-checked', 'false'); });
@@ -232,7 +252,7 @@ document.querySelector('[data-nav-toggle]')?.addEventListener('click', (e) => {
       addBtn.textContent = d.available === 'true' ? 'ADD TO CART' : 'SOLD OUT';
       addBtn.classList.toggle('opacity-60', d.available !== 'true');
     }
-    if (d.image && gallery) gallery.src = d.image;
+    if (d.image && gallery) showImage(d.image);
     document.dispatchEvent(new CustomEvent('tcg:variant-change', { detail: d }));
     if (updateUrl && window.history && d.id) {
       const url = new URL(window.location.href); url.searchParams.set('variant', d.id);
@@ -255,10 +275,8 @@ document.querySelector('[data-nav-toggle]')?.addEventListener('click', (e) => {
 
   // thumbnails swap the main (tilting) image
   document.querySelectorAll('[data-thumb]').forEach((t) => t.addEventListener('click', () => {
-    if (gallery) {
-      gallery.src = t.dataset.thumb;
-      gallery.classList.remove('hz-swap'); void gallery.offsetWidth; gallery.classList.add('hz-swap');
-    }
+    if (t.dataset.mediaType === 'video') showVideo(t);
+    else showImage(t.dataset.thumb);
     document.querySelectorAll('[data-thumb]').forEach((x) => x.classList.remove('is-active', 'ring-2', 'ring-volt'));
     t.classList.add('is-active');
   }));

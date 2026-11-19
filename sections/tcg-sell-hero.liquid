@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Sell page hero (Figma "Sell To Us" design).
   Breadcrumb, "READY TO SELL / YOUR CARDS?" heading (gradient words), text, two buttons and a
@@ -109,7 +110,8 @@
     { "type": "select", "id": "art_fallback", "label": "Default picture", "options": [ { "value": "sell", "label": "Cards and Pikachu (Sell page)" }, { "value": "vending", "label": "Vending machine" } ], "default": "sell" },
     { "type": "image_picker", "id": "image", "label": "Hero image", "info": "A transparent PNG/WebP or a photo on a dark background works best." },
     { "type": "image_picker", "id": "image_mobile", "label": "Hero image — mobile (optional)" },
-    { "type": "text", "id": "image_alt", "label": "Image description (alt text)", "default": "Graded Charizard card, Pokémon booster pack, Poké Ball and Pikachu figure" }
+    { "type": "text", "id": "image_alt", "label": "Image description (alt text)", "default": "Graded Charizard card, Pokémon booster pack, Poké Ball and Pikachu figure" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "presets": [{ "name": "TCG Sell — Hero" }]
 }

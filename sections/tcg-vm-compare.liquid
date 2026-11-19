@@ -1,3 +1,4 @@
+{%- if section.settings.hide_parallax -%}<span hidden data-hz-px-off></span>{%- endif -%}
 {% comment %}
   TCG Hitz — Vending page "THE RIGHT MACHINE STARTS WITH YOUR VISION." comparison table (Figma design).
   Each machine is a block (up to 4): pick a product for the link and price, then fill in the spec rows.
@@ -142,7 +143,8 @@
     { "type": "text", "id": "price_prefix", "label": "Price prefix when a product has several prices", "default": "From" },
     { "type": "text", "id": "price_empty", "label": "Price text when no price is available", "default": "See machine page" },
     { "type": "text", "id": "row_view", "label": "Row 8", "default": "Next step" },
-    { "type": "text", "id": "view_label", "label": "Button label", "default": "VIEW MACHINE" }
+    { "type": "text", "id": "view_label", "label": "Button label", "default": "VIEW MACHINE" },
+    { "type": "checkbox", "id": "hide_parallax", "label": "Hide parallax background", "info": "Shows the normal animated site background in this section instead of the parallax image (Theme settings → TCG Hitz — background & images).", "default": false }
   ],
   "blocks": [
     {
